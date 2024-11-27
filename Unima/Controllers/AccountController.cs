@@ -2,9 +2,9 @@
 
 namespace Unima.Controllers
 {
-    public class SignInController : Controller
+    public class AccountController : Controller
     {
-        public IActionResult Index()
+        public IActionResult SignIn()
         {
             return View();
         }
