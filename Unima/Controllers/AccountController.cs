@@ -4,7 +4,7 @@ namespace Unima.Controllers
 {
     public class AccountController : Controller
     {
-        public IActionResult SignIn()
+        public IActionResult Index()
         {
             return View();
         }
