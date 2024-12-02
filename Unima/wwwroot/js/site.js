@@ -1,4 +1,97 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿const loginForm = document.getElementById("loginForm");
+const signupForm = document.getElementById("signupForm");
+const showSignupBtn = document.getElementById("showSignup");
+const showLoginBtn = document.getElementById("showLogin");
 
-// Write your JavaScript code.
+showSignupBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  // loginForm.classList.add("fade-out"); 
+  setTimeout(() => {
+    loginForm.classList.add("hidden");
+    // loginForm.classList.remove("fade-out");
+    signupForm.classList.remove("hidden");
+    // signupForm.classList.add("fade-in");
+    signupForm.querySelector("input").focus();
+  }, 0); 
+});
+
+showLoginBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  // signupForm.classList.add("fade-out");
+  setTimeout(() => {
+    signupForm.classList.add("hidden");
+    // signupForm.classList.remove("fade-out");
+    loginForm.classList.remove("hidden");
+    // loginForm.classList.add("fade-in"); 
+    loginForm.querySelector("input").focus();
+  }, 0);
+});
+
+//  required input
+const nameInput = document.getElementById('karbari');
+
+
+
+  nameInput.addEventListener('invalid', function () {
+    if (nameInput.value === '') {
+      nameInput.setCustomValidity(' لطفا نام کاربری تان را وارد کنید');
+    } else {
+      nameInput.setCustomValidity('');
+    }
+  });
+
+
+  nameInput.addEventListener('input', function () {
+    nameInput.setCustomValidity('');
+  });
+
+
+  const passInput = document.getElementById('password1');
+
+  passInput.addEventListener('invalid', function () {
+    if (passInput.value === '') {
+      passInput.setCustomValidity(' لطفا   رمز عبور خود را وارد کنید');
+    } else {
+      passInput.setCustomValidity('');
+    }
+  });
+
+
+  passInput.addEventListener('input', function () {
+    passInput.setCustomValidity('');
+  });
+
+
+  const signupInput = document.getElementById('signup-karbari');
+
+  signupInput.addEventListener('invalid', function () {
+    if (signupInput.value === '') {
+      signupInput.setCustomValidity('     شماره دانشجویی خود را وارد کنید');
+    } else {
+      signupInput.setCustomValidity('');
+    }
+  });
+
+
+  signupInput.addEventListener('input', function () {
+    signupInput.setCustomValidity('');
+  });
+
+
+  const phoneinput = document.getElementById('phonenumber');
+
+  phoneinput.addEventListener('invalid', function () {
+    if (phoneinput.value === '') {
+      phoneinput.setCustomValidity('       شماره همراه تان را وارد کنید ');
+    } else {
+      phoneinput.setCustomValidity('');
+    }
+  });
+
+
+  phoneinput.addEventListener('input', function () {
+    phoneinput.setCustomValidity('');
+  });
+
+
+  //   end required input

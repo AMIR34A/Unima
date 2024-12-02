@@ -1,22 +1,232 @@
-html {
-  font-size: 14px;
+@font-face {
+  font-family: BYekan;
+  src: url(../font/Yekan.ttf);
+}
+* {
+  font-family: BYekan;
+}
+body {
+  
+  direction: rtl;
+  text-align: right;
+  font-family: BYekan;
+  height: 100vh;
+  background: linear-gradient(rgba(0,0,0,.8) , rgba(0,0,0,.5 )),
+    url(../images/background.jpg);
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
+.login-panel {
+  background-color: #F9C784;
+  border-radius: 100px !important;
+  /* padding-left:80px !important;  */
+  z-index: 1;  
+  box-shadow: -1px 0px 5px #f7c078;
+}
+.title {
+  color: #243642;
+  font-weight: bold;
+}
+.enter {
+  background-color: #243642   ;
+  color: #FEF9F2;
+  transition: all 0.3s;
+  /* width: 250px; */
+  font-size: large;
+  font-weight: bold;
+  transition: all 0.5s;
+}
+.enter:hover {
+  transform: translateY(-4px);
+  color: #d1cece;
+}
+.input {
+  background: transparent;
+  border: none;
+  border-color: transparent;
+  border-radius: 0px;
+  color: #243642;
+  border-bottom: 2px solid #243642;
+  transition: all 0.5s;
+
+}
+.input::placeholder {
+  color: #243642;
+}
+.input:focus {
+  background: transparent;
+  border: none;
+  border-color: transparent;
+  box-shadow: none;
+  border-bottom: 2px solid #0a0a0a;
+  outline: none;
+}
+.input:-webkit-autofill{
+  background-color: transparent !important;
+
+}
+.label {
+  color: #2a2c2e;
+  display: block;
+  font-size: 12px;
+  margin-top: -60px;
+  margin-right: 5px;
+  transition: all 0.4s;
+}
+.input:placeholder-shown + .label {
+  transform: translate(20px, 20px);
+  opacity: 0;
+  visibility: hidden;
+}
+.checked {
+  color: #243642;
+  font-size: 0.9em;
+}
+.checked a {
+  text-decoration: none;
+  color: #363636;
+  font-weight: bold;
+  transition: all 0.4s;
+}
+.checked a:hover {
+  transform: translateY(-2px);
+}
+
+.forgot,
+.sign-in {
+  color: #243642;
+  text-decoration: none;
+  font-size: 1.1em;
+  padding-bottom: 10px;
+  margin-right: 10px;
+  font-weight: bold;
+  transition: all 0.5s;
+}
+.forgot:hover,
+.sign-in:hover {
+  color: #2a2c2e;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: bold;
+  transform: translateY(-5px);
+}
+.return-paragraph {
+  color: #212121;
+  font-size: 0.9em;
+}
+.return-login {
+  color: #212121;
+  font-weight: bold;
+  text-decoration: none;
+  transform: translateY(0px);
+  transition: all 0.4s;
+}
+.return-login:hover {
+  color: #0a0a0a;
+  transform: translateX(-2px);
+}
+
+.hidden {
+  display: none;
+}
+.fade-in {
+  animation: fadeIn 0.5s forwards;
+}
+
+.fade-out {
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
-html {
+/* carousel */
+
+.content{
+  margin-right: -15vh !important;
+}
+
+.carrousel {
+  width: 600px !important;
+  height: 560px !important;
+  border:15px solid #e5caa8;  
+  border-radius: 10px !important;
+  
+}
+.indicator{
+  padding-right: 10vh;
+}
+.slide1{
+  
+  background-color: transparent !important ;
+}
+.slide2 {
+  background-color: #1C3144 !important;
+  width: 100%;
+  height: 100%;
+  padding-right: 13vh;
+  
+}
+.slide3 {
+  padding-right: 13vh;
+  background-color: #1C3144 !important;
+  width: 100%;
+  height: 100%;
+  
+}
+.support{
+  text-decoration: none;
+  color:#f1efe6 ;
+  font-weight: bold;
+  transition: all .5s;
+  
+}
+.support:hover{
+  display: inline-block;
+  color:#f7f7f6 ;
+  transform: translateX(-2px);
+}
+
+
+.support-user-icon{
+  color:#d1cece ;
+
+
+} 
+.support-user-title{
+  color:#d1cece ;
+  margin-right: 10px;
+}
+
+.password-input{
   position: relative;
-  min-height: 100%;
+
+}
+.showpassword{
+  position: absolute !important;
+  left: 10px !important;
+  bottom: 0px !important;
+  color: #0a0a0a;
+  
+
 }
 
-body {
-  margin-bottom: 60px;
-}
