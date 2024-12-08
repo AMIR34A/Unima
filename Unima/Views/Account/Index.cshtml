@@ -1,16 +1,21 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
 <html lang="end">
 
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIN</title>
-    <link rel="stylesheet" href="/Unima/wwwroot/css/site.css">
-    <link rel="stylesheet" href="/Unima/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css">
+    <title>Unima</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src='https://www.google.com/recaptcha/api.js?hl=fa'></script>
+
 </head>
 
 <body>
@@ -19,21 +24,21 @@
             <!--  panel -->
             <!-- login   -->
             <div id="loginForm"
-                class=" col-xl-3 col-lg-4 col-md-5 col-sm-6 col-10 login-panel       text-white p-4 rounded  ">
-                <form class="  form1 mx-auto" action="">
-                    <h2 class=" title  text-center  mt-5     font-weight-bold">سلف من</h2>
+                 class=" col-xl-3 col-lg-4 col-md-5 col-sm-6 col-10 login-panel text-white p-4 rounded  ">
+                <form class="form1 mx-auto" action="">
+                    <h2 class="title text-center mt-5 font-weight-bold">یونیما</h2>
 
                     <div class=" form-group py-4 ">
-                        
-                        <input class="form-control my-2 p-2 input  " required id="karbari" type="text"
-                            placeholder="نام کاربری">
+
+                        <input class="form-control my-2 p-2 input" required id="karbari" type="text"
+                               placeholder="نام کاربری">
                         <label class="label" for="karbari">نام کاربری</label>
                     </div>
                     <div class="form-group py-4 text-white password-input    ">
                         <a class="showpassword" href=""><i class="fa-solid fa-eye "></i></a>
 
                         <input required class="form-control   my-2 p-2 input   " id="password1" type="password"
-                            placeholder="کلمه عبور">
+                               placeholder="کلمه عبور">
 
 
                         <label class="label" for="password1">کلمه عبور</label>
@@ -61,32 +66,40 @@
             <!-- signup  -->
             <div id="signupForm" class="col-md-3 col-sm-6 login-panel    text-white p-4 rounded hidden ">
                 <form class="  w-75   mx-auto" action="">
-                    <h2 class=" title  text-center  mt-4 font-weight-bold">سلف من</h2>
+                    <h2 class=" title  text-center  mt-4 font-weight-bold">یونیما</h2>
                     <div class=" form-group py-4   ">
                         <input class="form-control mb-2 p-2 input   " required id="signup-karbari" type="text"
-                            placeholder="نام کاربری">
+                               placeholder="نام کاربری">
                         <label class="label" for="signupkarbari">نام کاربری</label>
                     </div>
                     <div class=" form-group py-4   ">
                         <input class="form-control my-2 p-2 input  " required id="phonenumber" type="text"
-                            placeholder=" تلفن همراه">
+                               placeholder=" تلفن همراه">
                         <label class="label" for="phonenumber"> تلفن همراه</label>
                     </div>
                     <div class="form-group py-4 text-white   ">
                         <input class="form-control  my-2 p-2   input " required id="signup-password" type="password"
-                            placeholder="کلمه عبور">
+                               placeholder="کلمه عبور">
                         <label class="label" for="signup-password">کلمه عبور</label>
                     </div>
                     <div class="form-group py-4 text-white   ">
                         <input class="form-control  my-2 p-2   input " required id="signup-password-again"
-                            type="password" placeholder=" تکرار کلمه عبور">
+                               type="password" placeholder=" تکرار کلمه عبور">
                         <label class="label" for="signup-password-again"> تکرار کلمه عبور</label>
                     </div>
-                    <div class="form-group     mt-4  mb-3   ">
+                    <div class="form-group mt-4  mb-3">
                         <input class="form-check-input" type="checkbox" required id="checked">
-                        <label class=" checked  mr-2" for="checked"> <a id="button-rules" class="d-inline-block "
-                                href="" data-bs-toggle="modal" data-bs-target="#exampleModal"> شرایط و قوانین
-                            </a> را میپذیرم </label>
+                        <label class=" checked  mr-2" for="checked">
+                            <a id="button-rules" class="d-inline-block "
+                               href="" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                شرایط و قوانین
+                            </a> را میپذیرم
+                        </label>
+                    </div>
+                    <div class="col-md-12">
+                        @*We should change it later; it has security issues *@                        
+                        <div class="g-recaptcha" data-sitekey="6LcXdpUqAAAAABAtABbwcEOA-ojiK75pztHaZLt7">
+                        </div>
                     </div>
                     <div class="form-group text-center d-block align-content-center">
                         <button class="btn btn-block w-100  mt-4 rounded-pill   enter">ثبت نام </button>
@@ -97,9 +110,7 @@
                 </form>
             </div>
             <!-- end of signup   -->
-
             <!-- end of panel -->
-
             <!-- carousel -->
 
 
@@ -117,66 +128,76 @@
                         <div class="carousel-item active slide1">
                             <div>
                                 <img src="/images/burgers-7664547_1280.jpg" class="d-block w-100 h-100  "
-                                    style="max-height: 530px ;" alt="Food image">
+                                     style="max-height: 530px ;" alt="Food image">
                             </div>
                         </div>
                         <div class="carousel-item   slide2">
                             <h1 class="text-light mt-1 p-3 font-weight-bold  text-center">ارتباط با ما</h1>
-                            <h6 style="color: #d1cece  ;" class=" p-3 mb-4 text-center"> در صورت بروز مشکل با یکی از
+                            <h6 style="color: #d1cece  ;" class=" p-3 mb-4 text-center">
+                                در صورت بروز مشکل با یکی از
                                 پشتیبانی های زیر ارتباط برقرار
-                                کنید </h6>
+                                کنید
+                            </h6>
                             <div class="" id="myaccordian">
                                 <div class="   ">
 
                                     <button class=" suppurt-btn btn btn-block text-right " data-bs-toggle="collapse"
-                                        data-bs-target="#clps1"><i
-                                            class=" d-block support-user-icon fas fa-user fa-2x"></i><span
-                                            class="support-user-title">پشتیبانی اول</span>
+                                            data-bs-target="#clps1">
+                                        <i class=" d-block support-user-icon fas fa-user fa-2x"></i><span class="support-user-title">پشتیبانی اول</span>
                                     </button>
 
                                     <div class="collapse " data-bs-parent="#myaccordian" id="clps1">
 
                                         <div class="card-body  ">
-                                            <h6><i class=" fab text-primary fa-telegram "></i> <a class=" support px-3"
-                                                    href="#">hmdqsmi@</a></h6>
+                                            <h6>
+                                                <i class=" fab text-primary fa-telegram "></i> <a class=" support px-3"
+                                                                                                  href="#">hmdqsmi</a>
+                                            </h6>
 
-                                            <h6><i class=" fas fa-phone text-success "></i> <a class=" support px-3"
-                                                    href="#">09150660779</a></h6>
+                                            <h6>
+                                                <i class=" fas fa-phone text-success "></i> <a class=" support px-3"
+                                                                                               href="#">09150660779</a>
+                                            </h6>
                                         </div>
                                     </div>
                                     <div class="   ">
 
                                         <button class=" suppurt-btn btn btn-block text-right" data-bs-toggle="collapse"
-                                            data-bs-target="#clps2"><i
-                                                class=" d-block support-user-icon fas fa-user fa-2x"></i> <span
-                                                class="support-user-title">پشتیبانی دوم </span></button>
+                                                data-bs-target="#clps2">
+                                            <i class=" d-block support-user-icon fas fa-user fa-2x"></i> <span class="support-user-title">پشتیبانی دوم </span>
+                                        </button>
 
                                         <div class="collapse " data-bs-parent="#myaccordian" id="clps2">
 
                                             <div class="card-body">
-                                                <h6><i class=" fab text-primary fa-telegram "></i> <a
-                                                        class=" support px-3" href="#">hsinabedi@</a></h6>
+                                                <h6>
+                                                    <i class=" fab text-primary fa-telegram "></i> <a class=" support px-3" href="#">hsinabedi</a>
+                                                </h6>
 
-                                                <h6><i class=" fas fa-phone text-success "></i> <a class=" support px-3"
-                                                        href="#">09155909556</a></h6>
+                                                <h6>
+                                                    <i class=" fas fa-phone text-success "></i> <a class=" support px-3"
+                                                                                                   href="#">09155909556</a>
+                                                </h6>
                                             </div>
                                         </div>
                                     </div>
                                     <div class=" my-2  mb-5 pb-5">
 
                                         <button class=" suppurt-btn btn btn-block  text-right" data-bs-toggle="collapse"
-                                            data-bs-target="#clps3">
-                                            <i class=" d-block support-user-icon fas fa-user fa-2x "></i> <span
-                                                class="support-user-title">پشتیبانی سوم </span> </button>
+                                                data-bs-target="#clps3">
+                                            <i class=" d-block support-user-icon fas fa-user fa-2x "></i> <span class="support-user-title">پشتیبانی سوم </span>
+                                        </button>
 
                                         <div class="collapse" data-bs-parent="#myaccordian" id="clps3">
 
                                             <div class="card-body   ">
-                                                <h6 class=""><i class=" fab text-primary fa-telegram  "></i> <a
-                                                        class=" support px-3" href="#">karim@</a></h6>
+                                                <h6 class="">
+                                                    <i class=" fab text-primary fa-telegram  "></i> <a class=" support px-3" href="#">karim</a>
+                                                </h6>
 
-                                                <h6 class=""><i class=" fas fa-phone text-success "></i> <a
-                                                        class=" support px-3" href="#">09155909556</a></h6>
+                                                <h6 class="">
+                                                    <i class=" fas fa-phone text-success "></i> <a class=" support px-3" href="#">09155909556</a>
+                                                </h6>
                                             </div>
                                         </div>
 
@@ -189,7 +210,8 @@
                         <div class="carousel-item slide3">
                             <div>
                                 <h1 class="text-light mt-1 p-3 font-weight-bold  text-center mb-5"> درباره ما </h1>
-                                <p class="px-4 text-white ">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
+                                <p class="px-4 text-white ">
+                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
                                     با استفاده از طراحان
                                     گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است،
                                     و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای
@@ -199,7 +221,8 @@
                                     می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به
                                     پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات
                                     پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.لورم ایپسوم متن ساختگی
-                                    با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده </p>
+                                    با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده
+                                </p>
                             </div>
                         </div>
 
@@ -218,8 +241,9 @@
                 <div class="modal-header " style="direction: ltr;">
 
                     <button type="button" class="btn-close  " data-bs-dismiss="modal" aria-label="Close"
-                        style="margin-left: 0 !important; color: aliceblue !important ;  "></button>
-                    <h4 class="modal-title text-center font-weight-bold " id="exampleModalLabel">شرایط و قوانین وب سایت
+                            style="margin-left: 0 !important; color: aliceblue !important ;  "></button>
+                    <h4 class="modal-title text-center font-weight-bold " id="exampleModalLabel">
+                        شرایط و قوانین وب سایت
                     </h4>
                 </div>
                 <div class="modal-body">
@@ -247,7 +271,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn " data-bs-dismiss="modal"
-                        style="background-color: #f2e5bf; color: #243642; font-weight: bold;">مطالعه کردم</button>
+                            style="background-color: #f2e5bf; color: #243642; font-weight: bold;">
+                        مطالعه کردم
+                    </button>
 
                 </div>
             </div>
@@ -255,17 +281,9 @@
     </div>
     <!--  end of rules -->
 
-
-
-
-
-
-
-
-    <script src="/Unima/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/Unima/wwwroot/lib/jquery/dist/jquery.js"></script>
-    <script src="/Unima/wwwroot/js/site.js"></script>
-
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/site.js"></script>
 
 </body>
 
