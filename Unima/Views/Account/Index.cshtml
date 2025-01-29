@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Unima.Dal.Entities.Models.Support
+@model List<Support>
+@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -12,8 +14,8 @@
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src='https://www.google.com/recaptcha/api.js?hl=fa'></script>
 
 </head>
@@ -24,21 +26,21 @@
             <!--  panel -->
             <!-- login   -->
             <div id="loginForm"
-                 class=" col-xl-3 col-lg-4 col-md-5 col-sm-6 col-10 login-panel text-white p-4 rounded  ">
+            class=" col-xl-3 col-lg-4 col-md-5 col-sm-6 col-10 login-panel text-white p-4 rounded  ">
                 <form class=" form1 w-75 mx-auto" action="">
                     <h2 class="title text-center mt-5 font-weight-bold">یونیما</h2>
 
                     <div class=" form-group py-4 ">
 
                         <input class="form-control my-2 p-2 input" required id="karbari" type="text"
-                               placeholder="نام کاربری">
+                        placeholder="نام کاربری">
                         <label class="label" for="karbari">نام کاربری</label>
                     </div>
                     <div class="form-group py-4 text-white password-input    ">
                         <a class="showpassword" href=""><i class="fa-solid fa-eye "></i></a>
 
                         <input required class="form-control   my-2 p-2 input   " id="password1" type="password"
-                               placeholder="کلمه عبور">
+                        placeholder="کلمه عبور">
 
 
                         <label class="label" for="password1">کلمه عبور</label>
@@ -69,29 +71,29 @@
                     <h2 class=" title  text-center  mt-4 font-weight-bold">یونیما</h2>
                     <div class=" form-group py-4   ">
                         <input class="form-control mb-2 p-2 input   " required id="signup-karbari" type="text"
-                               placeholder="نام کاربری">
+                        placeholder="نام کاربری">
                         <label class="label" for="signupkarbari">نام کاربری</label>
                     </div>
                     <div class=" form-group py-4   ">
                         <input class="form-control my-2 p-2 input  " required id="phonenumber" type="text"
-                               placeholder=" تلفن همراه">
+                        placeholder=" تلفن همراه">
                         <label class="label" for="phonenumber"> تلفن همراه</label>
                     </div>
                     <div class="form-group py-4 text-white   ">
                         <input class="form-control  my-2 p-2   input " required id="signup-password" type="password"
-                               placeholder="کلمه عبور">
+                        placeholder="کلمه عبور">
                         <label class="label" for="signup-password">کلمه عبور</label>
                     </div>
                     <div class="form-group py-4 text-white   ">
                         <input class="form-control  my-2 p-2   input " required id="signup-password-again"
-                               type="password" placeholder=" تکرار کلمه عبور">
+                        type="password" placeholder=" تکرار کلمه عبور">
                         <label class="label" for="signup-password-again"> تکرار کلمه عبور</label>
                     </div>
                     <div class="form-group mt-4  mb-3">
                         <input class="form-check-input" type="checkbox" required id="checked">
                         <label class=" checked  mr-2" for="checked">
                             <a id="button-rules" class="d-inline-block "
-                               href="" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            href="" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 شرایط و قوانین
                             </a> را میپذیرم
                         </label>
@@ -128,7 +130,7 @@
                         <div class="carousel-item active slide1">
                             <div>
                                 <img src="/Images/SlideBarImage.jpg" class="d-block w-100 h-100  "
-                                     style="max-height: 530px ;" alt="Food image">
+                                style="max-height: 530px ;" alt="Food image">
                             </div>
                         </div>
                         <div class="carousel-item   slide2">
@@ -139,27 +141,34 @@
                                 کنید
                             </h6>
                             <div class="" id="myaccordian">
-                                <div class="   ">
+                                @{
+                                    for(int i=0;i<Model.Count;i++)
+                                    {
+                                        var id = $"clps{i+1}";
+                                        <button class=" suppurt-btn btn btn-block text-right " data-bs-toggle="collapse"
+                                                data-bs-target="#@id">
+                                            <i class=" d-block support-user-icon fas fa-user fa-2x"></i><span class="support-user-title">@Model[i].Name</span>
+                                        </button>
 
-                                    <button class=" suppurt-btn btn btn-block text-right " data-bs-toggle="collapse"
-                                            data-bs-target="#clps1">
-                                        <i class=" d-block support-user-icon fas fa-user fa-2x"></i><span class="support-user-title">پشتیبانی اول</span>
-                                    </button>
+                                        <div class="collapse " data-bs-parent="#myaccordian" id="@id">
 
-                                    <div class="collapse " data-bs-parent="#myaccordian" id="clps1">
+                                            <div class="card-body  ">
+                                                <h6>
+                                                    <i class=" fab text-primary fa-telegram "></i> <a class=" support px-3"
+                                                                                                      href="@Model[i].TelegramAccountURLId">تلگرام</a>
+                                                </h6>
 
-                                        <div class="card-body  ">
-                                            <h6>
-                                                <i class=" fab text-primary fa-telegram "></i> <a class=" support px-3"
-                                                                                                  href="#">hmdqsmi</a>
-                                            </h6>
-
-                                            <h6>
-                                                <i class=" fas fa-phone text-success "></i> <a class=" support px-3"
-                                                                                               href="#">09150660779</a>
-                                            </h6>
+                                                <h6>
+                                                    <i class=" fas fa-phone text-success "></i> <a class=" support px-3"
+                                                                                                   href="#">@Model[i].PhoneNumber</a>
+                                                </h6>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
+                                }
+@*                                 <div class="   ">
+
+
                                     <div class="   ">
 
                                         <button class=" suppurt-btn btn btn-block text-right" data-bs-toggle="collapse"
@@ -205,7 +214,7 @@
 
 
                                 </div>
-                            </div>
+ *@                            </div>
                         </div>
                         <div class="carousel-item slide3">
                             <div>

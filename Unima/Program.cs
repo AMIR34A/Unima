@@ -1,7 +1,29 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Unima.Biz.UoW;
+using Unima.Dal.Context;
+using Unima.Dal.Entities;
+using Unima.Dal.Identity.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<UnimaDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDbContext<UnimaIdentityDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<UnimaIdentityDbContext>()
+    .AddDefaultTokenProviders()
+    .AddErrorDescriber<IdentityErrorDescriber>();
+
+
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<UnimaDbContext>();
 
 var app = builder.Build();
 
