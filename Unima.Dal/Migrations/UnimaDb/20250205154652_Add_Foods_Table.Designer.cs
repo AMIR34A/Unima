@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Unima.Dal.Context;
 
@@ -11,9 +12,11 @@ using Unima.Dal.Context;
 namespace Unima.Dal.Migrations.UnimaDb
 {
     [DbContext(typeof(UnimaDbContext))]
-    partial class UnimaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250205154652_Add_Foods_Table")]
+    partial class Add_Foods_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,21 @@ namespace Unima.Dal.Migrations.UnimaDb
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("ApplicationUserFood", b =>
+                {
+                    b.Property<int>("FoodsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("FoodsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("ApplicationUserFood");
+                });
 
             modelBuilder.Entity("Unima.Dal.Entities.ApplicationUser", b =>
                 {
@@ -138,32 +156,17 @@ namespace Unima.Dal.Migrations.UnimaDb
                     b.ToTable("Supports");
                 });
 
-            modelBuilder.Entity("UserFoods", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("FoodId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "FoodId");
-
-                    b.HasIndex("FoodId");
-
-                    b.ToTable("UserFoods");
-                });
-
-            modelBuilder.Entity("UserFoods", b =>
+            modelBuilder.Entity("ApplicationUserFood", b =>
                 {
                     b.HasOne("Unima.Dal.Entities.Models.Food", null)
                         .WithMany()
-                        .HasForeignKey("FoodId")
+                        .HasForeignKey("FoodsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Unima.Dal.Entities.ApplicationUser", null)
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
