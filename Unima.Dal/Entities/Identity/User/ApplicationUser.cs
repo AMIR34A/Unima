@@ -20,5 +20,7 @@ public class ApplicationUser : IdentityUser
 
     public string? SelfServicePassword { get; set; }
 
+    public string? ReferredByUsername { get; set; }
+
     public ICollection<Food> Foods { get; set; }
 }
