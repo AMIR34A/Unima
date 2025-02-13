@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Unima.Dal.Context;
 
@@ -11,9 +12,11 @@ using Unima.Dal.Context;
 namespace Unima.Dal.Migrations.UnimaDb
 {
     [DbContext(typeof(UnimaDbContext))]
-    partial class UnimaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250213154347_Add_Plans_Table")]
+    partial class Add_Plans_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,9 +78,6 @@ namespace Unima.Dal.Migrations.UnimaDb
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("PlanId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ReferredByUsername")
                         .HasColumnType("nvarchar(max)");
 
@@ -97,8 +97,6 @@ namespace Unima.Dal.Migrations.UnimaDb
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PlanId");
 
                     b.ToTable("ApplicationUser");
                 });
@@ -131,12 +129,6 @@ namespace Unima.Dal.Migrations.UnimaDb
 
             modelBuilder.Entity("Unima.Dal.Entities.Models.Plan", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<byte>("CountOfMeal")
                         .HasColumnType("tinyint");
 
@@ -164,8 +156,6 @@ namespace Unima.Dal.Migrations.UnimaDb
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
 
                     b.ToTable("Plans");
                 });
@@ -202,15 +192,6 @@ namespace Unima.Dal.Migrations.UnimaDb
                     b.ToTable("UserFoods");
                 });
 
-            modelBuilder.Entity("Unima.Dal.Entities.ApplicationUser", b =>
-                {
-                    b.HasOne("Unima.Dal.Entities.Models.Plan", "Plan")
-                        .WithMany("Users")
-                        .HasForeignKey("PlanId");
-
-                    b.Navigation("Plan");
-                });
-
             modelBuilder.Entity("UserFoods", b =>
                 {
                     b.HasOne("Unima.Dal.Entities.Models.Food", null)
@@ -224,11 +205,6 @@ namespace Unima.Dal.Migrations.UnimaDb
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Unima.Dal.Entities.Models.Plan", b =>
-                {
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

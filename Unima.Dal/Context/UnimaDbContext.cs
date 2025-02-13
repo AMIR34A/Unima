@@ -17,6 +17,8 @@ public class UnimaDbContext : DbContext
 
     public DbSet<Food> Foods { get; set; }
 
+    public DbSet<Plan> Plans { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Support>().HasNoKey();
@@ -28,6 +30,11 @@ public class UnimaDbContext : DbContext
             right => right.HasOne(typeof(Food)).WithMany().HasForeignKey("FoodId").HasPrincipalKey("Id"),
              left => left.HasOne(typeof(ApplicationUser)).WithMany().HasForeignKey("UserId").HasPrincipalKey("Id"),
              join => join.HasKey("UserId", "FoodId"));
+
+        modelBuilder.Entity<Plan>().HasMany(entity => entity.Users)
+            .WithOne(entity => entity.Plan)
+            .HasForeignKey("PlanId")
+            .IsRequired(false);
 
         base.OnModelCreating(modelBuilder);
     }

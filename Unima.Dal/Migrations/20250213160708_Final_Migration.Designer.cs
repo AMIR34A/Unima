@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Unima.Dal.Identity.Context;
 
@@ -11,9 +12,11 @@ using Unima.Dal.Identity.Context;
 namespace Unima.Dal.Migrations
 {
     [DbContext(typeof(UnimaIdentityDbContext))]
-    partial class UnimaIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250213160708_Final_Migration")]
+    partial class Final_Migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -16,11 +16,14 @@ public class ApplicationUser : IdentityUser
 
     public UserLevel Level { get; set; }
 
-    public DateTime LastUpgradeLevel { get; set; }
+    public DateTime? LastUpgradeLevel { get; set; }
 
     public string? SelfServicePassword { get; set; }
 
     public string? ReferredByUsername { get; set; }
 
     public ICollection<Food> Foods { get; set; }
+
+    public int? PlanId { get; set; }
+    public Plan? Plan { get; set; }
 }
