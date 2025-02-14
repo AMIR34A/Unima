@@ -1,9 +1,9 @@
 @font-face {
   font-family: BYekan;
-  src: url(../font/Yekan.ttf);
+  src: url(../Fonts/BYekan.ttf);
 }
 * {
-  font-family: BYekan;
+  font-family: BYekan !important;
 }
 body {
   
