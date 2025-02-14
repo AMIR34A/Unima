@@ -5,93 +5,116 @@ const showLoginBtn = document.getElementById("showLogin");
 
 showSignupBtn.addEventListener("click", (event) => {
   event.preventDefault();
-  // loginForm.classList.add("fade-out"); 
   setTimeout(() => {
     loginForm.classList.add("hidden");
-    // loginForm.classList.remove("fade-out");
     signupForm.classList.remove("hidden");
-    // signupForm.classList.add("fade-in");
     signupForm.querySelector("input").focus();
-  }, 0); 
+  }, 0);
 });
 
 showLoginBtn.addEventListener("click", (event) => {
   event.preventDefault();
-  // signupForm.classList.add("fade-out");
   setTimeout(() => {
     signupForm.classList.add("hidden");
-    // signupForm.classList.remove("fade-out");
     loginForm.classList.remove("hidden");
-    // loginForm.classList.add("fade-in"); 
     loginForm.querySelector("input").focus();
   }, 0);
 });
+const nameInput = document.getElementById("karbari");
 
-//  required input
-const nameInput = document.getElementById('karbari');
+nameInput.addEventListener("invalid", function () {
+  if (nameInput.value === "") {
+    nameInput.setCustomValidity(" لطفا نام کاربری تان را وارد کنید");
+  } else {
+    nameInput.setCustomValidity("");
+  }
+});
 
+nameInput.addEventListener("input", function () {
+  nameInput.setCustomValidity("");
+});
 
+const passInput = document.getElementById("password1");
 
-  nameInput.addEventListener('invalid', function () {
-    if (nameInput.value === '') {
-      nameInput.setCustomValidity(' لطفا نام کاربری تان را وارد کنید');
-    } else {
-      nameInput.setCustomValidity('');
-    }
-  });
+passInput.addEventListener("invalid", function () {
+  if (passInput.value === "") {
+    passInput.setCustomValidity(" لطفا   رمز عبور خود را وارد کنید");
+  } else {
+    passInput.setCustomValidity("");
+  }
+});
 
+passInput.addEventListener("input", function () {
+  passInput.setCustomValidity("");
+});
 
-  nameInput.addEventListener('input', function () {
-    nameInput.setCustomValidity('');
-  });
+const signupInput = document.getElementById("signup-karbari");
 
+signupInput.addEventListener("invalid", function () {
+  if (signupInput.value === "") {
+    signupInput.setCustomValidity("     شماره دانشجویی خود را وارد کنید");
+  } else {
+    signupInput.setCustomValidity("");
+  }
+});
 
-  const passInput = document.getElementById('password1');
+signupInput.addEventListener("input", function () {
+  signupInput.setCustomValidity("");
+});
 
-  passInput.addEventListener('invalid', function () {
-    if (passInput.value === '') {
-      passInput.setCustomValidity(' لطفا   رمز عبور خود را وارد کنید');
-    } else {
-      passInput.setCustomValidity('');
-    }
-  });
+const phoneinput = document.getElementById("phonenumber");
 
+phoneinput.addEventListener("invalid", function () {
+  if (phoneinput.value === "") {
+    phoneinput.setCustomValidity("       شماره همراه تان را وارد کنید ");
+  } else {
+    phoneinput.setCustomValidity("");
+  }
+});
 
-  passInput.addEventListener('input', function () {
-    passInput.setCustomValidity('');
-  });
+phoneinput.addEventListener("input", function () {
+  phoneinput.setCustomValidity("");
+});
 
+function togglePassword() {
+  var passwordField = document.getElementById("password1");
+  var passwordField1 = document.getElementById("signup-password");
+  var passwordField2 = document.getElementById("signup-password-again");
+  var eyeIcon = document.getElementById("eyeIcon");
+  var eyeIcon1 = document.getElementById("eyeIcon1");
+  var eyeIcon2 = document.getElementById("eyeIcon2");
 
-  const signupInput = document.getElementById('signup-karbari');
+  if (passwordField.type === "password") {
+    passwordField.type = "text";
+    passwordField1.type = "text";
+    passwordField2.type = "text";
+    eyeIcon.classList.remove("fa-eye");
+    eyeIcon1.classList.remove("fa-eye");
+    eyeIcon2.classList.remove("fa-eye");
+    eyeIcon.classList.add("fa-eye-slash");  
+    eyeIcon1.classList.add("fa-eye-slash");    
+    eyeIcon2.classList.add("fa-eye-slash");   
+  } else {
+    passwordField.type = "password";
+    passwordField1.type = "password";
+    passwordField2.type = "password";
+    eyeIcon.classList.remove("fa-eye-slash");
+    eyeIcon1.classList.remove("fa-eye-slash");
+    eyeIcon2.classList.remove("fa-eye-slash");
+    eyeIcon.classList.add("fa-eye");     
+    eyeIcon1.classList.add("fa-eye"); 
+    eyeIcon2.classList.add("fa-eye"); 
+  }
+}
+function checkPasswordMatch() {
+  var password = document.getElementById("signup-password").value;
+  var confirmPassword = document.getElementById("signup-password-again").value;
+  var errorMessage = document.getElementById("error-message");
 
-  signupInput.addEventListener('invalid', function () {
-    if (signupInput.value === '') {
-      signupInput.setCustomValidity('     شماره دانشجویی خود را وارد کنید');
-    } else {
-      signupInput.setCustomValidity('');
-    }
-  });
+  if (password !== confirmPassword && confirmPassword.length > 0) {
+      errorMessage.style.display = "block";
+  } else {
+      errorMessage.style.display = "none"; 
+  }
+}
 
-
-  signupInput.addEventListener('input', function () {
-    signupInput.setCustomValidity('');
-  });
-
-
-  const phoneinput = document.getElementById('phonenumber');
-
-  phoneinput.addEventListener('invalid', function () {
-    if (phoneinput.value === '') {
-      phoneinput.setCustomValidity('       شماره همراه تان را وارد کنید ');
-    } else {
-      phoneinput.setCustomValidity('');
-    }
-  });
-
-
-  phoneinput.addEventListener('input', function () {
-    phoneinput.setCustomValidity('');
-  });
-
-
-  //   end required input
