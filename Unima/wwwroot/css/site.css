@@ -250,7 +250,7 @@ input:-webkit-autofill::first-line {
 
   transform-origin: center;
   transform: translateX(20px)  scale(.9);
-  filter: brightness(.8);
+  filter: brightness(1);
   
   
 }
