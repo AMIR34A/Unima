@@ -1,6 +1,6 @@
 @font-face {
   font-family: BYekan;
-  src: url(/Fonts/BYekan.ttf);
+  src: url(../font/Yekan.ttf);
 }
 * {
   font-family: BYekan;
@@ -11,8 +11,8 @@ body {
   text-align: right;
   font-family: BYekan;
   height: 100vh;
-  background: linear-gradient(rgba(0,0,0,.8) , rgba(0,0,0,.5 )),
-    url(/Images/background.jpg);
+  background: linear-gradient(rgba(0,0,0,.7) , rgba(0,0,0,.9 )),
+    url(../images/c4.jpg);
 
   background-size: cover;
   background-repeat: no-repeat;
@@ -20,22 +20,24 @@ body {
   background-attachment: fixed;
 }
 
+
 .login-panel {
   background-color: #F9C784;
   border-radius: 100px !important;
-  /* padding-left:80px !important;  */
   z-index: 1;  
   box-shadow: -1px 0px 5px #f7c078;
+  width: 400px ;
+  height: 650px;
 }
 .title {
   color: #243642;
-  font-weight: bold;
+  font-weight: bolder;
 }
 .enter {
   background-color: #243642   ;
   color: #FEF9F2;
   transition: all 0.3s;
-  /* width: 250px; */
+
   font-size: large;
   font-weight: bold;
   transition: all 0.5s;
@@ -46,16 +48,16 @@ body {
 }
 .input {
   background: transparent;
+  font-weight: bold;
   border: none;
   border-color: transparent;
   border-radius: 0px;
   color: #243642;
   border-bottom: 2px solid #243642;
-  transition: all 0.5s;
-
+  transition: font-weight 0.3s;
 }
 .input::placeholder {
-  color: #243642;
+  color: #0d0d0d;
 }
 .input:focus {
   background: transparent;
@@ -70,10 +72,10 @@ body {
 
 }
 .label {
-  color: #2a2c2e;
+  color: #080808;
   display: block;
-  font-size: 12px;
-  margin-top: -60px;
+  font-size: 13px;
+  margin-top: -68px;
   margin-right: 5px;
   transition: all 0.4s;
 }
@@ -81,7 +83,17 @@ body {
   transform: translate(20px, 20px);
   opacity: 0;
   visibility: hidden;
+  font-weight: bold;
 }
+input:-webkit-autofill {
+  background-color: transparent !important; 
+  color: #243642 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #f9c784 inset !important; 
+}
+input:-webkit-autofill::first-line {
+  color: #243642 !important; 
+}
+
 .checked {
   color: #243642;
   font-size: 0.9em;
@@ -100,7 +112,7 @@ body {
 .sign-in {
   color: #243642;
   text-decoration: none;
-  font-size: 1.1em;
+  font-size: 1.2em;
   padding-bottom: 10px;
   margin-right: 10px;
   font-weight: bold;
@@ -158,18 +170,17 @@ body {
     opacity: 0;
   }
 }
-
-/* carousel */
-
 .content{
-  margin-right: -15vh !important;
+  margin-right:-150px
 }
-
+      
 .carrousel {
   width: 600px !important;
   height: 560px !important;
-  border:15px solid #e5caa8;  
+  border:18px solid #F9C784;  
   border-radius: 10px !important;
+  box-shadow: -1px 0px 5px #f7c078;
+
   
 }
 .indicator{
@@ -212,10 +223,11 @@ body {
 
 
 } 
-.support-user-title{
-  color:#d1cece ;
-  margin-right: 10px;
-}
+.support-user-title {
+  color: #fff !important; 
+  font-size: 16px;
+  font-weight: bold;
+} 
 
 .password-input{
   position: relative;
@@ -223,10 +235,90 @@ body {
 }
 .showpassword{
   position: absolute !important;
-  left: 10px !important;
-  bottom: 0px !important;
+  
+  left: 5px !important;
+  bottom: -10px !important;
   color: #0a0a0a;
   
 
+}
+.showpassword:focus {
+  outline: none;
+  box-shadow: none;
+}
+.g-recaptcha{
+
+  transform-origin: center;
+  transform: translateX(20px)  scale(.9);
+  filter: brightness(.8);
+  
+  
+}
+.form{
+  width: 250px;
+}
+.accordion {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  background: transparent !important;
+}
+
+.accordion-item {
+  max-height: 120px;
+  background: transparent !important;
+  display: flex;
+  justify-content: space-between;
+  border: none;
+  box-shadow: none;
+  transition: transform 0.5s ease;
+  margin-top: 5px;
+}
+.accordion-item:hover {
+  transform: translateX(3px)
+}
+.accordion-header button {
+  background: transparent !important;
+  color: #fff !important; 
+  text-align: center;
+  width: 100px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  outline: none !important; 
+  box-shadow: none !important;
+}
+.accordion-header button:focus,
+.accordion-header button:active {
+  outline: none !important;
+  box-shadow: none !important; 
+}
+.accordion-header button i{
+  transition: all .3s ease-in-out;
+}
+.accordion-header button:not(.collapsed) i  {
+  color: #f8dab6 !important ;
+  font-size: 1.5em;
+}
+.accordion-collapse {
+  flex: 1 1 auto;
+  width: 0;
+  overflow: hidden;
+  transition: width 0.4s ease-in-out, opacity 0.4s ease-in-out;
+  opacity: 0;
+}
+.accordion-collapse.show {
+  width: 100%;
+  opacity: 1;
+}
+.accordion-body {
+  font-size: 0.9rem;
+  color: #333;
+  line-height: 1.6;
+}
+@media (min-width: 960px) {
+  .custom-margin {
+      margin-right: -160px; 
+  }
 }
 
