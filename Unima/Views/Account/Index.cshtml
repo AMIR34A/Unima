@@ -24,50 +24,45 @@
 <body>
     <div class="container-fluid d-flex justify-content-center align-items-center min-vh-100">
         <div class="row justify-content-center align-items-center custom-margin">
-            <!--  panel -->
-            <!-- login   -->
-            <div id="loginForm"class="col-6 login-panel text-white p-4 rounded">
-                <form class="form mx-auto" action="">
-    <div class="container-fluid d-flex justify-content-center align-items-center min-vh-100">
-        <div class="row justify-content-center align-items-center custom-margin">
             <div id="loginForm" class="col-6 login-panel text-white p-4 rounded">
                 <form class=" form  mx-auto" action="">
                     <h2 class="title text-center mt-5 font-weight-bold">یونیما</h2>
+
                     <div class=" form-group py-4">
+
                         <input class="form-control my-3 p-2 input" required id="karbari" type="text"
                                placeholder="نام کاربری">
                         <label class="label" for="karbari">نام کاربری</label>
                     </div>
                     <div class="form-group py-4 text-white password-input">
-                        <button type="button" class="showpassword btn px-1"onclick="togglePassword()">
-                            <i class="fa-solid fa-eye"id="eyeIcon"></i>
+                        <button type="button" class="showpassword btn px-1" onclick="togglePassword()">
+                            <i class="fa-solid fa-eye" id="eyeIcon"></i>
                         </button>
                         <input required class="form-control my-3 p-2 input" id="password1" type="password"
                                placeholder="کلمه عبور">
                         <label class="label" for="password1">کلمه عبور</label>
                     </div>
                     <div class="form-group my-3 pt-4   ">
-                        <input class="form-check-input text-danger"type="checkbox"id="checked">
-                        <label class="checked mr-2" for="checked">مرا به خاطر بسپار</label>
+                        <input class="form-check-input text-danger" type="checkbox" id="checked">
+                        <label class="  checked mr-2" for="checked">مرا به خاطر بسپار</label>
                     </div>
-                    <div class="form-group mt-4">
+                    <div class="form-group mt-4 ">
                         <div class="g-recaptcha" data-sitekey="6LcXdpUqAAAAABAtABbwcEOA-ojiK75pztHaZLt7">
                         </div>
                     </div>
                     <div class="form-group text-center mt-2">
-                        <button class="btn btn-block w-100 mt-4 rounded-pill enter">ورود</button>
+                        <button class="btn btn-block w-100 mt-4 rounded-pill   enter">ورود</button>
                     </div>
-                    <div class="form-group text-center">
-                        <div class="row justify-content-around mt-5 mb-2  ">
-                            <a class="col text-nowrap forgot"href=""> فراموشی رمز عبور! </a>
-                            <a class="col text-nowrap sign-in"href="#"id="showSignup">ثبت نام</a>
+                    <div class="form-group text-center ">
+                        <div class="row   justify-content-around  mt-5  mb-2  ">
+                            <a class="col text-nowrap   forgot  " href=""> فراموشی رمز عبور! </a>
+                            <a class="col text-nowrap  sign-in" href="#" id="showSignup">ثبت نام</a>
                         </div>
                     </div>
                 </form>
             </div>
             <!--  end of login   -->
             <!-- signup  -->
-            <div id="signupForm"class="col-6 login-panel text-white p-4 rounded hidden">
             <div id="signupForm" class=" col-6 login-panel text-white p-4 rounded hidden">
                 <form class=" form  mx-auto" action="">
                     <h2 class="title text-center mt-2 font-weight-bold">یونیما</h2>
@@ -96,32 +91,21 @@
                         <button type="button" class="showpassword btn px-1" onclick="togglePassword()">
                             <i class="fa-solid fa-eye" id="eyeIcon2"></i>
                         </button>
-                        <input class="form-control my-3 p-2 input" required id="signup-password-again"
-                            type="password" placeholder=" تکرار کلمه عبور" oninput="checkPasswordMatch()">
-                        <label class="label" for="signup-password-again"> تکرار کلمه عبور</label>
                         <input asp-for="UserRegisterModel.SignUpConfirmPassword" class="form-control my-3 p-2 input" type="password" placeholder="تکرار کلمه عبور" oninput="checkPasswordMatch()">
                         <label asp-for="UserRegisterModel.SignUpConfirmPassword" class="label" for="signup-password-again"></label>
                     </div>
                     <p class="pt-4" id="error-message" style="font-size: .8em; color: rgb(240, 7, 7); display: none;">
-                        کلمه عبور و تکرار آن یکسان نیستند!</p>
-                    <div class="form-group mt-4  mb-3">
-                        <input class="form-check-input" type="checkbox"required id="checked">
                         کلمه عبور و تکرار آن یکسان نیستند!
                     </p>
                     <div class="form-group mt-4 mb-3">
                         <input asp-for="UserRegisterModel.IsAcceptedRule" class="form-check-input" type="checkbox">
                         <label class=" checked  mr-2" for="checked">
-                            <a id="button-rules" class="d-inline-block"href="" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">
                             <a id="button-rules" class="d-inline-block " href="" data-bs-toggle="modal"
                                data-bs-target="#exampleModal">
                                 شرایط و قوانین
                             </a> را میپذیرم
                         </label>
                     </div>
-                    <div class="form-group mb-3">
-                        <input class="form-control input"required id="signup-karbari"type="text"
-                            placeholder="شماره دانشجویی معرف (اختیاری)">
                     <div class="form-group mb-3">
                         <input asp-for="UserRegisterModel.ReferralUsername" class="form-control input" type="text" placeholder="شماره دانشجویی معرف (اختیاری)">
                     </div>
@@ -130,7 +114,7 @@
                         </div>
                     </div>
                     <div class="form-group text-center d-block align-content-center">
-                        <button class="btn btn-block w-100  mt-4 rounded-pill enter">ثبت نام </button>
+                        <button class="btn btn-block w-100  mt-4 rounded-pill   enter">ثبت نام </button>
                         <p class="mt-4 return-paragraph d-inline-block ">بازگشت به پنل </p>
                         <a id="showLogin" class="return-login d-inline-block pr-1" href="#">ورود</a>
                     </div>
@@ -140,8 +124,8 @@
             <!-- end of panel -->
             <!-- carousel -->
             <div class="col-6 content d-none d-lg-block">
-                <div id="demo" class="carousel slide carrousel rounded"data-bs-ride="carousel">
-                    <div class="carousel-indicators indicator">
+                <div id="demo" class="carousel slide carrousel rounded " data-bs-ride="carousel">
+                    <div class="carousel-indicators indicator ">
                         <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active "></button>
                         <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
                         <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
@@ -153,9 +137,9 @@
                                      style="max-height: 530px ;" alt="Food image">
                             </div>
                         </div>
-                        <div class="carousel-item slide2">
-                            <h1 class="text-light mt-1 p-3 font-weight-bold text-center">ارتباط با ما</h1>
-                            <h6 style="color: #d1cece;" class="p-3 mb-4 text-center">
+                        <div class="carousel-item   slide2">
+                            <h1 class="text-light mt-1 p-3 font-weight-bold  text-center">ارتباط با ما</h1>
+                            <h6 style="color: #d1cece  ;" class=" p-3 mb-4 text-center">
                                 در صورت بروز مشکل با یکی از
                                 پشتیبانی های زیر ارتباط برقرار
                                 کنید
@@ -215,13 +199,13 @@
         </div>
     </div>
     <!-- rules -->
-    <div class="modal fade"id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class=" modal-dialog modal-dialog-scrollable modal-dialog-centered">
-            <div class="modal-content"style="background-color:#243642; color: #f2e5bf;">
-                <div class="modal-header"style="direction: ltr;">
-                    <button type="button"class="btn-close"data-bs-dismiss="modal" aria-label="Close"
-                            style="margin-left: 0 !important; color: aliceblue !important;"></button>
-                    <h4 class="modal-title text-center font-weight-bold"id="exampleModalLabel">
+            <div class="modal-content " style="background-color:#243642; color: #f2e5bf;">
+                <div class="modal-header " style="direction: ltr;">
+                    <button type="button" class="btn-close  " data-bs-dismiss="modal" aria-label="Close"
+                            style="margin-left: 0 !important; color: aliceblue !important ;  "></button>
+                    <h4 class="modal-title text-center font-weight-bold " id="exampleModalLabel">
                         شرایط و قوانین وب سایت
                     </h4>
                 </div>

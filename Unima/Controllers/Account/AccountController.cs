@@ -44,4 +44,9 @@ public class AccountController : Controller
         }
         return View("Index");
     }
+
+    public async Task<IActionResult> Verification()
+    {
+        return View();
+    }
 }
