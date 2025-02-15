@@ -6,21 +6,16 @@
 }
 <!DOCTYPE html>
 <html lang="end">
-
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unima</title>
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src='https://www.google.com/recaptcha/api.js?hl=fa'></script>
-
 </head>
-
 <body>
     <div class="container-fluid d-flex justify-content-center align-items-center min-vh-100">
         <div class="row justify-content-center align-items-center custom-margin">
@@ -34,19 +29,17 @@
                 <form class=" form  mx-auto" action="">
                     <h2 class="title text-center mt-5 font-weight-bold">یونیما</h2>
                     <div class=" form-group py-4">
-                        <input class="form-control my-3 p-2 input" required id="karbari" type="text"
-                               placeholder="نام کاربری">
+                        <input class="form-control my-3 p-2 input" required id="karbari" type="text"placeholder="نام کاربری">
                         <label class="label" for="karbari">نام کاربری</label>
                     </div>
                     <div class="form-group py-4 text-white password-input">
                         <button type="button" class="showpassword btn px-1"onclick="togglePassword()">
                             <i class="fa-solid fa-eye"id="eyeIcon"></i>
                         </button>
-                        <input required class="form-control my-3 p-2 input" id="password1" type="password"
-                               placeholder="کلمه عبور">
+                        <input required class="form-control my-3 p-2 input" id="password1" type="password"placeholder="کلمه عبور">
                         <label class="label" for="password1">کلمه عبور</label>
                     </div>
-                    <div class="form-group my-3 pt-4   ">
+                    <div class="form-group my-3 pt-4">
                         <input class="form-check-input text-danger"type="checkbox"id="checked">
                         <label class="checked mr-2" for="checked">مرا به خاطر بسپار</label>
                     </div>
@@ -58,7 +51,7 @@
                         <button class="btn btn-block w-100 mt-4 rounded-pill enter">ورود</button>
                     </div>
                     <div class="form-group text-center">
-                        <div class="row justify-content-around mt-5 mb-2  ">
+                        <div class="row justify-content-around mt-5 mb-2">
                             <a class="col text-nowrap forgot"href=""> فراموشی رمز عبور! </a>
                             <a class="col text-nowrap sign-in"href="#"id="showSignup">ثبت نام</a>
                         </div>
@@ -72,17 +65,17 @@
                 <form class=" form  mx-auto" action="">
                     <h2 class="title text-center mt-2 font-weight-bold">یونیما</h2>
                     <div class="form-group pt-2 pb-3">
-                        <input asp-for="UserRegisterModel.FullName" class="form-control mb-3 mt-1 p-2 input" type="text" placeholder="نام و نام خانوادگی">
-                        <label asp-for="UserRegisterModel.FullName" class="label"> </label>
+                        <input asp-for="UserRegisterModel.FullName"class="form-control mb-3 mt-1 p-2 input"type="text"placeholder="نام و نام خانوادگی">
+                        <label asp-for="UserRegisterModel.FullName"class="label"> </label>
                     </div>
-                    <div class=" form-group pt-4 pb-3 row   ">
+                    <div class=" form-group pt-4 pb-3 row">
                         <div class="col-6">
-                            <input asp-for="UserRegisterModel.Username" class="form-control my-3 p-2 input" type="text" placeholder="شماره دانشجویی">
-                            <label asp-for="UserRegisterModel.Username" class="label"></label>
+                            <input asp-for="UserRegisterModel.Username"class="form-control my-3 p-2 input"type="text"placeholder="شماره دانشجویی">
+                            <label asp-for="UserRegisterModel.Username"class="label"></label>
                         </div>
                         <div class="col-6">
-                            <input asp-for="UserRegisterModel.PhoneNumber" class="form-control my-3 p-2 input" required type="text" placeholder="تلفن همراه">
-                            <label asp-for="UserRegisterModel.PhoneNumber" class="label"></label>
+                            <input asp-for="UserRegisterModel.PhoneNumber"class="form-control my-3 p-2 input"required type="text" placeholder="تلفن همراه">
+                            <label asp-for="UserRegisterModel.PhoneNumber"class="label"></label>
                         </div>
                     </div>
                     <div class="form-group py-3 text-white password-input">
@@ -113,8 +106,7 @@
                         <label class=" checked  mr-2" for="checked">
                             <a id="button-rules" class="d-inline-block"href="" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">
-                            <a id="button-rules" class="d-inline-block " href="" data-bs-toggle="modal"
-                               data-bs-target="#exampleModal">
+                            <a id="button-rules" class="d-inline-block " href="" data-bs-toggle="modal"data-bs-target="#exampleModal">
                                 شرایط و قوانین
                             </a> را میپذیرم
                         </label>
@@ -123,7 +115,7 @@
                         <input class="form-control input"required id="signup-karbari"type="text"
                             placeholder="شماره دانشجویی معرف (اختیاری)">
                     <div class="form-group mb-3">
-                        <input asp-for="UserRegisterModel.ReferralUsername" class="form-control input" type="text" placeholder="شماره دانشجویی معرف (اختیاری)">
+                        <input asp-for="UserRegisterModel.ReferralUsername"class="form-control input"type="text" placeholder="شماره دانشجویی معرف (اختیاری)">
                     </div>
                     <div class="form-group">
                         <div class="g-recaptcha" data-sitekey="6LcXdpUqAAAAABAtABbwcEOA-ojiK75pztHaZLt7">
@@ -149,8 +141,7 @@
                     <div class="carousel-inner w-100 h-100">
                         <div class="carousel-item active slide1">
                             <div>
-                                <img src="/Images/SlideBarImage.jpg" class="d-block w-100 h-100  "
-                                     style="max-height: 530px ;" alt="Food image">
+                                <img src="/Images/SlideBarImage.jpg"class="d-block w-100 h-100"style="max-height: 530px ;" alt="Food image">
                             </div>
                         </div>
                         <div class="carousel-item slide2">
@@ -160,7 +151,7 @@
                                 پشتیبانی های زیر ارتباط برقرار
                                 کنید
                             </h6>
-                            <div class="accordion" id="myaccordian">
+                            <div class="accordion"id="myaccordian">
                                 @{
                                     for (int i = 0; i < Model.Supports.Count; i++)
                                     {
@@ -177,10 +168,8 @@
                                                 <div class="accordion-body">
                                                     <h5>
                                                         <i class=" fab fa-telegram text-primary " style="font-size: 25px ;"></i>
-                                                        <a class=" support px-3"
-                                                           href="@Model.Supports[i].TelegramAccountURLId">تلگرام</a>
-                                                        <i class=" fas fa-phone text-success "></i> <a class=" support px-3"
-                                                                                                       href="#">
+                                                        <a class=" support px-3"href="@Model.Supports[i].TelegramAccountURLId">تلگرام</a>
+                                                        <i class=" fas fa-phone text-success "></i> <a class=" support px-3"href="#">
                                                             @Model.Supports[i].PhoneNumber
                                                         </a>
                                                     </h5>
@@ -243,7 +232,7 @@
                     این قوانین برای تضمین عملکرد بهتر پلتفرم و حفظ حقوق کاربران وضع شده‌اند و ممکن است در آینده به‌روزرسانی شوند.<br />
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn " data-bs-dismiss="modal"
+                    <button type="button"class="btn"data-bs-dismiss="modal"
                             style="background-color: #f2e5bf; color: #243642; font-weight: bold;">
                         مطالعه کردم
                     </button>
