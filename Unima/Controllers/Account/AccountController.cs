@@ -5,6 +5,7 @@ using Unima.Dal.Entities;
 using Unima.Dal.Entities.Models.Support;
 using Unima.MapperConfigs;
 using Unima.Models.Account;
+using Unima.Models.ViewModels;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Unima.Controllers.Account;
@@ -22,19 +23,22 @@ public class AccountController : Controller
 
     public async Task<IActionResult> Index()
     {
-        List<Support> supports = await _unitOfWork.RepositoryBase<Support>().GetAllAsync();
-        return View(supports);
+        AccountViewModel model = new AccountViewModel()
+        {
+            Supports = await _unitOfWork.RepositoryBase<Support>().GetAllAsync()
+        };
+        return View(model);
     }
 
     public async Task<IActionResult> RegisterAsync(UserRegisterModel registerModel)
     {
         ApplicationUser user = MapperConfig.ApplicationUserMap(registerModel);
 
-        IdentityResult identityResult = await _userManager.CreateAsync(user, registerModel.Password);
+        IdentityResult identityResult = await _userManager.CreateAsync(user, registerModel.SignUpConfirmPassword);
 
         if (identityResult.Succeeded)
         {
-            SignInResult signInResult = await _signInManager.PasswordSignInAsync(user, registerModel.Password, false, false);
+            SignInResult signInResult = await _signInManager.PasswordSignInAsync(user, registerModel.SignUpConfirmPassword, false, false);
             if (signInResult.Succeeded)
                 return View("Verification");
         }
