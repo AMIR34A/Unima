@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using Unima.Dal.Entities.Models;
 using Unima.Dal.Enums;
 

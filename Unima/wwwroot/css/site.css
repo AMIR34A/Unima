@@ -3,7 +3,7 @@
   src: url(../Fonts/BYekan.ttf);
 }
 * {
-  font-family: BYekan !important;
+    font-family: BYekan;
 }
 body {
   
