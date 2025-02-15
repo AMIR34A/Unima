@@ -1,0 +1,72 @@
+@font-face {
+  font-family: yekan;
+  src: url(../font/Yekan.ttf);
+}
+* {
+  font-family: yekan;
+}
+body{
+  background:linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.6)),url(../images/c1.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.otp-box {
+  display: flex;
+}
+.otp-box input {
+  width: 50px;
+  font-size: 32px;
+  padding: 15px;
+  text-align: center;
+  border-radius: 5px;
+  margin: 20px 10px;
+  border: 3px solid #8f7856;
+  background:linear-gradient(  rgba(28, 29, 35, 0.7),rgba(0,0,0,.1)), #243642;
+  font-weight: bold;
+  color: #f9c784;
+  outline: none;
+  transition: all 0.2s;
+}
+.otp-box input:focus {
+  border: 2px solid #f9c784;
+  box-shadow: 0 0 2px 2px #f9c784;
+}
+.confirm-btn {
+  
+  margin: 40px 80px 80px 80px !important;
+  background: linear-gradient(45deg,rgba(0,0,0,.1),rgba(0,0,0,.3)) , #FFCE90;
+  color: #0b1230;
+  font-size: x-large;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+.confirm-btn:hover {
+  box-shadow: 0 0 2px 2px #f9c784;
+  transform: translateY(5px);
+}
+.box {
+  border: 2px solid #f9c784;
+  color: #f9c784;
+  padding: 15px;
+  padding-top: 50px;
+  background-color: #243642;
+  background: linear-gradient(190deg,rgba(0,0,0,.1),rgba(0,0,0,.6)) ,#243642;
+  border-radius:50px;
+}
+.resend-btn{
+  background: transparent !important; 
+  border: 1px solid ;
+  color: #f9c784;
+  font-weight: bold;
+  font-weight: normal;
+  transform: translateY(0px);
+  transition: all .4s;
+
+}
+.resend-btn:hover{
+  color: #f9c784;
+  transform: translateY(2px) scale(1.1);
+}

@@ -1,5 +1,30 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container-fluid d-flex justify-content-center align-items-center flex-column min-vh-100"
+        >
+        <div class=" d-flex  justify-content-center align-items-center flex-column box px-5 mx-5 ">
+            <h3 class="mb-3">کد تایید را وارد کنید</h3>
+            <h6 class="mb-3">کد تایید برای شماره <span id="#">####</span> ارسال شد</h6>
+            <div class=" otp-box  ">
+                <input type="text" maxlength="1">
+                <input type="text" maxlength="1">
+                <input type="text" maxlength="1">
+                <input type="text" maxlength="1">
+            </div>
+            <div class="timer d-inline my-2" id="timer">     </div>
+            <button class="btn resend-btn"  id="resend-link" onclick=" resendOTP()">ارسال مجدد کد</button>
+            <button type="submit" class="btn confirm-btn w-100 rounded">تایید</button>
+        </div>
+    </div>
+    <script src="./scripts/main.js"></script>
+    <script src="./scripts/bootstrap.bundle.min.js"></script>
+</body>
+</html>
