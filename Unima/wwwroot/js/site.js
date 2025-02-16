@@ -91,10 +91,9 @@ function togglePassword() {
   }
 }
 function checkPasswordMatch() {
-  var password = document.querySelector("[asp-for='UserRegisterModel.SignUpPassword']").value;
-  var confirmPassword = document.querySelector("[asp-for='UserRegisterModel.SignUpConfirmPassword']").value;
+  var password = document.getElementById("SignUpPassword").value;
+  var confirmPassword = document.getElementById("SignUpConfirmPassword").value;
   var errorMessage = document.getElementById("error-message");
-
   if (password !== confirmPassword && confirmPassword.length > 0) {
       errorMessage.style.display = "block";
   } else {

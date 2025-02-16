@@ -84,15 +84,15 @@
                         <button type="button" class="showpassword btn px-1" onclick="togglePassword()">
                         
                         </button>
-                        <input asp-for="UserRegisterModel.SignUpPassword" class="form-control my-3 p-2  input" type="text" placeholder="کلمه عبور">
+                        <input asp-for="UserRegisterModel.SignUpPassword" id="SignUpPassword" class="form-control my-3 p-2  input" type="text" placeholder="کلمه عبور">
                         <label asp-for="UserRegisterModel.SignUpPassword" class="label"></label>
                     </div>
                     <div class="form-group py-3 text-white password-input   ">
                         <button type="button" class="showpassword btn px-1" onclick="togglePassword()">
                             
                         </button>
-                        <input asp-for="UserRegisterModel.SignUpConfirmPassword" class="form-control my-3 p-2 input" type="text" placeholder="تکرار کلمه عبور" oninput="checkPasswordMatch()">
-                        <label asp-for="UserRegisterModel.SignUpConfirmPassword" class="label" for="signup-password-again"></label>
+                        <input asp-for="UserRegisterModel.SignUpConfirmPassword" id="SignUpConfirmPassword" class="form-control my-3 p-2 input" type="text" placeholder="تکرار کلمه عبور" oninput="checkPasswordMatch()">
+                        <label asp-for="UserRegisterModel.SignUpConfirmPassword"  class="label" for="signup-password-again"></label>
                     </div>
                     <p class="pt-4" id="error-message" style="font-size: .8em; color: rgb(240, 7, 7); display: none;">
                         کلمه عبور و تکرار آن یکسان نیستند!
