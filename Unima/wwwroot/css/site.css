@@ -184,7 +184,7 @@ input:-webkit-autofill::first-line {
   
 }
 .indicator{
-  padding-right: 10vh;
+  padding-right: 120px;
 }
 .slide1{
   
@@ -194,11 +194,11 @@ input:-webkit-autofill::first-line {
   background-color: #1C3144 !important;
   width: 100%;
   height: 100%;
-  padding-right: 15vh;
+  padding-right: 120px;
   
 }
 .slide3 {
-  padding-right: 15vh;
+  padding-right: 120px;
   background-color: #1C3144 !important;
   width: 100%;
   height: 100%;
