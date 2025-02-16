@@ -94,7 +94,7 @@ function checkPasswordMatch() {
   var password = document.getElementById("SignUpPassword").value;
   var confirmPassword = document.getElementById("SignUpConfirmPassword").value;
   var errorMessage = document.getElementById("error-message");
-  if (password !== confirmPassword && confirmPassword.length > 0) {
+  if (password !== confirmPassword){
       errorMessage.style.display = "block";
   } else {
       errorMessage.style.display = "none";
