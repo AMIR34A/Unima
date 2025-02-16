@@ -79,6 +79,7 @@ phoneinput.addEventListener("input", function () {
 function togglePassword() {
   var passwordField = document.getElementById("password1");
   var eyeIcon = document.getElementById("eyeIcon");
+
   if (passwordField.type === "password") {
     passwordField.type = "text";
     eyeIcon.classList.remove("fa-eye");
@@ -90,14 +91,13 @@ function togglePassword() {
   }
 }
 function checkPasswordMatch() {
-  var password = document.getElementById("signup-password").value;
-  var confirmPassword = document.getElementById("signup-password-again").value;
+  var password = document.querySelector("[asp-for='UserRegisterModel.SignUpPassword']").value;
+  var confirmPassword = document.querySelector("[asp-for='UserRegisterModel.SignUpConfirmPassword']").value;
   var errorMessage = document.getElementById("error-message");
 
   if (password !== confirmPassword && confirmPassword.length > 0) {
       errorMessage.style.display = "block";
   } else {
-      errorMessage.style.display = "none"; 
+      errorMessage.style.display = "none";
   }
 }
-
