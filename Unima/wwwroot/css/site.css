@@ -278,7 +278,7 @@ input:-webkit-autofill::first-line {
 }
 .accordion-header button {
   background: transparent !important;
-  color: #fff !important; 
+  color: #243642 !important; 
   text-align: center;
   width: 100px;
   border: none;
@@ -296,7 +296,7 @@ input:-webkit-autofill::first-line {
   transition: all .3s ease-in-out;
 }
 .accordion-header button:not(.collapsed) i  {
-  color: #f8dab6 !important ;
+  color: #416278 !important ;
   font-size: 1.5em;
 }
 .accordion-collapse {
