@@ -205,14 +205,14 @@ input:-webkit-autofill::first-line {
 }
 .support{
   text-decoration: none;
-  color:#f1efe6 ;
+  color:#243642 ;
   font-weight: bold;
   transition: all .5s;
   
 }
 .support:hover{
   display: inline-block;
-  color:#f7f7f6 ;
+  color:#385468 ;
   transform: translateX(-2px);
 }
 
@@ -223,7 +223,7 @@ input:-webkit-autofill::first-line {
 
 } 
 .support-user-title {
-  color: #fff !important; 
+  color: #243642 !important; 
   font-size: 16px;
   font-weight: bold;
 } 
