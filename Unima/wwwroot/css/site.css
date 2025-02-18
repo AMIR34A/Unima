@@ -44,7 +44,7 @@ body {
 }
 .enter:hover {
   transform: translateY(-4px);
-  color: #0f0f0f;
+  color: #17232b;
 }
 .input {
   background: transparent;
