@@ -30,11 +30,11 @@ body {
   height: 650px;
 }
 .title {
-  color: #243642;
+  color: #F86F03;
   font-weight: bolder;
 }
 .enter {
-  background-color: #EFB036   ;
+  background-color: #F86F03   ;
   color: #FEF9F2;
   transition: all 0.3s;
 
@@ -53,7 +53,7 @@ body {
   border-color: transparent;
   border-radius: 0px;
   color: #243642;
-  border-bottom: 2px solid #243642;
+  border-bottom: 2px solid #F86F03;
   transition: font-weight 0.3s;
 }
 .input::placeholder {
@@ -218,7 +218,7 @@ input:-webkit-autofill::first-line {
 
 
 .support-user-icon{
-  color:#d1cece ;
+  color:#F86F03 ;
 
 
 } 
