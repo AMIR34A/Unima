@@ -84,7 +84,7 @@
                         <button type="button" class="showpassword btn px-1" onclick="togglePassword()">
                         
                         </button>
-                        <input asp-for="UserRegisterModel.SignUpPassword"  class="form-control my-3 p-2  input" type="text" placeholder="کلمه عبور">
+                        <input asp-for="UserRegisterModel.SignUpPassword"  class="form-control my-3 p-2  input" type="text" placeholder="کلمه عبور" oninput="checkPasswordMatch()">
                         <label asp-for="UserRegisterModel.SignUpPassword" class="label"></label>
                     </div>
                     <div class="form-group py-3 text-white password-input   ">
