@@ -22,7 +22,7 @@ body {
 
 
 .login-panel {
-  background-color: #F9C784;
+  background-color: #EFB036;
   border-radius: 100px !important;
   z-index: 1;  
   box-shadow: -1px 0px 4px #584a35;
@@ -34,7 +34,7 @@ body {
   font-weight: bolder;
 }
 .enter {
-  background-color: #243642   ;
+  background-color: #4C7B8B   ;
   color: #FEF9F2;
   transition: all 0.3s;
 
@@ -88,7 +88,7 @@ body {
 input:-webkit-autofill {
   background-color: transparent !important; 
   color: #243642 !important;
-  -webkit-box-shadow: 0 0 0px 1000px #f9c784 inset !important; 
+  -webkit-box-shadow: 0 0 0px 1000px #EFB036 inset !important; 
 }
 input:-webkit-autofill::first-line {
   color: #243642 !important; 
@@ -177,7 +177,7 @@ input:-webkit-autofill::first-line {
 .carrousel {
   width: 600px !important;
   height: 560px !important;
-  border:18px solid #F9C784;  
+  border:18px solid #EFB036;  
   border-radius: 10px !important;
   box-shadow: -1px 0px 4px #584a35;
 
@@ -190,7 +190,7 @@ input:-webkit-autofill::first-line {
   background-color: transparent !important ;
 }
 .slide2 {
-  background-color: #1C3144 !important;
+  background-color: #3B6790 !important;
   width: 100%;
   height: 100%;
   padding-right: 120px;
@@ -198,7 +198,7 @@ input:-webkit-autofill::first-line {
 }
 .slide3 {
   padding-right: 120px;
-  background-color: #1C3144 !important;
+  background-color: #3B6790 !important;
   width: 100%;
   height: 100%;
   
