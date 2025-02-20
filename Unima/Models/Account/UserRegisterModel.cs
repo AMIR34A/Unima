@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using Unima.Biz.Attributes;
 
 namespace Unima.Models.Account;
 
@@ -19,18 +20,18 @@ public class UserRegisterModel
 
     [Display(Name = "کلمه عبور")]
     [Required(ErrorMessage = "وارد نمون {0} الزامی است")]
-    public required string SignUpPassword { get; set; }
+    public required string Password { get; set; }
 
     [Display(Name = "تکرار کلمه عبور")]
     [Required(ErrorMessage = "وارد نمون {0} الزامی است")]
-    [Compare("SignUpPassword", ErrorMessage = "کلمه عبور و تکرار کلمه عبور یکسان نمی‌باشند")]
-    public required string SignUpConfirmPassword { get; set; }
+    [Compare("Password", ErrorMessage = "کلمه عبور و تکرار کلمه عبور یکسان نمی‌باشند")]
+    public required string ConfirmPassword { get; set; }
 
     public required bool IsAcceptedRule { get; set; }
 
     [Display(Name = "شماره دانشجویی معرف")]
     public string? ReferralUsername { get; set; }
 
-    [BindProperty(Name = "g-recaptcha-response")]
+    [GoogleCaptchaValidation("6LcXdpUqAAAAABAtABbwcEOA-ojiK75pztHaZLt7")]
     public required string GoogleCaptchaResponse { get; set; }
 }

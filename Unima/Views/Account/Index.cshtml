@@ -17,8 +17,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
           integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src='https://www.google.com/recaptcha/api.js?hl=fa'></script>
-
 </head>
 
 <body>
@@ -47,8 +45,8 @@
                         <label class="  checked mr-2" for="checked">مرا به خاطر بسپار</label>
                     </div>
                     <div class="form-group mt-4 ">
-                        <div class="g-recaptcha" data-sitekey="6LcXdpUqAAAAABAtABbwcEOA-ojiK75pztHaZLt7">
-                        </div>
+                        @*                         <div class="g-recaptcha" data-sitekey="6LcXdpUqAAAAABAtABbwcEOA-ojiK75pztHaZLt7">
+                        </div> *@
                     </div>
                     <div class="form-group text-center mt-2">
                         <button class="btn btn-block w-100 mt-4 rounded-pill   enter">ورود</button>
@@ -64,7 +62,7 @@
             <!--  end of login   -->
             <!-- signup  -->
             <div id="signupForm" class=" col-6 login-panel text-white p-4 rounded hidden">
-                <form class=" form  mx-auto" action="">
+                <form asp-action="Register" class=" form  mx-auto">
                     <h2 class="title text-center mt-2 font-weight-bold">یونیما</h2>
                     <div class="form-group pt-2 pb-3">
                         <input asp-for="UserRegisterModel.FullName" class="form-control mb-3 mt-1 p-2 input" type="text" placeholder="نام و نام خانوادگی">
@@ -84,15 +82,15 @@
                         <button type="button" class="showpassword btn px-1" onclick="togglePassword()">
                             <i class="fa-solid fa-eye" id="eyeIcon1"></i>
                         </button>
-                        <input asp-for="UserRegisterModel.SignUpPassword" class="form-control my-3 p-2  input" type="password" placeholder="کلمه عبور">
-                        <label asp-for="UserRegisterModel.SignUpPassword" class="label"></label>
+                        <input asp-for="UserRegisterModel.Password" class="form-control my-3 p-2  input" type="password" placeholder="کلمه عبور">
+                        <label asp-for="UserRegisterModel.Password" class="label"></label>
                     </div>
                     <div class="form-group py-3 text-white password-input   ">
                         <button type="button" class="showpassword btn px-1" onclick="togglePassword()">
                             <i class="fa-solid fa-eye" id="eyeIcon2"></i>
                         </button>
-                        <input asp-for="UserRegisterModel.SignUpConfirmPassword" class="form-control my-3 p-2 input" type="password" placeholder="تکرار کلمه عبور" oninput="checkPasswordMatch()">
-                        <label asp-for="UserRegisterModel.SignUpConfirmPassword" class="label" for="signup-password-again"></label>
+                        <input asp-for="UserRegisterModel.ConfirmPassword" class="form-control my-3 p-2 input" type="password" placeholder="تکرار کلمه عبور" oninput="checkPasswordMatch()">
+                        <label asp-for="UserRegisterModel.ConfirmPassword" class="label" for="signup-password-again"></label>
                     </div>
                     <p class="pt-4" id="error-message" style="font-size: .8em; color: rgb(240, 7, 7); display: none;">
                         کلمه عبور و تکرار آن یکسان نیستند!
@@ -112,9 +110,10 @@
                     <div class="form-group">
                         <div class="g-recaptcha" data-sitekey="6LcXdpUqAAAAABAtABbwcEOA-ojiK75pztHaZLt7">
                         </div>
+                        <input type="hidden" id="GoogleCaptchaResponse" name="UserRegisterModel.GoogleCaptchaResponse">
                     </div>
                     <div class="form-group text-center d-block align-content-center">
-                        <button class="btn btn-block w-100  mt-4 rounded-pill   enter">ثبت نام </button>
+                        <button class="btn btn-block w-100  mt-4 rounded-pill   enter" onclick="onSubmit()">ثبت نام </button>
                         <p class="mt-4 return-paragraph d-inline-block ">بازگشت به پنل </p>
                         <a id="showLogin" class="return-login d-inline-block pr-1" href="#">ورود</a>
                     </div>
@@ -240,5 +239,12 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/js/site.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js?hl=fa'></script>
+    <script>
+        function onSubmit() {
+            var captchaResponse = grecaptcha.getResponse();
+            document.getElementById('GoogleCaptchaResponse').value = captchaResponse;
+        }
+    </script>
 </body>
 </html>

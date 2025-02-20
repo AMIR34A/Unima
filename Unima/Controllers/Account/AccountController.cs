@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Common;
 using Unima.Biz.UoW;
 using Unima.Dal.Entities;
 using Unima.Dal.Entities.Models.Support;
@@ -16,9 +17,11 @@ public class AccountController : Controller
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
 
-    public AccountController(IUnitOfWork unitOfWork)
+    public AccountController(IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
     {
         _unitOfWork = unitOfWork;
+        _userManager = userManager;
+        _signInManager = signInManager;
     }
 
     public async Task<IActionResult> Index()
@@ -30,23 +33,64 @@ public class AccountController : Controller
         return View(model);
     }
 
-    public async Task<IActionResult> RegisterAsync(UserRegisterModel registerModel)
+    public async Task<IActionResult> RegisterAsync(AccountViewModel accountViewModel)
     {
+        UserRegisterModel registerModel = accountViewModel.UserRegisterModel;
+
         ApplicationUser user = MapperConfig.ApplicationUserMap(registerModel);
 
-        IdentityResult identityResult = await _userManager.CreateAsync(user, registerModel.SignUpConfirmPassword);
+        IdentityResult identityResult = await _userManager.CreateAsync(user, registerModel.Password);
 
         if (identityResult.Succeeded)
         {
-            SignInResult signInResult = await _signInManager.PasswordSignInAsync(user, registerModel.SignUpConfirmPassword, false, false);
-            if (signInResult.Succeeded)
-                return View("Verification");
+            SignInResult signInResult = await _signInManager.PasswordSignInAsync(user, registerModel.ConfirmPassword, false, false);
+            if (signInResult.IsNotAllowed)
+            {
+                string token = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber);
+
+                //Instead of sending by sms provider 
+                Console.WriteLine(token);
+
+                UserVerificationViewModel verificationViewModel = new()
+                {
+                    PhoneNumber = user.PhoneNumber
+                };
+                return View("Verification", verificationViewModel);
+            }
         }
-        return View("Index");
+
+        AccountViewModel viewModel = new AccountViewModel()
+        {
+            Supports = await _unitOfWork.RepositoryBase<Support>().GetAllAsync(),
+            UserRegisterModel = registerModel
+        };
+        return View("Index", viewModel);
     }
 
     public async Task<IActionResult> Verification()
     {
         return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> VerifyPhoneNumber(UserVerificationViewModel model)
+    {
+        if (string.IsNullOrEmpty(model.PhoneNumber) || string.IsNullOrEmpty(model.Token))
+            return BadRequest();
+
+        var user = _userManager.Users.FirstOrDefault(user => user.PhoneNumber.Equals(model.PhoneNumber));
+
+        if (user is null)
+            return BadRequest();
+
+        bool isValid = await _userManager.VerifyChangePhoneNumberTokenAsync(user, model.Token, user.PhoneNumber);
+
+        if (isValid)
+        {
+            user.PhoneNumberConfirmed = true;
+            await _userManager.UpdateAsync(user);
+        }
+
+        return View("Dashboard");
     }
 }
