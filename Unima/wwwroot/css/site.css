@@ -22,10 +22,10 @@ body {
 
 
 .login-panel {
-  background-color: #F9C784;
+  background-color: #889E73;
   border-radius: 100px !important;
   z-index: 1;  
-  box-shadow: -1px 0px 5px #f7c078;
+  box-shadow: -1px 0px 4px #273340;
   width: 400px ;
   height: 650px;
 }
@@ -44,11 +44,11 @@ body {
 }
 .enter:hover {
   transform: translateY(-4px);
-  color: #d1cece;
+  color: #17232b;
 }
 .input {
   background: transparent;
-  font-weight: bold;
+  
   border: none;
   border-color: transparent;
   border-radius: 0px;
@@ -88,7 +88,7 @@ body {
 input:-webkit-autofill {
   background-color: transparent !important; 
   color: #243642 !important;
-  -webkit-box-shadow: 0 0 0px 1000px #f9c784 inset !important; 
+  -webkit-box-shadow: 0 0 0px 1000px #889E73 inset !important; 
 }
 input:-webkit-autofill::first-line {
   color: #243642 !important; 
@@ -177,9 +177,9 @@ input:-webkit-autofill::first-line {
 .carrousel {
   width: 600px !important;
   height: 560px !important;
-  border:18px solid #F9C784;  
+  border:18px solid #889E73;  
   border-radius: 10px !important;
-  box-shadow: -1px 0px 5px #f7c078;
+  box-shadow: -1px 0px 4px #584a35;
 
   
 }
@@ -190,7 +190,7 @@ input:-webkit-autofill::first-line {
   background-color: transparent !important ;
 }
 .slide2 {
-  background-color: #1C3144 !important;
+  background-color: #FCE7C8 !important;
   width: 100%;
   height: 100%;
   padding-right: 120px;
@@ -198,32 +198,32 @@ input:-webkit-autofill::first-line {
 }
 .slide3 {
   padding-right: 120px;
-  background-color: #1C3144 !important;
+  background-color: #FCE7C8 !important;
   width: 100%;
   height: 100%;
   
 }
 .support{
   text-decoration: none;
-  color:#f1efe6 ;
+  color:#243642 ;
   font-weight: bold;
   transition: all .5s;
   
 }
 .support:hover{
   display: inline-block;
-  color:#f7f7f6 ;
+  color:#385468 ;
   transform: translateX(-2px);
 }
 
 
 .support-user-icon{
-  color:#d1cece ;
+  color:#243642 ;
 
 
 } 
 .support-user-title {
-  color: #fff !important; 
+  color: #243642 !important; 
   font-size: 16px;
   font-weight: bold;
 } 
@@ -278,12 +278,12 @@ input:-webkit-autofill::first-line {
 }
 .accordion-header button {
   background: transparent !important;
-  color: #fff !important; 
+  color: #243642 !important; 
   text-align: center;
   width: 100px;
   border: none;
   border-radius: 5px;
-  padding: 10px;
+  padding: 10px 7px;
   outline: none !important; 
   box-shadow: none !important;
 }
@@ -296,7 +296,7 @@ input:-webkit-autofill::first-line {
   transition: all .3s ease-in-out;
 }
 .accordion-header button:not(.collapsed) i  {
-  color: #f8dab6 !important ;
+  color: #416278 !important ;
   font-size: 1.5em;
 }
 .accordion-collapse {
@@ -311,7 +311,7 @@ input:-webkit-autofill::first-line {
   opacity: 1;
 }
 .accordion-body {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #333;
   line-height: 1.6;
 }

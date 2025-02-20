@@ -78,43 +78,25 @@ phoneinput.addEventListener("input", function () {
 
 function togglePassword() {
   var passwordField = document.getElementById("password1");
-  var passwordField1 = document.getElementById("signup-password");
-  var passwordField2 = document.getElementById("signup-password-again");
   var eyeIcon = document.getElementById("eyeIcon");
-  var eyeIcon1 = document.getElementById("eyeIcon1");
-  var eyeIcon2 = document.getElementById("eyeIcon2");
 
   if (passwordField.type === "password") {
     passwordField.type = "text";
-    passwordField1.type = "text";
-    passwordField2.type = "text";
     eyeIcon.classList.remove("fa-eye");
-    eyeIcon1.classList.remove("fa-eye");
-    eyeIcon2.classList.remove("fa-eye");
-    eyeIcon.classList.add("fa-eye-slash");  
-    eyeIcon1.classList.add("fa-eye-slash");    
-    eyeIcon2.classList.add("fa-eye-slash");   
+    eyeIcon.classList.add("fa-eye-slash");   
   } else {
     passwordField.type = "password";
-    passwordField1.type = "password";
-    passwordField2.type = "password";
     eyeIcon.classList.remove("fa-eye-slash");
-    eyeIcon1.classList.remove("fa-eye-slash");
-    eyeIcon2.classList.remove("fa-eye-slash");
     eyeIcon.classList.add("fa-eye");     
-    eyeIcon1.classList.add("fa-eye"); 
-    eyeIcon2.classList.add("fa-eye"); 
   }
 }
 function checkPasswordMatch() {
-  var password = document.getElementById("signup-password").value;
-  var confirmPassword = document.getElementById("signup-password-again").value;
+  var password = document.getElementById("UserRegisterModel_SignUpPassword").value;
+  var confirmPassword = document.getElementById("UserRegisterModel_SignUpConfirmPassword").value;
   var errorMessage = document.getElementById("error-message");
-
-  if (password !== confirmPassword && confirmPassword.length > 0) {
+  if (password !== confirmPassword && confirmPassword.length > 0 && password.length > 0 ){
       errorMessage.style.display = "block";
   } else {
-      errorMessage.style.display = "none"; 
+      errorMessage.style.display = "none";
   }
 }
-
