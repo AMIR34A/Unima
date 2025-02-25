@@ -1,10 +1,14 @@
-﻿namespace Unima.Dal.Entities.Models;
+﻿using Unima.Dal.Enums;
+
+namespace Unima.Dal.Entities.Models;
 
 public class Plan
 {
     public int Id { get; set; }
 
     public required string Title { get; set; }
+
+    public required PlanType Type { get; set; }
 
     public required byte Period { get; set; }
 

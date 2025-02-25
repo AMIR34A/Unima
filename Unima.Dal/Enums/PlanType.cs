@@ -1,8 +1,7 @@
 ﻿namespace Unima.Dal.Enums;
 
-public enum UserLevel : byte
+public enum PlanType : byte
 {
-    Free,
     Standard,
     Plus,
     Ultra

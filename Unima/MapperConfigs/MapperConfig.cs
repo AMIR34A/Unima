@@ -21,12 +21,7 @@ public class MapperConfig
     {
         var configuration = new MapperConfiguration(configure =>
         {
-            configure.CreateMap<UserRegisterModel, ApplicationUser>()
-           .ForMember("Level", option =>
-           {
-               option.MapFrom(src => UserLevel.Free);
-           })
-           .ForMember("RegisterDate", option =>
+            configure.CreateMap<UserRegisterModel, ApplicationUser>().ForMember("RegisterDate", option =>
            {
                option.MapFrom(src => DateTime.Now);
            });
