@@ -100,3 +100,7 @@ function checkPasswordMatch() {
       errorMessage.style.display = "none";
   }
 }
+document.getElementById("Paragraphs").addEventListener("copy",(e)=>{
+  e.preventDefault()
+
+})
