@@ -186,7 +186,15 @@ input:-webkit-autofill::first-line {
 }
 .indicator{
   padding-right:120px;
+
 }
+.carousel-indicators [data-bs-target] {
+  background-color: #0a0a0a;
+}
+.carousel-indicators .active{
+  background-color: #889E73 ;
+}
+
 .slide1{
   background-color: transparent !important ;
 }
