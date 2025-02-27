@@ -91,8 +91,8 @@ function togglePassword() {
   }
 }
 function checkPasswordMatch() {
-  var password = document.getElementById("UserRegisterModel_SignUpPassword").value;
-  var confirmPassword = document.getElementById("UserRegisterModel_SignUpConfirmPassword").value;
+  var password = document.getElementById("UserRegisterModel_Password").value;
+  var confirmPassword = document.getElementById("UserRegisterModel_ConfirmPassword").value;
   var errorMessage = document.getElementById("error-message");
   if (password !== confirmPassword && confirmPassword.length > 0 && password.length > 0 ){
       errorMessage.style.display = "block";
