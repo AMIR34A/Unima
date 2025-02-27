@@ -35,7 +35,7 @@ body {
 }
 .enter {
   background-color: #243642   ;
-  color: #FEF9F2;
+  color: #FCE7C8;
   transition: all 0.3s;
 
   font-size: large;
@@ -44,7 +44,7 @@ body {
 }
 .enter:hover {
   transform: translateY(-4px);
-  color: #17232b;
+  color: #f5dab0;
 }
 .input {
   background: transparent;
