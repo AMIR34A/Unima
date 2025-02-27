@@ -48,7 +48,6 @@ body {
 }
 .input {
   background: transparent;
-  
   border: none;
   border-color: transparent;
   border-radius: 0px;
@@ -57,7 +56,7 @@ body {
   transition: font-weight 0.3s;
 }
 .input::placeholder {
-  font-size: .9em;
+  font-size: 1em;
   color: #0d0d0d;
 }
 .input:focus {
