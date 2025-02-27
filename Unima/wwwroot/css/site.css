@@ -1,6 +1,6 @@
 @font-face {
   font-family: BYekan;
-  src: url(../Fonts/BYekan.ttf);
+  src: url(../Fonts/Yekan.ttf),url(../Fonts/Yekan.woff),url(../Fonts/Yekan.woff2),url(../Fonts/Yekan.svg),url(../Fonts/Yekan.eot),url(../Fonts/yekan.css);
 }
 * {
     font-family: BYekan;
