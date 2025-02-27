@@ -83,24 +83,29 @@ function togglePassword() {
   if (passwordField.type === "password") {
     passwordField.type = "text";
     eyeIcon.classList.remove("fa-eye");
-    eyeIcon.classList.add("fa-eye-slash");   
+    eyeIcon.classList.add("fa-eye-slash");
   } else {
     passwordField.type = "password";
     eyeIcon.classList.remove("fa-eye-slash");
-    eyeIcon.classList.add("fa-eye");     
+    eyeIcon.classList.add("fa-eye");
   }
 }
 function checkPasswordMatch() {
   var password = document.getElementById("UserRegisterModel_Password").value;
-  var confirmPassword = document.getElementById("UserRegisterModel_ConfirmPassword").value;
+  var confirmPassword = document.getElementById(
+    "UserRegisterModel_ConfirmPassword"
+  ).value;
   var errorMessage = document.getElementById("error-message");
-  if (password !== confirmPassword && confirmPassword.length > 0 && password.length > 0 ){
-      errorMessage.style.display = "block";
+  if (
+    password !== confirmPassword &&
+    confirmPassword.length > 0 &&
+    password.length > 0
+  ) {
+    errorMessage.style.display = "block";
   } else {
-      errorMessage.style.display = "none";
+    errorMessage.style.display = "none";
   }
 }
-document.getElementById("Paragraphs").addEventListener("copy",(e)=>{
-  e.preventDefault()
-
-})
+document.getElementById("Paragraphs").addEventListener("copy", (e) => {
+  e.preventDefault();
+});
