@@ -57,6 +57,7 @@ body {
   transition: font-weight 0.3s;
 }
 .input::placeholder {
+  font-size: .9em;
   color: #0d0d0d;
 }
 .input:focus {
