@@ -79,11 +79,11 @@
                         </div>
                     </div>
                     <div class="form-group py-3 text-white password-input">
-                        <input asp-for="UserRegisterModel.Password" class="form-control my-3 p-2  input" type="password" placeholder="کلمه عبور" oninput="checkPasswordMatch()">
+                        <input asp-for="UserRegisterModel.Password" class="form-control my-3 p-2  input" type="text" placeholder="کلمه عبور" oninput="checkPasswordMatch()">
                         <label asp-for="UserRegisterModel.Password" class="label"></label>
                     </div>
                     <div class="form-group py-3 text-white password-input   ">
-                        <input asp-for="UserRegisterModel.ConfirmPassword" class="form-control my-3 p-2 input" type="password" placeholder="تکرار کلمه عبور" oninput="checkPasswordMatch()">
+                        <input asp-for="UserRegisterModel.ConfirmPassword" class="form-control my-3 p-2 input" type="text" placeholder="تکرار کلمه عبور" oninput="checkPasswordMatch()">
                         <label asp-for="UserRegisterModel.ConfirmPassword" class="label" for="signup-password-again"></label>
                     </div>
                     <p class="pt-4" id="error-message" style="font-size: .8em; color: rgb(240, 7, 7); display: none;">
