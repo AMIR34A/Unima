@@ -7,6 +7,8 @@ namespace Unima.Dal.Entities;
 
 public class ApplicationUser : IdentityUser
 {
+    public required string FullName { get; set; }
+
     public DateTime RegisterDate { get; set; }
 
     public bool? IsActive { get; set; }
