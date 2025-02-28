@@ -66,7 +66,8 @@
                     <h2 class="title text-center mt-2 font-weight-bold">یونیما</h2>
                     <div class="form-group pt-2 pb-3">
                         <input asp-for="UserRegisterModel.FullName" class="form-control mb-3 mt-1 p-2 input" type="text" placeholder="نام و نام خانوادگی">
-                        <label asp-for="UserRegisterModel.FullName" class="label"> </label>
+                        <label asp-for="UserRegisterModel.FullName" class="label"></label>
+                        <span asp-validation-for="UserRegisterModel.FullName" class="text-danger"></span>
                     </div>
                     <div class=" form-group pt-4 pb-3 row   ">
                         <div class="col-6">
@@ -79,7 +80,7 @@
                         </div>
                     </div>
                     <div class="form-group py-3 text-white password-input">
-                        <input asp-for="UserRegisterModel.Password" class="form-control my-3 p-2  input" type="text" placeholder="کلمه عبور" oninput="checkPasswordMatch()">
+                        <input asp-for="UserRegisterModel.Password" class="form-control my-3 p-2 input" type="text" placeholder="کلمه عبور" oninput="checkPasswordMatch()">
                         <label asp-for="UserRegisterModel.Password" class="label"></label>
                     </div>
                     <div class="form-group py-3 text-white password-input   ">
@@ -119,9 +120,9 @@
             <div class="col-6 content d-none d-lg-block">
                 <div id="demo" class="carousel slide carrousel rounded " data-bs-ride="carousel">
                     <div class="carousel-indicators indicator ">
-                        <button  type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active "></button>
-                        <button  type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
-                        <button  type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+                        <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active "></button>
+                        <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+                        <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
                     </div>
                     <div class="carousel-inner w-100 h-100">
                         <div class="carousel-item active slide1">
@@ -131,7 +132,7 @@
                             </div>
                         </div>
                         <div class="carousel-item slide2">
-                            <h2 class=" mt-1 p-3 title text-center" >ارتباط با ما</h2>
+                            <h2 class=" mt-1 p-3 title text-center">ارتباط با ما</h2>
                             <h6 style="color: #2b404f  ;" class=" p-3 mb-4 text-center">
                                 در صورت بروز مشکل با یکی از
                                 پشتیبانی های زیر ارتباط برقرار
@@ -213,7 +214,7 @@
                     <b>5.</b> قطع یا تغییر خدمات: پلتفرم حق دارد در هر زمان، در صورت بروز مشکلات فنی یا تغییر سیاست‌های دانشگاه، خدمات را متوقف یا تغییر دهد.  <br />
                     <b>6.</b> حذف حساب کاربری: در صورت نقض قوانین، پلتفرم می‌تواند حساب کاربر را بدون اطلاع قبلی مسدود کند.  <br />
                     این قوانین برای تضمین عملکرد بهتر پلتفرم و حفظ حقوق کاربران وضع شده‌اند و ممکن است در آینده به‌روزرسانی شوند.<br />
-                
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn " data-bs-dismiss="modal"

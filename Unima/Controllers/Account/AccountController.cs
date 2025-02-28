@@ -36,7 +36,6 @@ public class AccountController : Controller
     {
         UserRegisterModel registerModel = accountViewModel.UserRegisterModel;
 
-
         AccountViewModel viewModel = new AccountViewModel()
         {
             Supports = await _unitOfWork.RepositoryBase<Support>().GetAllAsync(),
@@ -44,10 +43,7 @@ public class AccountController : Controller
         };
 
         if (!ModelState.IsValid)
-        {
             return View("Index", viewModel);
-        }
-
 
         ApplicationUser user = MapperConfig.ApplicationUserMap(registerModel);
 
@@ -60,7 +56,6 @@ public class AccountController : Controller
             {
                 string token = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber);
 
-                //Instead of sending by sms provider 
                 Console.WriteLine(token);
 
                 UserVerificationViewModel verificationViewModel = new()
@@ -70,13 +65,8 @@ public class AccountController : Controller
                 return View("Verification", verificationViewModel);
             }
         }
-        
-        return View("Index", viewModel);
-    }
 
-    public async Task<IActionResult> Verification()
-    {
-        return View(new UserVerificationViewModel());
+        return View("Index", viewModel);
     }
 
     [HttpPost]
@@ -96,8 +86,9 @@ public class AccountController : Controller
         {
             user.PhoneNumberConfirmed = true;
             await _userManager.UpdateAsync(user);
+            return View("Dashboard");
         }
 
-        return View("Dashboard");
+        return View("Verification");
     }
 }

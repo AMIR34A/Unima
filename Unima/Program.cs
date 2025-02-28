@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Unima.Biz.UoW;
 using Unima.Dal.Context;
 using Unima.Dal.Entities;
 using Unima.Dal.Identity.Context;
-using Unima.HelperClasses;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,10 +16,15 @@ builder.Services.AddDbContext<UnimaDbContext>(options =>
 builder.Services.AddDbContext<UnimaIdentityDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<UnimaIdentityDbContext>()
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    options.Tokens.ChangePhoneNumberTokenProvider = TokenOptions.DefaultPhoneProvider;
+}).AddEntityFrameworkStores<UnimaIdentityDbContext>()
     .AddDefaultTokenProviders()
-    .AddErrorDescriber<ApplicationIdentityErrorDescriber>();
+    .AddErrorDescriber<IdentityErrorDescriber>();
+
+builder.Services.AddAuthentication();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -52,8 +55,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<UnimaDbContext>();
-builder.Services.AddTransient<UserManager<ApplicationUser>, UserManager<ApplicationUser>>();
-builder.Services.AddTransient<SignInManager<ApplicationUser>, SignInManager<ApplicationUser>>();
+//builder.Services.AddSingleton<UserManager<ApplicationUser>>();
+//builder.Services.AddSingleton<SignInManager<ApplicationUser>, SignInManager<ApplicationUser>>();
 
 var app = builder.Build();
 
