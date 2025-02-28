@@ -73,7 +73,7 @@ timerInterval = setInterval(updateTimer, 1000);
 
 //token input
 
-document.querySelector("#submitButton").addEventListener("submit", (e) => {
+document.querySelector("#submitButton").addEventListener("click", (e) => {
   let input1 = document.getElementById("input1").value;
   let input2 = document.getElementById("input1").value;
   let input3 = document.getElementById("input1").value;
