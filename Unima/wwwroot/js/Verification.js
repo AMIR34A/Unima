@@ -80,6 +80,6 @@ document.querySelector("#submitButton").addEventListener("submit" , (e)=>{
   let input4=document.getElementById("input1").value
   let input5=document.getElementById("input1").value
   let input6=document.getElementById("input1").value
-  let tokenInput=document.getElementById("Token").value
-  tokenInput=`${input1}${input2}${input3}${input4}${input5}${input6}`
+  let tokenInput=`${input1}${input2}${input3}${input4}${input5}${input6}`
+  document.getElementById("Token").value = tokenInput
 })
