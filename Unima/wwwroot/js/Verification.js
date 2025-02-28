@@ -42,9 +42,9 @@ function submit() {
 let timeLeft = 60;
 let timerInterval;
 function formatTime(seconds) {
-  const minutes = Math.floor(seconds / 60);
-  const secs = seconds % 60;
-  return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
 }
 function updateTimer() {
     const timerDisplay = document.getElementById("timer");
@@ -62,10 +62,10 @@ function updateTimer() {
 
 function resendOTP() {
     clearInterval(timerInterval);
-    timeLeft = 60; 
+    timeLeft = 60;
     document.getElementById("resend-link").style.display = "none";
     updateTimer();
-    timerInterval = setInterval(updateTimer, 1000); 
+    timerInterval = setInterval(updateTimer, 1000);
 }
 document.getElementById("resend-link").style.display = "none";
 timerInterval = setInterval(updateTimer, 1000);
@@ -78,15 +78,5 @@ function concatInputs() {
         number5 = document.getElementById("number5").value,
         number6 = document.getElementById("number6").value;
 
-
-document.querySelector("#submitButton").addEventListener("submit" , (e)=>{
-
-  let input1=document.getElementById("input1").value
-  let input2=document.getElementById("input1").value
-  let input3=document.getElementById("input1").value
-  let input4=document.getElementById("input1").value
-  let input5=document.getElementById("input1").value
-  let input6=document.getElementById("input1").value
-  let tokenInput=document.getElementById("Token").value
-  tokenInput=`${input1}${input2}${input3}${input4}${input5}${input6}`
-})
+    document.getElementById("Token").value = `${number1}${number2}${number3}${number4}${number5}${number6}`
+}
