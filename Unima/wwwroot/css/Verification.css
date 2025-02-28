@@ -24,15 +24,15 @@ body{
   border-radius: 5px;
   margin: 20px 10px;
   border: 3px solid #8f7856;
-  background:linear-gradient(  rgba(28, 29, 35, 0.7),rgba(0,0,0,.1)), #243642;
+  background:linear-gradient(  rgba(28, 29, 35, 0.7),rgba(0,0,0,.1)), #889E73;
   font-weight: bold;
-  color: #f9c784;
+  color: #FCE7C8;
   outline: none;
   transition: all 0.2s;
 }
 .otp-box input:focus {
-  border: 2px solid #f9c784;
-  box-shadow: 0 0 2px 2px #f9c784;
+  border: 2px solid #FCE7C8;
+  box-shadow: 0 0 2px 2px #FCE7C8;
 }
 .confirm-btn {
   
@@ -44,12 +44,12 @@ body{
   transition: all 0.3s;
 }
 .confirm-btn:hover {
-  box-shadow: 0 0 2px 2px #f9c784;
+  box-shadow: 0 0 2px 2px #FCE7C8;
   transform: translateY(5px);
 }
 .box {
-  border: 2px solid #f9c784;
-  color: #f9c784;
+  border: 2px solid #FCE7C8;
+  color: #FCE7C8;
   padding: 15px;
   padding-top: 50px;
   background-color: #243642;
@@ -59,7 +59,7 @@ body{
 .resend-btn{
   background: transparent !important; 
   border: 1px solid ;
-  color: #f9c784;
+  color: #FCE7C8;
   font-weight: bold;
   font-weight: normal;
   transform: translateY(0px);
@@ -67,6 +67,6 @@ body{
 
 }
 .resend-btn:hover{
-  color: #f9c784;
+  color: #FCE7C8;
   transform: translateY(2px) scale(1.1);
 }

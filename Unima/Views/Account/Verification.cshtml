@@ -20,16 +20,18 @@
                 <h3 class="mb-3">کد تایید را وارد کنید</h3>
                 <h6 class="mb-3">کد تایید برای شماره <span id="#">@Model.PhoneNumber</span> ارسال شد</h6>
                 <div class="otp-box">
-                    <input type="text" maxlength="1">
-                    <input type="text" maxlength="1">
-                    <input type="text" maxlength="1">
-                    <input type="text" maxlength="1">
+                    <input id="=input1" type="text" maxlength="1">
+                    <input id="=input2" type="text" maxlength="1">
+                    <input id="=input3" type="text" maxlength="1">
+                    <input id="=input4" type="text" maxlength="1">
+                    <input id="=input5" type="text" maxlength="1">
+                    <input id="=input6" type="text" maxlength="1">
                 </div>
                 <input asp-for="Token" hidden disabled/>
                 <input asp-for="PhoneNumber" hidden disabled />
                 <div class="timer d-inline my-2" id="timer"></div>
                 <button class="btn resend-btn" id="resend-link" onclick=" resendOTP()">ارسال مجدد کد</button>
-                <button asp-action="VerifyPhoneNumber" type="submit" class="btn confirm-btn w-100 rounded">تایید</button>
+                <button id="submitButton" asp-action="VerifyPhoneNumber" type="submit" class="btn confirm-btn w-100 rounded">تایید</button>
             </div>
         </form>
     </div>
