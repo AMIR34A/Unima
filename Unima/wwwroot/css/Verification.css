@@ -3,10 +3,10 @@
   src: url(../Fonts/Yekan.ttf),url(../Fonts/Yekan.woff),url(../Fonts/Yekan.woff2),url(../Fonts/Yekan.svg),url(../Fonts/Yekan.eot),url(../Fonts/yekan.css);
 }
 * {
-  font-family: yekan;
+  font-family: Byekan;
 }
 body{
-  background:linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.6)),url(../images/c1.jpg);
+  background:linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.6)),url(../Images/verificationBackground.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
