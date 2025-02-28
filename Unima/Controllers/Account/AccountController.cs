@@ -36,6 +36,19 @@ public class AccountController : Controller
     {
         UserRegisterModel registerModel = accountViewModel.UserRegisterModel;
 
+
+        AccountViewModel viewModel = new AccountViewModel()
+        {
+            Supports = await _unitOfWork.RepositoryBase<Support>().GetAllAsync(),
+            UserRegisterModel = registerModel
+        };
+
+        if (!ModelState.IsValid)
+        {
+            return View("Index", viewModel);
+        }
+
+
         ApplicationUser user = MapperConfig.ApplicationUserMap(registerModel);
 
         IdentityResult identityResult = await _userManager.CreateAsync(user, registerModel.Password);
@@ -57,18 +70,13 @@ public class AccountController : Controller
                 return View("Verification", verificationViewModel);
             }
         }
-
-        AccountViewModel viewModel = new AccountViewModel()
-        {
-            Supports = await _unitOfWork.RepositoryBase<Support>().GetAllAsync(),
-            UserRegisterModel = registerModel
-        };
+        
         return View("Index", viewModel);
     }
 
     public async Task<IActionResult> Verification()
     {
-        return View();
+        return View(new UserVerificationViewModel());
     }
 
     [HttpPost]
