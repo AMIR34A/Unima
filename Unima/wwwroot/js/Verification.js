@@ -42,44 +42,44 @@ function submit() {
 let timeLeft = 60;
 let timerInterval;
 function formatTime(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+  const minutes = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
 }
 function updateTimer() {
   const timerDisplay = document.getElementById("timer");
   const resendLink = document.getElementById("resend-link");
 
   if (timeLeft > 0) {
-      timerDisplay.innerHTML = `زمان باقیمانده تا ارسال مجدد کد <strong >${formatTime(timeLeft)}</strong> `;
-      timeLeft--;
+    timerDisplay.innerHTML = `زمان باقیمانده تا ارسال مجدد کد <strong >${formatTime(
+      timeLeft
+    )}</strong> `;
+    timeLeft--;
   } else {
-      timerDisplay.innerHTML = "<span style='color: red'></span>";
-      clearInterval(timerInterval);
-      resendLink.style.display = "block";
+    timerDisplay.innerHTML = "<span style='color: red'></span>";
+    clearInterval(timerInterval);
+    resendLink.style.display = "block";
   }
 }
 function resendOTP() {
-    clearInterval(timerInterval);
-    timeLeft = 60; 
-    document.getElementById("resend-link").style.display = "none";
-    updateTimer();
-    timerInterval = setInterval(updateTimer, 1000); 
+  clearInterval(timerInterval);
+  timeLeft = 60;
+  document.getElementById("resend-link").style.display = "none";
+  updateTimer();
+  timerInterval = setInterval(updateTimer, 1000);
 }
 document.getElementById("resend-link").style.display = "none";
 timerInterval = setInterval(updateTimer, 1000);
 
 //token input
 
-
-document.querySelector("#submitButton").addEventListener("submit" , (e)=>{
-
-  let input1=document.getElementById("input1").value
-  let input2=document.getElementById("input1").value
-  let input3=document.getElementById("input1").value
-  let input4=document.getElementById("input1").value
-  let input5=document.getElementById("input1").value
-  let input6=document.getElementById("input1").value
-  let tokenInput=`${input1}${input2}${input3}${input4}${input5}${input6}`
-  document.getElementById("Token").value = tokenInput
-})
+document.querySelector("#submitButton").addEventListener("submit", (e) => {
+  let input1 = document.getElementById("input1").value;
+  let input2 = document.getElementById("input1").value;
+  let input3 = document.getElementById("input1").value;
+  let input4 = document.getElementById("input1").value;
+  let input5 = document.getElementById("input1").value;
+  let input6 = document.getElementById("input1").value;
+  let tokenInput = `${input1}${input2}${input3}${input4}${input5}${input6}`;
+  document.getElementById("Token").value = tokenInput;
+});
