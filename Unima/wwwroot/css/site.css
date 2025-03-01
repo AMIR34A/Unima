@@ -155,7 +155,7 @@ input:-webkit-autofill::first-line {
 /* Validation's style */
 .form-group span{
   position: relative;
-  top: 40px;
+  top: 30px;
 }
 /* End of Validation's style */
 
