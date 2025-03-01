@@ -152,6 +152,12 @@ input:-webkit-autofill::first-line {
 .fade-out {
   animation: fadeOut 0.5s forwards;
 }
+/* Validation's style */
+.form-group span{
+  position: relative;
+  top: 40px;
+}
+/* End of Validation's style */
 
 @keyframes fadeIn {
   from {
