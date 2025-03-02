@@ -34,7 +34,7 @@ body {
   font-weight: bolder;
 }
 .enter {
-  background: linear-gradient(rgba(0,0,0,.3)), #E4572E   ;
+  background: linear-gradient(rgba(0,0,0,.3) , rgba(0,0,0,.2)), #E4572E   ;
   color: #FCE7C8;
   transition: all 0.3s;
 
