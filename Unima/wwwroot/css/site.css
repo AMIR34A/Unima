@@ -34,7 +34,7 @@ body {
   font-weight: bolder;
 }
 .enter {
-  background-color: #F0A04B;
+  background-color: #DDA853;
   color: #243642;
   transition: all 0.3s;
   font-size: large;
@@ -194,7 +194,7 @@ input:-webkit-autofill::first-line {
   background-color: #0a0a0a;
 }
 .carousel-indicators .active{
-  background-color: #889E73 ;
+  background-color: #DDA853 ;
 }
 
 .slide1{
