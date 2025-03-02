@@ -30,11 +30,11 @@ body {
   height: 650px;
 }
 .title {
-  color: #f8b21c;
+  color: #243642;
   font-weight: bolder;
 }
 .enter {
-  background: linear-gradient(rgba(0,0,0,.3) , rgba(0,0,0,.2)), #f8b21c   ;
+  background-color: #f8b21c;
   color: #FCE7C8;
   transition: all 0.3s;
 
