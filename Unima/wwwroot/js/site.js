@@ -11,7 +11,6 @@ showSignupBtn.addEventListener("click", (event) => {
         signupForm.querySelector("input").focus();
     }, 0);
 });
-
 showLoginBtn.addEventListener("click", (event) => {
     event.preventDefault();
     setTimeout(() => {
@@ -20,8 +19,9 @@ showLoginBtn.addEventListener("click", (event) => {
         loginForm.querySelector("input").focus();
     }, 0);
 });
+// Input's Validations
+//Login's Validations
 const nameInput = document.getElementById("karbari");
-
 nameInput.addEventListener("invalid", function () {
     if (nameInput.value === "") {
         nameInput.setCustomValidity(" لطفا نام کاربری تان را وارد کنید");
@@ -29,13 +29,10 @@ nameInput.addEventListener("invalid", function () {
         nameInput.setCustomValidity("");
     }
 });
-
 nameInput.addEventListener("input", function () {
     nameInput.setCustomValidity("");
 });
-
 const passInput = document.getElementById("password1");
-
 passInput.addEventListener("invalid", function () {
     if (passInput.value === "") {
         passInput.setCustomValidity(" لطفا   رمز عبور خود را وارد کنید");
@@ -43,21 +40,20 @@ passInput.addEventListener("invalid", function () {
         passInput.setCustomValidity("");
     }
 });
-
 passInput.addEventListener("input", function () {
     passInput.setCustomValidity("");
 });
+// End Of Login's Validations
 
-const signupInput = document.getElementById("signup-karbari");
-
+//SignUp's Validations
+const signupInput = document.getElementById("UserRegisterModel_FullName");
 signupInput.addEventListener("invalid", function () {
-    if (signupInput.value === "") {
-        signupInput.setCustomValidity("     شماره دانشجویی خود را وارد کنید");
-    } else {
-        signupInput.setCustomValidity("");
-    }
+  if (signupInput.value === "") {
+    signupInput.setCustomValidity("     شماره دانشجویی خود را وارد کنید");
+  } else {
+    signupInput.setCustomValidity("");
+  }
 });
-
 signupInput.addEventListener("input", function () {
     signupInput.setCustomValidity("");
 });
@@ -65,16 +61,18 @@ signupInput.addEventListener("input", function () {
 const phoneinput = document.getElementById("phonenumber");
 
 phoneinput.addEventListener("invalid", function () {
-    if (phoneinput.value === "") {
-        phoneinput.setCustomValidity("       شماره همراه تان را وارد کنید ");
-    } else {
-        phoneinput.setCustomValidity("");
-    }
+  if (phoneinput.value === "") {
+    phoneinput.setCustomValidity("       شماره همراه تان را وارد کنید ");
+  } else {
+    phoneinput.setCustomValidity("");
+  }
 });
 
 phoneinput.addEventListener("input", function () {
     phoneinput.setCustomValidity("");
 });
+//End Of SignUp's Validations
+//End Of Validations
 
 function togglePassword() {
     var passwordField = document.getElementById("password1");

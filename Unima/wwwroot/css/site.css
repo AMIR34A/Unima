@@ -34,10 +34,9 @@ body {
   font-weight: bolder;
 }
 .enter {
-  background-color: #243642   ;
-  color: #FCE7C8;
+  background-color: #DDA853;
+  color: #243642;
   transition: all 0.3s;
-
   font-size: large;
   font-weight: bold;
   transition: all 0.5s;
@@ -152,6 +151,12 @@ input:-webkit-autofill::first-line {
 .fade-out {
   animation: fadeOut 0.5s forwards;
 }
+/* Validation's style */
+.form-group span{
+  position: relative;
+  top: 35px;
+}
+/* End of Validation's style */
 
 @keyframes fadeIn {
   from {
@@ -180,8 +185,6 @@ input:-webkit-autofill::first-line {
   border:18px solid #889E73;  
   border-radius: 10px !important;
   box-shadow: -1px 0px 4px #584a35;
-
-  
 }
 .indicator{
   padding-right:120px;
@@ -191,7 +194,7 @@ input:-webkit-autofill::first-line {
   background-color: #0a0a0a;
 }
 .carousel-indicators .active{
-  background-color: #889E73 ;
+  background-color: #DDA853 ;
 }
 
 .slide1{
@@ -223,43 +226,31 @@ input:-webkit-autofill::first-line {
   color:#385468 ;
   transform: translateX(-2px);
 }
-
-
 .support-user-icon{
   color:#243642 ;
-
-
 } 
 .support-user-title {
   color: #243642 !important; 
   font-size: 16px;
   font-weight: bold;
 } 
-
 .password-input{
   position: relative;
-
 }
 .showpassword{
   position: absolute !important;
-  
   left: 5px !important;
   bottom: -10px !important;
   color: #0a0a0a;
-  
-
 }
 .showpassword:focus {
   outline: none;
   box-shadow: none;
 }
 .g-recaptcha{
-
   transform-origin: center;
   transform: translateX(20px)  scale(.9);
-  filter: brightness(1);
-  
-  
+  filter: brightness(1); 
 }
 .form{
   width: 250px;
@@ -270,7 +261,6 @@ input:-webkit-autofill::first-line {
   overflow: hidden;
   background: transparent !important;
 }
-
 .accordion-item {
   max-height: 120px;
   background: transparent !important;
