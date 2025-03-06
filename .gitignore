@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 Unima.Dal/Migrations
+
+Unima/appSettings.json

@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Unima.Dal\Unima.Dal.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Attributes\" />
+  </ItemGroup>
+
 </Project>

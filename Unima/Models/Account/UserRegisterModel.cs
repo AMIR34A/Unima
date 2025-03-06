@@ -34,6 +34,6 @@ public class UserRegisterModel
     [Display(Name = "شماره دانشجویی معرف")]
     public string? ReferralUsername { get; set; }
 
-    [GoogleCaptchaValidation("6LcXdpUqAAAAABAtABbwcEOA-ojiK75pztHaZLt7")]
+    [GoogleCaptchaValidation]
     public required string GoogleCaptchaResponse { get; set; }
 }

@@ -7,5 +7,7 @@ public class AccountViewModel
 {
     public List<Support>? Supports { get; set; }
 
-    public UserRegisterModel UserRegisterModel { get; set; }
+    public UserRegisterModel? UserRegisterModel { get; set; }
+
+    public UserLogInModel? UserLogInModel { get; set; }
 }

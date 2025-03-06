@@ -32,6 +32,42 @@ public class AccountController : Controller
         return View(model);
     }
 
+    [HttpPost]
+    public async Task<IActionResult> LogIn(UserLogInModel userLogInModel)
+    {
+        AccountViewModel viewModel = new AccountViewModel()
+        {
+            Supports = await _unitOfWork.RepositoryBase<Support>().GetAllAsync(),
+            UserLogInModel = userLogInModel
+        };
+
+        if (!ModelState.IsValid)
+            return View("Index", viewModel);
+
+        ApplicationUser? user = await _userManager.FindByNameAsync(userLogInModel.Username);
+
+        if (user is null)
+            return BadRequest();
+
+        SignInResult signInResult = await _signInManager.PasswordSignInAsync(user, userLogInModel.Password, false, false);
+        if (signInResult.IsNotAllowed)
+        {
+            string token = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber);
+            Console.WriteLine(token);
+
+            UserVerificationViewModel verificationViewModel = new()
+            {
+                PhoneNumber = user.PhoneNumber
+            };
+            return View("Verification", verificationViewModel);
+        }
+        else if(signInResult.IsLockedOut)
+            return View("Index", viewModel);
+
+        return RedirectToAction("Index", "User");
+    }
+
+    [HttpPost]
     public async Task<IActionResult> RegisterAsync(AccountViewModel accountViewModel)
     {
         UserRegisterModel registerModel = accountViewModel.UserRegisterModel;
