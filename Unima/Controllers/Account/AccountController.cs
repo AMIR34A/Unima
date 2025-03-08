@@ -61,10 +61,10 @@ public class AccountController : Controller
             };
             return View("Verification", verificationViewModel);
         }
-        else if(signInResult.IsLockedOut)
+        else if (signInResult.IsLockedOut)
             return View("Index", viewModel);
 
-        return RedirectToAction("Index", "User");
+        return RedirectToAction("Index", "Dashboard", new { area = "User"});
     }
 
     [HttpPost]
@@ -122,9 +122,10 @@ public class AccountController : Controller
         {
             user.PhoneNumberConfirmed = true;
             await _userManager.UpdateAsync(user);
-            return View("Dashboard");
+            return RedirectToAction("Index", "Dashboard", new { area = "User" });
         }
 
-        return View("Verification");
+        model.Token = string.Empty;
+        return View("Verification", model);
     }
 }
