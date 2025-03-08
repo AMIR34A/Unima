@@ -4,6 +4,7 @@ using Unima.Biz.UoW;
 using Unima.Dal.Context;
 using Unima.Dal.Entities;
 using Unima.Dal.Identity.Context;
+using Unima.HelperClasses;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +23,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.Tokens.ChangePhoneNumberTokenProvider = TokenOptions.DefaultPhoneProvider;
 }).AddEntityFrameworkStores<UnimaIdentityDbContext>()
     .AddDefaultTokenProviders()
-    .AddErrorDescriber<IdentityErrorDescriber>();
+    .AddErrorDescriber<ApplicationIdentityErrorDescriber>();
 
 builder.Services.AddAuthentication();
 

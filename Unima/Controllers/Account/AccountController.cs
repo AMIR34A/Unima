@@ -105,6 +105,11 @@ public class AccountController : Controller
         return View("Index", viewModel);
     }
 
+    public IActionResult Verification()
+    {
+        return View(new UserVerificationViewModel());
+    }
+
     [HttpPost]
     public async Task<IActionResult> VerifyPhoneNumber(UserVerificationViewModel model)
     {

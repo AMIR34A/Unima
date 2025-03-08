@@ -37,7 +37,7 @@ public class UserRegisterModel
     [Display(Name = "شماره دانشجویی معرف")]
     [MaxLength(10, ErrorMessage = "حداکثر طول {0}، {1} عدد است")]
     [MinLength(9, ErrorMessage = "حداقل طول {0}، {1} عدد است")]
-    [RegularExpression("^d+$", ErrorMessage = "{0} باید شامل فقط اعداد (0-9) باشد")]
+    [RegularExpression("^\\d+$", ErrorMessage = "{0} باید شامل فقط اعداد (0-9) باشد")]
     public string? ReferralUsername { get; set; }
 
     [GoogleCaptchaValidation]
