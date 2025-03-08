@@ -74,9 +74,9 @@ phoneinput.addEventListener("input", function () {
 //End Of SignUp's Validations
 //End Of Validations
 
-function togglePassword() {
-    var passwordField = document.getElementById("password1");
-    var eyeIcon = document.getElementById("eyeIcon");
+function toggleLogInPassword() {
+    var passwordField = document.getElementById("UserLogInModel_Password");
+    var eyeIcon = document.getElementById("logInEyeIcon");
 
     if (passwordField.type === "password") {
         passwordField.type = "text";
