@@ -12,10 +12,13 @@ public class UserRegisterModel
 
     [Display(Name = "شماره دانشجویی")]
     [Required(ErrorMessage = "وارد نمون {0} الزامی است")]
+    [MaxLength(10, ErrorMessage = "حداکثر طول {0}، {1} عدد است")]
+    [MinLength(9, ErrorMessage = "حداقل طول {0}، {1} عدد است")]
     public required string Username { get; set; }
 
     [Display(Name = "تلفن همراه")]
     [Required(ErrorMessage = "وارد نمون {0} الزامی است")]
+    [RegularExpression("^09[0-9]{9}$", ErrorMessage = "الگوی صحیح {0}: 09123456789")]
     public required string PhoneNumber { get; set; }
 
     [Display(Name = "کلمه عبور")]
@@ -32,6 +35,9 @@ public class UserRegisterModel
     public required bool IsAcceptedRule { get; set; }
 
     [Display(Name = "شماره دانشجویی معرف")]
+    [MaxLength(10, ErrorMessage = "حداکثر طول {0}، {1} عدد است")]
+    [MinLength(9, ErrorMessage = "حداقل طول {0}، {1} عدد است")]
+    [RegularExpression("^d+$", ErrorMessage = "{0} باید شامل فقط اعداد (0-9) باشد")]
     public string? ReferralUsername { get; set; }
 
     [GoogleCaptchaValidation]
