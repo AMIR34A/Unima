@@ -145,6 +145,8 @@ public class AccountController : Controller
         }
 
         model.Token = string.Empty;
+        ModelState.AddModelError(string.Empty, "کد وارد شده معتبر نمی‌باشد");
+        SetFirstError(ModelState, "VerificationError");
         return View("Verification", model);
     }
 
