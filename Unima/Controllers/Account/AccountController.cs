@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Unima.Biz.UoW;
 using Unima.Dal.Entities;
 using Unima.Dal.Entities.Models.Support;
@@ -42,7 +43,10 @@ public class AccountController : Controller
         };
 
         if (!ModelState.IsValid)
+        {
+            SetFirstError(ModelState, "LogInError");
             return View("Index", viewModel);
+        }
 
         ApplicationUser? user = await _userManager.FindByNameAsync(userLogInModel.Username);
 
@@ -62,9 +66,13 @@ public class AccountController : Controller
             return View("Verification", verificationViewModel);
         }
         else if (signInResult.IsLockedOut)
+        {
+            ModelState.AddModelError(string.Empty, "اکانت شما قفل شده است؛ با یکی از پشتیبان‌ها در تماس باشید.");
+            SetFirstError(ModelState, "SignUpError");
             return View("Index", viewModel);
+        }
 
-        return RedirectToAction("Index", "Dashboard", new { area = "User"});
+        return RedirectToAction("Index", "Dashboard", new { area = "User" });
     }
 
     [HttpPost]
@@ -79,7 +87,10 @@ public class AccountController : Controller
         };
 
         if (!ModelState.IsValid)
+        {
+            SetFirstError(ModelState, "SignUpError");
             return View("Index", viewModel);
+        }
 
         ApplicationUser user = MapperConfig.ApplicationUserMap(registerModel);
 
@@ -101,6 +112,9 @@ public class AccountController : Controller
                 return View("Verification", verificationViewModel);
             }
         }
+
+        ModelState.AddModelError(string.Empty, identityResult.Errors.FirstOrDefault()?.Description);
+        SetFirstError(ModelState, "SignUpError");
 
         return View("Index", viewModel);
     }
@@ -132,5 +146,15 @@ public class AccountController : Controller
 
         model.Token = string.Empty;
         return View("Verification", model);
+    }
+
+    public void SetFirstError(ModelStateDictionary modelState, string key)
+    {
+         string? firstError = ModelState.Values
+        .SelectMany(v => v.Errors)
+        .Select(e => e.ErrorMessage)
+        .FirstOrDefault();
+
+        ViewData[key] = firstError;
     }
 }

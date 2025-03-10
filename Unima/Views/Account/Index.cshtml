@@ -25,6 +25,10 @@
             <div id="loginForm" class="col-6 login-panel text-white p-4 rounded">
                 <form asp-action="LogIn" method="post" class="form mx-auto">
                     <h2 class="title text-center mt-5 font-weight-bold">یونیما</h2>
+                    @if (ViewData["LogInError"] is not null)
+                    {
+                        <span class="text-danger">@ViewData["LogInError"]</span>
+                    }
                     <div class="form-group py-4">
                         <input required asp-for="UserLogInModel.Username" class="form-control my-3 p-2 input" type="text" placeholder="نام کاربری">
                         <label asp-for="UserLogInModel.Username" class="label"></label>
@@ -60,10 +64,14 @@
             <div id="signupForm" class=" col-6 login-panel text-white p-4 rounded hidden">
                 <form id="registerForm" asp-action="Register" class=" form mx-auto">
                     <h2 class="title text-center mt-2 font-weight-bold">یونیما</h2>
+                    @if (ViewData["SignUpError"] is not null)
+                    {
+                        <span class="text-danger">@ViewData["SignUpError"]</span>
+                    }
+
                     <div class="form-group pt-2 pb-3">
                         <input asp-for="UserRegisterModel.FullName" class="form-control mb-3 mt-1 p-2 input" type="text" placeholder="نام و نام خانوادگی">
                         <label asp-for="UserRegisterModel.FullName" class="label"></label>
-                        <span asp-validation-for="UserRegisterModel.FullName" class="text-danger"></span>
                     </div>
                     <div class=" form-group pt-4 pb-3 row   ">
                         <div class="col-6">
