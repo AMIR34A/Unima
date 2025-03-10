@@ -46,31 +46,64 @@ passInput.addEventListener("input" , ()=>{
 // End Of Login's Validations
 
 //SignUp's Validations
-const signupInput = document.getElementById("UserRegisterModel_FullName");
-signupInput.addEventListener("invalid", function () {
-  if (signupInput.value === "") {
-    signupInput.setCustomValidity("     شماره دانشجویی خود را وارد کنید");
+const fullName = document.getElementById("UserRegisterModel_FullName");
+fullName.addEventListener("blur", function(){
+    if (!fullName.value.trim()){
+        fullName.setCustomValidity("لطفا نام و نام خانوادگی خود را وارد کنید ")
+    }else fullName.setCustomValidity("");
+})
+fullName.addEventListener("input" , ()=>{
+    fullName.setCustomValidity("");
+})
+
+const phoneNumber = document.getElementById("UserRegisterModel_PhoneNumber");
+phoneNumber.addEventListener("blur", function () {
+  if (!phoneNumber.value.trim()) {
+    phoneNumber.setCustomValidity("شماره همراه خود را وارد کنید ");
   } else {
-    signupInput.setCustomValidity("");
+    phoneNumber.setCustomValidity("");
   }
 });
-signupInput.addEventListener("input", function () {
-  signupInput.setCustomValidity("");
+phoneNumber.addEventListener("input", ()=> {
+  phoneNumber.setCustomValidity("");
 });
 
-const phoneinput = document.getElementById("phonenumber");
-
-phoneinput.addEventListener("invalid", function () {
-  if (phoneinput.value === "") {
-    phoneinput.setCustomValidity("       شماره همراه تان را وارد کنید ");
+const studentNumber = document.getElementById("UserRegisterModel_Username");
+studentNumber.addEventListener("blur", function () {
+  if (!studentNumber.value.trim()) {
+    studentNumber.setCustomValidity("شماره دانشجویی خود را وارد کنید ");
   } else {
-    phoneinput.setCustomValidity("");
+    studentNumber.setCustomValidity("");
   }
 });
-
-phoneinput.addEventListener("input", function () {
-  phoneinput.setCustomValidity("");
+studentNumber.addEventListener("input", ()=> {
+  studentNumber.setCustomValidity("");
 });
+
+const password = document.getElementById("UserRegisterModel_Password");
+password.addEventListener("blur", function () {
+  if (!password.value.trim()) {
+    password.setCustomValidity("کلمه عبور خود را وارد کنید ");
+  } else {
+    password.setCustomValidity("");
+  }
+});
+password.addEventListener("input", ()=> {
+  password.setCustomValidity("");
+});
+
+const confirmPassword = document.getElementById("UserRegisterModel_ConfirmPassword");
+confirmPassword.addEventListener("blur", function () {
+  if (!confirmPassword.value.trim()) {
+    confirmPassword.setCustomValidity("کلمه عبور را مجددا وارد کنید ");
+  } else {
+    confirmPassword.setCustomValidity("");
+  }
+});
+confirmPassword.addEventListener("input", ()=> {
+  confirmPassword.setCustomValidity("");
+});
+
 //End Of SignUp's Validations
 //End Of Validations
 
