@@ -21,8 +21,9 @@ showLoginBtn.addEventListener("click", (event) => {
 });
 // Input's Validations
 //Login's Validations
-const nameInput = document.getElementById("UserLogInModel_Username");
-nameInput.addEventListener("blur", function () {
+8605030085911335
+var nameInput = document.getElementById("UserLogInModel_Username");
+nameInput.addEventListener("input", function () {
     if (!nameInput.value.trim()) {
         nameInput.setCustomValidity("لطفا نام کاربری خود را وارد کنید");
     } else {
