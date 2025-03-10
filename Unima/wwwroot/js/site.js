@@ -24,7 +24,7 @@ showLoginBtn.addEventListener("click", (event) => {
 8605030085911335
 var nameInput = document.getElementById("UserLogInModel_Username");
 nameInput.addEventListener("input", function () {
-    if (!nameInput.value.trim()) {
+    if (!nameInput.value) {
         nameInput.setCustomValidity("لطفا نام کاربری خود را وارد کنید");
     } else {
         nameInput.setCustomValidity("");
