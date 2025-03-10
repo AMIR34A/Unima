@@ -21,15 +21,16 @@ showLoginBtn.addEventListener("click", (event) => {
 });
 // Input's Validations
 //Login's Validations
-8605030085911335
-var nameInput = document.getElementById("UserLogInModel_Username");
-nameInput.addEventListener("input", function () {
-    if (!nameInput.value) {
-        nameInput.setCustomValidity("لطفا نام کاربری خود را وارد کنید");
+
+const nameInput = document.getElementById("UserLogInModel_Username");
+nameInput.addEventListener("blur", function () {
+    if (!nameInput.value.trim()) {
+        nameInput.setCustomValidity("Please enter your username.");
     } else {
         nameInput.setCustomValidity("");
     }
 });
+
 nameInput.addEventListener("input", function () {
     nameInput.setCustomValidity("");
 });
