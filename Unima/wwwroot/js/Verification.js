@@ -12,6 +12,18 @@ function handleOtpPaste(e) {
         Submit();
     }
 }
+inputs.forEach((input) => {
+    input.addEventListener("input", (event) => {
+        event.target.value = event.target.value.replace(/\D/g, ""); 
+    });
+    input.addEventListener("keypress", (event) => {
+        if (!/[0-9]/.test(event.key)) {
+            event.preventDefault();
+        }
+    });
+});
+
+
 function handleOtp(e) {
     const input = e.target;
     let value = input.value;
