@@ -25,7 +25,7 @@ body{
   border-radius: 5px;
   margin: 20px 10px;
   border: 3px solid #8f7856;
-  background:linear-gradient(  rgba(28, 29, 35, 0.7),rgba(0,0,0,.1)), #889E73;
+  background:#DDA853;
   font-weight: bold;
   color: #FCE7C8;
   outline: none;
@@ -36,9 +36,9 @@ body{
   box-shadow: 0 0 2px 2px #FCE7C8;
 }
 .confirm-btn {
-  border: 2px solid #243642;
+  border: 2px solid #DDA853;
   margin: 40px 80px 80px 80px !important;
-  background: linear-gradient(45deg,rgba(0,0,0,.1),rgba(0,0,0,.9)) , #243642;
+  background: #DDA853;
   color: #FCE7C8;
   font-size: x-large;
   font-weight: bold;
@@ -46,7 +46,7 @@ body{
 }
 .confirm-btn:hover {
   color: #fad59e;
-  box-shadow: 0 0 1px 1px #243642;
+  box-shadow: 0 0 1px 1px #6c5939;
   transform: translateY(3px);
 }
 .box {
