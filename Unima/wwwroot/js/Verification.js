@@ -1,10 +1,10 @@
 const inputs = document.querySelectorAll(".otp-box input");
 inputs.forEach((input, index) => {
     input.dataset.index = index;
-    input.addEventListener("paste", handleotppaste);
-    input.addEventListener("keyup", handleotp);
+    input.addEventListener("paste", handleOtpPaste);
+    input.addEventListener("keyup", handleOtp);
 });
-function handleotppaste(e) {
+function handleOtpPaste(e) {
     const data = e.clipboardData.getData("text");
     const value = data.split("");
     if (value.length === inputs.length) {
@@ -12,7 +12,7 @@ function handleotppaste(e) {
         Submit();
     }
 }
-function handleotp(e) {
+function handleOtp(e) {
     const input = e.target;
     let value = input.value;
     input.value = "";
