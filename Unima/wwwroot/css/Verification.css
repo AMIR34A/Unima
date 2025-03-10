@@ -39,14 +39,14 @@ body{
   border: 2px solid #DDA853;
   margin: 40px 80px 80px 80px !important;
   background: #DDA853;
-  color: #FCE7C8;
+  color: #243642;
   font-size: x-large;
   font-weight: bold;
   transition: all 0.3s;
 }
 .confirm-btn:hover {
-  color: #fad59e;
-  box-shadow: 0 0 1px 1px #6c5939;
+  
+  box-shadow: 0 0 1px 1px #896f44;
   transform: translateY(3px);
 }
 .box {

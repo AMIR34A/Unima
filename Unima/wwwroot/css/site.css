@@ -43,7 +43,6 @@ body {
 }
 .enter:hover {
   transform: translateY(-4px);
-  color: #f5dab0;
 }
 .input {
   background: transparent;

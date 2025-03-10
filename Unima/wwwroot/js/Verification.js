@@ -22,8 +22,6 @@ inputs.forEach((input) => {
         }
     });
 });
-
-
 function handleOtp(e) {
     const input = e.target;
     let value = input.value;
