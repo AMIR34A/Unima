@@ -21,7 +21,7 @@ showLoginBtn.addEventListener("click", (event) => {
 });
 // Input's Validations
 //Login's Validations
-const nameInput = document.getElementById("karbari");
+const nameInput = document.getElementById("UserLogInModel_Username");
 nameInput.addEventListener("invalid", function () {
     if (nameInput.value === "") {
         nameInput.setCustomValidity(" لطفا نام کاربری تان را وارد کنید");
@@ -32,7 +32,7 @@ nameInput.addEventListener("invalid", function () {
 nameInput.addEventListener("input", function () {
     nameInput.setCustomValidity("");
 });
-const passInput = document.getElementById("password1");
+const passInput = document.getElementById("UserLogInModel_Password");
 passInput.addEventListener("invalid", function () {
     if (passInput.value === "") {
         passInput.setCustomValidity(" لطفا   رمز عبور خود را وارد کنید");
