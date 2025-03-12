@@ -151,10 +151,10 @@ input:-webkit-autofill::first-line {
   animation: fadeOut 0.5s forwards;
 }
 /* Validation's style */
-.form-group span{
+.serverValidation{
   position: relative;
   top: 35px;
-  font-size: 10px;
+  font-size: 5px ;
 }
 /* End of Validation's style */
 
