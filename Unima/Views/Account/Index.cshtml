@@ -74,7 +74,7 @@
                         <input asp-for="UserRegisterModel.FullName" class="form-control mb-3 mt-1 p-2 input" type="text" placeholder="نام و نام خانوادگی">
                         <label asp-for="UserRegisterModel.FullName" class="label"></label>
                     </div>
-                    <div class=" form-group pt-4 pb-3 row   ">
+                    <div class=" form-group pt-4 pb-3 row">
                         <div class="col-6">
                             <input asp-for="UserRegisterModel.Username" class="form-control my-3 p-2 input" type="text" placeholder="شماره دانشجویی">
                             <label asp-for="UserRegisterModel.Username" class="label"></label>
@@ -111,7 +111,8 @@
                         <input type="hidden" id="GoogleCaptchaResponse" name="UserRegisterModel.GoogleCaptchaResponse">
                     </div>
                     <div class="form-group text-center d-block align-content-center">
-                        <button onclick="loadingAnimation()"id="signUpBtn" type="submit" class="btn btn-block w-100 mt-4 rounded-pill enter">ثبت نام</button><div id="loading"class="loader d-none"></div>
+                        <button onclick="loadingAnimation()"id="signUpBtn" type="submit" class="btn btn-block w-100 mt-4 rounded-pill enter">ثبت نام</button>
+                        <div id="loading"class="loader d-none"></div>
                         <p class="mt-4 return-paragraph d-inline-block ">بازگشت به پنل </p>
                         <a id="showLogin" class="return-login d-inline-block pr-1" href="#">ورود</a>
                     </div>
