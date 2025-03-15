@@ -137,3 +137,13 @@ function checkPasswordMatch() {
 document.getElementById("Paragraphs").addEventListener("copy", (e) => {
     e.preventDefault();
 });
+
+
+function loading() {
+    var loginBtn = document.getElementById("loginBtn")
+    var signUpBtn = document.getElementById("signUpBtn")
+    var loading = document.getElementById("loader")
+    loading.classList.remove("d-none")
+    loginBtn.disabled = "true" 
+    signUpBtn.disabled = "true" 
+}
