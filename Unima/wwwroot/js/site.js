@@ -142,7 +142,7 @@ document.getElementById("Paragraphs").addEventListener("copy", (e) => {
 function loading() {
     var loginBtn = document.getElementById("loginBtn")
     var signUpBtn = document.getElementById("signUpBtn")
-    var loading = document.getElementById("loader")
+    var loading = document.getElementById("loading")
     loading.classList.remove("d-none")
     loginBtn.disabled = "true" 
     signUpBtn.disabled = "true" 
