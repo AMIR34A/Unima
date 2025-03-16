@@ -154,7 +154,13 @@ input:-webkit-autofill::first-line {
 }
 /* Validation's style */
 
-.serverValidation{
+.loginServerValidation{
+  position: relative;
+  top: 40px;
+  font-size: 13px ;
+  font-weight: 700;
+}
+.signUpServerValidation{
   position: relative;
   font-size: 13px ;
   font-weight: 700;

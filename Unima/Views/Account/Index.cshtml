@@ -27,7 +27,7 @@
                     <h2 class="title text-center mt-5 font-weight-bold">یونیما</h2>
                     @if (ViewData["LogInError"] is not null)
                     {
-                        <span class="text-danger serverValidation">@ViewData["LogInError"]</span>
+                        <span class="text-danger loginServerValidation">@ViewData["LogInError"]</span>
                     }
                     <div class="form-group py-4">
                         <input  asp-for="UserLogInModel.Username" class="form-control my-3 p-2 input" type="text" placeholder="نام کاربری">
@@ -67,7 +67,7 @@
                     <h2 class="title text-center mt-2 font-weight-bold">یونیما</h2>
                     @if (ViewData["SignUpError"] is not null)
                     {
-                        <span class="text-danger serverValidation">@ViewData["SignUpError"]</span>
+                        <span class="text-danger signUpServerValidation">@ViewData["SignUpError"]</span>
                     }
 
                     <div class="form-group pt-2 pb-3">
