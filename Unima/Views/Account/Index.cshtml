@@ -23,7 +23,7 @@
     <div class="container-fluid d-flex justify-content-center align-items-center min-vh-100">
         <div class="row justify-content-center align-items-center custom-margin">
             <div id="loginForm" class="col-6 login-panel text-white p-4 rounded">
-                <form asp-action="LogIn" method="post" class="form mx-auto">
+                <form onsubmit="loadingAnimation()" asp-action="LogIn" method="post" class="form mx-auto">
                     <h2 class="title text-center mt-5 font-weight-bold">یونیما</h2>
                     @if (ViewData["LogInError"] is not null)
                     {
@@ -49,7 +49,7 @@
                         </div> *@
                     </div>
                     <div class="form-group text-center mt-2">
-                        <button onclick="loadingAnimation()" id="loginBtn" class="btn btn-block mt-4 rounded-pill enter">ورود<div id="loginLoading"class="loader text-center d-none"></div></button>
+                        <button type="submit" id="loginBtn" class="btn btn-block mt-4 rounded-pill enter">ورود<div id="loginLoading"class="loader text-center d-none"></div></button>
                         
                     </div>
                     <div class="form-group text-center ">
