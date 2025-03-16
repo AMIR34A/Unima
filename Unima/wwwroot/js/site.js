@@ -115,28 +115,47 @@ function toggleLogInPassword() {
   var signUpConfirmPasswordField = document.getElementById(
     "UserRegisterModel_ConfirmPassword"
   );
-  var eyeIconLogin = document.("logInEyeIcon");
-  var eyeIconSignUp = document.("signUpEyeIcon");
+  var eyeIcon = document.getElementById("logInEyeIcon");
 
   if (passwordField.type === "password") {
     passwordField.type = "text";
-    eyeIconLogin.classList.remove("fa-eye");
-    eyeIconLogin.classList.add("fa-eye-slash");
+    eyeIcon.classList.remove("fa-eye");
+    eyeIcon.classList.add("fa-eye-slash");
   } else {
     passwordField.type = "password";
-    eyeIconLogin.classList.remove("fa-eye-slash");
-    eyeIconLogin.classList.add("fa-eye");
+    eyeIcon.classList.remove("fa-eye-slash");
+    eyeIcon.classList.add("fa-eye");
   }
   if (signUpPasswordField.type === "text") {
     signUpPasswordField.type = "password";
     signUpConfirmPasswordField.type = "password";
-    eyeIconSignUp.classList.remove("fa-eye-slash");
-    eyeIconSignUp.classList.add("fa-eye");
+    eyeIcon.classList.remove("fa-eye-slash");
+    eyeIcon.classList.add("fa-eye");
   } else {
     signUpPasswordField.type = "text";
     signUpConfirmPasswordField.type = "text";
-    eyeIconSignUp.classList.remove("fa-eye");
-    eyeIconSignUp.classList.add("fa-eye-slash");
+    eyeIcon.classList.remove("fa-eye");
+    eyeIcon.classList.add("fa-eye-slash");
+  }
+}
+
+function toggleSignUpPassword() {
+  
+  var signUpConfirmPasswordField = document.getElementById(
+    "UserRegisterModel_ConfirmPassword"
+  );
+  var eyeIcon = document.getElementById("signUpEyeIcon");
+
+  if (signUpPasswordField.type === "text") {
+    signUpPasswordField.type = "password";
+    signUpConfirmPasswordField.type = "password";
+    eyeIcon.classList.remove("fa-eye-slash");
+    eyeIcon.classList.add("fa-eye");
+  } else {
+    signUpPasswordField.type = "text";
+    signUpConfirmPasswordField.type = "text";
+    eyeIcon.classList.remove("fa-eye");
+    eyeIcon.classList.add("fa-eye-slash");
   }
 }
 function checkPasswordMatch() {
