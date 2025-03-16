@@ -147,8 +147,10 @@ function loadingAnimation() {
   const signUpLoader = document.getElementById("signUpLoading");
   loginLoader.classList.remove("d-none");
   signUpLoader.classList.remove("d-none");
-  loginLoader.innerText = ""
-  signUpLoader.innerText = ""
+  loginBtn.firstChild.nodeValue = ""
+  signUpBtn.firstChild.nodeValue = ""
   loginBtn.disabled = "true";
   signUpBtn.disabled = "true";
 }
+
+
