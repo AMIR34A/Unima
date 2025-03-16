@@ -49,7 +49,7 @@
                         </div> *@
                     </div>
                     <div class="form-group text-center mt-2">
-                        <button onclick="loadingAnimation()" id="loginBtn" class="btn btn-block w-100 mt-4 rounded-pill enter">ورود<div id="loginLoading"class="loader text-center d-none"></div></button>
+                        <button onclick="loadingAnimation()" id="loginBtn" class="btn btn-block mt-4 rounded-pill enter">ورود<div id="loginLoading"class="loader text-center d-none"></div></button>
                         
                     </div>
                     <div class="form-group text-center ">
@@ -63,7 +63,7 @@
             <!--  end of login   -->
             <!-- signup  -->
             <div id="signupForm" class=" col-6 login-panel text-white p-4 rounded hidden">
-                <form id="registerForm" asp-action="Register" class=" form mx-auto">
+                <form onsubmit="loadingAnimation()" id="registerForm" asp-action="Register" class=" form mx-auto">
                     <h2 class="title text-center mt-2 font-weight-bold">یونیما</h2>
                     @if (ViewData["SignUpError"] is not null)
                     {
@@ -111,7 +111,7 @@
                         <input type="hidden" id="GoogleCaptchaResponse" name="UserRegisterModel.GoogleCaptchaResponse">
                     </div>
                     <div class="form-group text-center d-block align-content-center">
-                        <button onclick="loadingAnimation()"id="signUpBtn" type="submit" class="btn btn-block w-100 mt-4 rounded-pill enter">ثبت نام<div id="signUpLoading"class="loader text-center d-none"></div></button>
+                        <button id="signUpBtn" type="submit" class="btn btn-block w-100 mt-4 rounded-pill enter">ثبت نام<div id="signUpLoading"class="loader text-center d-none"></div></button>
                         
                         <p class="mt-4 return-paragraph d-inline-block ">بازگشت به پنل </p>
                         <a id="showLogin" class="return-login d-inline-block pr-1" href="#">ورود</a>
