@@ -115,24 +115,28 @@ function toggleLogInPassword() {
   var signUpConfirmPasswordField = document.getElementById(
     "UserRegisterModel_ConfirmPassword"
   );
-  var eyeIcon = document.getElementById("logInEyeIcon");
+  var eyeIconLogin = document.("logInEyeIcon");
+  var eyeIconSignUp = document.("signUpEyeIcon");
 
   if (passwordField.type === "password") {
     passwordField.type = "text";
-    eyeIcon.classList.remove("fa-eye");
-    eyeIcon.classList.add("fa-eye-slash");
-  } else if (passwordField.type === "text") {
+    eyeIconLogin.classList.remove("fa-eye");
+    eyeIconLogin.classList.add("fa-eye-slash");
+  } else {
     passwordField.type = "password";
-    eyeIcon.classList.remove("fa-eye-slash");
-    eyeIcon.classList.add("fa-eye");
-  } else if (signUpPasswordField.type === "text") {
+    eyeIconLogin.classList.remove("fa-eye-slash");
+    eyeIconLogin.classList.add("fa-eye");
+  }
+  if (signUpPasswordField.type === "text") {
     signUpPasswordField.type = "password";
     signUpConfirmPasswordField.type = "password";
-    eyeIcon.classList.replace("fa-eye-slash", "fa-eye");
+    eyeIconSignUp.classList.remove("fa-eye-slash");
+    eyeIconSignUp.classList.add("fa-eye");
   } else {
     signUpPasswordField.type = "text";
     signUpConfirmPasswordField.type = "text";
-    eyeIcon.classList.replace("fa-eye", "fa-eye-slash");
+    eyeIconSignUp.classList.remove("fa-eye");
+    eyeIconSignUp.classList.add("fa-eye-slash");
   }
 }
 function checkPasswordMatch() {
