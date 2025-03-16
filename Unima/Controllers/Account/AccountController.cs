@@ -51,7 +51,11 @@ public class AccountController : Controller
         ApplicationUser? user = await _userManager.FindByNameAsync(userLogInModel.Username);
 
         if (user is null)
-            return BadRequest();
+        {
+            ModelState.AddModelError(string.Empty, "کاربری با این مشخصات یافت نشد");
+            SetFirstError(ModelState, "LogInError");
+            return View("Index", viewModel);
+        }
 
         SignInResult signInResult = await _signInManager.PasswordSignInAsync(user, userLogInModel.Password, false, false);
         if (signInResult.IsNotAllowed)
