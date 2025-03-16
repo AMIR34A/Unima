@@ -111,16 +111,28 @@ confirmPassword.addEventListener("input", () => {
 
 function toggleLogInPassword() {
   var passwordField = document.getElementById("UserLogInModel_Password");
+  var signUpPasswordField = document.getElementById("signUpPasswordField");
+  var signUpConfirmPasswordField = document.getElementById(
+    "UserRegisterModel_ConfirmPassword"
+  );
   var eyeIcon = document.getElementById("logInEyeIcon");
 
   if (passwordField.type === "password") {
     passwordField.type = "text";
     eyeIcon.classList.remove("fa-eye");
     eyeIcon.classList.add("fa-eye-slash");
-  } else {
+  } else if (passwordField.type === "text") {
     passwordField.type = "password";
     eyeIcon.classList.remove("fa-eye-slash");
     eyeIcon.classList.add("fa-eye");
+  } else if (signUpPasswordField.type === "text") {
+    signUpPasswordField.type = "password";
+    signUpConfirmPasswordField.type = "password";
+    eyeIcon.classList.replace("fa-eye-slash", "fa-eye");
+  } else {
+    signUpPasswordField.type = "text";
+    signUpConfirmPasswordField.type = "text";
+    eyeIcon.classList.replace("fa-eye", "fa-eye-slash");
   }
 }
 function checkPasswordMatch() {
@@ -147,10 +159,8 @@ function loadingAnimation() {
   const signUpLoader = document.getElementById("signUpLoading");
   loginLoader.classList.remove("d-none");
   signUpLoader.classList.remove("d-none");
-  loginBtn.firstChild.nodeValue = ""
-  signUpBtn.firstChild.nodeValue = ""
+  loginBtn.firstChild.nodeValue = "";
+  signUpBtn.firstChild.nodeValue = "";
   loginBtn.disabled = "true";
   signUpBtn.disabled = "true";
 }
-
-
