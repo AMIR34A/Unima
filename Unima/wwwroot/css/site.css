@@ -93,6 +93,10 @@ input:-webkit-autofill {
 input:-webkit-autofill::first-line {
   color: #243642 !important; 
 }
+#signUpEyeIcon{
+  position: relative;
+  top: 9px;
+}
 
 .checked {
   color: #243642;
@@ -156,7 +160,7 @@ input:-webkit-autofill::first-line {
 
 .loginServerValidation{
   position: relative;
-  top: 40px;
+  top: 25px;
   font-size: 13px ;
   font-weight: 700;
 }
