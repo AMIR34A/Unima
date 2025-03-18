@@ -22,8 +22,8 @@
 <body>
     <div class="container-fluid d-flex justify-content-center align-items-center min-vh-100">
         <div class="row justify-content-center align-items-center custom-margin">
-            <div id="loginForm" class="col-6 login-panel text-white p-4 rounded">
-                <form onsubmit="loadingAnimation()" asp-action="LogIn" method="post" class="form mx-auto">
+            <div id="loginPanel" class="col-6 login-panel text-white p-4 rounded">
+                <form id="loginForm" asp-action="LogIn" method="post" class="form mx-auto" onsubmit="loadingAnimation()">
                     <h2 class="title text-center mt-5 font-weight-bold">یونیما</h2>
                     @if (ViewData["LogInError"] is not null)
                     {
@@ -44,13 +44,11 @@
                         <input asp-for="UserLogInModel.RememberMe" class="form-check-input text-danger" type="checkbox">
                         <label asp-for="UserLogInModel.RememberMe" class="checked mr-2"></label>
                     </div>
-                    <div class="form-group mt-4">
-                        @*                         <div class="g-recaptcha" data-sitekey="6LcXdpUqAAAAABAtABbwcEOA-ojiK75pztHaZLt7">
-                        </div> *@
+                    <div class="form-group my-3 pt-4">
+                        <input asp-for="UserLogInModel.GoogleCaptchaResponse" type="hidden">
                     </div>
                     <div class="form-group text-center mt-2">
                         <button type="submit" id="loginBtn" class="btn btn-block mt-4 rounded-pill enter">ورود<div id="loginLoading" class="loader text-center d-none"></div></button>
-
                     </div>
                     <div class="form-group text-center ">
                         <div class="row justify-content-around mt-5 mb-2">
@@ -62,8 +60,8 @@
             </div>
             <!--  end of login   -->
             <!-- signup  -->
-            <div id="signupForm" class=" col-6 login-panel text-white p-4 rounded hidden">
-                <form onsubmit="loadingAnimation()" id="registerForm" asp-action="Register" class=" form mx-auto">
+            <div id="registerPanel" class=" col-6 login-panel text-white p-4 rounded hidden">
+                <form id="registerForm" asp-action="Register" class=" form mx-auto" onsubmit="loadingAnimation()">
                     <h2 class="title text-center mt-2 font-weight-bold">یونیما</h2>
                     @if (ViewData["SignUpError"] is not null)
                     {
@@ -111,7 +109,7 @@
                         <input asp-for="UserRegisterModel.ReferralUsername" class="form-control input" type="text" placeholder="شماره دانشجویی معرف (اختیاری)">
                     </div>
                     <div class="form-group">
-                        <input type="hidden" id="GoogleCaptchaResponse" name="UserRegisterModel.GoogleCaptchaResponse">
+                        <input asp-for="UserRegisterModel.GoogleCaptchaResponse" type="hidden">
                     </div>
                     <div class="form-group text-center d-block align-content-center">
                         <button id="signUpBtn" type="submit" class="btn btn-block w-100 mt-4 rounded-pill enter">ثبت نام<div id="signUpLoading" class="loader text-center d-none"></div></button>
@@ -240,10 +238,25 @@
     <script src="https://www.google.com/recaptcha/api.js?render=6Lfud-sqAAAAAJhCHcjpYSLRi3ZC1o41i2mWoYYj"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const loginForm = document.getElementById("loginForm");
-            loginForm.querySelector("input").focus();
+            const loginPanel = document.getElementById("loginPanel");
+            loginPanel.querySelector("input").focus();
 
             var registerForm = document.getElementById("registerForm");
+            var logInForm = document.getElementById("loginForm");
+
+            logInForm.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                grecaptcha.ready(function () {
+                    grecaptcha.execute('6Lfud-sqAAAAAJhCHcjpYSLRi3ZC1o41i2mWoYYj', { action: 'submit' })
+                        .then(function (token) {
+                            if (token) {
+                                document.getElementById("UserLogInModel_GoogleCaptchaResponse").value = token;
+                                logInForm.submit()
+                            }
+                        });
+                });
+            });
 
             registerForm.addEventListener("submit", function (event) {
                 event.preventDefault();
@@ -252,7 +265,7 @@
                     grecaptcha.execute('6Lfud-sqAAAAAJhCHcjpYSLRi3ZC1o41i2mWoYYj', { action: 'submit' })
                         .then(function (token) {
                             if (token) {
-                                document.getElementById("GoogleCaptchaResponse").value = token;
+                                document.getElementById("UserRegisterModel_GoogleCaptchaResponse").value = token;
                                 registerForm.submit()
                             }
                         });
