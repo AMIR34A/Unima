@@ -22,7 +22,7 @@
 <body>
     <div class="container-fluid d-flex justify-content-center align-items-center min-vh-100">
         <div class="row justify-content-center align-items-center custom-margin">
-            <div id="logInPanel" class="col-6 login-panel text-white p-4 rounded">
+            <div id="logInPanel" class="col-6 login-panel text-white p-4 rounded @(ViewData["SignUpError"] is not null ? "hidden" : "")">
                 <form id="logInForm" asp-action="LogIn" method="post" class="form mx-auto" onsubmit="loadingAnimation()">
                     <h2 class="title text-center mt-5 font-weight-bold">یونیما</h2>
                     @if (ViewData["LogInError"] is not null)
@@ -60,7 +60,7 @@
             </div>
             <!--  end of login   -->
             <!-- signup  -->
-            <div id="registerPanel" class=" col-6 login-panel text-white p-4 rounded hidden">
+            <div id="registerPanel" class=" col-6 login-panel text-white p-4 rounded @(ViewData["SignUpError"] is not null ? "" : "hidden")">
                 <form id="registerForm" asp-action="Register" class=" form mx-auto" onsubmit="loadingAnimation()">
                     <h2 class="title text-center mt-2 font-weight-bold">یونیما</h2>
                     @if (ViewData["SignUpError"] is not null)
