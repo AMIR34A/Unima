@@ -4,7 +4,7 @@ namespace Unima.HelperClasses;
 
 public class ApplicationIdentityErrorDescriber : IdentityErrorDescriber
 {
-    public override IdentityError DuplicateUserName(string userName) => new IdentityError { Code = nameof(DuplicateUserName), Description = $"این شماره دانشجویی ({userName}) در سامانه موجود می‌باشد" };
+    public override IdentityError DuplicateUserName(string userName) => new IdentityError { Code = nameof(DuplicateUserName), Description = $"شماره دانشجویی ({userName}) در سامانه موجود می‌باشد" };
     public override IdentityError InvalidUserName(string? userName) => new IdentityError { Code = nameof(InvalidUserName), Description = "شماره دانشجویی باید فقط شامل اعداد (0-9) باشد" };
     public override IdentityError PasswordRequiresDigit() => new IdentityError { Code = nameof(PasswordRequiresDigit), Description = "کلمه عبور باید شامل حداقل یکی از اعداد (0-9) باشد" };
     public override IdentityError PasswordRequiresLower() => new IdentityError { Code = nameof(PasswordRequiresLower), Description = "کلمه عبور باید شامل حداقل یک حرف کوچک (a-z) باشد" };
