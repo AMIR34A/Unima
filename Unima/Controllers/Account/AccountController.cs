@@ -57,7 +57,7 @@ public class AccountController : Controller
             return View("Index", viewModel);
         }
 
-        SignInResult signInResult = await _signInManager.PasswordSignInAsync(user, userLogInModel.Password, false, false);
+        SignInResult signInResult = await _signInManager.PasswordSignInAsync(user, userLogInModel.Password, userLogInModel.RememberMe, true);
         if (signInResult.IsNotAllowed)
         {
             string token = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber);
