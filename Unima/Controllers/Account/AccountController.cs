@@ -52,7 +52,7 @@ public class AccountController : Controller
 
         if (user is null)
         {
-            ModelState.AddModelError(string.Empty, "کاربری با این مشخصات یافت نشد");
+            ModelState.AddModelError(string.Empty, "شماره دانشجویی یا رمز عبور صحیح نمی‌باشد");
             SetFirstError(ModelState, "LogInError");
             return View("Index", viewModel);
         }
@@ -71,8 +71,14 @@ public class AccountController : Controller
         }
         else if (signInResult.IsLockedOut)
         {
-            ModelState.AddModelError(string.Empty, "اکانت شما قفل شده است؛ با یکی از پشتیبان‌ها در تماس باشید.");
-            SetFirstError(ModelState, "SignUpError");
+            ModelState.AddModelError(string.Empty, "اکانت شما قفل شده است؛ با یکی از پشتیبان‌ها در تماس باشید");
+            SetFirstError(ModelState, "LogInError");
+            return View("Index", viewModel);
+        }
+        else if(!signInResult.Succeeded)
+        {
+            ModelState.AddModelError(string.Empty, "شماره دانشجویی یا رمز عبور صحیح نمی‌باشد");
+            SetFirstError(ModelState, "LogInError");
             return View("Index", viewModel);
         }
 
