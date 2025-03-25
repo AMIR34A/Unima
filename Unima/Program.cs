@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 using Unima.Biz.UoW;
 using Unima.Dal.Context;
 using Unima.Dal.Entities;
 using Unima.Dal.Identity.Context;
 using Unima.HelperClasses;
+using Unima.HelperClasses.SelfService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +58,17 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<UnimaDbContext>();
+builder.Services.AddHttpClient<ISelfService, SelfService>()
+    .ConfigurePrimaryHttpMessageHandler(() =>
+    {
+        return new HttpClientHandler
+        {
+            UseCookies = true,
+            CookieContainer = new CookieContainer()
+        };
+    });
+builder.Services.AddTransient<ISelfService, SelfService>();
+
 //builder.Services.AddSingleton<UserManager<ApplicationUser>>();
 //builder.Services.AddSingleton<SignInManager<ApplicationUser>, SignInManager<ApplicationUser>>();
 
