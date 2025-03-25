@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Unima.Dal.Entities;
 using Unima.Dal.Entities.Models;
 using Unima.Dal.Entities.Models.Support;
 
 namespace Unima.Dal.Context;
 
-public class UnimaDbContext : DbContext
+public class UnimaDbContext : IdentityDbContext<ApplicationUser>
 {
     public UnimaDbContext(DbContextOptions<UnimaDbContext> options)
     : base(options)
