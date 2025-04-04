@@ -1,9 +1,8 @@
-﻿using System.Net;
-using System.Text.RegularExpressions;
-using System.Text;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
+using System.Net;
 using System.Net.Http.Headers;
-using System.Net.Http;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Unima.HelperClasses.SelfService
 {
@@ -78,7 +77,14 @@ namespace Unima.HelperClasses.SelfService
                              .ToDictionary(cookie => cookie.Name, cookie => cookie.Value);
         }
 
+        public async Task<string> GetBalance()
+        {
+            HttpRequestMessage balanceRequest = ConfigHttpRequest(HttpMethod.Get, "https://selfservice.birjand.ac.ir/api/v0/Credit", _neededCookies);
+            HttpResponseMessage balanceResponse = await _httpClient.SendAsync(balanceRequest);
+            return await balanceResponse.Content.ReadAsStringAsync();
+        }
 
+        #region Utilities
         private HttpRequestMessage ConfigHttpRequest(HttpMethod httpMethod, string url, Dictionary<string, string>? cookies = null, string content = "", string headerContentType = "", string referer = "")
         {
             HttpRequestMessage httpRequest = new HttpRequestMessage(httpMethod, url);
@@ -104,13 +110,6 @@ namespace Unima.HelperClasses.SelfService
 
             return httpRequest;
         }
-    
-
-        public async Task<string> GetBalance()
-        {
-            HttpRequestMessage balanceRequest = ConfigHttpRequest(HttpMethod.Get, "https://selfservice.birjand.ac.ir/api/v0/Credit", _neededCookies);
-            HttpResponseMessage balanceResponse = await _httpClient.SendAsync(balanceRequest);
-            return await balanceResponse.Content.ReadAsStringAsync();
-        }
+        #endregion
     }
 }

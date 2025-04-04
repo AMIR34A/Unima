@@ -58,7 +58,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<UnimaDbContext>();
-builder.Services.AddHttpClient<ISelfService, SelfService>()
+builder.Services.AddHttpClient<ISelfServiceBuilder, SelfServiceBuilder>()
     .ConfigurePrimaryHttpMessageHandler(() =>
     {
         return new HttpClientHandler
@@ -67,7 +67,7 @@ builder.Services.AddHttpClient<ISelfService, SelfService>()
             CookieContainer = new CookieContainer()
         };
     });
-builder.Services.AddTransient<ISelfService, SelfService>();
+builder.Services.AddTransient<ISelfServiceBuilder, SelfServiceBuilder>();
 
 //builder.Services.AddSingleton<UserManager<ApplicationUser>>();
 //builder.Services.AddSingleton<SignInManager<ApplicationUser>, SignInManager<ApplicationUser>>();
