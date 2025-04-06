@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Unima.Biz.UoW;
 using Unima.Dal.Entities;
 using Unima.Dal.Entities.Models.Support;
+using Unima.HelperClasses.ExtensionMethods;
 using Unima.MapperConfigs;
 using Unima.Models.Account;
 using Unima.Models.ViewModels;
@@ -45,7 +46,7 @@ public class AccountController : Controller
 
         if (!ModelState.IsValid)
         {
-            SetFirstError(ModelState, "LogInError");
+            ViewData.SetError(ModelState, "LogInError");
             return View("Index", viewModel);
         }
 
@@ -53,8 +54,7 @@ public class AccountController : Controller
 
         if (user is null)
         {
-            ModelState.AddModelError(string.Empty, "شماره دانشجویی یا رمز عبور صحیح نمی‌باشد");
-            SetFirstError(ModelState, "LogInError");
+            ViewData.SetError(ModelState, "LogInError", "شماره دانشجویی یا رمز عبور صحیح نمی‌باشد");
             return View("Index", viewModel);
         }
 
@@ -73,14 +73,12 @@ public class AccountController : Controller
         }
         else if (signInResult.IsLockedOut)
         {
-            ModelState.AddModelError(string.Empty, "اکانت شما قفل شده است؛ با یکی از پشتیبان‌ها در تماس باشید");
-            SetFirstError(ModelState, "LogInError");
+            ViewData.SetError(ModelState, "LogInError", "اکانت شما قفل شده است؛ با یکی از پشتیبان‌ها در تماس باشید");
             return View("Index", viewModel);
         }
         else if (!signInResult.Succeeded)
         {
-            ModelState.AddModelError(string.Empty, "شماره دانشجویی یا رمز عبور صحیح نمی‌باشد");
-            SetFirstError(ModelState, "LogInError");
+            ViewData.SetError(ModelState, "LogInError", "شماره دانشجویی یا رمز عبور صحیح نمی‌باشد");
             return View("Index", viewModel);
         }
 
@@ -100,13 +98,12 @@ public class AccountController : Controller
 
         if (!ModelState.IsValid)
         {
-            SetFirstError(ModelState, "SignUpError");
+            ViewData.SetError(ModelState, "SignUpError");
             return View("Index", viewModel);
         }
         if (registerModel.Username.Equals(registerModel.ReferralUsername))
         {
-            ModelState.AddModelError(string.Empty, "شماره دانشجویی با  شماره دانشجویی معرف نمی‌تواند یکسان باشد");
-            SetFirstError(ModelState, "SignUpError");
+            ViewData.SetError(ModelState, "SignUpError", "شماره دانشجویی معرف نمی‌تواند با شماره دانشجویی یکسان باشد");
             return View("Index", viewModel);
         }
         if (!string.IsNullOrWhiteSpace(registerModel.ReferralUsername))
@@ -114,8 +111,7 @@ public class AccountController : Controller
             ApplicationUser? referredUser = await _userManager.FindByNameAsync(registerModel.ReferralUsername);
             if (referredUser is null)
             {
-                ModelState.AddModelError(string.Empty, "شماره دانشجویی معرف معتبر نمی ‌باشد");
-                SetFirstError(ModelState, "SignUpError");
+                ViewData.SetError(ModelState, "SignUpError", "شماره دانشجویی معرف معتبر نمی ‌باشد");
                 return View("Index", viewModel);
             }
         }
@@ -123,8 +119,7 @@ public class AccountController : Controller
         bool isDuplicatedPhoneNumber = await _userManager.Users.AnyAsync(user => user.PhoneNumber.Equals(registerModel.PhoneNumber.Substring(1)));
         if (isDuplicatedPhoneNumber)
         {
-            ModelState.AddModelError(string.Empty, "تلفن همراه وارد شده در سیستم موجود می‌باشد");
-            SetFirstError(ModelState, "SignUpError");
+            ViewData.SetError(ModelState, "SignUpError", "تلفن همراه وارد شده در سیستم موجود می‌باشد");
             return View("Index", viewModel);
         }
 
@@ -150,9 +145,7 @@ public class AccountController : Controller
             }
         }
 
-        ModelState.AddModelError(string.Empty, identityResult.Errors.FirstOrDefault()?.Description);
-        SetFirstError(ModelState, "SignUpError");
-
+        ViewData.SetError(ModelState, "SignUpError", identityResult.Errors.FirstOrDefault()?.Description);
         return View("Index", viewModel);
     }
 
@@ -183,18 +176,7 @@ public class AccountController : Controller
         }
 
         model.Token = string.Empty;
-        ModelState.AddModelError(string.Empty, "کد وارد شده معتبر نمی‌باشد");
-        SetFirstError(ModelState, "VerificationError");
+        ViewData.SetError(ModelState, "VerificationError", "کد وارد شده معتبر نمی‌باشد");
         return View("Verification", model);
-    }
-
-    public void SetFirstError(ModelStateDictionary modelState, string key)
-    {
-        string? firstError = ModelState.Values
-       .SelectMany(v => v.Errors)
-       .Select(e => e.ErrorMessage)
-       .FirstOrDefault();
-
-        ViewData[key] = firstError;
     }
 }
