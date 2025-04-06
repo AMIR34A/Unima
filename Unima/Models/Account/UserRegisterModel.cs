@@ -30,7 +30,7 @@ public class UserRegisterModel
     [Compare("Password", ErrorMessage = "کلمه عبور و تکرار کلمه عبور یکسان نمی‌باشند")]
     public required string ConfirmPassword { get; set; }
 
-    [Display(Name = "پذیرفتن قوانین")]
+    [Display(Name = "شرایط و قوانین")]
     [AllowedValues(true, ErrorMessage = "زدن تیک {0} الزامی است")]
     public required bool IsAcceptedRule { get; set; }
 
