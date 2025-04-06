@@ -33,6 +33,9 @@ namespace Unima.Areas.User.Controllers
             if (user is null)
                 return string.Empty;
 
+            if (string.IsNullOrWhiteSpace(user.SelfServicePassword))
+                return "ابتدا از داخل تنظیمات رمز عبور سامانه سلف را ثبت نمایید";
+
             SelfService? selfService = await _selfServiceBuilder
                 .WithCredentials(user.UserName, user.SelfServicePassword)
                 .BuildAsync();

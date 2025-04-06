@@ -80,8 +80,8 @@ namespace Unima.HelperClasses.SelfService
         public async Task<string> GetBalance()
         {
             HttpRequestMessage balanceRequest = ConfigHttpRequest(HttpMethod.Get, "https://selfservice.birjand.ac.ir/api/v0/Credit", _neededCookies);
-            HttpResponseMessage balanceResponse = await _httpClient.SendAsync(balanceRequest);
-            return await balanceResponse.Content.ReadAsStringAsync();
+            HttpResponseMessage balanceResponse = await _httpClient.SendAsync(balanceRequest);         
+            return balanceResponse.IsSuccessStatusCode ? await balanceResponse.Content.ReadAsStringAsync() : "-1";
         }
 
         #region Utilities

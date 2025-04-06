@@ -61,11 +61,13 @@ builder.Services.AddTransient<UnimaDbContext>();
 builder.Services.AddHttpClient<ISelfServiceBuilder, SelfServiceBuilder>()
     .ConfigurePrimaryHttpMessageHandler(() =>
     {
-        return new HttpClientHandler
+        var clientHandler =  new HttpClientHandler
         {
             UseCookies = true,
             CookieContainer = new CookieContainer()
         };
+        clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+        return clientHandler;
     });
 builder.Services.AddTransient<ISelfServiceBuilder, SelfServiceBuilder>();
 
