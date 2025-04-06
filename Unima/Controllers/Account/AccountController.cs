@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
 using Unima.Biz.UoW;
 using Unima.Dal.Entities;
 using Unima.Dal.Entities.Models.Support;
@@ -97,7 +98,6 @@ public class AccountController : Controller
             UserRegisterModel = registerModel
         };
 
-
         if (!ModelState.IsValid)
         {
             SetFirstError(ModelState, "SignUpError");
@@ -118,6 +118,14 @@ public class AccountController : Controller
                 SetFirstError(ModelState, "SignUpError");
                 return View("Index", viewModel);
             }
+        }
+
+        bool isDuplicatedPhoneNumber = await _userManager.Users.AnyAsync(user => user.PhoneNumber.Equals(registerModel.PhoneNumber.Substring(1)));
+        if (isDuplicatedPhoneNumber)
+        {
+            ModelState.AddModelError(string.Empty, "تلفن همراه وارد شده در سیستم موجود می‌باشد");
+            SetFirstError(ModelState, "SignUpError");
+            return View("Index", viewModel);
         }
 
         ApplicationUser user = MapperConfig.ApplicationUserMap(registerModel);
