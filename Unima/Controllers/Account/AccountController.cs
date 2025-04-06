@@ -65,7 +65,8 @@ public class AccountController : Controller
 
             UserVerificationViewModel verificationViewModel = new()
             {
-                PhoneNumber = user.PhoneNumber
+                PhoneNumber = user.PhoneNumber,
+                Password = userLogInModel.Password
             };
             return View("Verification", verificationViewModel);
         }
@@ -75,7 +76,7 @@ public class AccountController : Controller
             SetFirstError(ModelState, "LogInError");
             return View("Index", viewModel);
         }
-        else if(!signInResult.Succeeded)
+        else if (!signInResult.Succeeded)
         {
             ModelState.AddModelError(string.Empty, "شماره دانشجویی یا رمز عبور صحیح نمی‌باشد");
             SetFirstError(ModelState, "LogInError");
@@ -96,8 +97,22 @@ public class AccountController : Controller
             UserRegisterModel = registerModel
         };
 
+        ApplicationUser? referredUser = await _userManager.FindByNameAsync(registerModel.ReferralUsername);
+        
         if (!ModelState.IsValid)
         {
+            SetFirstError(ModelState, "SignUpError");
+            return View("Index", viewModel);
+        }
+        if(registerModel.Username.Equals(registerModel.ReferralUsername))
+        {
+            ModelState.AddModelError(string.Empty, "شماره دانشجویی با  شماره دانشجویی معرف نمی‌تواند یکسان باشد");
+            SetFirstError(ModelState, "SignUpError");
+            return View("Index", viewModel);
+        }
+        if(referredUser is null)
+        {
+            ModelState.AddModelError(string.Empty, "شماره دانشجویی معرف معتبر نمی ‌باشد");
             SetFirstError(ModelState, "SignUpError");
             return View("Index", viewModel);
         }
@@ -117,7 +132,8 @@ public class AccountController : Controller
 
                 UserVerificationViewModel verificationViewModel = new()
                 {
-                    PhoneNumber = user.PhoneNumber
+                    PhoneNumber = user.PhoneNumber,
+                    Password = registerModel.Password,
                 };
                 return View("Verification", verificationViewModel);
             }
@@ -131,7 +147,7 @@ public class AccountController : Controller
 
     public IActionResult Verification()
     {
-        return View(new UserVerificationViewModel());
+        return View(new UserVerificationViewModel { PhoneNumber = "", Password = "" });
     }
 
     [HttpPost]
@@ -151,6 +167,7 @@ public class AccountController : Controller
         {
             user.PhoneNumberConfirmed = true;
             await _userManager.UpdateAsync(user);
+            await _signInManager.PasswordSignInAsync(user, model.Password, false, true);
             return RedirectToAction("Index", "Dashboard", new { area = "User" });
         }
 
@@ -162,10 +179,10 @@ public class AccountController : Controller
 
     public void SetFirstError(ModelStateDictionary modelState, string key)
     {
-         string? firstError = ModelState.Values
-        .SelectMany(v => v.Errors)
-        .Select(e => e.ErrorMessage)
-        .FirstOrDefault();
+        string? firstError = ModelState.Values
+       .SelectMany(v => v.Errors)
+       .Select(e => e.ErrorMessage)
+       .FirstOrDefault();
 
         ViewData[key] = firstError;
     }

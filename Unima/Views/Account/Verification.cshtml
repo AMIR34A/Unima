@@ -31,8 +31,9 @@
                     <input id="number5" type="text" maxlength="1">
                     <input id="number6" type="text" maxlength="1">
                 </div>
-                <input asp-for="Token" hidden/>
-                <input asp-for="PhoneNumber" hidden/>
+                <input asp-for="Token" hidden />
+                <input asp-for="PhoneNumber" hidden />
+                <input asp-for="Password" hidden />
                 <div class="timer d-inline my-2" id="timer"></div>
                 <button class="btn resend-btn" id="resend-link" onclick=" resendOTP()">ارسال مجدد کد</button>
                 <button id="submitButton" asp-action="VerifyPhoneNumber" type="submit" class="btn confirm-btn w-100 rounded" onclick="concatInputs()">تایید</button>

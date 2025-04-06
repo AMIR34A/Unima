@@ -2,7 +2,9 @@
 
 public class UserVerificationViewModel
 {
-    public string? PhoneNumber { get; set; }
+    public required string PhoneNumber { get; set; }
 
     public string? Token { get; set; }
+
+    public required string Password { get; set; }
 }

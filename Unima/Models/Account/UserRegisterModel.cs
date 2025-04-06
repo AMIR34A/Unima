@@ -31,7 +31,7 @@ public class UserRegisterModel
     public required string ConfirmPassword { get; set; }
 
     [Display(Name = "پذیرفتن قوانین")]
-    [Required(ErrorMessage = "زدن تیک {0} الزامی است")]
+    [AllowedValues(true, ErrorMessage = "زدن تیک {0} الزامی است")]
     public required bool IsAcceptedRule { get; set; }
 
     [Display(Name = "شماره دانشجویی معرف")]
