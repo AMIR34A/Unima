@@ -97,24 +97,27 @@ public class AccountController : Controller
             UserRegisterModel = registerModel
         };
 
-        ApplicationUser? referredUser = await _userManager.FindByNameAsync(registerModel.ReferralUsername);
-        
+
         if (!ModelState.IsValid)
         {
             SetFirstError(ModelState, "SignUpError");
             return View("Index", viewModel);
         }
-        if(registerModel.Username.Equals(registerModel.ReferralUsername))
+        if (registerModel.Username.Equals(registerModel.ReferralUsername))
         {
             ModelState.AddModelError(string.Empty, "شماره دانشجویی با  شماره دانشجویی معرف نمی‌تواند یکسان باشد");
             SetFirstError(ModelState, "SignUpError");
             return View("Index", viewModel);
         }
-        if(referredUser is null)
+        if (!string.IsNullOrWhiteSpace(registerModel.ReferralUsername))
         {
-            ModelState.AddModelError(string.Empty, "شماره دانشجویی معرف معتبر نمی ‌باشد");
-            SetFirstError(ModelState, "SignUpError");
-            return View("Index", viewModel);
+            ApplicationUser? referredUser = await _userManager.FindByNameAsync(registerModel.ReferralUsername);
+            if (referredUser is null)
+            {
+                ModelState.AddModelError(string.Empty, "شماره دانشجویی معرف معتبر نمی ‌باشد");
+                SetFirstError(ModelState, "SignUpError");
+                return View("Index", viewModel);
+            }
         }
 
         ApplicationUser user = MapperConfig.ApplicationUserMap(registerModel);
