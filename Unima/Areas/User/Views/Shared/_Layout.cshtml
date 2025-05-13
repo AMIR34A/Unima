@@ -1,13 +1,150 @@
 ﻿<!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Unima</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap5.3.min.css" rel="stylesheet" />
+    <link href="~/css/layoutStyle.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.7.2/css/all.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Vazirmatn:wght@100..900&display=swap"
+        rel="stylesheet">
+
 </head>
 <body>
-    <div>
-        @RenderBody()
+        <nav class="navbar navbar-expand-md navbar-dark">
+        <button class="navbar-toggler mb-2 bg-dark-subtle m-3 " data-bs-toggle="collapse" data-bs-target="#sidebar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="sidebar">
+            <div class="container-fluid">
+                <div class="row">
+                    <!--sidebar-->
+                    <div
+                        class="col-xl-2 col-lg-3 col-md-4 sidebar mt-md-0 mt-5 mb-3 mb-md-0 px-3 pt-sm-5 fixed-top text-dark-emphasis ">
+                        <ul class="nav-bar list-unstyled  mt-5 mb-md-0 options">
+                            <li class="nav-item current text-center">
+                                <a href="" class="nav-link p-3 mb-2">
+                                    <i class="fas fa-home ml-3 fa-lg"></i> داشبورد
+                                </a>
+                            </li>
+                            <li class="nav-item linksidebar mx-1">
+                                <a href=""
+                                    class="nav-link d-flex justify-content-start  align-items-center gap-2 p-3 mb-2">
+                                    <i class="fa-solid fa-utensils ml-3 fa-lg  "></i> رزرو غذا
+                                </a>
+                            </li>
+                            <hr>
+                            <li class="nav-item linksidebar mx-1">
+                                <a href=""
+                                    class="nav-link d-flex justify-content-start align-items-center gap-2  p-3 mb-2">
+                                    <i class="fas fa-user  fa-lg  "></i> پروفایل
+                                </a>
+                            </li>
+                            <li class="nav-item linksidebar mx-1 ">
+                                <a href="" class="nav-link d-flex justify-content-start align-items-center gap-2  p-3 ">
+                                    <i class="fa-solid fa-bowl-food fa-lg  "></i> پشتیبانی
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav-bar list-unstyled d-none flex-column mt-4 align-items-start options">
+                            <li class="nav-item linksidebar">
+                                <a href="" class="nav-link  p-3 mb-2">
+                                    <i class="fas fa-user ml-3 fa-lg  "></i> پروفایل
+                                </a>
+                            </li>
+                            <li class="nav-item linksidebar ">
+                                <a href="" class="nav-link  p-3 mb-2">
+                                    <i class="fa-solid fa-bowl-food ml-3 fa-lg  "></i> پشتیبانی
+                                </a>
+                            </li>
+                        </ul>
+                        <button type="button"
+                            class="btn d-none d-lg-block btn-outline-danger position-absolute bottom-0   mt-5 quit rounded-5 w-75 mb-4 me-3 p-3"
+                            data-bs-toggle="modal" data-bs-target="#leaveSite">
+                            خروج <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        </button>
+                    </div>
+                    <!--topnav-->
+                    <div class="col-xl-10 col-lg-9 col-md-8 fixed-top me-auto p-4 top-nav ">
+                        <div class=" d-flex justify-content-around align-items-center ">
+                            <div class=" d-inline-block text-white">
+                                <h3 class="text-dark d-inline-block fw-bold me-3 "><span class="brand">یونیما</span>
+                                </h3>
+                            </div>
+                            <div class="col me-auto">
+                                <ul class="navbar-nav flex-row justify-content-end align-items-center">
+                                    <li class="nav-item mx-3  ">
+                                        <a class="nav-link" href="#">
+                                            <i class="fas fa-comments fa-lg text-muted"></i>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item mx-3">
+                                        <a class="nav-link" href="#">
+                                            <i class="fas fa-bell fa-lg text-muted"></i>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item mx-3 text-muted mr-md-auto dropdown ">
+
+                                        <button class="btn" type="button" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <i class="fas fa-user text-muted fa-lg ms-2"></i>
+                                        </button>
+                                        <ul
+                                            class="dropdown-menu position-absolute bg-secondary-subtle bg-gradient dropdown-menu-light custom-dropdown">
+                                            <li class="text-center my-4 fw-bold ">مشخصات دانشجو</li>
+                                            <hr>
+                                            <li class="text-center">
+                                                <h6 class="d-inline-block mx-3">نام و نام خانوادگی:</h6> <span>حمید
+                                                    قاسمی</span>
+                                            </li>
+                                            <li class="text-center">
+                                                <h6 class="d-inline-block mx-3">شماره دانشجویی:</h6> <span>
+                                                    ۴۰۰۱۲۲۶۰۸۶</span>
+                                            </li>
+
+                                            <hr class="dropdown-divider">
+                                    </li>
+                                    <li class="text-end"><a class="dropdown-item" href="#"><i
+                                                class="fa-solid mx-4 fa-arrow-right-from-bracket"></i>خروج از حساب
+                                            کاربری </a></li>
+                                </ul>
+
+                                </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end of topnav-->
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="modal fade" id="leaveSite" tabindex="-1" aria-labelledby="leaveSiteLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered ">
+            <div class="modal-content">
+                <div class="modal-header position-relative">
+                    <h5 class="modal-title" id="leaveSiteLabel">آیا مطمئنید؟</h5>
+                    <button type="button" class="btn-close position-absolute start-0 ms-3" data-bs-dismiss="modal"
+                        aria-label="بستن"></button>
+                </div>
+                <div class="modal-body">
+                    آیا می‌خواهید از سایت خارج شوید؟
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">خیر</button>
+                    <button type="button" class="btn btn-danger"
+                        onclick="window.location.href='logout.html'">بلی</button>
+                </div>
+            </div>
+        </div>
     </div>
+    <script src="~/lib/bootstrap/dist/js/bootstrap5.3.bundle.js"></script>
+    <script src="~/js/layoutScript.js"></script>
+    
 </body>
 </html>
