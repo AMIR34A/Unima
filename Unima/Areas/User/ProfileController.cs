@@ -2,6 +2,7 @@
 
 namespace Unima.Areas.User
 {
+    [Area("User")]
     public class ProfileController : Controller
     {
         public IActionResult Index()
