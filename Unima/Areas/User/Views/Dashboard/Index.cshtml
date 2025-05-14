@@ -1,6 +1,6 @@
 ﻿@model string
 @{
-    Layout = null;
+    Layout = "/Areas/User/Views/Shared/_Layout.cshtml";
 }
 
 <html>
@@ -9,14 +9,14 @@
 </head>
 <body>
     <h1>داشبورد</h1>
-    <h1 id="userCredit">در حال بارگزاری موجودی حساب سامانه سلف</h1>
+    <h1 id="userCredit" src="">در حال بارگزاری موجودی حساب سامانه سلف</h1>
 </body>
 </html>
 
 <script>
-    fetch('/User/Dashboard/GetCredit')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('userCredit').innerText = data;
-        });
+    // fetch('/User/Dashboard/GetCredit')
+    //     .then(response => response.text())
+    //     .then(data => {
+    //         document.getElementById('userCredit').innerText = data;
+    //     });
 </script>
