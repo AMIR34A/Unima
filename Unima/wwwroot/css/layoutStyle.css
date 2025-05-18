@@ -1,5 +1,10 @@
+@font-face {
+  font-family: Vazirmatn;
+  src: url(../Fonts/Vazirmatn-Medium.ttf);
+}
 body {
   font-family: Vazirmatn;
+  font-size: .8em;
   direction: rtl;
 }
 .text-warning22 {
