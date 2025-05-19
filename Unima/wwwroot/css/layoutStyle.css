@@ -31,12 +31,10 @@ body {
   /* color: rgb(68, 129, 183); */
   transition: all 0.5s;
 }
-current a:hover {
+.current a:hover {
   background-color: #fce7c8;
   border-radius: 25px;
   color: #243642;
-
-  /* color:  #243642 ; */
 }
 .linksidebar .nav-link {
   display: block;
@@ -45,12 +43,6 @@ current a:hover {
   position: relative;
   left: 0;
 }
-.linksidebar:hover .nav-link {
-  text-align: center;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
 .botomborder {
   font-size: 70px;
   margin-bottom: 10px;
@@ -102,6 +94,25 @@ current a:hover {
   transition: all 0.7s;
   cursor: pointer;
 }
+.profile-icon:focus,.profile-icon:active{
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+
+}
+.profile-icon i{
+  transition: all .4s ease-out;
+  font-size: 1.1em;
+}
+.profile-icon:hover i{
+  color: #212121 !important;
+  
+  
+  
+  
+  
+}
+
 tbody tr td {
   color: #889e73 !important;
 }
@@ -140,10 +151,10 @@ tbody tr td {
 } */
 .plan-1,
 .plan-3 {
-  background: linear-gradient(rgb(214, 242, 254), rgba(255, 255, 255, 0.1));
+  background: linear-gradient(rgb(196, 231, 247), rgba(150, 191, 199, 0.1));
 }
 .plan-3 {
-  background: linear-gradient(rgba(194, 205, 230), rgba(255, 255, 255, 0.1));
+  background: linear-gradient(rgba(194, 205, 230),rgba(161, 201, 247, 0.1));
 }
 .plan-2 {
   margin-top: -40px;
@@ -169,7 +180,7 @@ tbody tr td {
 }
 
 .custom-dropdown{
-  width: 300px;
+  width: 250px;
   
 }
 .planActiovationButton{
@@ -196,7 +207,6 @@ tbody tr td {
 
   
 }
-
 .days:hover{
   transform: translateY(-15px);
   box-shadow: rgba(0, 0, 0, 0.8) 0px 6px 5px;
@@ -213,7 +223,7 @@ tbody tr td {
   background-color: #b2c7b1;
 }
 
-@media (max-width: 470px) {
+@media (max-width: 572px) {
   .sidebar {
     box-shadow: none;
   }
@@ -236,5 +246,17 @@ tbody tr td {
   background-color:#f6d49d ;
 
 }
+.daysButtonsContainer{
+  width: 25%;
 }
+.day-cards{
+  width: 75%;
+}
+}
+@media (max-width: 1200px){
+  .days{
+    width: 80px;
+    height: 80px;
+  }
 
+}
