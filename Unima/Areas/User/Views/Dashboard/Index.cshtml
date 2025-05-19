@@ -69,476 +69,467 @@
 </section>
 <!-- notifications cards  -->
 <!-- schedule -->
-<section class="my-5 ">
-    <!-- days-buttons -->
-    <div class="row   gap-2 gap-lg-5 justify-content-center align-items-center ">
-        <div class="col-xl-1 col-sm-3">
-            <button class="days active-day text-light-emphasis fw-bolder rounded rounded-4"
-                    onclick="showCards('sat')">
-                شنبه
-            </button>
-        </div>
-        <div class="col-xl-1">
-            <button class="days active-day  text-light-emphasis fw-bolder rounded rounded-4 "
-                    onclick="showCards('sun')">
-                یکشنبه
-            </button>
-        </div>
-        <div class="col-xl-1">
-            <button class="days active-day  text-light-emphasis fw-bolder rounded rounded-4 "
-                    onclick="showCards('mon')">
-                دوشنبه
-            </button>
-        </div>
-        <div class="col-xl-1">
-            <button class="days active-day  text-light-emphasis fw-bolder rounded rounded-4 "
-                    onclick="showCards('tue')">
-                سه شنبه
-            </button>
-        </div>
-        <div class="col-xl-1">
-            <button class="days active-day  text-light-emphasis fw-bolder rounded rounded-4 "
-                    onclick="showCards('wed')">
-                چهارشنبه
-            </button>
-        </div>
-        <div class="col-xl-1">
-            <button class="days active-day  text-light-emphasis fw-bolder rounded rounded-4 "
-                    onclick="showCards('thu')">
-                پنجشنبه
-            </button>
-        </div>
-        <div class="col-xl-1">
-            <button class="days active-day  text-light-emphasis fw-bolder rounded rounded-4 "
-                    onclick="showCards('fri')">
-                جمعه
-            </button>
-        </div>
-    </div>
-    <!-- days-buttons -->
-    <!-- days-cards -->
-    <div id="card-sat" class="day-cards animate__animated row mt-3 justify-content-center">
-        <div class="col-xl-3 col-9 mt-5">
-            <div class="card  rounded-top-5 ">
-                <div class="card-header  card-color  h5 text-center  p-4 rounded-top-5 ">
-                    صبحانه
-                </div>
-                <div class="card-body bg-light">
-
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> پنیر، گردو، چای ، نان، قند</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
-
-
-                </div>
-            </div>
-
-
-        </div>
-        <div class=" col-xl-3 col-9 mt-5">
-            <div class="card   rounded-top-5 ">
-                <div class="card-header  card-color h5 text-center  p-4 rounded-top-5 ">
-                    ناهار
-                </div>
-                <div class="card-body bg-light">
-
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> نوع 1 / زرشک پلو با مرغ</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
-
-
-                </div>
-            </div>
-
-
-        </div>
-        <div class="col-xl-3 col-9 mt-5">
-            <div class="card rounded-top-5 ">
-                <div class="card-header card-color  h5 text-center  p-4 rounded-top-5 ">
-                    شام
-                </div>
-                <div class="card-body bg-light">
-
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> نوع 1 / سالاد الویه آماده</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
-
-
-                </div>
-            </div>
+    <section class="mb-sm-5">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-10 col-lg-9 col-md-8 me-auto my-5">
+                    <div
+                        class="d-flex justify-content-between justify-content-md-center align-items-center flex-row flex-wrap d-sm-block gap-2">
+                        <!-- days-buttons -->
+                        <div
+                            class="row daysButtonsContainer ms-4 gap-5 gap-sm-2 mt-5 mt-sm-0 gap-md-3  gap-lg-5 justify-content-center align-items-center ">
+                            <div class="col-xl-1 col-md-1 col-sm-2">
+                                <button class="days active-day text-light-emphasis fw-bolder rounded rounded-4"
+                                    onclick="showCards('sat')">
+                                    شنبه
+                                </button>
+                            </div>
+                            <div class="col-xl-1 col-md-1 col-sm-2">
+                                <button class="days active-day  text-light-emphasis fw-bolder rounded rounded-4 "
+                                    onclick="showCards('sun')"> یکشنبه </button>
+                            </div>
+                            <div class="col-xl-1 col-md-1 col-sm-2 ">
+                                <button class="days active-day  text-light-emphasis fw-bolder rounded rounded-4 "
+                                    onclick="showCards('mon')">دوشنبه</button>
+                            </div>
+                            <div class="col-xl-1 col-md-1 col-sm-2">
+                                <button class="days active-day  text-light-emphasis fw-bolder rounded rounded-4 "
+                                    onclick="showCards('tue')">سه شنبه</button>
+                            </div>
+                            <div class="col-xl-1 col-md-1 col-sm-2">
+                                <button class="days active-day  text-light-emphasis fw-bolder rounded rounded-4 "
+                                    onclick="showCards('wed')">چهارشنبه</button>
+                            </div>
+                            <div class="col-xl-1 col-md-1 col-sm-2">
+                                <button class="days active-day  text-light-emphasis fw-bolder rounded rounded-4 "
+                                    onclick="showCards('thu')">پنجشنبه </button>
+                            </div>
+                            <div class="col-xl-1 col-md-1 col-sm-2">
+                                <button class="days active-day  text-light-emphasis fw-bolder rounded rounded-4 "
+                                    onclick="showCards('fri')">جمعه</button>
+                            </div>
+                        </div>
+                        <!-- days-buttons -->
+
+                        <!-- days-cards -->
+                        <div id="card-sat" class="day-cards animate__animated row mt-2 mt-sm-4 justify-content-center">
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card  rounded-top-5 ">
+                                    <div class="card-header card-color h5 text-center p-4 rounded-top-5 ">
+                                        صبحانه
+                                    </div>
+                                    <div class="card-body bg-light">
+
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> پنیر، گردو، چای ، نان، قند</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card   rounded-top-5 ">
+                                    <div class="card-header  card-color h5 text-center  p-4 rounded-top-5 ">ناهار
+                                    </div>
+                                    <div class="card-body bg-light">
+
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> نوع 1 / زرشک پلو با مرغ</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card rounded-top-5 ">
+                                    <div class="card-header card-color  h5 text-center  p-4 rounded-top-5 ">شام
+                                    </div>
+                                    <div class="card-body bg-light">
+
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> نوع 1 / سالاد الویه آماده</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div id="card-sun"
+                            class="day-cards d-none animate__animated row mt-3 mt-sm-4 justify-content-center">
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card  rounded-top-5 ">
+                                    <div class="card-header h5 text-center bg-secondary-subtle p-4 rounded-top-5 ">
+                                        صبحانه
+                                    </div>
+                                    <div class="card-body bg-light">
+
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> نوع 2 / کره ، مربا ، چای</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> کشاورزی </span>
 
 
-        </div>
+                                    </div>
+                                </div>
 
-    </div>
-    <div id="card-sun" class="day-cards d-none animate__animated row mt-3 justify-content-center">
-        <div class="col-xl-3 mt-5">
-            <div class="card  rounded-top-5 ">
-                <div class="card-header h5 text-center card-color p-4 rounded-top-5 ">
-                    صبحانه
-                </div>
-                <div class="card-body bg-light">
 
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> نوع 2 / کره ، مربا ، چای</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> کشاورزی </span>
+                            </div>
+                            <div class=" col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card   rounded-top-5 ">
+                                    <div class="card-header h5 text-center bg-secondary-subtle p-4 rounded-top-5 ">ناهار
+                                    </div>
+                                    <div class="card-body bg-light">
 
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> نوع 1 / زرشک پلو با مرغ</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
+
 
-                </div>
-            </div>
+                                    </div>
+                                </div>
 
 
-        </div>
-        <div class=" col-xl-3 mt-5">
-            <div class="card   rounded-top-5 ">
-                <div class="card-header h5 text-center card-color p-4 rounded-top-5 ">
-                    ناهار
-                </div>
-                <div class="card-body bg-light">
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card rounded-top-5 ">
+                                    <div class="card-header h5 text-center bg-secondary-subtle p-4 rounded-top-5 ">شام
+                                    </div>
+                                    <div class="card-body bg-light">
 
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> نوع 1 / زرشک پلو با مرغ</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> نوع 1 / سالاد الویه آماده</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
 
 
-                </div>
-            </div>
+                                    </div>
+                                </div>
 
 
-        </div>
-        <div class="col-xl-3 mt-5">
-            <div class="card rounded-top-5 ">
-                <div class="card-header h5 text-center card-color p-4 rounded-top-5 ">
-                    شام
-                </div>
-                <div class="card-body bg-light">
+                            </div>
 
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> نوع 1 / سالاد الویه آماده</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
+                        </div>
+                        <div id="card-mon"
+                            class="day-cards d-none animate__animated row mt-3 mt-sm-4 justify-content-center">
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card  rounded-top-5 ">
+                                    <div class="card-header h5 text-center bg-secondary-subtle p-4 rounded-top-5 ">
+                                        صبحانه
+                                    </div>
+                                    <div class="card-body bg-light">
 
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> پنیر، گردو، چای ، نان، قند</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
 
-                </div>
-            </div>
 
+                                    </div>
+                                </div>
 
-        </div>
 
-    </div>
-    <div id="card-mon" class="day-cards d-none animate__animated row mt-3 justify-content-center">
-        <div class="col-xl-3 mt-5">
-            <div class="card  rounded-top-5 ">
-                <div class="card-header h5 text-center card-color p-4 rounded-top-5 ">
-                    صبحانه
-                </div>
-                <div class="card-body bg-light">
+                            </div>
+                            <div class=" col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card   rounded-top-5 ">
+                                    <div class="card-header h5 text-center bg-secondary-subtle p-4 rounded-top-5 ">ناهار
+                                    </div>
+                                    <div class="card-body bg-light">
 
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> پنیر، گردو، چای ، نان، قند</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> نوع 1 / زرشک پلو با مرغ</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
 
 
-                </div>
-            </div>
+                                    </div>
+                                </div>
 
 
-        </div>
-        <div class=" col-xl-3 mt-5">
-            <div class="card   rounded-top-5 ">
-                <div class="card-header h5 text-center card-color p-4 rounded-top-5 ">
-                    ناهار
-                </div>
-                <div class="card-body bg-light">
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card rounded-top-5 ">
+                                    <div class="card-header h5 text-center bg-secondary-subtle p-4 rounded-top-5 ">شام
+                                    </div>
+                                    <div class="card-body bg-light">
 
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> نوع 1 / زرشک پلو با مرغ</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> نوع 1 / سالاد الویه آماده</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
 
 
-                </div>
-            </div>
+                                    </div>
+                                </div>
 
 
-        </div>
-        <div class="col-xl-3 mt-5">
-            <div class="card rounded-top-5 ">
-                <div class="card-header h5 text-center card-color p-4 rounded-top-5 ">
-                    شام
-                </div>
-                <div class="card-body bg-light">
+                            </div>
 
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> نوع 1 / سالاد الویه آماده</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
+                        </div>
+                        <div id="card-tue"
+                            class="day-cards d-none animate__animated row mt-3 mt-sm-4 justify-content-center">
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card  rounded-top-5 ">
+                                    <div class="card-header h5 text-center bg-secondary-subtle p-4 rounded-top-5 ">
+                                        صبحانه
+                                    </div>
+                                    <div class="card-body bg-light">
 
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> پنیر، گردو، چای ، نان، قند</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
 
-                </div>
-            </div>
 
+                                    </div>
+                                </div>
 
-        </div>
 
-    </div>
-    <div id="card-tue" class="day-cards d-none animate__animated row mt-3 justify-content-center">
-        <div class="col-xl-3 mt-5">
-            <div class="card  rounded-top-5 ">
-                <div class="card-header h5 text-center card-color p-4 rounded-top-5 ">
-                    صبحانه
-                </div>
-                <div class="card-body bg-light">
+                            </div>
+                            <div class=" col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card   rounded-top-5 ">
+                                    <div class="card-header h5 text-center bg-secondary-subtle p-4 rounded-top-5 ">ناهار
+                                    </div>
+                                    <div class="card-body bg-light">
 
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> پنیر، گردو، چای ، نان، قند</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> نوع 1 / زرشک پلو با مرغ</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
 
 
-                </div>
-            </div>
+                                    </div>
+                                </div>
 
 
-        </div>
-        <div class=" col-xl-3 mt-5">
-            <div class="card   rounded-top-5 ">
-                <div class="card-header h5 text-center card-color p-4 rounded-top-5 ">
-                    ناهار
-                </div>
-                <div class="card-body bg-light">
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card rounded-top-5 ">
+                                    <div class="card-header h5 text-center bg-secondary-subtle p-4 rounded-top-5 ">شام
+                                    </div>
+                                    <div class="card-body bg-light">
 
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> نوع 1 / زرشک پلو با مرغ</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> نوع 1 / سالاد الویه آماده</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
 
 
-                </div>
-            </div>
+                                    </div>
+                                </div>
 
 
-        </div>
-        <div class="col-xl-3 mt-5">
-            <div class="card rounded-top-5 ">
-                <div class="card-header h5 text-center card-color p-4 rounded-top-5 ">
-                    شام
-                </div>
-                <div class="card-body bg-light">
+                            </div>
 
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> نوع 1 / سالاد الویه آماده</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
+                        </div>
+                        <div id="card-wed"
+                            class="day-cards d-none animate__animated row mt-3 mt-sm-4 justify-content-center">
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card  rounded-top-5 ">
+                                    <div class="card-header h5 text-center bg-secondary-subtle p-4 rounded-top-5 ">
+                                        صبحانه
+                                    </div>
+                                    <div class="card-body bg-light">
 
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> پنیر، گردو، چای ، نان، قند</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
 
-                </div>
-            </div>
 
+                                    </div>
+                                </div>
 
-        </div>
 
-    </div>
-    <div id="card-wed" class="day-cards d-none animate__animated row mt-3 justify-content-center">
-        <div class="col-xl-3 mt-5">
-            <div class="card  rounded-top-5 ">
-                <div class="card-header h5 text-center card-color p-4 rounded-top-5 ">
-                    صبحانه
-                </div>
-                <div class="card-body bg-light">
+                            </div>
+                            <div class=" col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card   rounded-top-5 ">
+                                    <div class="card-header h5 text-center bg-secondary-subtle p-4 rounded-top-5 ">ناهار
+                                    </div>
+                                    <div class="card-body bg-light">
 
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> پنیر، گردو، چای ، نان، قند</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> نوع 1 / زرشک پلو با مرغ</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
 
 
-                </div>
-            </div>
+                                    </div>
+                                </div>
 
 
-        </div>
-        <div class=" col-xl-3 mt-5">
-            <div class="card   rounded-top-5 ">
-                <div class="card-header h5 text-center card-color p-4 rounded-top-5 ">
-                    ناهار
-                </div>
-                <div class="card-body bg-light">
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card rounded-top-5 ">
+                                    <div class="card-header h5 text-center bg-secondary-subtle p-4 rounded-top-5 ">شام
+                                    </div>
+                                    <div class="card-body bg-light">
 
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> نوع 1 / زرشک پلو با مرغ</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> نوع 1 / سالاد الویه آماده</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
 
 
-                </div>
-            </div>
+                                    </div>
+                                </div>
 
 
-        </div>
-        <div class="col-xl-3 mt-5">
-            <div class="card rounded-top-5 ">
-                <div class="card-header h5 text-center card-color p-4 rounded-top-5 ">
-                    شام
-                </div>
-                <div class="card-body bg-light">
+                            </div>
 
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> نوع 1 / سالاد الویه آماده</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
+                        </div>
+                        <div id="card-thu"
+                            class="day-cards d-none animate__animated row mt-3 mt-sm-4 justify-content-center">
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card  rounded-top-5 ">
+                                    <div class="card-header h5 text-center bg-secondary-subtle p-4 rounded-top-5 ">
+                                        صبحانه
+                                    </div>
+                                    <div class="card-body bg-light">
 
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> پنیر، گردو، چای ، نان، قند</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
 
-                </div>
-            </div>
 
+                                    </div>
+                                </div>
 
-        </div>
 
-    </div>
-    <div id="card-thu" class="day-cards d-none animate__animated row mt-3 justify-content-center">
-        <div class="col-xl-3 mt-5">
-            <div class="card  rounded-top-5 ">
-                <div class="card-header h5 text-center card-color p-4 rounded-top-5 ">
-                    صبحانه
-                </div>
-                <div class="card-body bg-light">
+                            </div>
+                            <div class=" col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card   rounded-top-5 ">
+                                    <div class="card-header h5 text-center bg-secondary-subtle p-4 rounded-top-5 ">ناهار
+                                    </div>
+                                    <div class="card-body bg-light">
 
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> پنیر، گردو، چای ، نان، قند</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> نوع 1 / زرشک پلو با مرغ</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
 
 
-                </div>
-            </div>
+                                    </div>
+                                </div>
 
 
-        </div>
-        <div class=" col-xl-3 mt-5">
-            <div class="card   rounded-top-5 ">
-                <div class="card-header h5 text-center card-color p-4 rounded-top-5 ">
-                    ناهار
-                </div>
-                <div class="card-body bg-light">
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card rounded-top-5 ">
+                                    <div class="card-header h5 text-center bg-secondary-subtle p-4 rounded-top-5 ">شام
+                                    </div>
+                                    <div class="card-body bg-light">
 
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> نوع 1 / زرشک پلو با مرغ</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> نوع 1 / سالاد الویه آماده</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
 
 
-                </div>
-            </div>
+                                    </div>
+                                </div>
 
 
-        </div>
-        <div class="col-xl-3 mt-5">
-            <div class="card rounded-top-5 ">
-                <div class="card-header h5 text-center card-color p-4 rounded-top-5 ">
-                    شام
-                </div>
-                <div class="card-body bg-light">
+                            </div>
 
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> نوع 1 / سالاد الویه آماده</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
+                        </div>
+                        <div id="card-fri"
+                            class="day-cards d-none animate__animated row mt-3 mt-sm-4 justify-content-center">
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card  rounded-top-5 ">
+                                    <div class="card-header h5 text-center bg-secondary-subtle p-4 rounded-top-5 ">
+                                        صبحانه
+                                    </div>
+                                    <div class="card-body bg-light">
 
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> پنیر، گردو، چای ، نان، قند</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
 
-                </div>
-            </div>
 
+                                    </div>
+                                </div>
 
-        </div>
 
-    </div>
-    <div id="card-fri" class="day-cards d-none animate__animated row mt-3 justify-content-center">
-        <div class="col-xl-3 mt-5">
-            <div class="card  rounded-top-5 ">
-                <div class="card-header h5 text-center card-color p-4 rounded-top-5 ">
-                    صبحانه
-                </div>
-                <div class="card-body bg-light">
+                            </div>
+                            <div class=" col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card   rounded-top-5 ">
+                                    <div class="card-header h5 text-center bg-secondary-subtle p-4 rounded-top-5 ">ناهار
+                                    </div>
+                                    <div class="card-body bg-light">
 
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> پنیر، گردو، چای ، نان، قند</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> نوع 1 / زرشک پلو با مرغ</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
 
 
-                </div>
-            </div>
+                                    </div>
+                                </div>
 
 
-        </div>
-        <div class=" col-xl-3 mt-5">
-            <div class="card   rounded-top-5 ">
-                <div class="card-header h5 text-center card-color p-4 rounded-top-5 ">
-                    ناهار
-                </div>
-                <div class="card-body bg-light">
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card rounded-top-5 ">
+                                    <div class="card-header h5 text-center bg-secondary-subtle p-4 rounded-top-5 ">شام
+                                    </div>
+                                    <div class="card-body bg-light">
 
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> نوع 1 / زرشک پلو با مرغ</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
+                                        <h6>نوع غذا</h6>
+                                        <span class="fw-light"> نوع 1 / سالاد الویه آماده</span>
+                                        <hr>
+                                        <h6> سلف : </h6>
+                                        <span class="fw-light"> مرکزی </span>
 
 
-                </div>
-            </div>
+                                    </div>
+                                </div>
 
 
-        </div>
-        <div class="col-xl-3 mt-5">
-            <div class="card rounded-top-5 ">
-                <div class="card-header h5 text-center card-color p-4 rounded-top-5 ">
-                    شام
-                </div>
-                <div class="card-body bg-light">
+                            </div>
 
-                    <h6>نوع غذا</h6>
-                    <span class="fw-light"> نوع 1 / سالاد الویه آماده</span>
-                    <hr>
-                    <h6> سلف : </h6>
-                    <span class="fw-light"> مرکزی </span>
-
-
+                        </div>
+                        <!-- days-cards -->
+                    </div>
                 </div>
             </div>
-
-
         </div>
-
-    </div>
-    <!-- days-cards -->
-</section>
+    </section>
 <!-- schedule  -->
 <section>
     @await Html.PartialAsync("_PlansPartial");
