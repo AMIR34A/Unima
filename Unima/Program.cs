@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using Unima.Biz.UoW;
-using Unima.Dal.Context;
 using Unima.Dal.Entities;
+using Unima.Dal.Entities.Identity.User;
 using Unima.Dal.Identity.Context;
 using Unima.HelperClasses;
 using Unima.HelperClasses.SelfService;
@@ -13,14 +13,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<UnimaDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddDbContext<UnimaDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddDbContext<UnimaIdentityDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
 {
     options.Tokens.ChangePhoneNumberTokenProvider = TokenOptions.DefaultPhoneProvider;
 }).AddEntityFrameworkStores<UnimaIdentityDbContext>()
@@ -57,11 +57,11 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
-builder.Services.AddTransient<UnimaDbContext>();
+builder.Services.AddTransient<UnimaIdentityDbContext>();
 builder.Services.AddHttpClient<ISelfServiceBuilder, SelfServiceBuilder>()
     .ConfigurePrimaryHttpMessageHandler(() =>
     {
-        var clientHandler =  new HttpClientHandler
+        var clientHandler = new HttpClientHandler
         {
             UseCookies = true,
             CookieContainer = new CookieContainer()

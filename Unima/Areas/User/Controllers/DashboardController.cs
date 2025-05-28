@@ -1,46 +1,102 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Unima.Areas.User.Models.Plan;
+using Unima.Areas.User.Models.User;
+using Unima.Areas.User.Models.ViewModels;
+using Unima.Biz.UoW;
 using Unima.Dal.Entities;
+using Unima.Dal.Entities.Models;
+using Unima.Dal.Enums;
 using Unima.HelperClasses.SelfService;
 
-namespace Unima.Areas.User.Controllers
-{    
-    [Authorize]
-    [Area("User")]
-    public class DashboardController : Controller
+namespace Unima.Areas.User.Controllers;
+
+[Authorize]
+[Area("User")]
+public class DashboardController : Controller
+{
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly ISelfServiceBuilder _selfServiceBuilder;
+
+    public DashboardController(UserManager<ApplicationUser> userManager, ISelfServiceBuilder selfServiceBuilder, IUnitOfWork unitOfWork)
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ISelfServiceBuilder _selfServiceBuilder;
+        _unitOfWork = unitOfWork;
+        _userManager = userManager;
+        _selfServiceBuilder = selfServiceBuilder;
+    }
 
-        public DashboardController(UserManager<ApplicationUser> userManager, ISelfServiceBuilder selfServiceBuilder)
+    public async Task<IActionResult> Index()
+    {
+        ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+        if (currentUser is null)
+            return NotFound();
+
+        IQueryable<FoodModel>? reservedFoods = _userManager.Users
+              .Where(user => user.Id == currentUser.Id)
+              .Include(user => user.Foods)
+              .SelectMany(user => user.Foods)
+              .Select(food => new FoodModel()
+              {
+                  Title = food.Title,
+                  Price = food.Price,
+                  Day = food.DayOfWeek,
+                  MealType = food.MealType
+              })
+              .OrderBy(food => food.MealType);
+
+        WeekDay dayOfWeek = DateTime.Now.DayOfWeek switch
         {
-            _userManager = userManager;
-            _selfServiceBuilder = selfServiceBuilder;
-        }
+            DayOfWeek.Saturday => WeekDay.Saturday,
+            DayOfWeek.Sunday => WeekDay.Sunday,
+            DayOfWeek.Monday => WeekDay.Monday,
+            DayOfWeek.Tuesday => WeekDay.Tuesday,
+            DayOfWeek.Wednesday => WeekDay.Wednesday,
+            DayOfWeek.Thursday => WeekDay.Thursday,
+            _ => WeekDay.Friday
+        };
 
-        public async Task<IActionResult> Index()
+        IEnumerable<PlanModel>? plans = (await _unitOfWork.RepositoryBase<Plan>().GetAllAsync())
+                                                .Select(plan => new PlanModel
+                                                {
+                                                    Title = plan.Title,
+                                                    Type = plan.Type,
+                                                    HasTelegramBot = plan.HasTelegramBot.HasValue && plan.HasTelegramBot.Value,
+                                                    HasSmsNotification = plan.HasSMSNotification.HasValue && plan.HasSMSNotification.Value,
+                                                    HasEmailNotification = plan.HasEmailNotification.HasValue && plan.HasEmailNotification.Value,
+                                                    CountOfMeal = plan.CountOfMeal,
+                                                    Period = plan.Period,
+                                                    Price = plan.Price
+                                                });
+
+
+        DashboardViewModel dashboardViewModel = new()
         {
-            return View();
-        }
+            ReservedFoods = reservedFoods,
+            DayOfWeek = dayOfWeek,
+            Plans = plans
+        };
+        return View(dashboardViewModel);
+    }
 
-        [HttpGet]
-        [Route("User/Dashboard/GetCredit")]
-        public async Task<string> GetCredit()
-        {
-            ApplicationUser? user = await _userManager.GetUserAsync(User);
+    [HttpGet]
+    [Route("User/Dashboard/GetCredit")]
+    public async Task<string> GetCredit()
+    {
+        ApplicationUser? user = await _userManager.GetUserAsync(User);
 
-            if (user is null)
-                return string.Empty;
+        if (user is null)
+            return string.Empty;
 
-            if (string.IsNullOrWhiteSpace(user.SelfServicePassword))
-                return "ابتدا از داخل تنظیمات رمز عبور سامانه سلف را ثبت نمایید";
+        if (string.IsNullOrWhiteSpace(user.SelfServicePassword))
+            return "ابتدا از داخل تنظیمات رمز عبور سامانه سلف را ثبت نمایید";
 
-            SelfService? selfService = await _selfServiceBuilder
-                .WithCredentials(user.UserName, user.SelfServicePassword)
-                .BuildAsync();
+        SelfService? selfService = await _selfServiceBuilder
+            .WithCredentials(user.UserName, user.SelfServicePassword)
+            .BuildAsync();
 
-            return await selfService.GetBalance();
-        }
+        return await selfService.GetBalance();
     }
 }

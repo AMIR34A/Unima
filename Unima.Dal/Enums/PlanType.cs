@@ -2,7 +2,7 @@
 
 public enum PlanType : byte
 {
+    Gift,
     Standard,
-    Plus,
-    Ultra
+    Plus
 }

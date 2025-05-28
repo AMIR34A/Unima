@@ -1,4 +1,4 @@
-﻿using Unima.Dal.Entities.Models.Support;
+﻿using Unima.Dal.Entities.Models;
 using Unima.Models.Account;
 
 namespace Unima.Models.ViewModels;

@@ -12,7 +12,9 @@ namespace Unima.Dal.Entities.Models
 
         public required FoodType Type { get; set; }
 
-        public WeekDay DayOfWeek { get; set; }
+        public required WeekDay DayOfWeek { get; set; }
+
+        public required MealType MealType { get; set; }
 
         public ICollection<ApplicationUser> Users { get; set; }
     }

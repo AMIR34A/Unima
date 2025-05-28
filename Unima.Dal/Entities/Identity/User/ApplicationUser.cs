@@ -5,7 +5,7 @@ using Unima.Dal.Enums;
 
 namespace Unima.Dal.Entities;
 
-public class ApplicationUser : IdentityUser
+public class ApplicationUser : IdentityUser<int>
 {
     public required string FullName { get; set; }
 
