@@ -1,22 +1,22 @@
 ﻿using Unima.Biz.Repositories;
 using Unima.Biz.RepositoriesInterface;
-using Unima.Dal.Context;
+using Unima.Dal.Identity.Context;
 
 namespace Unima.Biz.UoW;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private UnimaDbContext _unimaDbContext { get; }
+    private UnimaIdentityDbContext _unimaIdentityDbContext { get; }
 
-    public UnitOfWork(UnimaDbContext unimaDbContext)
+    public UnitOfWork(UnimaIdentityDbContext unimaIdentityDbContext)
     {
-        _unimaDbContext = unimaDbContext;
+        _unimaIdentityDbContext = unimaIdentityDbContext;
     }
 
     public IRepositoryBase<TEntity> RepositoryBase<TEntity>() where TEntity : class
     {
-        return new RepositoryBase<TEntity, UnimaDbContext>(_unimaDbContext);
+        return new RepositoryBase<TEntity, UnimaIdentityDbContext>(_unimaIdentityDbContext);
     }
 
-    public async Task SaveAsync() => await _unimaDbContext.SaveChangesAsync();
+    public async Task SaveAsync() => await _unimaIdentityDbContext.SaveChangesAsync();
 }

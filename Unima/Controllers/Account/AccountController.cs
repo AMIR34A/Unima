@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Unima.Biz.UoW;
 using Unima.Dal.Entities;
-using Unima.Dal.Entities.Models.Support;
+using Unima.Dal.Entities.Models;
 using Unima.HelperClasses.ExtensionMethods;
 using Unima.MapperConfigs;
 using Unima.Models.Account;

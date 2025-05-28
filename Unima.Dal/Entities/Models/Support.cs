@@ -1,4 +1,4 @@
-﻿namespace Unima.Dal.Entities.Models.Support;
+﻿namespace Unima.Dal.Entities.Models;
 
 public class Support
 {
