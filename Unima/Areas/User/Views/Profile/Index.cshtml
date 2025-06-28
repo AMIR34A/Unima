@@ -1,4 +1,8 @@
-﻿@{
+﻿@using Unima.Areas.User.Models.ViewModels
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model ProfileViewModel
+@{
     Layout = "/Areas/User/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,27 +17,31 @@
     <style>
         * {
             font-family: vazirmatn;
-          }
+        }
+
         .form-select.rtl-left-arrow {
-          direction: rtl;
-          padding-left: 2.5rem;
-          padding-right: 0.2rem;
-          background-position: left 0.4rem center;
-          background-repeat: no-repeat;
-          background-size: 16px 12px;
+            direction: rtl;
+            padding-left: 2.5rem;
+            padding-right: 0.2rem;
+            background-position: left 0.4rem center;
+            background-repeat: no-repeat;
+            background-size: 16px 12px;
         }
-        .form-select.underline-style{
-          border:none;
-          border-bottom: 1px solid #6c757d !important;
-          border-radius: 0;
+
+        .form-select.underline-style {
+            border: none;
+            border-bottom: 1px solid #6c757d !important;
+            border-radius: 0;
         }
-        .form-select.underline-style:focus {
-          box-shadow: none !important;
-          outline: none !important;
-          border-bottom: 1px solid black;
-        }
-          .bootstrap-select .dropdown-item {
-          border-radius: 0 !important;
+
+            .form-select.underline-style:focus {
+                box-shadow: none !important;
+                outline: none !important;
+                border-bottom: 1px solid black;
+            }
+
+        .bootstrap-select .dropdown-item {
+            border-radius: 0 !important;
         }
 
 
@@ -52,12 +60,13 @@
             border: none;
         }
 
-        .btn-danger:hover {
-            background-color: #dda853b8;
-            color: rgba(0, 0, 0, 0.797);
-        }
-        .Section-Card{
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;        
+            .btn-danger:hover {
+                background-color: #dda853b8;
+                color: rgba(0, 0, 0, 0.797);
+            }
+
+        .Section-Card {
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
         }
 
         .btn-veri {
@@ -93,13 +102,12 @@
                 </p>
             </div>
 
-            <div
-                class="Section-Card p-5 mb-5 bg-white rounded col-xl-11 d-flex justify-content-center flex-wrap m-auto">
+            <div class="Section-Card p-5 mb-5 bg-white rounded col-xl-11 d-flex justify-content-center flex-wrap m-auto">
                 <div class="border-bottom border-secondary col-xl-5 m-4">
                     <label for="name" class=" fs-5 d-inline-block text-secondary mb-2">نام‌ونام‌خانوادگی</label>
                     <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
                         <div>
-                            <span class="fs-6">رضا زارع</span>
+                            <span class="fs-6">@Model.ProfileModel.FullName</span>
                         </div>
                         <div class="Card-icon ms-1">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#editname">
@@ -112,7 +120,7 @@
                     <label for="name" class=" fs-5 d-inline-block text-secondary mb-2">ایمیل</label>
                     <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
                         <div>
-                            <span class="fs-6">reza.zare@gmail.com</span>
+                            <span class="fs-6">@Model.ProfileModel.Email</span>
                         </div>
                         <div class="Card-icon ms-1">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#editemail">
@@ -122,10 +130,10 @@
                     </div>
                 </div>
                 <div class="border-bottom border-secondary col-xl-5 m-4">
-                    <label for="name" class=" fs-5 d-inline-block text-secondary mb-2">تلفن‌همراه</label>
+                    <label for="name" class=" fs-5 d-inline-block text-secondary mb-2">تلفن‌ همراه</label>
                     <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
                         <div>
-                            <span class="fs-6">09159837572</span>
+                            <span class="fs-6">@Model.ProfileModel.PhoneNumber</span>
                         </div>
                         <div class="Card-icon ms-1">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#editphone">
@@ -135,10 +143,10 @@
                     </div>
                 </div>
                 <div class="border-bottom border-secondary col-xl-5 col-lg-10 m-4">
-                    <label for="name" class=" fs-5 d-inline-block text-secondary mb-2">اطلاعات‌سلف‌دانشجویی</label>
+                    <label for="name" class=" fs-5 d-inline-block text-secondary mb-2">اطلاعات ‌سلف ‌دانشجویی</label>
                     <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
                         <div>
-                            <span class="fs-6">4001226190</span>
+                            <span class="fs-6">@Model.ProfileModel.Username</span>
                         </div>
                         <div class="Card-icon ms-1">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#editcode">
@@ -175,18 +183,14 @@
                 </div>
                 <div class="col-xl-5 m-4" dir="rtl">
                     <label for="Gender" class="form-label fs-5 d-inline-block text-secondary mb-2">جنسیت</label>
-                    <select id="Gender" class="form-select rtl-left-arrow underline-style" aria-label="Default select example">
-                      <option selected>یک گزینه را انتخاب کنید</option>
-                      <option value="1">مرد</option>
-                      <option value="2">زن</option>
+                    <select id="gender" class="form-select rtl-left-arrow underline-style" aria-label="Default select example" onchange="getSelfLocationData()">
+                        <option value="-1" selected>انتخاب کنید</option>
                     </select>
                 </div>
                 <div class="col-xl-5 m-4">
                     <label for="Self" class="form-label fs-5 d-inline-block text-secondary mb-2">سلف پیشفرض</label>
-                    <select id="Self" class="form-select rtl-left-arrow underline-style" aria-label="Default select example">
-                      <option selected>یک گزینه را انتخاب کنید</option>
-                      <option value="1">مرکزی</option>
-                      <option value="2">ابوذر</option>
+                    <select id="selfLocations" class="form-select rtl-left-arrow underline-style" aria-label="Default select example">
+                        <option value="-1" selected>انتخاب کنید</option>
                     </select>
                 </div>
             </div>
@@ -219,7 +223,7 @@
             </div>
         </div>
         <div class="modal fade" id="editname" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true">
+             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content bg-light">
                     <div class="modal-header">
@@ -235,12 +239,12 @@
                             <div class="m-2 w-50">
                                 <label for="name" class="fs-6 mb-2">نام</label>
                                 <input type="text"
-                                    class="form-control bg-light w-100 border border-1 border-dark-subtle" id="name">
+                                       class="form-control bg-light w-100 border border-1 border-dark-subtle" id="name">
                             </div>
                             <div class="m-2 w-50">
                                 <label for="family" class="mb-2 fs-6">نام‌خانوادگی</label>
                                 <input type="text"
-                                    class="form-control bg-light w-100 border border-1 border-dark-subtle" id="family">
+                                       class="form-control bg-light w-100 border border-1 border-dark-subtle" id="family">
                             </div>
                         </div>
                     </div>
@@ -251,19 +255,19 @@
             </div>
         </div>
         <div class="modal fade" id="editemail" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true">
+             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered ">
                 <div class="modal-content bg-light" style="z-index: 30;">
                     <div class="modal-header">
                         <button type="button" class="btn-close " data-bs-dismiss="modal"
-                            aria-label="close-tab"></button>
+                                aria-label="close-tab"></button>
                     </div>
                     <div class="modal-body">
                         <form>
                             <label for="email" class="form-label fs-6">ایمیل خود را وارد کنید.</label>
                             <div class="mb-3 d-flex align-items-center w-75">
                                 <input type="email" class="form-control bg-light border border-1 border-dark-subtle"
-                                    id="email" dir="ltr">
+                                       id="email" dir="ltr">
                             </div>
                         </form>
                     </div>
@@ -275,12 +279,12 @@
             </div>
         </div>
         <div class="modal fade" id="editphone" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true">
+             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered ">
                 <div class="modal-content bg-light" style="width: 85% !important;">
                     <div class="modal-header">
                         <button type="button" class="btn-close " data-bs-dismiss="modal"
-                            aria-label="close-tab"></button>
+                                aria-label="close-tab"></button>
                     </div>
                     <div class="modal-body">
                         <form class="m-2">
@@ -289,10 +293,12 @@
                                 <div class="input-group mb-3 w-75">
                                     <div class="input-group">
                                         <input type="text"
-                                            class="form-control rounded rounded-end-1 rounded-0 border border-1 border-dark-subtle"
-                                            aria-label="" aria-describedby="basic-addon1" type="numric">
+                                               class="form-control rounded rounded-end-1 rounded-0 border border-1 border-dark-subtle"
+                                               aria-label="" aria-describedby="basic-addon1" type="numric">
                                         <button class="btn btn-danger rounded rounded-start-1 rounded-0"
-                                            type="button">تایید</button>
+                                                type="button">
+                                            تایید
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -300,9 +306,11 @@
                             <div class="input-group mb-3 w-75">
                                 <div class="input-group w-75">
                                     <input type="text" inputmode="numeric"
-                                        class="form-control bg-light rounded rounded-0 rounded-end-1 border border-1 border-dark-subtle">
+                                           class="form-control bg-light rounded rounded-0 rounded-end-1 border border-1 border-dark-subtle">
                                     <button class="btn btn-danger rounded rounded-start-1 rounded-0 " type="button"
-                                        aria-hidden="false">ارسال کد</button>
+                                            aria-hidden="false">
+                                        ارسال کد
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -314,7 +322,7 @@
             </div>
         </div>
         <div class="modal fade" id="editcode" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true">
+             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content bg-light">
                     <div class="modal-header">
@@ -322,19 +330,19 @@
                     </div>
                     <div class="modal-body d-flex flex-column m-2 fs-7">
                         <p class="m-2">
-                        لطفا اطلاعات خواسته شده را دقیق وارد کنید. <br>
-                        سامانه یونیما هیچ مسئولیتی در قبال اطلاعات نادرست نمیپذیرد.
+                            لطفا اطلاعات خواسته شده را دقیق وارد کنید. <br>
+                            سامانه یونیما هیچ مسئولیتی در قبال اطلاعات نادرست نمیپذیرد.
                         </p>
                         <div class="d-flex flex-nowrap justify-content-between">
                             <div class="m-2 w-50">
                                 <label for="name" class="fs-6 mb-2">شماره‌دانشجویی</label>
                                 <input type="text"
-                                    class="form-control bg-light w-100 border border-1 border-dark-subtle" id="name">
+                                       class="form-control bg-light w-100 border border-1 border-dark-subtle" id="name">
                             </div>
                             <div class="m-2 w-50">
                                 <label for="family" class="mb-2 fs-6">رمز سلف دانشجویی</label>
                                 <input type="text"
-                                    class="form-control bg-light w-100 border border-1 border-dark-subtle" id="family">
+                                       class="form-control bg-light w-100 border border-1 border-dark-subtle" id="family">
                             </div>
                         </div>
                     </div>
@@ -344,13 +352,13 @@
                 </div>
             </div>
         </div>
-                <div class="modal fade" id="editpass" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true">
+        <div class="modal fade" id="editpass" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered ">
                 <div class="modal-content bg-light" style="width: 85% !important;">
                     <div class="modal-header">
                         <button type="button" class="btn-close " data-bs-dismiss="modal"
-                            aria-label="close-tab"></button>
+                                aria-label="close-tab"></button>
                     </div>
                     <div class="modal-body">
                         <form class="m-2">
@@ -359,18 +367,18 @@
                                 <div class="input-group mb-2 w-50">
                                     <div class="input-group">
                                         <input type="text"
-                                            class="form-control border border-1 border-dark-subtle"
-                                            aria-label="" aria-describedby="basic-addon1" type="numric" id="passcurrent">
+                                               class="form-control border border-1 border-dark-subtle"
+                                               aria-label="" aria-describedby="basic-addon1" type="numric" id="passcurrent">
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                             <label for="passcurrent" class="form-label fs-6">رمزعبور جدید</label>
                             <div class="mb-3 d-flex align-items-center">
                                 <div class="input-group mb-2 w-50">
                                     <div class="input-group">
                                         <input type="text"
-                                            class="form-control border border-1 border-dark-subtle"
-                                            aria-label="" aria-describedby="basic-addon1" type="numric" id="passcurrent">
+                                               class="form-control border border-1 border-dark-subtle"
+                                               aria-label="" aria-describedby="basic-addon1" type="numric" id="passcurrent">
                                     </div>
                                 </div>
                             </div>
@@ -379,8 +387,8 @@
                                 <div class="input-group mb-2 w-50">
                                     <div class="input-group">
                                         <input type="text"
-                                            class="form-control border border-1 border-dark-subtle"
-                                            aria-label="" aria-describedby="basic-addon1" type="numric" id="passcurrent">
+                                               class="form-control border border-1 border-dark-subtle"
+                                               aria-label="" aria-describedby="basic-addon1" type="numric" id="passcurrent">
                                     </div>
                                 </div>
                             </div>
@@ -393,6 +401,59 @@
             </div>
         </div>
     </section>
-</body>
+    <script>
 
+        function getGenderData(){
+            const gender = document.getElementById('gender')?.value || '';
+
+            fetch(`/User/Profile/GetGenderData`)
+            .then(res => res.json())
+            .then(data => {
+                const select = document.getElementById('gender');
+
+                select.innerHTML = '';
+                data.gender.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.value;
+                    option.text = item.text;
+                    select.appendChild(option);
+                });
+                getSelfLocationData();
+            });
+        }
+        window.addEventListener('DOMContentLoaded', getGenderData);
+
+    </script>
+
+</body>
 </html>
+<script>
+
+    function getSelfLocationData(){
+            const gender = document.getElementById('gender')?.value || '';
+
+            fetch(`/User/Profile/GetSelfLocationsData?genderId=${gender}`)
+            .then(res => res.json())
+            .then(data => {
+                populateSelectsFromBackendData(data);
+            })
+            .catch(err => {
+                console.error('Error loading data:', err);
+            });
+    }
+
+    function populateSelectsFromBackendData(data) {
+        Object.entries(data).forEach(([key, items]) => {
+            const select = document.getElementById(key);
+            if (!select || !Array.isArray(items)) return;
+
+            select.innerHTML = '';
+            items.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.value;
+                option.text = item.text;
+                select.appendChild(option);
+            });
+        });
+    }
+</script>
