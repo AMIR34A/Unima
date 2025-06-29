@@ -1,14 +1,28 @@
-﻿namespace Unima.Areas.User.Models.Profile;
+﻿using System.ComponentModel.DataAnnotations;
+using Unima.Dal.Enums;
+
+namespace Unima.Areas.User.Models.Profile;
 
 public class ProfileModel
 {
+    [Display(Name = "نام و نام خانوادگی")]
     public required string FullName { get; set; }
 
-    public string? Email { get; set; }
-
-    public required string PhoneNumber { get; set; }
-
+    [Display(Name = "شماره دانشجویی")]
     public required string Username { get; set; }
 
-    public int MyProperty { get; set; }
+    [Display(Name = "تلفن همراه")]
+    public required string PhoneNumber { get; set; }
+
+    [Display(Name = "ایمیل")]
+    public string? Email { get; set; }
+
+    [Display(Name = "رمز عبور سامانه سلف")]
+    public string? SelfServicePassword { get; set; }
+
+    [Display(Name = "جنسیت")]
+    public Gender? Gender { get; set; }
+
+    [Display(Name = "سلف پیشفرض")]
+    public int? SelfServiceLocation { get; set; }
 }
