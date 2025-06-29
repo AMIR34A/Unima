@@ -104,7 +104,7 @@
 
             <div class="Section-Card p-5 mb-5 bg-white rounded col-xl-11 d-flex justify-content-center flex-wrap m-auto">
                 <div class="border-bottom border-secondary col-xl-5 m-4">
-                    <label for="name" class=" fs-5 d-inline-block text-secondary mb-2">نام‌ونام‌خانوادگی</label>
+                    <label asp-for="@Model.ProfileModel.FullName" class="fs-5 d-inline-block text-secondary mb-2"></label>
                     <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
                         <div>
                             <span class="fs-6">@Model.ProfileModel.FullName</span>
@@ -117,7 +117,7 @@
                     </div>
                 </div>
                 <div class="border-bottom border-secondary col-xl-5 m-4">
-                    <label for="name" class=" fs-5 d-inline-block text-secondary mb-2">ایمیل</label>
+                    <label asp-for="@Model.ProfileModel.Email" class="fs-5 d-inline-block text-secondary mb-2"></label>
                     <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
                         <div>
                             <span class="fs-6">@Model.ProfileModel.Email</span>
@@ -130,7 +130,7 @@
                     </div>
                 </div>
                 <div class="border-bottom border-secondary col-xl-5 m-4">
-                    <label for="name" class=" fs-5 d-inline-block text-secondary mb-2">تلفن‌ همراه</label>
+                    <label asp-for="@Model.ProfileModel.PhoneNumber" class="fs-5 d-inline-block text-secondary mb-2"></label>
                     <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
                         <div>
                             <span class="fs-6">@Model.ProfileModel.PhoneNumber</span>
@@ -143,7 +143,7 @@
                     </div>
                 </div>
                 <div class="border-bottom border-secondary col-xl-5 col-lg-10 m-4">
-                    <label for="name" class=" fs-5 d-inline-block text-secondary mb-2">اطلاعات ‌سلف ‌دانشجویی</label>
+                    <label asp-for="@Model.ProfileModel.Username" class="fs-5 d-inline-block text-secondary mb-2"></label>
                     <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
                         <div>
                             <span class="fs-6">@Model.ProfileModel.Username</span>
@@ -156,7 +156,7 @@
                     </div>
                 </div>
                 <div class="border-bottom border-secondary col-xl-5 m-4">
-                    <label for="name" class=" fs-5 d-inline-block text-secondary mb-2">رمزعبور</label>
+                    <label for="name" class=" fs-5 d-inline-block text-secondary mb-2">رمز عبور</label>
                     <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
                         <div>
                             <span class="fs-6">*********</span>
@@ -169,7 +169,7 @@
                     </div>
                 </div>
                 <div class="border-bottom border-secondary col-xl-5 m-4">
-                    <label for="name" class=" fs-5 d-inline-block text-secondary mb-2">رمزسلف‌دانشجویی</label>
+                    <label asp-for="@Model.ProfileModel.SelfServicePassword" class=" fs-5 d-inline-block text-secondary mb-2"></label>
                     <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
                         <div>
                             <span class="fs-6">b1234567</span>
@@ -182,19 +182,18 @@
                     </div>
                 </div>
                 <div class="col-xl-5 m-4" dir="rtl">
-                    <label for="Gender" class="form-label fs-5 d-inline-block text-secondary mb-2">جنسیت</label>
+                    <label asp-for="@Model.ProfileModel.Gender" class="form-label fs-5 d-inline-block text-secondary mb-2"></label>
                     <select id="gender" class="form-select rtl-left-arrow underline-style" aria-label="Default select example" onchange="getSelfLocationData()">
                         <option value="-1" selected>انتخاب کنید</option>
                     </select>
                 </div>
                 <div class="col-xl-5 m-4">
-                    <label for="Self" class="form-label fs-5 d-inline-block text-secondary mb-2">سلف پیشفرض</label>
+                    <label asp-for="@Model.ProfileModel.SelfServiceLocation" class="form-label fs-5 d-inline-block text-secondary mb-2"></label>
                     <select id="selfLocations" class="form-select rtl-left-arrow underline-style" aria-label="Default select example">
                         <option value="-1" selected>انتخاب کنید</option>
                     </select>
                 </div>
             </div>
-
         </div>
 
         @* MODALS *@
