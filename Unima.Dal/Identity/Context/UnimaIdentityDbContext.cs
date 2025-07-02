@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Unima.Dal.Entities;
+using Unima.Dal.Entities.Entities;
 using Unima.Dal.Entities.Identity.User;
 using Unima.Dal.Entities.Models;
 
@@ -14,6 +15,8 @@ public class UnimaIdentityDbContext : IdentityDbContext<ApplicationUser, Applica
     public DbSet<Food> Foods { get; set; }
 
     public DbSet<Plan> Plans { get; set; }
+
+    public DbSet<SelfLocation> SelfLocations { get; set; }
 
     public UnimaIdentityDbContext()
     {
@@ -36,18 +39,41 @@ public class UnimaIdentityDbContext : IdentityDbContext<ApplicationUser, Applica
     {
         modelBuilder.Entity<Support>().HasNoKey();
 
-        modelBuilder.Entity<ApplicationUser>().HasMany(entity => entity.Foods)
-            .WithMany(entity => entity.Users)
-            .UsingEntity(
-            "UserFoods",
-            right => right.HasOne(typeof(Food)).WithMany().HasForeignKey("FoodId").HasPrincipalKey("Id"),
-             left => left.HasOne(typeof(ApplicationUser)).WithMany().HasForeignKey("UserId").HasPrincipalKey("Id"),
-             join => join.HasKey("UserId", "FoodId"));
+        //modelBuilder.Entity<ApplicationUser>().HasMany(entity => entity.Foods)
+        //    .WithMany(entity => entity.Users)
+        //    .UsingEntity(
+        //    "UserFoods",
+        //    right => right.HasOne(typeof(Food)).WithMany().HasForeignKey("FoodId").HasPrincipalKey("Id"),
+        //     left => left.HasOne(typeof(ApplicationUser)).WithMany().HasForeignKey("UserId").HasPrincipalKey("Id"),
+        //     join => join.HasKey("UserId", "FoodId"));
+
+        modelBuilder.Entity<UserFood>()
+                    .HasKey(userFood => new { userFood.UserId, userFood.FoodId, userFood.SelfLocationId });
+
+        modelBuilder.Entity<UserFood>()
+                    .HasOne(userFood => userFood.User)
+                    .WithMany(user => user.UserFoods)
+                    .HasForeignKey(userFood => userFood.UserId);
+
+        modelBuilder.Entity<UserFood>()
+                    .HasOne(userFood => userFood.Food)
+                    .WithMany(user => user.UserFoods)
+                    .HasForeignKey(userFood => userFood.FoodId);
+
+        modelBuilder.Entity<UserFood>()
+                    .HasOne(userFood => userFood.SelfLocation)
+                    .WithMany(user => user.UserFoods)
+                    .HasForeignKey(userFood => userFood.SelfLocationId);
 
         modelBuilder.Entity<Plan>().HasMany(entity => entity.Users)
-            .WithOne(entity => entity.Plan)
-            .HasForeignKey("PlanId")
-            .IsRequired(false);
+                    .WithOne(entity => entity.Plan)
+                    .HasForeignKey("PlanId")
+                    .IsRequired(false);
+
+        modelBuilder.Entity<SelfLocation>().HasMany(entity => entity.Users)
+                    .WithOne(entity => entity.DefaultSelfLocation)
+                    .HasForeignKey(entity => entity.DefaultSelfLocationId)
+                    .IsRequired(false);
 
         base.OnModelCreating(modelBuilder);
     }

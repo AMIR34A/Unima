@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Entities\Models\NewFolder\**" />
-    <EmbeddedResource Remove="Entities\Models\NewFolder\**" />
-    <None Remove="Entities\Models\NewFolder\**" />
+    <Compile Remove="Entities\Entities\NewFolder\**" />
+    <EmbeddedResource Remove="Entities\Entities\NewFolder\**" />
+    <None Remove="Entities\Entities\NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\Models\Support\" />
     <Folder Include="Migrations\UnimaDb\" />
   </ItemGroup>
 

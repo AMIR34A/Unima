@@ -35,17 +35,19 @@ public class DashboardController : Controller
             return NotFound();
 
         IQueryable<FoodModel>? reservedFoods = _userManager.Users
-              .Where(user => user.Id == currentUser.Id)
-              .Include(user => user.Foods)
-              .SelectMany(user => user.Foods)
-              .Select(food => new FoodModel()
-              {
-                  Title = food.Title,
-                  Price = food.Price,
-                  Day = food.DayOfWeek,
-                  MealType = food.MealType
-              })
-              .OrderBy(food => food.MealType);
+            .Where(user => user.Id == currentUser.Id)
+            .Include(user => user.UserFoods)
+            .ThenInclude(userFood => userFood.Food)
+            .SelectMany(user => user.UserFoods)
+            .Select(userFood => new FoodModel
+            {
+                Title = userFood.Food.Title,
+                Price = userFood.Food.Price,
+                Day = userFood.Food.DayOfWeek,
+                MealType = userFood.Food.MealType
+            })
+            .OrderBy(food => food.MealType);
+
 
         WeekDay dayOfWeek = DateTime.Now.DayOfWeek switch
         {

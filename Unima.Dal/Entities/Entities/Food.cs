@@ -1,4 +1,5 @@
-﻿using Unima.Dal.Enums;
+﻿using Unima.Dal.Entities.Entities;
+using Unima.Dal.Enums;
 
 namespace Unima.Dal.Entities.Models
 {
@@ -16,6 +17,6 @@ namespace Unima.Dal.Entities.Models
 
         public required MealType MealType { get; set; }
 
-        public ICollection<ApplicationUser> Users { get; set; }
+        public ICollection<UserFood> UserFoods { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Unima.Dal.Enums;
+﻿using Unima.Dal.Entities.Entities;
+using Unima.Dal.Enums;
 
 namespace Unima.Dal.Entities.Models;
 
