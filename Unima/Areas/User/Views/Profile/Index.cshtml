@@ -13,6 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unima</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
         * {
@@ -212,30 +213,6 @@
         </div>
 
         @* MODALS *@
-        <div class="modal fade" id="a" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered flex-wrap">
-                <div class="modal-content Section-Card">
-                    <div class="modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close-tab"></button>
-                    </div>
-                    <div class="modal-body d-flex justify-content-between bg-light">
-                        <form>
-                            <div class="mb-3">
-                                <label for="name" class="form-label">نام</label>
-                                <input type="text" class="form-control" id="name">
-                            </div>
-                            <div class="mb-3"></div>
-                            <label for="family" class="form-label">نام‌خانوادگی</label>
-                            <input type="text" class="form-control" id="family">
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
-                    <button type="button" class="btn btn-primary">ذخیره</button>
-                </div>
-            </div>
-        </div>
         <div class="modal fade" id="editname" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -251,19 +228,15 @@
                         </p>
                         <div class="d-flex flex-nowrap justify-content-between">
                             <div class="m-2 w-50">
-                                <label for="name" class="fs-6 mb-2">نام</label>
+                                <label for="Fullname" class="fs-6 mb-2">نام نام‌خانوادگی</label>
                                 <input type="text"
-                                       class="form-control bg-light w-100 border border-1 border-dark-subtle" id="name">
-                            </div>
-                            <div class="m-2 w-50">
-                                <label for="family" class="mb-2 fs-6">نام‌خانوادگی</label>
-                                <input type="text"
-                                       class="form-control bg-light w-100 border border-1 border-dark-subtle" id="family">
-                            </div>
+                                       class="form-control bg-light w-100 border border-1 border-dark-subtle" id="Fullname" required>
+                                <div class="form-text text-danger mt-1" id="nameError" style="display: none;"></div>
+                            </div>  
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger">ذخیره</button>
+                        <button type="button" class="btn btn-danger" id="submitBtnName">ذخیره</button>
                     </div>
                 </div>
             </div>
@@ -470,4 +443,39 @@
             });
         });
     }
+</script>
+@* Modals *@
+<script>
+    $(document).ready(function(){
+        const $fullName = $('#Fullname');
+        const $submitBtnname = $('#submitBtnName');
+        const $nameError = $('#nameError');
+
+        function validateName(){
+            const name = $fullName.val().trim();
+            $nameError.hide();
+            if(!name)
+            {
+                $nameError.text('لطفا نام و نام‌خانوادگی را وارد کنید.').show();
+                return false;
+            }
+            const nameParts = name.split(/\s+/).filter(part => part.length > 0);
+
+            if(nameParts.length < 2) {
+                $nameError.text('لطفا نام و نام‌خانوادگی خود را کامل وارد کنید.').show();
+                return false;
+            }
+            return true;
+        }
+        $submitBtnname.on('click',function()
+        {
+            if(validateName())
+            {
+                $('#editname').modal('hide');
+            }
+        });
+        $fullName.on('input', function() {
+            $nameError.hide();
+        });
+    });
 </script>
