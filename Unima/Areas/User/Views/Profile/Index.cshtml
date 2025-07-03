@@ -13,97 +13,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unima</title>
+    <link rel="stylesheet" href="/css/Profile.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
-        * {
-            font-family: vazirmatn;
-        }
-
-        .form-select.rtl-left-arrow {
-            direction: rtl;
-            padding-left: 2.5rem;
-            padding-right: 0.2rem;
-            background-position: left 0.4rem center;
-            background-repeat: no-repeat;
-            background-size: 16px 12px;
-        }
-
-        .form-select.underline-style {
-            border: none;
-            border-bottom: 1px solid #6c757d !important;
-            border-radius: 0;
-        }
-
-        .form-select.underline-style:focus {
-            box-shadow: none !important;
-            outline: none !important;
-            border-bottom: 1px solid black;
-        }
-
-        .bootstrap-select .dropdown-item {
-            border-radius: 0 !important;
-        }
-
-
-
-        .Section-title::after {
-            width: 20%;
-            content: "";
-            height: .1rem;
-            background-color: #dda853;
-            display: inline-block;
-        }
-
-        .btn-danger {
-            background-color: #dda853;
-            color: black;
-            border: none;
-        }
-
-            .btn-danger:hover {
-                background-color: #dda853b8;
-                color: rgba(0, 0, 0, 0.797);
-            }
-
-        .Section-Card {
-            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-        }
-        .row{
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-        }
-
-        .btn-veri {
-            width: 30%;
-            height: 20%;
-        }
-
-        .Section-Personal {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .bg-secondary {
-            background-color: #9D9D9F !important;
-        }
-
-        .w-46 {
-            width: 46% !important;
-        }
-
-        .fs-6 {
-            font-size: 16px !important;
-        }
-
-        .Section-title{
-            margin-top: 1rem !important;
-            margin-right: -2rem !important;
-            margin-bottom: 1.2rem !important;
-        }
-        .Section-title p{
-            margin-right: 1rem !important;
-        }
+       
     </style>
 </head>
 
@@ -230,7 +144,7 @@
                             <div class="m-2 w-50">
                                 <label for="Fullname" class="fs-6 mb-2">نام نام‌خانوادگی</label>
                                 <input type="text"
-                                       class="form-control bg-light w-100 border border-1 border-dark-subtle" id="Fullname" required>
+                                       class="form-control bg-light w-100 border border-1 border-dark" id="Fullname" required>
                                 <div class="form-text text-danger mt-1" id="nameError" style="display: none;"></div>
                             </div>  
                         </div>
@@ -251,16 +165,20 @@
                     </div>
                     <div class="modal-body">
                         <form>
-                            <label for="email" class="form-label fs-6">ایمیل خود را وارد کنید.</label>
-                            <div class="mb-3 d-flex align-items-center w-75">
-                                <input type="email" class="form-control bg-light border border-1 border-dark-subtle"
-                                       id="email" dir="ltr">
+                            <div class="d-flex flex-nowrap justify-content-between">
+                                <div class="w-100">
+                                    <label for="email" class="form-label fs-6">ایمیل خود را وارد کنید.</label>
+                                    <div class="mb-3 d-flex align-items-center w-75">
+                                        <input type="email" class="form-control bg-light border border-1 border-dark"
+                                            id="email" dir="ltr" placeholder="example@email.com">
+                                    </div>
+                                        <div class="form-text text-danger fs-7" id="emailError" style="display: none;"></div>
+                                </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
-                        <button type="button" class="btn btn-danger">ذخیره</button>
+                        <button type="button" class="btn btn-danger" id="submitBtnEmail">ذخیره</button>
                     </div>
                 </div>
             </div>
@@ -280,7 +198,7 @@
                                 <div class="input-group mb-3 w-75">
                                     <div class="input-group">
                                         <input type="text"
-                                               class="form-control rounded rounded-end-1 rounded-0 border border-1 border-dark-subtle"
+                                               class="form-control rounded rounded-end-1 rounded-0 border border-1 border-dark"
                                                aria-label="" aria-describedby="basic-addon1" type="numric">
                                         <button class="btn btn-danger rounded rounded-start-1 rounded-0"
                                                 type="button">
@@ -293,7 +211,7 @@
                             <div class="input-group mb-3 w-75">
                                 <div class="input-group w-75">
                                     <input type="text" inputmode="numeric"
-                                           class="form-control bg-light rounded rounded-0 rounded-end-1 border border-1 border-dark-subtle">
+                                           class="form-control bg-light rounded rounded-0 rounded-end-1 border border-1 border-dark">
                                     <button class="btn btn-danger rounded rounded-start-1 rounded-0 " type="button"
                                             aria-hidden="false">
                                         ارسال کد
@@ -324,17 +242,18 @@
                             <div class="m-2 w-50">
                                 <label for="name" class="fs-6 mb-2">شماره‌دانشجویی</label>
                                 <input type="text"
-                                       class="form-control bg-light w-100 border border-1 border-dark-subtle" id="name">
+                                       class="form-control bg-light w-100 border border-1 border-dark" id="name"pattern="\d{10}" 
+       title="شماره دانشجویی باید دقیقاً 10 رقم باشد">
                             </div>
                             <div class="m-2 w-50">
                                 <label for="family" class="mb-2 fs-6">رمز سلف دانشجویی</label>
                                 <input type="text"
-                                       class="form-control bg-light w-100 border border-1 border-dark-subtle" id="family">
+                                       class="form-control bg-light w-100 border border-1 border-dark" id="family">
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger">ذخیره</button>
+                        <button type="button" class="btn btn-danger" id="submitBtncode">ذخیره</button>
                     </div>
                 </div>
             </div>
@@ -351,30 +270,30 @@
                         <form class="m-2">
                             <label for="passcurrent" class="form-label fs-6">رمزعبور فعلی</label>
                             <div class="mb-3 d-flex align-items-center">
-                                <div class="input-group mb-2 w-50">
+                                <div class="input-group mb-2 w-75">
                                     <div class="input-group">
                                         <input type="text"
-                                               class="form-control border border-1 border-dark-subtle"
+                                               class="form-control border border-1 border-dark"
                                                aria-label="" aria-describedby="basic-addon1" type="numric" id="passcurrent">
                                     </div>
                                 </div>
                             </div>
                             <label for="passcurrent" class="form-label fs-6">رمزعبور جدید</label>
                             <div class="mb-3 d-flex align-items-center">
-                                <div class="input-group mb-2 w-50">
+                                <div class="input-group mb-2 w-75">
                                     <div class="input-group">
                                         <input type="text"
-                                               class="form-control border border-1 border-dark-subtle"
+                                               class="form-control border border-1 border-dark"
                                                aria-label="" aria-describedby="basic-addon1" type="numric" id="passcurrent">
                                     </div>
                                 </div>
                             </div>
                             <label for="passcurrent" class="form-label fs-6">تکرار رمزعبور</label>
                             <div class="mb-3 d-flex align-items-center">
-                                <div class="input-group mb-2 w-50">
+                                <div class="input-group mb-2 w-75">
                                     <div class="input-group">
                                         <input type="text"
-                                               class="form-control border border-1 border-dark-subtle"
+                                               class="form-control border border-1 border-dark"
                                                aria-label="" aria-describedby="basic-addon1" type="numric" id="passcurrent">
                                     </div>
                                 </div>
@@ -411,7 +330,7 @@
         window.addEventListener('DOMContentLoaded', getGenderData);
 
     </script>
-
+    <script src="/js/Profile.js"></script>
 </body>
 </html>
 <script>
@@ -443,39 +362,4 @@
             });
         });
     }
-</script>
-@* Modals *@
-<script>
-    $(document).ready(function(){
-        const $fullName = $('#Fullname');
-        const $submitBtnname = $('#submitBtnName');
-        const $nameError = $('#nameError');
-
-        function validateName(){
-            const name = $fullName.val().trim();
-            $nameError.hide();
-            if(!name)
-            {
-                $nameError.text('لطفا نام و نام‌خانوادگی را وارد کنید.').show();
-                return false;
-            }
-            const nameParts = name.split(/\s+/).filter(part => part.length > 0);
-
-            if(nameParts.length < 2) {
-                $nameError.text('لطفا نام و نام‌خانوادگی خود را کامل وارد کنید.').show();
-                return false;
-            }
-            return true;
-        }
-        $submitBtnname.on('click',function()
-        {
-            if(validateName())
-            {
-                $('#editname').modal('hide');
-            }
-        });
-        $fullName.on('input', function() {
-            $nameError.hide();
-        });
-    });
 </script>

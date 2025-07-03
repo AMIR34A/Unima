@@ -1,0 +1,99 @@
+ * {
+            font-family: vazirmatn;
+        }
+
+        .form-select.rtl-left-arrow {
+            direction: rtl;
+            padding-left: 2.5rem;
+            padding-right: 0.2rem;
+            background-position: left 0.4rem center;
+            background-repeat: no-repeat;
+            background-size: 16px 12px;
+        }
+
+        .form-select.underline-style {
+            border: none;
+            border-bottom: 1px solid #6c757d !important;
+            border-radius: 0;
+        }
+
+        .form-select.underline-style:focus {
+            box-shadow: none !important;
+            outline: none !important;
+            border-bottom: 1px solid black;
+        }
+
+        .bootstrap-select .dropdown-item {
+            border-radius: 0 !important;
+        }
+
+
+
+        .Section-title::after {
+            width: 20%;
+            content: "";
+            height: .1rem;
+            background-color: #dda853;
+            display: inline-block;
+        }
+
+        .btn-danger {
+            background-color: #dda853;
+            color: black;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background-color: #dda853b8;
+            color: rgba(0, 0, 0, 0.797);
+        }
+
+        .Section-Card {
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        }
+        .row{
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        .btn-veri {
+            width: 30%;
+            height: 20%;
+        }
+
+        .Section-Personal {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bg-secondary {
+            background-color: #9D9D9F !important;
+        }
+
+        .w-46 {
+            width: 46% !important;
+        }
+
+        .fs-6 {
+            font-size: 16px !important;
+        }
+
+        .fs-7{
+            font-size: 15px !important;
+        }
+
+        .Section-title{
+            margin-top: 1rem !important;
+            margin-right: -2rem !important;
+            margin-bottom: 1.2rem !important;
+        }
+        .Section-title p{
+            margin-right: 1rem !important;
+        }
+
+        .form-control{
+            background-color: #ebebeb !important;
+        }
+        .border-dark{
+            border-color:rgba(33, 37, 41, 0.5) !important;
+        }
