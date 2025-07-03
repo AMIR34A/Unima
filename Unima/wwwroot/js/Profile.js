@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     const $fullName = $('#Fullname');
     const $submitBtnName = $('#submitBtnName');
     const $nameError = $('#nameError');
@@ -116,39 +116,39 @@ $(document).ready(function() {
         return true;
     }
 
-    $submitBtnName.on('click', function() {
+    $submitBtnName.on('click', function () {
         if (validateName()) {
             $('#editname').modal('hide');
         }
     });
 
-    $fullName.on('input', function() {
+    $fullName.on('input', function () {
         $nameError.hide();
     });
 
-    $submitBtnEmail.on('click', function() {
+    $submitBtnEmail.on('click', function () {
         if (validateEmail()) {
             $('#editemail').modal('hide');
         }
     });
 
-    $submitBtnCode.on('click', function() {
+    $submitBtnCode.on('click', function () {
         $('#editemail').modal('hide');
     });
 
-    $email.on('input', function() {
+    $email.on('input', function () {
         $emailError.hide();
     });
 
-    $verificationCodeInput.on('input',function(){
+    $verificationCodeInput.on('input', function () {
         $verificationCodeError.hide();
     });
 
-    $phoneInput.on('input', function(){
+    $phoneInput.on('input', function () {
         $phoneError.hide();
     });
 
-    $editPhoneModal.on('show.bs.modal', function() {
+    $editPhoneModal.on('show.bs.modal', function () {
         showStep($step1Form, 1);
         $phoneInput.val('');
         $verificationCodeInput.val('');
@@ -156,7 +156,7 @@ $(document).ready(function() {
         $resendCodeLink.hide();
     });
 
-    $sendCodeBtn.on('click', function(event) {
+    $sendCodeBtn.on('click', function (event) {
         event.preventDefault();
 
         const phoneNumber = $phoneInput.val().trim();
@@ -169,7 +169,7 @@ $(document).ready(function() {
         }
     });
 
-    $verifyCodeBtn.on('click', function(event) {
+    $verifyCodeBtn.on('click', function (event) {
         event.preventDefault();
 
         const verificationCode = $verificationCodeInput.val().trim();
@@ -182,13 +182,66 @@ $(document).ready(function() {
         }
     });
 
-    $resendCodeLink.on('click', function(event) {
+    $resendCodeLink.on('click', function (event) {
         event.preventDefault();
-            $verificationCodeError.text('کد تایید مجددا ارسال شد.').show();
+        $verificationCodeError.text('کد تایید مجددا ارسال شد.').show();
         startCountdown();
     });
 
-    $closeButtons.on('click', function() {
+    $closeButtons.on('click', function () {
         clearInterval(countdownInterval);
     });
+
+    function getGenderData() {
+        const gender = document.getElementById('gender')?.value || '';
+
+        fetch(`/User/Profile/GetGenderData`)
+            .then(res => res.json())
+            .then(data => {
+                const select = document.getElementById('gender');
+
+                select.innerHTML = '';
+                data.gender.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.value;
+                    option.text = item.text;
+                    option.selected = item.selected;
+                    select.appendChild(option);
+                });
+                getSelfLocationData();
+            });
+    }
+
+    //Call the fuctions here that need to executen when page is loaded.
+    getGenderData();
 });
+
+
+function getSelfLocationData() {
+    const genderId = document.getElementById('gender')?.value || '';
+
+    fetch(`/User/Profile/GetSelfLocationsData?genderId=${genderId}`)
+        .then(res => res.json())
+        .then(data => {
+            populateSelectsFromBackendData(data);
+        })
+        .catch(err => {
+            console.error('Error loading data:', err);
+        });
+}
+
+function populateSelectsFromBackendData(data) {
+    Object.entries(data).forEach(([key, items]) => {
+        const select = document.getElementById(key);
+        if (!select || !Array.isArray(items)) return;
+
+        select.innerHTML = '';
+        items.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.value;
+            option.text = item.text;
+            option.selected = item.selected;
+            select.appendChild(option);
+        });
+    });
+}
