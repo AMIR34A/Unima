@@ -68,4 +68,56 @@ $(document).ready(function() {
     $email.on('input', function() {
         $emailError.hide();
     });
+
+    function getGenderData() {
+        const gender = document.getElementById('gender')?.value || '';
+
+        fetch(`/User/Profile/GetGenderData`)
+            .then(res => res.json())
+            .then(data => {
+                const select = document.getElementById('gender');
+
+                select.innerHTML = '';
+                data.gender.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.value;
+                    option.text = item.text;
+                    option.selected = item.selected;
+                    select.appendChild(option);
+                });
+                getSelfLocationData();
+            });
+    }
+
+    //Call the fuctions here that need to executen when page is loaded.
+    getGenderData();
 });
+
+function getSelfLocationData() {
+    const genderId = document.getElementById('gender')?.value || '';
+
+    fetch(`/User/Profile/GetSelfLocationsData?genderId=${genderId}`)
+        .then(res => res.json())
+        .then(data => {
+            populateSelectsFromBackendData(data);
+        })
+        .catch(err => {
+            console.error('Error loading data:', err);
+        });
+}
+
+function populateSelectsFromBackendData(data) {
+    Object.entries(data).forEach(([key, items]) => {
+        const select = document.getElementById(key);
+        if (!select || !Array.isArray(items)) return;
+
+        select.innerHTML = '';
+        items.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.value;
+            option.text = item.text;
+            option.selected = item.selected;
+            select.appendChild(option);
+        });
+    });
+}
