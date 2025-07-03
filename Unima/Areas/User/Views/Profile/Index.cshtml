@@ -16,9 +16,6 @@
     <link rel="stylesheet" href="/css/Profile.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <style>
-       
-    </style>
 </head>
 
 <body>
@@ -188,40 +185,71 @@
             <div class="modal-dialog modal-dialog-centered ">
                 <div class="modal-content bg-light" style="width: 85% !important;">
                     <div class="modal-header">
-                        <button type="button" class="btn-close " data-bs-dismiss="modal"
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="close-tab"></button>
                     </div>
                     <div class="modal-body">
-                        <form class="m-2">
-                            <label for="phone" class="form-label fs-6">شماره همراه</label>
-                            <div class="mb-3 d-flex align-items-center">
-                                <div class="input-group mb-3 w-75">
-                                    <div class="input-group">
-                                        <input type="text"
-                                               class="form-control rounded rounded-end-1 rounded-0 border border-1 border-dark"
-                                               aria-label="" aria-describedby="basic-addon1" type="numric">
-                                        <button class="btn btn-danger rounded rounded-start-1 rounded-0"
-                                                type="button">
-                                            تایید
-                                        </button>
-                                    </div>
+                        <div class="step-indicator">
+                            <div class="step active" id="step1-idicator">
+                            1
+                            <div class="step-text">شماره تلفن</div>
+                            </div>
+                            <div class="step1 active" id="step1-idicator">
+                            2
+                            <div class="step-text">کدتایید</div>
+                            </div>
+                            <div class="step1 active" id="step1-idicator">
+                            3
+                            <div class="step-text">اتمام</div>
+                            </div>
+                        </div>
+
+                        <form id="step-1" style="display:none;">
+                            <div class="mb-4">
+                                <label for="phone" class="form-label">شماره همراه</label>
+                                <div class="input-group">
+                                    <input type="tel" class="form-control" id="phone" placeholder="09123456789" maxlength="11">
                                 </div>
                             </div>
-                            <label for="code" class="form-label fs-6">کد تاییدیه</label>
-                            <div class="input-group mb-3 w-75">
-                                <div class="input-group w-75">
-                                    <input type="text" inputmode="numeric"
-                                           class="form-control bg-light rounded rounded-0 rounded-end-1 border border-1 border-dark">
-                                    <button class="btn btn-danger rounded rounded-start-1 rounded-0 " type="button"
-                                            aria-hidden="false">
-                                        ارسال کد
-                                    </button>
+                            <div class="d-grid gap-2 mt-4">
+                                <button class="btn btn-primary submitCode" id="sendCodeBtn">ارسال کد تأیید</button>
+                            </div>
+                        </form>
+                        <form id="step-2" style="display:none;">
+                            <div class="verification-info">
+                                <i class="fas fa-info-circle"></i>
+                                <div>
+                                    <span>کد تأیید به شماره </span>
+                                    <strong id="phoneDisplay">09123456789</strong>
+                                    <span> ارسال گردید</span>
+                                    <div class="timer text-danger">زمان باقیمانده: <span id="countdown">02:00</span></div>
                                 </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="verificationCode" class="form-label">کد تأیید</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="verificationCode" placeholder="کد ۶ رقمی" maxlength="6">
+                                </div>
+                            </div>
+                            <div class="text-center mb-3">
+                                <span class="resend-link" id="resendCode">ارسال مجدد کد</span>
+                            </div>
+                            
+                            <div class="d-grid gap-2 mt-4">
+                                <button class="btn btn-primary submitCode" id="verifyCodeBtn">تأیید کد</button>
+                            </div>
+                        </form>
+                        <form id="step-3" style="">
+                            <div class="success-message">
+                                <i class="fas fa-check-circle"></i>
+                                <h5 class="mb-3">شماره تلفن با موفقیت تغییر یافت</h5>
+                                <div class="phone-display" id="finalPhoneDisplay">09123456789</div>
+                                <p class="text-muted">شماره تلفن شما با موفقیت به روزرسانی شد</p>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger">ذخیره</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">انصراف</button>
                     </div>
                 </div>
             </div>
@@ -243,7 +271,7 @@
                                 <label for="name" class="fs-6 mb-2">شماره‌دانشجویی</label>
                                 <input type="text"
                                        class="form-control bg-light w-100 border border-1 border-dark" id="name"pattern="\d{10}" 
-       title="شماره دانشجویی باید دقیقاً 10 رقم باشد">
+                                        title="شماره دانشجویی باید دقیقاً 10 رقم باشد">
                             </div>
                             <div class="m-2 w-50">
                                 <label for="family" class="mb-2 fs-6">رمز سلف دانشجویی</label>
