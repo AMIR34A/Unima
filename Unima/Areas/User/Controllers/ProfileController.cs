@@ -66,7 +66,8 @@ namespace Unima.Areas.User.Controllers
             {
                 selfLocations = (await _unitOfWork.RepositoryBase<SelfLocation>().GetAllAsync())
                                 .Where(self => self.Gender == gender)
-                                .Select(self => new SelectListItem(self.Title, self.Id.ToString(), currentUser.DefaultSelfLocationId.HasValue && currentUser.DefaultSelfLocationId == self.Id));
+                                .Select(self => new SelectListItem(self.Title, self.Id.ToString(), currentUser.DefaultSelfLocationId.HasValue && currentUser.DefaultSelfLocationId == self.Id))
+                                .DefaultIfEmpty(new SelectListItem("سلفی ثبت نشده است","-1"));
             }
 
             return Ok(new
