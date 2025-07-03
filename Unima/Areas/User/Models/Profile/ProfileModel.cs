@@ -24,5 +24,5 @@ public class ProfileModel
     public Gender? Gender { get; set; }
 
     [Display(Name = "سلف پیشفرض")]
-    public int? SelfServiceLocation { get; set; }
+    public int? DefaultSelfServiceLocation { get; set; }
 }

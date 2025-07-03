@@ -3,30 +3,41 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Unima.Areas.User.Models.Profile;
 using Unima.Areas.User.Models.ViewModels;
+using Unima.Biz.UoW;
 using Unima.Dal.Entities;
+using Unima.Dal.Entities.Models;
+using Unima.Dal.Enums;
 
 namespace Unima.Areas.User.Controllers
 {
     [Area("User")]
     public class ProfileController : Controller
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public ProfileController(UserManager<ApplicationUser> userManager)
+        public ProfileController(UserManager<ApplicationUser> userManager, IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         [Route("User/Profile/GetGenderData")]
         public async Task<IActionResult> GetGenderDataAsync()
         {
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return BadRequest();
+
             return Ok(new
             {
                 Gender = new List<SelectListItem>
                 {
-                    new SelectListItem("مرد","1"),
-                    new SelectListItem("زن" , "2"),
+                    new SelectListItem("انتخاب کنید", "1" ,!currentUser.Gender.HasValue || currentUser.Gender.Value == Gender.NotSelected),
+                    new SelectListItem("مرد","2",currentUser.Gender.HasValue && currentUser.Gender.Value == Gender.Male),
+                    new SelectListItem("زن" , "3", currentUser.Gender.HasValue && currentUser.Gender.Value == Gender.Female)
                 }
             });
         }
@@ -35,31 +46,27 @@ namespace Unima.Areas.User.Controllers
         [Route("User/Profile/GetSelfLocationsData/{genderId:int?}")]
         public async Task<IActionResult> GetSelfLocationsDataAsync(int? genderId)
         {
-            List<SelectListItem> selfLocations;
+            Gender gender = genderId.HasValue && genderId.Value != 1 ? (Gender)genderId : Gender.NotSelected;
 
-            if (genderId == 1)
-            {
-                ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
 
+            if (currentUser is null)
+                return BadRequest();
 
-            }
+            IEnumerable<SelectListItem> selfLocations;
 
-            if (genderId == 1)
+            if (gender == Gender.NotSelected)
             {
                 selfLocations = new List<SelectListItem>
                 {
-                    new SelectListItem("مرکزی","1"),
-                    new SelectListItem("ابوذر" , "2"),
-                    new SelectListItem("امیرآباد" , "3"),
+                    new SelectListItem("ابتدا جنسیت را مشخص کنید","0",true)
                 };
             }
             else
             {
-                selfLocations = new List<SelectListItem>
-                {
-                    new SelectListItem("صدف","1"),
-                    new SelectListItem("توحید" , "2"),
-                };
+                selfLocations = (await _unitOfWork.RepositoryBase<SelfLocation>().GetAllAsync())
+                                .Where(self => self.Gender == gender)
+                                .Select(self => new SelectListItem(self.Title, self.Id.ToString(), currentUser.DefaultSelfLocationId.HasValue && currentUser.DefaultSelfLocationId == self.Id));
             }
 
             return Ok(new
@@ -80,7 +87,8 @@ namespace Unima.Areas.User.Controllers
                 FullName = currentUser.FullName,
                 Username = currentUser.UserName,
                 PhoneNumber = currentUser.PhoneNumber,
-                Email = string.IsNullOrEmpty(currentUser.Email) ? "ثبت نشده" : currentUser.Email
+                Email = string.IsNullOrEmpty(currentUser.Email) ? "ثبت نشده" : currentUser.Email,
+                //Gender = Gender.Male
             };
 
             ProfileViewModel viewModel = new ProfileViewModel
