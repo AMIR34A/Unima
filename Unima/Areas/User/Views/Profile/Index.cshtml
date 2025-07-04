@@ -127,6 +127,10 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content bg-light">
                     <div class="modal-header">
+                        <div class="modal-header-content">
+                        <i class="fa-solid fa-user m-1 fs-6"></i>
+                        <span class="fs-6 m-1 w-100">اطلاعات شخصی</span>
+                        </div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close-tab"></button>
                     </div>
                     <div class="modal-body d-flex flex-column m-2 fs-7">
@@ -155,6 +159,10 @@
             <div class="modal-dialog modal-dialog-centered ">
                 <div class="modal-content bg-light" style="z-index: 30;">
                     <div class="modal-header">
+                        <div class="modal-header-content">
+                        <i class="fa-solid fa-envelope m-1 fs-6"></i>
+                        <span class="fs-6 m-1 w-100">ایمیل</span>
+                        </div>
                         <button type="button" class="btn-close " data-bs-dismiss="modal"
                                 aria-label="close-tab"></button>
                     </div>
@@ -183,6 +191,10 @@
             <div class="modal-dialog modal-dialog-centered ">
                 <div class="modal-content bg-light" style="width: 85% !important;">
                     <div class="modal-header">
+                        <div class="modal-header-content">
+                        <i class="fa-solid fa-phone-flip m-1 fs-6"></i>
+                        <span class="fs-6 m-1 w-100">تغییر شماره‌همراه</span>
+                        </div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="close-tab"></button>
                     </div>
@@ -260,8 +272,13 @@
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content bg-light">
-                    <div class="modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close-tab"></button>
+                    <div class="modal-header position-relative">
+                        <div class="modal-header-content">
+                            <i class="fa-solid fa-circle-info m-1 fs-6"></i>
+                            <span class="fs-6 m-1 w-100">اطلاعات دانشجویی</span>
+                        </div>
+                        <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal" aria-label="close-tab"></button>
+                
                     </div>
                     <div class="modal-body d-flex flex-column m-2 fs-7">
                         <p class="m-2">
@@ -293,24 +310,28 @@
             <div class="modal-dialog modal-dialog-centered ">
                 <div class="modal-content bg-light" style="width: 85% !important;">
                     <div class="modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        <div class="modal-header-content">
+                        <i class="fa-solid fa-unlock-keyhole m-1 fs-6"></i>
+                        <span class="fs-6 m-1 w-100">رمزعبور</span>
+                        </div>
+                        <button type="button" class="btn-close text-white" data-bs-dismiss="modal"
                         aria-label="close-tab"></button>
                     </div>
                     <div class="modal-body">
                         <form id="changePasswordForm" novalidate>
                             <div class="form-floating mb-3 password-wrapper">
-                                <input type="text" class="form-control" id="currentPassword" placeholder="رمز عبور فعلی" required>
-                                <label for="currentPassword">رمز عبور فعلی</label>
+                                <input type="text" class="form-control" id="currentPassword" placeholder="رمزعبور فعلی" required>
+                                <label for="currentPassword">رمزعبور فعلی</label>
                                 <i class="fa-solid fa-eye toggle-password" data-target="currentPassword"></i>
                             </div>
                             <div class="form-floating mb-3 password-wrapper">
-                                <input type="text" class="form-control" id="newPassword" placeholder="رمز عبور جدید" required>
-                                <label for="newPassword">رمز عبور جدید</label>
+                                <input type="text" class="form-control" id="newPassword" placeholder="رمزعبور جدید" required>
+                                <label for="newPassword">رمزعبور جدید</label>
                                 <i class="fa-solid fa-eye toggle-password" data-target="newPassword"></i>
                             </div>
                             <div class="form-floating mb-3 password-wrapper">
-                                <input type="text" class="form-control" id="confirmPassword" placeholder="تکرار رمز عبور جدید" required>
-                                <label for="confirmPassword">تکرار رمز عبور</label>
+                                <input type="text" class="form-control" id="confirmPassword" placeholder="تکرار رمزعبور جدید" required>
+                                <label for="confirmPassword">تکرار رمزعبور</label>
                                 <i class="fa-solid fa-eye toggle-password" data-target="confirmPassword"></i>
                             </div>
                                 <div class="invalid-feedback mt-1">رمزهای جدید با هم مطابقت ندارند.</div>

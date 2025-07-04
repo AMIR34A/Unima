@@ -104,7 +104,9 @@
         }
         .modal-header{
             background: #DDA853;
+            position: relative;
             background: linear-gradient(75deg, rgba(221, 168, 83, 1) 38%, rgb(233, 214, 181) 95%);
+            height: 55px;
         }  
         .modal-footer{
             border-top:#dda853 1px solid !important;
@@ -275,7 +277,7 @@
         }
 
         .form-control::placeholder {
-        color: black;
+        color: #2f2f2f;
         }
         .form-floating > .form-control::placeholder {
         
@@ -293,4 +295,18 @@
         font-size: 15px;
         right: 0.75rem; 
         left: auto; 
+        }
+        .modal-header .btn-close {
+        position: absolute;
+        left: 15px;
+        }
+        
+        .modal-header-content{
+        position: absolute;
+        right: 25px;
+        }
+
+        .modal-header-content i{
+            margin-left: 0 !important;
+            padding-top: 5px !important;
         }
