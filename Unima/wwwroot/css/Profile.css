@@ -267,6 +267,7 @@
         } */
         .password-wrapper{
             position: relative;
+            margin: 3px;
         }
 
         .form-control::placeholder {
