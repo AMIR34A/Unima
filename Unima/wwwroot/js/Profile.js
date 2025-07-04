@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    const modalIds = ['UpdateFullName', 'UpdatePhoneNumber', 'UpdatePassword', 'UpdateGender'];
+
     const $fullName = $('#FullName');
     const $submitBtnName = $('#SubmitBtnName');
     const $nameError = $('#FullNameError');
@@ -23,6 +25,7 @@ $(document).ready(function () {
     const allSelfOptions = document.querySelectorAll('.self-option');
     const saveButton = document.getElementById('SubmitBtnGender');
     const $ErrorGender = $('#ErrorGender');
+
 
     if (!$editPhoneModal.length) {
         return;
@@ -286,6 +289,8 @@ $(document).ready(function () {
     $form.find('.invalid-feedback').hide();
     });
 
+    //gender
+
     function hideAllSelfContainers() {
         maleSelfContainer.classList.add('d-none');
         femaleSelfContainer.classList.add('d-none');
@@ -358,7 +363,14 @@ $(document).ready(function () {
         deselectAllSelfOptions();
         $ErrorGender.addClass('d-none').text('');
     });
-    
+
+    modalIds.forEach(function(modalId) {
+        $('#' + modalId).on('hide.bs.modal', function () {
+            document.activeElement.blur();
+            $('body').focus();
+        });
+    });
+
     //Call the fuctions here that need to executen when page is loaded.
     getGenderData();
 });

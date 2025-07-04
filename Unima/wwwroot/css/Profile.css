@@ -37,15 +37,32 @@
             display: inline-block;
         }
 
+        .icon-edit{
+            transition: all .3s ease;
+        }
+
+        .icon-edit:hover{
+            transform: scale(1.15);
+        }
+
         .btn-danger {
             background-color: #dda853;
             color: black;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
             border: none;
+            transition: all .3s ease;
         }
 
         .btn-danger:hover {
-            background-color: #dda853b8;
-            color: rgba(0, 0, 0, 0.797);
+            background-color: #dda853b8 !important;
+            color: rgba(0, 0, 0, 0.797) !important;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-danger:active{
+            background-color: #dda853 !important;
+            color: black !important;
+            border-color: none !important;
         }
 
         .Section-Card {
@@ -313,11 +330,13 @@
 
         .gender-option, .self-option{
             cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
             transition: all .3s ease;
             user-select: none;
         }
 
         .gender-option:hover, .self-option:hover{
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
             border-color: #dda853 !important;
         }
 
