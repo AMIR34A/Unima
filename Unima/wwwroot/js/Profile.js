@@ -138,7 +138,8 @@ $(document).ready(function () {
 
     $submitBtnEmail.on('click', function () {
         if (validateEmail()) {
-            $('#UpdateEmail').modal('hide');
+            modalId = this.getAttribute("data-modal-id");
+            submitModalData(modalId);
         }
     });
 
@@ -355,11 +356,11 @@ async function submitModalData(modalId) {
         const value = input.value.trim();
 
         if (id) {
-            var fullNameSpan = document.getElementById(`${id}Span`);
-            fullNameSpan.textContent = value;
+            var span = document.getElementById(`${id}Span`);
+            span.textContent = value;
         }
     });
-    $('#UpdateFullName').modal('hide');
+    $(`#Update${modalId}`).modal('hide');
 }
 
 function extractFirstModelError(errorObj) {

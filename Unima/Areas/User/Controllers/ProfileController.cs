@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Text.RegularExpressions;
 using Unima.Areas.User.Models.Profile;
 using Unima.Areas.User.Models.ViewModels;
 using Unima.Biz.UoW;
@@ -68,7 +69,7 @@ namespace Unima.Areas.User.Controllers
                 selfLocations = (await _unitOfWork.RepositoryBase<SelfLocation>().GetAllAsync())
                                 .Where(self => self.Gender == gender)
                                 .Select(self => new SelectListItem(self.Title, self.Id.ToString(), currentUser.DefaultSelfLocationId.HasValue && currentUser.DefaultSelfLocationId == self.Id))
-                                .DefaultIfEmpty(new SelectListItem("سلفی ثبت نشده است","-1"));
+                                .DefaultIfEmpty(new SelectListItem("سلفی ثبت نشده است", "-1"));
             }
 
             return Ok(new
@@ -103,16 +104,16 @@ namespace Unima.Areas.User.Controllers
 
         [HttpPost]
         [Route("Users/Profile/UpdateFullName")]
-        public async Task<IActionResult> UpdateFullName([FromForm]string fullName)
+        public async Task<IActionResult> UpdateFullName([FromForm] string fullName)
         {
-            if(string.IsNullOrWhiteSpace(fullName) || fullName.Length < 3 || fullName.Length > 20)
+            if (string.IsNullOrWhiteSpace(fullName) || fullName.Length < 3 || fullName.Length > 20)
             {
                 ModelState.AddModelError("FullName", "طول نام و نام خانوادگی باید بزرگتر از 2 و کوچکتر از 20 باشد");
                 return BadRequest(ModelState);
             }
 
             string[]? splitFullName = fullName.Split(' ');
-            if(splitFullName.Length < 2)
+            if (splitFullName.Length < 2)
             {
                 ModelState.AddModelError("FullName", "نام و نام خانوادگی خود را کامل وارد کنید");
                 return BadRequest(ModelState);
@@ -124,6 +125,43 @@ namespace Unima.Areas.User.Controllers
                 return NotFound();
 
             currentUser.FullName = fullName;
+            return (await _userManager.UpdateAsync(currentUser)).Succeeded ? Ok() : BadRequest();
+        }
+
+        [HttpPost]
+        [Route("Users/Profile/UpdateEmail")]
+        public async Task<IActionResult> UpdateEmail([FromForm] string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                ModelState.AddModelError("Email", "ایمیل را خود را وارد کنید");
+                return BadRequest(ModelState);
+            }
+
+            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            if (!Regex.Match(email, pattern).Success)
+            {
+                ModelState.AddModelError("Email", "ایمیل وارد شده معتبر نمی‌باشد");
+                return BadRequest(ModelState);
+            }
+
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return NotFound();
+
+            IdentityResult? identityResult = await _userManager.SetEmailAsync(currentUser, email);
+
+            if (!identityResult.Succeeded)
+            {
+                ModelState.AddModelError("Email", identityResult.Errors.FirstOrDefault()?.Description);
+                return BadRequest(ModelState);
+            }
+
+            if (currentUser.EmailConfirmed)
+                return Ok();
+
+            currentUser.EmailConfirmed = true;
             return (await _userManager.UpdateAsync(currentUser)).Succeeded ? Ok() : BadRequest();
         }
     }
