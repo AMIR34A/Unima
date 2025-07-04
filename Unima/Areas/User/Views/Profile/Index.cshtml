@@ -107,7 +107,33 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-9 col-md-11 col-lg-5 m-4" dir="rtl">
+                    <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                        <label  class="fs-5 d-inline-block text-secondary mb-2">جنسیت</label>
+                        <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                            <div>
+                                <span class="fs-6">مرد</span>
+                            </div>
+                            <div class="Card-icon ms-1">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateGender">
+                                    <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                        <label  class="fs-5 d-inline-block text-secondary mb-2">سلف پیشفرض</label>
+                        <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                            <div>
+                                <span class="fs-6">مرکزی</span>
+                            </div>
+                            <div class="Card-icon ms-1">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateGender">
+                                    <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    @* <div class="col-sm-9 col-md-11 col-lg-5 m-4" dir="rtl">
                         <label asp-for="ProfileModel.Gender" class="form-label fs-5 d-inline-block text-secondary mb-2"></label>
                         <select id="gender" class="form-select rtl-left-arrow underline-style" aria-label="Default select example" onchange="getSelfLocationData()">
                         </select>
@@ -116,7 +142,7 @@
                         <label asp-for="ProfileModel.DefaultSelfServiceLocation" class="form-label fs-5 d-inline-block text-secondary mb-2"></label>
                         <select id="selfLocations" class="form-select rtl-left-arrow underline-style" aria-label="Default select example">
                         </select>
-                    </div>
+                    </div> *@
                 </div>
             </div>
         </div>
@@ -335,6 +361,57 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger">ذخیره</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="modal fade" id="UpdateGender" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-light">
+                    <div class="modal-header">
+                        <div class="modal-header-content">
+                            <i class="fa-solid fa-user m-1 fs-6"></i>
+                            <span class="fs-6 m-1 w-100">تعیین</span>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close-tab"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <div class="row justify-content-center mb-4">
+                            <h6 class="mb-3 text-end">جنسیت خود را وارد کنید:</h6>
+                            <div class="col-5 col-sm-4 col-md-3">
+                                <div class="gender-option border rounded p-3" id="MaleOption">
+                                    <input class="d-none w-100 h-100" type="radio" id="Male" name="gender" value="Male">
+                                    <div class="gender-icon">👨🏻</div>
+                                    <label for="Male" class="fw-bold d-block mt-2">مرد</label>
+                                </div>
+                            </div>
+                            <div class="col-5 col-sm-4 col-md-3">
+                                <div class="gender-option border rounded p-3" id="Femaleoption">
+                                    <input class="d-none w-100 h-100" type="radio" id="Female" name="gender" value="Female">
+                                    <div class="gender-icon">👩🏻</div>
+                                    <label for="Female" class="fw-bold d-block mt-2">زن</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-none row" id="MaleSelfContainer">
+                            <h6 class="mb-3 text-end">سلف پیشفرض (مرد):</h6>
+                            <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+                                <div class="border rounded p-2 px-4 self-option" data-value="markazi">مرکزی</div>
+                                <div class="border rounded p-2 px-4 self-option" data-value="abuzar">ابوذر</div>
+                                <div class="border rounded p-2 px-4 self-option" data-value="amirabad">امیرآباد</div>
+                            </div>
+                        </div>
+                        <div class="d-none" id="FemaleSelfContainer">
+                            <h6 class="mb-3 text-end">سلف پیشفرض (زن):</h6>
+                            <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+                                <div class="border rounded p-2 px-4 self-option" data-value="sadaf">صدف</div>
+                                <div class="border rounded p-2 px-4 self-option" data-value="towhid">توحید</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-modal-id="FullName" id="SubmitBtnGender">ذخیره</button>
                     </div>
                 </div>
             </div>

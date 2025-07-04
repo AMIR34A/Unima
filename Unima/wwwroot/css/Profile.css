@@ -307,6 +307,26 @@
         }
 
         .modal-header-content i{
-            margin-left: 0 !important;
-            padding-top: 5px !important;
+        margin-left: 0 !important;
+        padding-top: 5px !important;
+        }
+
+        .gender-option, .self-option{
+            cursor: pointer;
+            transition: all .3s ease;
+            user-select: none;
+        }
+
+        .gender-option:hover, .self-option:hover{
+            border-color: #dda853 !important;
+        }
+
+        .gender-option.selected, .self-option.selected{
+            background-color: #dbd3c4;
+            border-color: #DDA853 !important;
+            color: #dda853;
+        }
+
+        .gender-icon{
+            font-size: 2rem;
         }
