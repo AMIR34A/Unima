@@ -270,6 +270,13 @@ $(document).ready(function () {
         $feedback.text(message).show();
         $input.removeClass('is-invalid');
     }
+    $('#editpass').on('hidden.bs.modal', function () {
+    const $form = $('#changePasswordForm');
+    $form[0].reset();
+
+    $form.find('.form-control').removeClass('is-invalid border-danger');
+    $form.find('.invalid-feedback').hide();
+    });
 
 
     //Call the fuctions here that need to executen when page is loaded.
