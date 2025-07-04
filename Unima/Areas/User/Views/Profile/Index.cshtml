@@ -138,7 +138,7 @@
                             <div class="m-2 w-50">
                                 <label for="Fullname" class="fs-6 mb-2">نام نام‌خانوادگی</label>
                                 <input type="text"
-                                       class="form-control bg-light w-100 border border-1 border-dark" id="Fullname" required>
+                                       class="form-control bg-light w-100" id="Fullname" required>
                                 <div class="form-text text-danger mt-1" id="nameError" style="display: none;"></div>
                             </div>  
                         </div>
@@ -205,7 +205,7 @@
                             <div class="mb-4">
                                 <label for="phone" class="form-label">شماره همراه</label>
                                 <div class="input-group">
-                                    <input type="tel" class="form-control" id="phone" placeholder="09123456789" maxlength="11">
+                                    <input type="tel" class="form-control bg-light border border-1 border-dark" id="phone" placeholder="09123456789" maxlength="11">
                                     <div class="form-text text-danger fs-7" id="phoneError" style="display: none;"></div>
                                 </div>
                             </div>
@@ -227,7 +227,7 @@
                                 <label for="verificationCode" class="form-label">کد تأیید</label>
                                 <div class="input-group">
                                     <div class="d-flex flex-wrap">
-                                    <input type="text" class="form-control" id="verificationCode" placeholder="کد ۶ رقمی" maxlength="6">
+                                    <input type="text" class="form-control border border-1 border-dark" id="verificationCode" placeholder="کد ۶ رقمی" maxlength="6">
                                     <div class="form-text text-danger fs-7" id="verificationCodeError" style="display: none;"></div>
                                     </div>
                                 </div>
@@ -292,40 +292,26 @@
             <div class="modal-dialog modal-dialog-centered ">
                 <div class="modal-content bg-light" style="width: 85% !important;">
                     <div class="modal-header">
-                        <button type="button" class="btn-close " data-bs-dismiss="modal"
-                                aria-label="close-tab"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="close-tab"></button>
                     </div>
                     <div class="modal-body">
-                        <form class="m-2">
-                            <label for="passcurrent" class="form-label fs-6">رمزعبور فعلی</label>
-                            <div class="mb-3 d-flex align-items-center">
-                                <div class="input-group mb-2 w-75">
-                                    <div class="input-group">
-                                        <input type="text"
-                                               class="form-control border border-1 border-dark"
-                                               aria-label="" aria-describedby="basic-addon1" type="numric" id="passcurrent">
-                                    </div>
-                                </div>
+                        <form id="changePasswordForm" novalidate>
+                            <div class="form-floating mb-3 password-wrapper">
+                                <input type="text" class="form-control" id="currentPassword" placeholder="رمز عبور فعلی" required>
+                                <label for="currentPassword">رمز عبور فعلی</label>
+                                <i class="fa-solid fa-eye toggle-password" data-target="currentPassword"></i>
                             </div>
-                            <label for="passcurrent" class="form-label fs-6">رمزعبور جدید</label>
-                            <div class="mb-3 d-flex align-items-center">
-                                <div class="input-group mb-2 w-75">
-                                    <div class="input-group">
-                                        <input type="text"
-                                               class="form-control border border-1 border-dark"
-                                               aria-label="" aria-describedby="basic-addon1" type="numric" id="passcurrent">
-                                    </div>
-                                </div>
+                            <div class="form-floating mb-3 password-wrapper">
+                                <input type="text" class="form-control" id="newPassword" placeholder="رمز عبور جدید" required>
+                                <label for="newPassword">رمز عبور جدید</label>
+                                <i class="fa-solid fa-eye toggle-password" data-target="newPassword"></i>
                             </div>
-                            <label for="passcurrent" class="form-label fs-6">تکرار رمزعبور</label>
-                            <div class="mb-3 d-flex align-items-center">
-                                <div class="input-group mb-2 w-75">
-                                    <div class="input-group">
-                                        <input type="text"
-                                               class="form-control border border-1 border-dark"
-                                               aria-label="" aria-describedby="basic-addon1" type="numric" id="passcurrent">
-                                    </div>
-                                </div>
+                            <div class="form-floating mb-3 password-wrapper">
+                                <input type="text" class="form-control" id="confirmPassword" placeholder="تکرار رمز عبور جدید" required>
+                                <label for="confirmPassword">تکرار رمز عبور</label>
+                                <i class="fa-solid fa-eye toggle-password" data-target="confirmPassword"></i>
+                                <div class="invalid-feedback mt-1">رمزهای جدید با هم مطابقت ندارند.</div>
                             </div>
                         </form>
                     </div>

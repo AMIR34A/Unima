@@ -94,12 +94,22 @@
         .form-control{
             background-color: #ebebeb !important;
         }
+        .form-control:focus{
+            box-shadow: 0 0 0 0.2rem #dda85350 !important;
+            border-color: #dda85363 !important;
+
+        }
         .border-dark{
             border-color:rgba(33, 37, 41, 0.5) !important;
         }
         .modal-header{
-            background-image: linear-gradient(to left bottom, #dda853 , #e3bd80);
-        }
+            background: #DDA853;
+            background: linear-gradient(75deg, rgba(221, 168, 83, 1) 38%, rgb(233, 214, 181) 95%);
+        }  
+        .modal-footer{
+            border-top:#dda853 1px solid !important;
+            padding: 5px;
+        }      
         .step-indicator {
             display: flex;
             justify-content: center;
@@ -231,4 +241,51 @@
             font-size: 60px;
             color: #2ecc71;
             margin-bottom: 20px;
+        }
+
+
+        .form-floating > .form-control:focus ~ label,
+        .form-floating > .form-control:not(:placeholder-shown) ~ label {
+        opacity: 0.65;
+        background-color: transparent;
+        transform: scale(.92) translateY(-1.7rem) translateX(-0.12rem);
+        }
+
+        .toggle-password {
+        position: absolute;
+        top: 50%;
+        left: 5%; 
+        font-size: 13px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #474c50;
+        z-index: 10;
+        }
+
+        /* .form-floating input {
+        padding-left: 2.5rem;
+        } */
+        .password-wrapper{
+            position: relative;
+        }
+
+        .form-control::placeholder {
+        color: black;
+        }
+        .form-floating > .form-control::placeholder {
+        
+        text-align: right !important;
+        direction: rtl !important;
+        opacity: 1 !important;
+        }
+        .form-floating > .form-control {
+        direction: rtl;
+        padding-left: 0;
+        padding-right: 2.5rem; 
+        }
+        .form-floating > label {
+        color: black;
+        font-size: 15px;
+        right: 0.75rem; 
+        left: auto; 
         }
