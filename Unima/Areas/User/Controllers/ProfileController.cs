@@ -110,6 +110,14 @@ namespace Unima.Areas.User.Controllers
                 ModelState.AddModelError("FullName", "طول نام و نام خانوادگی باید بزرگتر از 2 و کوچکتر از 20 باشد");
                 return BadRequest(ModelState);
             }
+
+            string[]? splitFullName = fullName.Split(' ');
+            if(splitFullName.Length < 2)
+            {
+                ModelState.AddModelError("FullName", "نام و نام خانوادگی خود را کامل وارد کنید");
+                return BadRequest(ModelState);
+            }
+
             ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
 
             if (currentUser is null)
