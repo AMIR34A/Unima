@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Unima.Areas.User.Models.Profile;
 using Unima.Areas.User.Models.ViewModels;
 using Unima.Biz.UoW;
@@ -98,6 +99,24 @@ namespace Unima.Areas.User.Controllers
             };
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        [Route("Users/Profile/UpdateFullName")]
+        public async Task<IActionResult> UpdateFullName([FromForm]string fullName)
+        {
+            if(string.IsNullOrWhiteSpace(fullName) || fullName.Length < 3 || fullName.Length > 20)
+            {
+                ModelState.AddModelError("FullName", "طول نام و نام خانوادگی باید بزرگتر از 2 و کوچکتر از 20 باشد");
+                return BadRequest(ModelState);
+            }
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return NotFound();
+
+            currentUser.FullName = fullName;
+            return (await _userManager.UpdateAsync(currentUser)).Succeeded ? Ok() : BadRequest();
         }
     }
 }

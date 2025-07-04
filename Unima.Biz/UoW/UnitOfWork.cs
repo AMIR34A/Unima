@@ -18,5 +18,16 @@ public class UnitOfWork : IUnitOfWork
         return new RepositoryBase<TEntity, UnimaIdentityDbContext>(_unimaIdentityDbContext);
     }
 
-    public async Task SaveAsync() => await _unimaIdentityDbContext.SaveChangesAsync();
+    public async Task<bool> SaveAsync()
+    {
+        try
+        {
+            await _unimaIdentityDbContext.SaveChangesAsync();
+            return true; 
+        }
+        catch
+        {
+            return false;
+        }
+    }
 }

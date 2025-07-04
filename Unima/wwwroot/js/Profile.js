@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    const $fullName = $('#Fullname');
+    const $fullName = $('#FullName');
     const $submitBtnName = $('#submitBtnName');
-    const $nameError = $('#nameError');
+    const $nameError = $('#FullNameError');
     const $phoneError = $('#phoneError');
     const $email = $('#email');
     const $submitBtnEmail = $('#submitBtnEmail');
@@ -127,7 +127,8 @@ $(document).ready(function () {
 
     $submitBtnName.on('click', function () {
         if (validateName()) {
-            $('#editname').modal('hide');
+            modalId = this.getAttribute("data-modal-id");
+            submitModalData(modalId);
         }
     });
 
@@ -265,7 +266,7 @@ $(document).ready(function () {
 
     function showError($input, message) {
         const $feedback = $('.invalid-feedback');
-        
+
         $feedback.text(message).show();
         $input.removeClass('is-invalid');
     }
@@ -310,4 +311,64 @@ function populateSelectsFromBackendData(data) {
             select.appendChild(option);
         });
     });
+}
+
+async function submitModalData(modalId) {
+    const modal = document.getElementById(`Update${modalId}`);
+
+    const inputs = modal.querySelectorAll('input, select, textarea');
+    const errorDiv = modal.querySelector(`[id$="${modalId}Error"]`);
+
+    if (errorDiv) {
+        errorDiv.textContent = "";
+        errorDiv.style.display = "none";
+    }
+
+    const formData = new FormData();
+
+    inputs.forEach(input => {
+        const id = input.id;
+        const value = input.value.trim();
+
+        if (id) {
+            formData.append(id, value);
+        }
+    });
+
+    var url = `/Users/Profile/Update${modalId}`;
+
+    const response = await fetch(url, {
+        method: "POST",
+        body: formData
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        const errorMessage = extractFirstModelError(errorData);
+        errorDiv.textContent = errorMessage || "خطا در ارسال اطلاعات";
+        errorDiv.style.display = "block";
+        return;
+    }
+
+    inputs.forEach(input => {
+        const id = input.id;
+        const value = input.value.trim();
+
+        if (id) {
+            var fullNameSpan = document.getElementById(`${id}Span`);
+            fullNameSpan.textContent = value;
+        }
+    });
+    $('#UpdateFullName').modal('hide');
+}
+
+function extractFirstModelError(errorObj) {
+    if (!errorObj || typeof errorObj !== 'object') return null;
+
+    const errors = Object.values(errorObj);
+
+    if (!errors || errors.length === 0) return null;
+
+    const firstArray = errors[0];
+    return Array.isArray(firstArray) && firstArray.length > 0 ? firstArray[0] : null;
 }
