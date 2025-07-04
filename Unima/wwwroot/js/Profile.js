@@ -17,6 +17,12 @@ $(document).ready(function () {
     const $savePasswordBtn = $('#UpdatePassword .btn-danger');
     const $passwordToggles = $('.toggle-password');
 
+    const genderOptions = document.querySelectorAll('.gender-option');
+    const maleSelfContainer = document.getElementById('MaleSelfContainer');
+    const femaleSelfContainer = document.getElementById('FemaleSelfContainer');
+    const allSelfOptions = document.querySelectorAll('.self-option');
+    const saveButton = document.getElementById('SubmitBtnGender');
+    const $ErrorGender = $('#ErrorGender');
 
     if (!$editPhoneModal.length) {
         return;
@@ -280,81 +286,81 @@ $(document).ready(function () {
     $form.find('.invalid-feedback').hide();
     });
 
-
-    //Call the fuctions here that need to executen when page is loaded.
-    getGenderData();
-
-        const genderOptions = document.querySelectorAll('.gender-option');
-    const maleSelfContainer = document.getElementById('MaleSelfContainer');
-    const femaleSelfContainer = document.getElementById('FemaleSelfContainer');
-    const allSelfOptions = document.querySelectorAll('.self-option');
-    const saveButton = document.getElementById('SubmitBtnGender');
-
     function hideAllSelfContainers() {
-      maleSelfContainer.classList.add('d-none');
-      femaleSelfContainer.classList.add('d-none');
+        maleSelfContainer.classList.add('d-none');
+        femaleSelfContainer.classList.add('d-none');
     }
 
     function deselectAllSelfOptions() {
-      allSelfOptions.forEach(opt => opt.classList.remove('selected'));
+        allSelfOptions.forEach(opt => opt.classList.remove('selected'));
     }
 
     genderOptions.forEach(option => {
-      option.addEventListener('click', () => {
-        genderOptions.forEach(opt => opt.classList.remove('selected'));
-        option.classList.add('selected');
-        option.querySelector('input[type="radio"]').checked = true;
+        option.addEventListener('click', () => {
+            genderOptions.forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+            option.querySelector('input[type="radio"]').checked = true;
 
-        hideAllSelfContainers();
-        deselectAllSelfOptions();
+            hideAllSelfContainers();
+            deselectAllSelfOptions();
 
-        const selectedGender = option.querySelector('input[type="radio"]').value;
-        if (selectedGender === 'Male') {
-          maleSelfContainer.classList.remove('d-none');
-        } else {
-          femaleSelfContainer.classList.remove('d-none');
-        }
-      });
+            const selectedGender = option.querySelector('input[type="radio"]').value;
+            if (selectedGender === 'Male') {
+                maleSelfContainer.classList.remove('d-none');
+            } else {
+                femaleSelfContainer.classList.remove('d-none');
+            }
+
+            $ErrorGender.addClass('d-none').text('');
+        });
     });
 
     allSelfOptions.forEach(option => {
-      option.addEventListener('click', () => {
-        const parent = option.closest('.d-flex');
-        parent.querySelectorAll('.self-option').forEach(opt => opt.classList.remove('selected'));
-        option.classList.add('selected');
-      });
+        option.addEventListener('click', () => {
+            const parent = option.closest('.d-flex');
+            parent.querySelectorAll('.self-option').forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+
+            $ErrorGender.addClass('d-none').text('');
+        });
     });
 
     saveButton.addEventListener('click', () => {
-      const selectedGenderInput = document.querySelector('.gender-option.selected input[type="radio"]');
-      const selectedGender = selectedGenderInput ? selectedGenderInput.value : null;
-      let selectedSelf = null;
+        $ErrorGender.addClass('d-none').text('');
 
-      if (selectedGender === 'Male') {
-        const sel = maleSelfContainer.querySelector('.self-option.selected');
-        selectedSelf = sel ? sel.dataset.value : null;
-      } else if (selectedGender === 'Female') {
-        const sel = femaleSelfContainer.querySelector('.self-option.selected');
-        selectedSelf = sel ? sel.dataset.value : null;
-      }
+        const selectedGenderInput = document.querySelector('.gender-option.selected input[type="radio"]');
+        const selectedGender = selectedGenderInput ? selectedGenderInput.value : null;
+        let selectedSelf = null;
 
-      if (selectedGender && selectedSelf) {
-        alert(`جنسیت انتخاب شده: ${selectedGender === 'Male' ? 'مرد' : 'زن'}\nسلف انتخاب شده: ${selectedSelf}`);
-        const modal = bootstrap.Modal.getInstance(document.getElementById('UpdateGender'));
-        modal.hide(); // بستن مودال بعد از ذخیره
-      } else if (selectedGender) {
-        alert('لطفا سلف را انتخاب کنید.');
-      } else {
-        alert('لطفا جنسیت را انتخاب کنید.');
-      }
+        if (selectedGender === 'Male') {
+            const sel = maleSelfContainer.querySelector('.self-option.selected');
+            selectedSelf = sel ? sel.dataset.value : null;
+        } else if (selectedGender === 'Female') {
+            const sel = femaleSelfContainer.querySelector('.self-option.selected');
+            selectedSelf = sel ? sel.dataset.value : null;
+        }
+
+        if (selectedGender && selectedSelf) {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('UpdateGender'));
+            modal.hide();
+        } else {
+            if (!selectedGender) {
+                $ErrorGender.removeClass('d-none').text('لطفا جنسیت خود را وارد کنید.');
+            } else {
+                $ErrorGender.removeClass('d-none').text('لطفا سلف پیش‌فرض خود را وارد کنید.');
+            }
+        }
     });
 
-    // ریست در هنگام باز شدن مودال
     document.getElementById('UpdateGender').addEventListener('show.bs.modal', () => {
-      genderOptions.forEach(opt => opt.classList.remove('selected'));
-      hideAllSelfContainers();
-      deselectAllSelfOptions();
+        genderOptions.forEach(opt => opt.classList.remove('selected'));
+        hideAllSelfContainers();
+        deselectAllSelfOptions();
+        $ErrorGender.addClass('d-none').text('');
     });
+    
+    //Call the fuctions here that need to executen when page is loaded.
+    getGenderData();
 });
 
 
