@@ -1,20 +1,20 @@
 $(document).ready(function () {
     const $fullName = $('#FullName');
-    const $submitBtnName = $('#submitBtnName');
+    const $submitBtnName = $('#SubmitBtnName');
     const $nameError = $('#FullNameError');
-    const $phoneError = $('#phoneError');
-    const $email = $('#email');
-    const $submitBtnEmail = $('#submitBtnEmail');
-    const $emailError = $('#emailError');
+    const $phoneError = $('#PhoneNumberError');
+    const $email = $('#Email');
+    const $submitBtnEmail = $('#SubmitBtnEmail');
+    const $emailError = $('#EmailError');
     const $submitBtnCode = $('#submitBtncode');
 
-    const $editPhoneModal = $('#editphone');
+    const $editPhoneModal = $('#UpdatePhoneNumber');
 
-    const $changePasswordForm = $('#changePasswordForm');
-    const $currentPassword = $('#currentPassword');
-    const $newPassword = $('#newPassword');
-    const $confirmPassword = $('#confirmPassword');
-    const $savePasswordBtn = $('#editpass .btn-danger');
+    const $changePasswordForm = $('#ChangePasswordForm');
+    const $currentPassword = $('#CurrentPassword');
+    const $newPassword = $('#NewPassword');
+    const $confirmPassword = $('#ConfirmPassword');
+    const $savePasswordBtn = $('#UpdatePassword .btn-danger');
     const $passwordToggles = $('.toggle-password');
 
 
@@ -30,17 +30,17 @@ $(document).ready(function () {
     const $stepIndicator2 = $('#step-indicator-2');
     const $stepIndicator3 = $('#step-indicator-3');
 
-    const $phoneInput = $('#phone');
+    const $phoneInput = $('#PhoneNumber');
     const $sendCodeBtn = $('#sendCodeBtn');
 
-    const $phoneDisplay = $('#phoneDisplay');
+    const $phoneDisplay = $('#PhoneNumberDisplay');
     const $countdownSpan = $('#countdown');
-    const $verificationCodeInput = $('#verificationCode');
-    const $verificationCodeError = $('#verificationCodeError');
-    const $verifyCodeBtn = $('#verifyCodeBtn');
-    const $resendCodeLink = $('#resendCode');
+    const $verificationCodeInput = $('#VerificationCode');
+    const $verificationCodeError = $('#VerificationCodeError');
+    const $verifyCodeBtn = $('#VerifyCodeBtn');
+    const $resendCodeLink = $('#ResendCode');
 
-    const $finalPhoneDisplay = $('#finalPhoneDisplay');
+    const $finalPhoneDisplay = $('#FinalPhoneDisplay');
 
     const $closeButtons = $editPhoneModal.find('[data-bs-dismiss="modal"]');
 
@@ -138,12 +138,12 @@ $(document).ready(function () {
 
     $submitBtnEmail.on('click', function () {
         if (validateEmail()) {
-            $('#editemail').modal('hide');
+            $('#UpdateEmail').modal('hide');
         }
     });
 
     $submitBtnCode.on('click', function () {
-        $('#editemail').modal('hide');
+        $('#UpdateEmail').modal('hide');
     });
 
     $email.on('input', function () {
@@ -260,7 +260,7 @@ $(document).ready(function () {
 
         if (isValid) {
             $changePasswordForm[0].reset();
-            $('#editpass').modal('hide');
+            $('#UpdatePassword').modal('hide');
         }
     });
 
@@ -270,8 +270,8 @@ $(document).ready(function () {
         $feedback.text(message).show();
         $input.removeClass('is-invalid');
     }
-    $('#editpass').on('hidden.bs.modal', function () {
-    const $form = $('#changePasswordForm');
+    $('#UpdatePassword').on('hidden.bs.modal', function () {
+    const $form = $('#ChangePasswordForm');
     $form[0].reset();
 
     $form.find('.form-control').removeClass('is-invalid border-danger');

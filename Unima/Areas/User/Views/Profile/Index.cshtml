@@ -148,12 +148,12 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-modal-id="FullName" id="submitBtnName">ذخیره</button>
+                        <button type="button" class="btn btn-danger" data-modal-id="FullName" id="SubmitBtnName">ذخیره</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="editemail" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+        <div class="modal fade" id="UpdateEmail" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered ">
                 <div class="modal-content bg-light" style="z-index: 30;">
@@ -169,23 +169,23 @@
                         <form>
                             <div class="d-flex flex-wrap justify-content-between">
                                 <div class="w-100">
-                                    <label for="email" class="form-label fs-6">ایمیل خود را وارد کنید.</label>
+                                    <label for="Email" class="form-label fs-6">ایمیل خود را وارد کنید.</label>
                                     <div class="mb-3 d-flex align-items-center w-75">
                                         <input type="email" class="form-control bg-light border border-1 border-dark"
-                                            id="email" dir="ltr" placeholder="example@email.com">
+                                            id="Email" dir="ltr" placeholder="example@email.com">
                                     </div>
-                                        <div class="form-text text-danger fs-7" id="emailError" style="display: none;"></div>
+                                        <div class="form-text text-danger fs-7" id="EmailError" style="display: none;"></div>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="submitBtnEmail">ذخیره</button>
+                        <button type="button" class="btn btn-danger" id="SubmitBtnEmail">ذخیره</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="editphone" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+        <div class="modal fade" id="UpdatePhoneNumber" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered ">
                 <div class="modal-content bg-light" style="width: 85% !important;">
@@ -215,10 +215,10 @@
 
                         <form id="step-1">
                             <div class="mb-4">
-                                <label for="phone" class="form-label">شماره همراه</label>
+                                <label for="PhoneNumber" class="form-label">شماره همراه</label>
                                 <div class="input-group">
-                                    <input type="tel" class="form-control bg-light border border-1 border-dark" id="phone" placeholder="09123456789" maxlength="11">
-                                    <div class="form-text text-danger fs-7" id="phoneError" style="display: none;"></div>
+                                    <input type="tel" class="form-control bg-light border border-1 border-dark" id="PhoneNumber" placeholder="09123456789" maxlength="11">
+                                    <div class="form-text text-danger fs-7" id="PhoneNumberError" style="display: none;"></div>
                                 </div>
                             </div>
                             <div class="d-grid gap-2 mt-4">
@@ -230,7 +230,7 @@
                                 <i class="fas fa-info-circle"></i>
                                 <div>
                                     <span>کد تأیید به شماره </span>
-                                    <strong id="phoneDisplay">09123456789</strong>
+                                    <strong id="PhoneNumberDisplay">09123456789</strong>
                                     <span> ارسال گردید</span>
                                     <div class="timer text-danger">زمان باقیمانده: <span id="countdown">02:00</span></div>
                                 </div>
@@ -239,24 +239,24 @@
                                 <label for="verificationCode" class="form-label">کد تأیید</label>
                                 <div class="input-group">
                                     <div class="d-flex flex-wrap">
-                                    <input type="text" class="form-control border border-1 border-dark" id="verificationCode" placeholder="کد ۶ رقمی" maxlength="6">
-                                    <div class="form-text text-danger fs-7" id="verificationCodeError" style="display: none;"></div>
+                                    <input type="text" class="form-control border border-1 border-dark" id="VerificationCode" placeholder="کد ۶ رقمی" maxlength="6">
+                                    <div class="form-text text-danger fs-7" id="VerificationCodeError" style="display: none;"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="text-center mb-3">
-                                <span class="resend-link" id="resendCode">ارسال مجدد کد</span>
+                                <span class="resend-link" id="ResendCode">ارسال مجدد کد</span>
                             </div>
                             
                             <div class="d-grid gap-2 mt-4">
-                                <button class="btn btn-primary submitCode" id="verifyCodeBtn">تأیید کد</button>
+                                <button class="btn btn-primary submitCode" id="VerifyCodeBtn">تأیید کد</button>
                             </div>
                         </form>
                         <form id="step-3" style="display:none;">
                             <div class="success-message">
                                 <i class="fas fa-check-circle"></i>
                                 <h5 class="mb-3">شماره تلفن با موفقیت تغییر یافت</h5>
-                                <div class="phone-display" id="finalPhoneDisplay">09123456789</div>
+                                <div class="phone-display" id="FinalPhoneDisplay">09123456789</div>
                                 <p class="text-muted">شماره تلفن شما با موفقیت به روزرسانی شد</p>
                             </div>
                         </form>
@@ -267,7 +267,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="editcode" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+        <div class="modal fade" id="UpdateInformation" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content bg-light">
@@ -304,7 +304,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="editpass" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+        <div class="modal fade" id="UpdatePassword" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered ">
                 <div class="modal-content bg-light" style="width: 85% !important;">
@@ -317,21 +317,21 @@
                         aria-label="close-tab"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="changePasswordForm" novalidate>
+                        <form id="ChangePasswordForm" novalidate>
                             <div class="form-floating mb-3 password-wrapper">
-                                <input type="text" class="form-control" id="currentPassword" placeholder="رمزعبور فعلی" required>
-                                <label for="currentPassword">رمزعبور فعلی</label>
-                                <i class="fa-solid fa-eye toggle-password" data-target="currentPassword"></i>
+                                <input type="text" class="form-control" id="CurrentPassword" placeholder="رمزعبور فعلی" required>
+                                <label for="CurrentPassword">رمزعبور فعلی</label>
+                                <i class="fa-solid fa-eye toggle-password" data-target="CurrentPassword"></i>
                             </div>
                             <div class="form-floating mb-3 password-wrapper">
-                                <input type="text" class="form-control" id="newPassword" placeholder="رمزعبور جدید" required>
-                                <label for="newPassword">رمزعبور جدید</label>
-                                <i class="fa-solid fa-eye toggle-password" data-target="newPassword"></i>
+                                <input type="text" class="form-control" id="NewPassword" placeholder="رمزعبور جدید" required>
+                                <label for="NewPassword">رمزعبور جدید</label>
+                                <i class="fa-solid fa-eye toggle-password" data-target="NewPassword"></i>
                             </div>
                             <div class="form-floating mb-3 password-wrapper">
-                                <input type="text" class="form-control" id="confirmPassword" placeholder="تکرار رمزعبور جدید" required>
-                                <label for="confirmPassword">تکرار رمزعبور</label>
-                                <i class="fa-solid fa-eye toggle-password" data-target="confirmPassword"></i>
+                                <input type="text" class="form-control" id="ConfirmPassword" placeholder="تکرار رمزعبور جدید" required>
+                                <label for="ConfirmPassword">تکرار رمزعبور</label>
+                                <i class="fa-solid fa-eye toggle-password" data-target="ConfirmPassword"></i>
                             </div>
                                 <div class="invalid-feedback mt-1">رمزهای جدید با هم مطابقت ندارند.</div>
                         </form>
