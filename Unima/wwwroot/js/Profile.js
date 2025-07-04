@@ -6,7 +6,7 @@ $(document).ready(function () {
     const $email = $('#Email');
     const $submitBtnEmail = $('#SubmitBtnEmail');
     const $emailError = $('#EmailError');
-    const $submitBtnCode = $('#submitBtncode');
+    const $submitStudentInformation = $('#submitStudentInformation');
 
     const $editPhoneModal = $('#UpdatePhoneNumber');
 
@@ -143,8 +143,9 @@ $(document).ready(function () {
         }
     });
 
-    $submitBtnCode.on('click', function () {
-        $('#UpdateEmail').modal('hide');
+    $submitStudentInformation.on('click', function () {
+        modalId = this.getAttribute("data-modal-id");
+        submitModalData(modalId);
     });
 
     $email.on('input', function () {

@@ -58,7 +58,7 @@
                         <label asp-for="ProfileModel.PhoneNumber" class="fs-5 d-inline-block text-secondary mb-2"></label>
                         <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
                             <div>
-                                <span class="fs-6">@Model.ProfileModel.PhoneNumber</span>
+                                <span id="EmailSpan" class="fs-6">@Model.ProfileModel.PhoneNumber</span>
                             </div>
                             <div class="Card-icon ms-1">
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#UpdatePhoneNumber">
@@ -276,29 +276,27 @@
                             <span class="fs-6 m-1 w-100">اطلاعات دانشجویی</span>
                         </div>
                         <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal" aria-label="close-tab"></button>
-
                     </div>
                     <div class="modal-body d-flex flex-column m-2 fs-7">
                         <p class="m-2">
-                            لطفا اطلاعات خواسته شده را دقیق وارد کنید. <br>
+                            لطفا اطلاعات خواسته شده را دقیق وارد کنید.<br>
                             سامانه یونیما هیچ مسئولیتی در قبال اطلاعات نادرست نمیپذیرد.
                         </p>
                         <div class="d-flex flex-nowrap justify-content-between">
                             <div class="m-2 w-50">
-                                <label for="name" class="fs-6 mb-2">شماره‌دانشجویی</label>
+                                <label for="name" class="fs-6 mb-2">شماره‌ دانشجویی</label>
                                 <input type="text"
                                        class="form-control bg-light w-100 border border-1 border-dark" id="name" pattern="\d{10}"
                                        title="شماره دانشجویی باید دقیقاً 10 رقم باشد">
                             </div>
                             <div class="m-2 w-50">
                                 <label for="family" class="mb-2 fs-6">رمز سلف دانشجویی</label>
-                                <input type="text"
-                                       class="form-control bg-light w-100 border border-1 border-dark" id="family">
+                                <input type="text" class="form-control bg-light w-100 border border-1 border-dark" id="family">
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="submitBtncode">ذخیره</button>
+                        <button type="button" class="btn btn-danger" data-modal-id="StudentInformation" id="submitStudentInformation">ذخیره</button>
                     </div>
                 </div>
             </div>
