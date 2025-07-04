@@ -247,8 +247,12 @@
         .form-floating > .form-control:focus ~ label,
         .form-floating > .form-control:not(:placeholder-shown) ~ label {
         opacity: 0.65;
-        background-color: transparent;
-        transform: scale(.92) translateY(-1.7rem) translateX(-0.12rem);
+        display: inline;
+        margin: 0;
+        padding: 0;
+        height: 25px;
+        background-color: whitesmoke;
+        transform: scale(.92) translateY(-0.9rem) translateX(-0.12rem);
         }
 
         .toggle-password {
