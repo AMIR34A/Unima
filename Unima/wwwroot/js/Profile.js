@@ -9,6 +9,15 @@ $(document).ready(function () {
     const $submitBtnCode = $('#submitBtncode');
 
     const $editPhoneModal = $('#editphone');
+
+    const $changePasswordForm = $('#changePasswordForm');
+    const $currentPassword = $('#currentPassword');
+    const $newPassword = $('#newPassword');
+    const $confirmPassword = $('#confirmPassword');
+    const $savePasswordBtn = $('#editpass .btn-danger');
+    const $passwordToggles = $('.toggle-password');
+
+
     if (!$editPhoneModal.length) {
         return;
     }
@@ -211,6 +220,56 @@ $(document).ready(function () {
                 getSelfLocationData();
             });
     }
+
+    $passwordToggles.on('click', function () {
+        const targetId = $(this).data('target');
+        const $input = $('#' + targetId);
+        const type = $input.attr('type') === 'password' ? 'text' : 'password';
+        $input.attr('type', type);
+
+        $(this)
+            .toggleClass('fa-eye fa-eye-slash');
+    });
+
+    $savePasswordBtn.on('click', function () {
+        let isValid = true;
+        $changePasswordForm.find('.invalid-feedback').hide();
+        $changePasswordForm.find('.form-control').removeClass('is-invalid');
+
+        const currentVal = $currentPassword.val().trim();
+        const newVal = $newPassword.val().trim();
+        const confirmVal = $confirmPassword.val().trim();
+
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+        if (!passwordRegex.test(newVal)) {
+            showError($newPassword, 'رمز باید حداقل ۸ کاراکتر، شامل حروف بزرگ، کوچک و عدد باشد.');
+            isValid = false;
+        }
+
+        if (currentVal === newVal) {
+            showError($newPassword, 'رمز جدید نباید با رمز فعلی یکسان باشد.');
+            isValid = false;
+        }
+
+        if (newVal !== confirmVal) {
+            showError($confirmPassword, 'رمزهای جدید با هم مطابقت ندارند.');
+            isValid = false;
+        }
+
+        if (isValid) {
+            $changePasswordForm[0].reset();
+            $('#editpass').modal('hide');
+        }
+    });
+
+    function showError($input, message) {
+        const $feedback = $('.invalid-feedback');
+        
+        $feedback.text(message).show();
+        $input.removeClass('is-invalid');
+    }
+
 
     //Call the fuctions here that need to executen when page is loaded.
     getGenderData();
