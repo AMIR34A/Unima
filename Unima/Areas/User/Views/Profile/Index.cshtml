@@ -6,421 +6,415 @@
     Layout = "/Areas/User/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="en">
+@section Styles{
+<link rel="stylesheet" href="/css/Profile.css">
+}
+@section Scripts{
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unima</title>
-    <link rel="stylesheet" href="/css/Profile.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/Profile.js"></script>
 
-</head>
+}
 
-<body>
-    <section class="Setting align-items-center">
-        <div class="Section-Personal row">
-            <div class="Section-title col-xl-12 pb-2 Section-title justify-content-center align-item-center">
-                <p class="m-0 fs-5">
-                    اطلاعات شخصی
-                </p>
-            </div>
-            <div class="Section-Card p-5 m-1 bg-white rounded col-xl-11 col-md-12 d-flex justify-content-center flex-wrap m-auto">
-                <div class="row xxx">
-                    <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                        <label asp-for="ProfileModel.FullName" class="fs-5 d-inline-block text-secondary mb-2"></label>
-                        <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
-                            <div>
-                                <span id="FullNameSpan" class="fs-6">@Model.ProfileModel.FullName</span>
-                            </div>
-                            <div class="icon-edit">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateFullName">
-                                    <i class="fa-solid fa-pen-to-square fs-6 text-black "></i>
-                                </a>
-                            </div>
+
+<section class="Setting align-items-center">
+    <div class="Section-Personal row">
+        <div class="Section-title col-xl-12 pb-2 Section-title justify-content-center align-item-center">
+            <p class="m-0 fs-5">
+                اطلاعات شخصی
+            </p>
+        </div>
+        <div
+            class="Section-Card p-5 m-1 bg-white rounded col-xl-11 col-md-12 d-flex justify-content-center flex-wrap m-auto">
+            <div class="row xxx">
+                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                    <label asp-for="ProfileModel.FullName" class="fs-5 d-inline-block text-secondary mb-2"></label>
+                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                        <div>
+                            <span id="FullNameSpan" class="fs-6">@Model.ProfileModel.FullName</span>
+                        </div>
+                        <div class="icon-edit">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateFullName">
+                                <i class="fa-solid fa-pen-to-square fs-6 text-black "></i>
+                            </a>
                         </div>
                     </div>
-                    <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                        <label asp-for="ProfileModel.Email" class="fs-5 d-inline-block text-secondary mb-2"></label>
-                        <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
-                            <div>
-                                <span id="EmailSpan" class="fs-6">@Model.ProfileModel.Email</span>
-                            </div>
-                            <div class="icon-edit">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateEmail">
-                                    <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
-                                </a>
-                            </div>
+                </div>
+                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                    <label asp-for="ProfileModel.Email" class="fs-5 d-inline-block text-secondary mb-2"></label>
+                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                        <div>
+                            <span id="EmailSpan" class="fs-6">@Model.ProfileModel.Email</span>
+                        </div>
+                        <div class="icon-edit">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateEmail">
+                                <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
+                            </a>
                         </div>
                     </div>
-                    <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                        <label asp-for="ProfileModel.PhoneNumber"
-                               class="fs-5 d-inline-block text-secondary mb-2"></label>
-                        <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
-                            <div>
-                                <span id="PhoneNumberSpan" class="fs-6">@Model.ProfileModel.PhoneNumber</span>
-                            </div>
-                            <div class="icon-edit">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#UpdatePhoneNumber">
-                                    <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
-                                </a>
-                            </div>
+                </div>
+                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                    <label asp-for="ProfileModel.PhoneNumber" class="fs-5 d-inline-block text-secondary mb-2"></label>
+                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                        <div>
+                            <span id="PhoneNumberSpan" class="fs-6">@Model.ProfileModel.PhoneNumber</span>
+                        </div>
+                        <div class="icon-edit">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#UpdatePhoneNumber">
+                                <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
+                            </a>
                         </div>
                     </div>
-                    <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                        <label asp-for="ProfileModel.Username" class="fs-5 d-inline-block text-secondary mb-2"></label>
-                        <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
-                            <div>
-                                <span class="fs-6">@Model.ProfileModel.Username</span>
-                            </div>
-                            <div class="icon-edit">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateInformation">
-                                    <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
-                                </a>
-                            </div>
+                </div>
+                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                    <label asp-for="ProfileModel.Username" class="fs-5 d-inline-block text-secondary mb-2"></label>
+                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                        <div>
+                            <span class="fs-6">@Model.ProfileModel.Username</span>
+                        </div>
+                        <div class="icon-edit">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateInformation">
+                                <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
+                            </a>
                         </div>
                     </div>
-                    <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                        <label for="name" class=" fs-5 d-inline-block text-secondary mb-2">رمزعبور</label>
-                        <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
-                            <div>
-                                <span class="fs-6">*********</span>
-                            </div>
-                            <div class="icon-edit">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#UpdatePassword">
-                                    <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
-                                </a>
-                            </div>
+                </div>
+                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                    <label for="name" class=" fs-5 d-inline-block text-secondary mb-2">رمزعبور</label>
+                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                        <div>
+                            <span class="fs-6">*********</span>
                         </div>
-                        <div style="display: none;" class="success-password text-danger"></div>
-                    </div>
-                    <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                        <label asp-for="ProfileModel.SelfServicePassword"
-                               class="fs-5 d-inline-block text-secondary mb-2"></label>
-                        <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
-                            <div>
-                                <span class="fs-6">b1234567</span>
-                            </div>
-                            <div class="icon-edit">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateInformation">
-                                    <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
-                                </a>
-                            </div>
+                        <div class="icon-edit">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#UpdatePassword">
+                                <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
+                            </a>
                         </div>
                     </div>
-                    <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                        <label class="fs-5 d-inline-block text-secondary mb-2">جنسیت</label>
-                        <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
-                            <div>
-                                <span id="GenderSpan" class="fs-6">@Model.ProfileModel.Gender</span>
-                            </div>
-                            <div class="icon-edit">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#UpdatePersonalInformation" onclick="getGenderData()">
-                                    <i class="fa-solid fa-pen-to-square fs-6 text-black" onclick="getGenderData()"></i>
-                                </a>
-                            </div>
+                    <div style="display: none;" class="success-password text-danger"></div>
+                </div>
+                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                    <label asp-for="ProfileModel.SelfServicePassword"
+                        class="fs-5 d-inline-block text-secondary mb-2"></label>
+                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                        <div>
+                            <span class="fs-6">b1234567</span>
+                        </div>
+                        <div class="icon-edit">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateInformation">
+                                <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
+                            </a>
                         </div>
                     </div>
-                    <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                        <label class="fs-5 d-inline-block text-secondary mb-2">سلف پیش‌فرض</label>
-                        <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
-                            <div>
-                                <span id="DefaultSelfLocationSpan" class="fs-6">@Model.ProfileModel.DefaultSelfService</span>
-                            </div>
-                            <div class="icon-edit">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#UpdatePersonalInformation">
-                                    <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
-                                </a>
-                            </div>
+                </div>
+                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                    <label class="fs-5 d-inline-block text-secondary mb-2">جنسیت</label>
+                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                        <div>
+                            <span id="GenderSpan" class="fs-6">@Model.ProfileModel.Gender</span>
+                        </div>
+                        <div class="icon-edit">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#UpdatePersonalInformation"
+                                onclick="getGenderData()">
+                                <i class="fa-solid fa-pen-to-square fs-6 text-black" onclick="getGenderData()"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                    <label class="fs-5 d-inline-block text-secondary mb-2">سلف پیش‌فرض</label>
+                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                        <div>
+                            <span id="DefaultSelfLocationSpan"
+                                class="fs-6">@Model.ProfileModel.DefaultSelfService</span>
+                        </div>
+                        <div class="icon-edit">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#UpdatePersonalInformation">
+                                <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        @* MODALS *@
-        <div class="modal fade" id="UpdateFullName" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content bg-light">
-                    <div class="modal-header">
-                        <div class="modal-header-content">
-                            <i class="fa-solid fa-user m-1 fs-6"></i>
-                            <span class="fs-6 m-1 w-100">اطلاعات شخصی</span>
+    @* MODALS *@
+    <div class="modal fade" id="UpdateFullName" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-light">
+                <div class="modal-header">
+                    <div class="modal-header-content">
+                        <i class="fa-solid fa-user m-1 fs-6"></i>
+                        <span class="fs-6 m-1 w-100">اطلاعات شخصی</span>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close-tab"></button>
+                </div>
+                <div class="modal-body d-flex flex-column m-2 fs-7">
+                    <p>
+                        لطفا اطلاعات شناسایی خود را وارد کنید. <br> نام‌ونام‌خانوادگی شما باید با اطلاعات سامانه
+                        پویا
+                        همخوانی داشته باشد.
+                    </p>
+                    <div class="d-flex flex-nowrap justify-content-between">
+                        <div class="m-2 w-50">
+                            <label for="FullName" class="fs-6 mb-2">نام و نام‌خانوادگی</label>
+                            <input type="text" class="form-control bg-light w-100" id="FullName" required>
+                            <div class="form-text text-danger mt-1" id="FullNameError" style="display: none;"></div>
                         </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close-tab"></button>
                     </div>
-                    <div class="modal-body d-flex flex-column m-2 fs-7">
-                        <p>
-                            لطفا اطلاعات شناسایی خود را وارد کنید. <br> نام‌ونام‌خانوادگی شما باید با اطلاعات سامانه
-                            پویا
-                            همخوانی داشته باشد.
-                        </p>
-                        <div class="d-flex flex-nowrap justify-content-between">
-                            <div class="m-2 w-50">
-                                <label for="FullName" class="fs-6 mb-2">نام و نام‌خانوادگی</label>
-                                <input type="text" class="form-control bg-light w-100" id="FullName" required>
-                                <div class="form-text text-danger mt-1" id="FullNameError" style="display: none;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-modal-id="FullName"
-                                id="SubmitBtnName">
-                            ذخیره
-                        </button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-modal-id="FullName" id="SubmitBtnName">
+                        ذخیره
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="UpdateEmail" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered ">
-                <div class="modal-content bg-light" style="z-index: 30;">
-                    <div class="modal-header">
-                        <div class="modal-header-content">
-                            <i class="fa-solid fa-envelope m-1 fs-6"></i>
-                            <span class="fs-6 m-1 w-100">ایمیل</span>
-                        </div>
-                        <button type="button" class="btn-close " data-bs-dismiss="modal"
-                                aria-label="close-tab"></button>
+    </div>
+    <div class="modal fade" id="UpdateEmail" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered ">
+            <div class="modal-content bg-light" style="z-index: 30;">
+                <div class="modal-header">
+                    <div class="modal-header-content">
+                        <i class="fa-solid fa-envelope m-1 fs-6"></i>
+                        <span class="fs-6 m-1 w-100">ایمیل</span>
                     </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="d-flex flex-wrap justify-content-between">
-                                <div class="w-100">
-                                    <label for="Email" class="form-label fs-6">ایمیل خود را وارد کنید.</label>
-                                    <div class="mb-3 d-flex align-items-center w-75">
-                                        <input type="email" class="form-control bg-light border border-1 border-dark"
-                                               id="Email" dir="ltr" placeholder="example@email.com">
-                                    </div>
-                                    <div class="form-text text-danger fs-7" id="EmailError" style="display: none;">
-                                    </div>
+                    <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="close-tab"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="d-flex flex-wrap justify-content-between">
+                            <div class="w-100">
+                                <label for="Email" class="form-label fs-6">ایمیل خود را وارد کنید.</label>
+                                <div class="mb-3 d-flex align-items-center w-75">
+                                    <input type="email" class="form-control bg-light border border-1 border-dark"
+                                        id="Email" dir="ltr" placeholder="example@email.com">
+                                </div>
+                                <div class="form-text text-danger fs-7" id="EmailError" style="display: none;">
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-modal-id="Email"
-                                id="SubmitBtnEmail">
-                            ذخیره
-                        </button>
-                    </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-modal-id="Email" id="SubmitBtnEmail">
+                        ذخیره
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="UpdatePhoneNumber" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered ">
-                <div class="modal-content bg-light" style="width: 85% !important;">
-                    <div class="modal-header">
-                        <div class="modal-header-content">
-                            <i class="fa-solid fa-phone-flip m-1 fs-6"></i>
-                            <span class="fs-6 m-1 w-100">تغییر شماره‌همراه</span>
-                        </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close-tab"></button>
+    </div>
+    <div class="modal fade" id="UpdatePhoneNumber" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered ">
+            <div class="modal-content bg-light" style="width: 85% !important;">
+                <div class="modal-header">
+                    <div class="modal-header-content">
+                        <i class="fa-solid fa-phone-flip m-1 fs-6"></i>
+                        <span class="fs-6 m-1 w-100">تغییر شماره‌همراه</span>
                     </div>
-                    <div class="modal-body">
-                        <div class="step-indicator">
-                            <div class="step active" id="step-indicator-1">
-                                1
-                                <div class="step-text">شماره تلفن</div>
-                            </div>
-                            <div class="step" id="step-indicator-2">
-                                2
-                                <div class="step-text">کدتایید</div>
-                            </div>
-                            <div class="step" id="step-indicator-3">
-                                3
-                                <div class="step-text">اتمام</div>
-                            </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close-tab"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="step-indicator">
+                        <div class="step active" id="step-indicator-1">
+                            1
+                            <div class="step-text">شماره تلفن</div>
                         </div>
+                        <div class="step" id="step-indicator-2">
+                            2
+                            <div class="step-text">کدتایید</div>
+                        </div>
+                        <div class="step" id="step-indicator-3">
+                            3
+                            <div class="step-text">اتمام</div>
+                        </div>
+                    </div>
 
-                        <form id="step-1">
-                            <div class="mb-4">
-                                <label for="PhoneNumber" class="form-label fw-bolder fs-6">شماره همراه</label>
-                                <div class="input-group d-flex flex-wrap justify-content-between">
-                                    <div class="w-100">
+                    <form id="step-1">
+                        <div class="mb-4">
+                            <label for="PhoneNumber" class="form-label fw-bolder fs-6">شماره همراه</label>
+                            <div class="input-group d-flex flex-wrap justify-content-between">
+                                <div class="w-100">
                                     <input type="tel" class="form-control bg-light border border-1 border-dark"
                                         id="PhoneNumber" placeholder="09123456789" maxlength="11">
-                                    </div>
-                                    <div class="form-text text-danger fs-7" id="PhoneNumberError"style="display: none;"></div>
+                                </div>
+                                <div class="form-text text-danger fs-7" id="PhoneNumberError" style="display: none;">
                                 </div>
                             </div>
-                            <div class="d-grid gap-2 mt-4">
-                                <button class="btn btn-primary submitCode" id="sendCodeBtn">ارسال کد تأیید</button>
-                            </div>
-                        </form>
-                        <form id="step-2" style="display:none;">
-                            <div class="verification-info">
-                                <i class="fas fa-info-circle"></i>
-                                <div>
-                                    <span>کد تأیید به شماره </span>
-                                    <strong id="PhoneNumberDisplay">09123456789</strong>
-                                    <span> ارسال گردید</span>
-                                    <div class="timer text-danger">
-                                        زمان باقیمانده: <span id="countdown">02:00</span>
-                                    </div>
+                        </div>
+                        <div class="d-grid gap-2 mt-4">
+                            <button class="btn btn-primary submitCode" id="sendCodeBtn">ارسال کد تأیید</button>
+                        </div>
+                    </form>
+                    <form id="step-2" style="display:none;">
+                        <div class="verification-info">
+                            <i class="fas fa-info-circle"></i>
+                            <div>
+                                <span>کد تأیید به شماره </span>
+                                <strong id="PhoneNumberDisplay">09123456789</strong>
+                                <span> ارسال گردید</span>
+                                <div class="timer text-danger">
+                                    زمان باقیمانده: <span id="countdown">02:00</span>
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="verificationCode" class="form-label fw-bolder fs-6">کد تأیید</label>
-                                <div class="input-group">
-                                    <div class="d-flex flex-wrap">
-                                        <input type="text" class="form-control border border-1 border-dark"
-                                               id="VerificationCode" placeholder="کد ۶ رقمی" maxlength="6">
-                                        <div class="form-text text-danger fs-7" id="VerificationCodeError"
-                                             style="display: none;"></div>
-                                    </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="verificationCode" class="form-label fw-bolder fs-6">کد تأیید</label>
+                            <div class="input-group">
+                                <div class="d-flex flex-wrap">
+                                    <input type="text" class="form-control border border-1 border-dark"
+                                        id="VerificationCode" placeholder="کد ۶ رقمی" maxlength="6">
+                                    <div class="form-text text-danger fs-7" id="VerificationCodeError"
+                                        style="display: none;"></div>
                                 </div>
                             </div>
-                            <div class="text-center mb-3">
-                                <span class="resend-link" id="ResendCode">ارسال مجدد کد</span>
-                            </div>
+                        </div>
+                        <div class="text-center mb-3">
+                            <span class="resend-link" id="ResendCode">ارسال مجدد کد</span>
+                        </div>
 
-                            <div class="d-grid gap-2 mt-4">
-                                <button class="btn btn-primary submitCode" id="VerifyCodeBtn">تأیید کد</button>
-                            </div>
-                        </form>
-                        <form id="step-3" style="display:none;">
-                            <div class="success-message">
-                                <i class="fas fa-check-circle"></i>
-                                <h5 class="mb-3">شماره تلفن با موفقیت تغییر یافت</h5>
-                                <div class="phone-display" id="FinalPhoneDisplay">09123456789</div>
-                                <p class="text-muted">شماره تلفن شما با موفقیت به روزرسانی شد</p>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن</button>
-                    </div>
+                        <div class="d-grid gap-2 mt-4">
+                            <button class="btn btn-primary submitCode" id="VerifyCodeBtn">تأیید کد</button>
+                        </div>
+                    </form>
+                    <form id="step-3" style="display:none;">
+                        <div class="success-message">
+                            <i class="fas fa-check-circle"></i>
+                            <h5 class="mb-3">شماره تلفن با موفقیت تغییر یافت</h5>
+                            <div class="phone-display" id="FinalPhoneDisplay">09123456789</div>
+                            <p class="text-muted">شماره تلفن شما با موفقیت به روزرسانی شد</p>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن</button>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="UpdateInformation" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content bg-light">
-                    <div class="modal-header position-relative">
-                        <div class="modal-header-content">
-                            <i class="fa-solid fa-circle-info m-1 fs-6"></i>
-                            <span class="fs-6 m-1 w-100">اطلاعات دانشجویی</span>
-                        </div>
-                        <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal"
-                                aria-label="close-tab"></button>
+    </div>
+    <div class="modal fade" id="UpdateInformation" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-light">
+                <div class="modal-header position-relative">
+                    <div class="modal-header-content">
+                        <i class="fa-solid fa-circle-info m-1 fs-6"></i>
+                        <span class="fs-6 m-1 w-100">اطلاعات دانشجویی</span>
                     </div>
-                    <div class="modal-body d-flex flex-column m-2 fs-7">
-                        <p class="m-2">
-                            لطفا اطلاعات خواسته شده را دقیق وارد کنید.<br>
-                            سامانه یونیما هیچ مسئولیتی در قبال اطلاعات نادرست نمیپذیرد.
-                        </p>
-                        <form id="StudentForm" class="d-flex flex-nowrap justify-content-between">
-                            <div class="m-2 w-50">
-                                <label for="StudentCode" class="fs-6 mb-2">شماره‌ دانشجویی</label>
-                                <input type="text" id="StudentCode"
-                                       class="form-control bg-light w-100 border border-1 border-dark" maxlength="10"
-                                       inputmode="numeric" required>
-                                <div id="ErrorStudentCode" class="text-danger mt-1" style="display: none;">
-                                    کد دانشجویی باید دقیقاً ۱۰ رقم عددی باشد
-                                </div>
+                    <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal"
+                        aria-label="close-tab"></button>
+                </div>
+                <div class="modal-body d-flex flex-column m-2 fs-7">
+                    <p class="m-2">
+                        لطفا اطلاعات خواسته شده را دقیق وارد کنید.<br>
+                        سامانه یونیما هیچ مسئولیتی در قبال اطلاعات نادرست نمیپذیرد.
+                    </p>
+                    <form id="StudentForm" class="d-flex flex-nowrap justify-content-between">
+                        <div class="m-2 w-50">
+                            <label for="StudentCode" class="fs-6 mb-2">شماره‌ دانشجویی</label>
+                            <input type="text" id="StudentCode"
+                                class="form-control bg-light w-100 border border-1 border-dark" maxlength="10"
+                                inputmode="numeric" required>
+                            <div id="ErrorStudentCode" class="text-danger mt-1" style="display: none;">
+                                کد دانشجویی باید دقیقاً ۱۰ رقم عددی باشد
                             </div>
-                            <div class="m-2 w-50">
-                                <label for="SelfPassword" class="mb-2 fs-6">رمز سلف دانشجویی</label>
-                                <input type="text" id="SelfPassword"
-                                       class="form-control bg-light w-100 border border-1 border-dark" required>
-                            </div>
-                        </form>
+                        </div>
+                        <div class="m-2 w-50">
+                            <label for="SelfPassword" class="mb-2 fs-6">رمز سلف دانشجویی</label>
+                            <input type="text" id="SelfPassword"
+                                class="form-control bg-light w-100 border border-1 border-dark" required>
+                        </div>
+                    </form>
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="submitStudentInformation">
-                            ذخیره
-                        </button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="submitStudentInformation">
+                        ذخیره
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="UpdatePassword" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered ">
-                <div class="modal-content bg-light" style="width: 85% !important;">
-                    <div class="modal-header">
-                        <div class="modal-header-content">
-                            <i class="fa-solid fa-unlock-keyhole m-1 fs-6"></i>
-                            <span class="fs-6 m-1 w-100">رمزعبور</span>
+    </div>
+    <div class="modal fade" id="UpdatePassword" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered ">
+            <div class="modal-content bg-light" style="width: 85% !important;">
+                <div class="modal-header">
+                    <div class="modal-header-content">
+                        <i class="fa-solid fa-unlock-keyhole m-1 fs-6"></i>
+                        <span class="fs-6 m-1 w-100">رمزعبور</span>
+                    </div>
+                    <button type="button" class="btn-close text-white" data-bs-dismiss="modal"
+                        aria-label="close-tab"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="ChangePasswordForm" novalidate>
+                        <div class="form-floating mb-3 password-wrapper">
+                            <input type="text" class="form-control" id="CurrentPassword" placeholder="رمزعبور فعلی"
+                                required>
+                            <label for="CurrentPassword">رمزعبور فعلی</label>
+                            <i class="fa-solid fa-eye toggle-password" data-target="CurrentPassword"></i>
                         </div>
-                        <button type="button" class="btn-close text-white" data-bs-dismiss="modal"
-                                aria-label="close-tab"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="ChangePasswordForm" novalidate>
-                            <div class="form-floating mb-3 password-wrapper">
-                                <input type="text" class="form-control" id="CurrentPassword" placeholder="رمزعبور فعلی"
-                                       required>
-                                <label for="CurrentPassword">رمزعبور فعلی</label>
-                                <i class="fa-solid fa-eye toggle-password" data-target="CurrentPassword"></i>
-                            </div>
-                            <div class="form-floating mb-3 password-wrapper">
-                                <input type="text" class="form-control" id="NewPassword" placeholder="رمزعبور جدید"
-                                       required>
-                                <label for="NewPassword">رمزعبور جدید</label>
-                                <i class="fa-solid fa-eye toggle-password" data-target="NewPassword"></i>
-                            </div>
-                            <div class="form-floating mb-3 password-wrapper">
-                                <input type="text" class="form-control" id="ConfirmPassword"
-                                       placeholder="تکرار رمزعبور جدید" required>
-                                <label for="ConfirmPassword">تکرار رمزعبور</label>
-                                <i class="fa-solid fa-eye toggle-password" data-target="ConfirmPassword"></i>
-                            </div>
-                            <div class="invalid-feedback mt-1">رمزهای جدید با هم مطابقت ندارند.</div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger">ذخیره</button>
-                    </div>
+                        <div class="form-floating mb-3 password-wrapper">
+                            <input type="text" class="form-control" id="NewPassword" placeholder="رمزعبور جدید"
+                                required>
+                            <label for="NewPassword">رمزعبور جدید</label>
+                            <i class="fa-solid fa-eye toggle-password" data-target="NewPassword"></i>
+                        </div>
+                        <div class="form-floating mb-3 password-wrapper">
+                            <input type="text" class="form-control" id="ConfirmPassword"
+                                placeholder="تکرار رمزعبور جدید" required>
+                            <label for="ConfirmPassword">تکرار رمزعبور</label>
+                            <i class="fa-solid fa-eye toggle-password" data-target="ConfirmPassword"></i>
+                        </div>
+                        <div class="invalid-feedback mt-1">رمزهای جدید با هم مطابقت ندارند.</div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger">ذخیره</button>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="UpdatePersonalInformation" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content bg-light">
-                    <div class="modal-header">
-                        <div class="modal-header-content">
-                            <i class="fa-solid fa-person-half-dress m-1 fs-5"></i>
-                            <span class="fs-6 m-1 w-100">اطلاعات‌ فردی</span>
-                        </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close-tab"></button>
+    </div>
+    <div class="modal fade" id="UpdatePersonalInformation" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-light">
+                <div class="modal-header">
+                    <div class="modal-header-content">
+                        <i class="fa-solid fa-person-half-dress m-1 fs-5"></i>
+                        <span class="fs-6 m-1 w-100">اطلاعات‌ فردی</span>
                     </div>
-                    <div class="modal-body text-center">
-                        <div class="row justify-content-center mb-4" id="GenderContainer">
-                            <h6 class="mb-3 text-end">جنسیت خود را وارد کنید:</h6>
-                        </div>
-                        <div class="d-none" row" id="MaleSelfContainer">
-                            <h6 class="mb-3 text-end">سلف پیش‌فرض (مرد):</h6>
-                            <div class="d-flex flex-wrap justify-content-center gap-2 mb-4" id="MaleSelfOption">
-                            </div>
-                        </div>
-                        <div class="d-none" id="FemaleSelfContainer">
-                            <h6 class="mb-3 text-end">سلف پیش‌فرض (زن):</h6>
-                            <div class="d-flex flex-wrap justify-content-center gap-2 mb-4" id="FemaleSelfOption">
-                            </div>
-                        </div>
-                        <input type="hidden" id="DefaultSelfLocation" value="" data="data-TextValue">
-                        <input type="hidden" id="Gender" value="" data="data-TextValue">
-                        <div id="ErrorGender" class="d-none text-end text-danger mt-3"></div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close-tab"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="row justify-content-center mb-4" id="GenderContainer">
+                        <h6 class="mb-3 text-end">جنسیت خود را وارد کنید:</h6>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-modal-id="UpdatePersonalInformation" id="SubmitBtnGender">
-                            ذخیره
-                        </button>
+                    <div class="d-none" row" id="MaleSelfContainer">
+                        <h6 class="mb-3 text-end">سلف پیش‌فرض (مرد):</h6>
+                        <div class="d-flex flex-wrap justify-content-center gap-2 mb-4" id="MaleSelfOption">
+                        </div>
                     </div>
+                    <div class="d-none" id="FemaleSelfContainer">
+                        <h6 class="mb-3 text-end">سلف پیش‌فرض (زن):</h6>
+                        <div class="d-flex flex-wrap justify-content-center gap-2 mb-4" id="FemaleSelfOption">
+                        </div>
+                    </div>
+                    <input type="hidden" id="DefaultSelfLocation" value="" data="data-TextValue">
+                    <input type="hidden" id="Gender" value="" data="data-TextValue">
+                    <div id="ErrorGender" class="d-none text-end text-danger mt-3"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-modal-id="UpdatePersonalInformation"
+                        id="SubmitBtnGender">
+                        ذخیره
+                    </button>
                 </div>
             </div>
         </div>
-    </section>
-    <script src="/js/Profile.js"></script>
-</body>
-
-</html>
+    </div>
+</section>
