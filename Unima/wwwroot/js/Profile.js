@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const modalIds = ['UpdateFullName', 'UpdatePhoneNumber', 'UpdatePassword', 'UpdateGender'];
+    const modalIds = ['UpdateFullName', 'UpdatePhoneNumber', 'UpdatePassword', 'UpdateGender', 'UpdateInformation'];
 
     const $fullName = $('#FullName');
     const $submitBtnName = $('#SubmitBtnName');
@@ -393,15 +393,36 @@ $(document).ready(function () {
         $ErrorGender.addClass('d-none').text('');
     });
 
-    modalIds.forEach(function (modalId) {
+    modalIds.forEach(function(modalId) {
         $('#' + modalId).on('hide.bs.modal', function () {
             document.activeElement.blur();
             $('body').focus();
         });
     });
-
     //Call the fuctions here that need to executen when page is loaded.
     getGenderData();
+});
+
+
+$(function() {
+  $('#submitStudentInformation').on('click', function(e) {
+    e.preventDefault();
+
+    const studentcode = $('#StudentCode').val().trim();
+    const selfPassword = $('#SelfPassword').val().trim();
+
+    $('#ErrorStudentCode').hide();
+
+    if (!/^\d{10}$/.test(studentcode)) {
+      $('#ErrorStudentCode').text('کد دانشجویی باید دقیقاً ۱۰ رقم باشد.').show();
+      return; 
+    }
+    if (selfPassword === '') {
+      $('#ErrorStudentCode').text('رمز سلف خود را وارد کنید.').show();
+      return;
+    }
+    $('#StudentForm').submit();
+  });
 });
 
 function getGenderData() {
