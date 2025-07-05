@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Elfie.Serialization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
@@ -132,7 +133,9 @@ public class AccountController : Controller
             SignInResult signInResult = await _signInManager.PasswordSignInAsync(user, registerModel.ConfirmPassword, false, false);
             if (signInResult.IsNotAllowed)
             {
-                string token = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber);
+                string newPhoneNumber = user.PhoneNumber.StartsWith("0") ? user.PhoneNumber.Remove(0, 1) : user.PhoneNumber;
+
+                string token = await _userManager.GenerateChangePhoneNumberTokenAsync(user, newPhoneNumber);
 
                 Console.WriteLine(token);
 
@@ -165,7 +168,9 @@ public class AccountController : Controller
         if (user is null)
             return BadRequest();
 
-        bool isValid = await _userManager.VerifyChangePhoneNumberTokenAsync(user, model.Token, user.PhoneNumber);
+        string newPhoneNumber = model.PhoneNumber.StartsWith("0") ? user.PhoneNumber.Remove(0, 1) : model.PhoneNumber;
+
+        bool isValid = await _userManager.VerifyChangePhoneNumberTokenAsync(user, model.Token, newPhoneNumber);
 
         if (isValid)
         {

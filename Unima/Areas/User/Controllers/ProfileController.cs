@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using Unima.Areas.User.Models.Profile;
 using Unima.Areas.User.Models.ViewModels;
@@ -8,6 +9,8 @@ using Unima.Biz.UoW;
 using Unima.Dal.Entities;
 using Unima.Dal.Entities.Models;
 using Unima.Dal.Enums;
+using Unima.HelperClasses.ExtensionMethods;
+using Unima.Models.ViewModels;
 
 namespace Unima.Areas.User.Controllers
 {
@@ -154,6 +157,67 @@ namespace Unima.Areas.User.Controllers
 
             currentUser.EmailConfirmed = true;
             return (await _userManager.UpdateAsync(currentUser)).Succeeded ? Ok() : BadRequest();
+        }
+
+        [HttpPost]
+        [Route("Users/Profile/UpdatePhoneNumber")]
+        public async Task<IActionResult> UpdatePhoneNumber([FromForm] string phoneNumber)
+        {
+            if (string.IsNullOrWhiteSpace(phoneNumber))
+            {
+                ModelState.AddModelError("PhoneNumber", "شماره تلفن همراه خود را وارد کنید");
+                return BadRequest(ModelState);
+            }
+
+            string pattern = @"^09\d{9}$";
+            if (!Regex.Match(phoneNumber, pattern).Success)
+            {
+                ModelState.AddModelError("PhoneNumber", "شماره تلفن همراه وارد شده معتبر نمی‌باشد");
+                return BadRequest(ModelState);
+            }
+
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return NotFound();
+
+            if (await _userManager.Users.AnyAsync(user => user.Id == currentUser.Id && user.PhoneNumber.Equals(phoneNumber)))
+            {
+                ModelState.AddModelError("PhoneNumber", "این شماره همراه متعلق به شخص دیگری می‌باشد");
+                return BadRequest(ModelState);
+            }
+
+            string token = await _userManager.GenerateChangePhoneNumberTokenAsync(currentUser, phoneNumber);
+
+            Console.WriteLine(token);
+
+            return string.IsNullOrEmpty(token) ? BadRequest() : Ok(token);
+        }
+
+        [HttpPost]
+        [Route("Users/Profile/VerifyPhoneNumber")]
+        public async Task<IActionResult> VerifyPhoneNumber(string phoneNumber, string token)
+        {
+            if (string.IsNullOrWhiteSpace(token) || string.IsNullOrWhiteSpace(phoneNumber))
+            {
+                ModelState.AddModelError("VerificationCode", "کد شش رقمی ارسال شده به شماره همراه خود را وارد کنید");
+                return BadRequest(ModelState);
+            }
+
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return NotFound();
+
+            IdentityResult? identityResult = await _userManager.ChangePhoneNumberAsync(currentUser, phoneNumber, token);
+
+            if (!identityResult.Succeeded)
+            {
+                ModelState.AddModelError("VerificationCode", identityResult.Errors.FirstOrDefault()?.Description);
+                return BadRequest(ModelState);
+            }
+
+            return Ok();
         }
     }
 }

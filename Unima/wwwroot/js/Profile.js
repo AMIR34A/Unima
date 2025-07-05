@@ -177,28 +177,69 @@ $(document).ready(function () {
         $resendCodeLink.hide();
     });
 
-    $sendCodeBtn.on('click', function (event) {
+    $sendCodeBtn.on('click', async function (event) {
         event.preventDefault();
 
         const phoneNumber = $phoneInput.val().trim();
         if (phoneNumber && phoneNumber.length === 11 && phoneNumber.startsWith('09') && /^\d+$/.test(phoneNumber)) {
+            const formData = new FormData();
+            formData.append('PhoneNumber', phoneNumber);
+
+            var url = '/Users/Profile/UpdatePhoneNumber';
+
+            const response = await fetch(url, {
+                method: "POST",
+                body: formData
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                var errorMessage = extractFirstModelError(errorData) || 'خطایی رخ داد';
+                $phoneError.text(errorMessage).show();
+                return;
+            }
+
             $phoneDisplay.text(phoneNumber);
             showStep($step2Form, 2);
             startCountdown();
-        } else {
+        }
+        else {
             $phoneError.text('لطفاً یک شماره همراه معتبر 11 رقمی وارد کنید (شروع با 09 و فقط اعداد).').show();
         }
     });
 
-    $verifyCodeBtn.on('click', function (event) {
+    $verifyCodeBtn.on('click', async function (event) {
         event.preventDefault();
 
+        const phoneNumber = $phoneInput.val().trim();
         const verificationCode = $verificationCodeInput.val().trim();
-        if (verificationCode && verificationCode.length === 6 && /^\d+$/.test(verificationCode)) {
+        if (phoneNumber && verificationCode && verificationCode.length === 6 && /^\d+$/.test(verificationCode)) {
             clearInterval(countdownInterval);
-            $finalPhoneDisplay.text($phoneInput.val().trim());
+
+            const formData = new FormData();
+            formData.append('PhoneNumber', phoneNumber);
+            formData.append('Token', verificationCode);
+
+            var url = '/Users/Profile/VerifyPhoneNumber';
+
+            const response = await fetch(url, {
+                method: "POST",
+                body: formData
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                var errorMessage = extractFirstModelError(errorData) || 'خطایی رخ داد';
+                $verificationCodeError.text(errorMessage).show();
+                return;
+            }
+
+            $finalPhoneDisplay.text(phoneNumber);
+            var span = document.getElementById('PhoneNumberSpan');
+            span.textContent = phoneNumber;
             showStep($step3Form, 3);
-        } else {
+        }
+        else {
             $verificationCodeError.text('لطفاً کد تأیید 6 رقمی را به درستی وارد کنید.').show();
         }
     });

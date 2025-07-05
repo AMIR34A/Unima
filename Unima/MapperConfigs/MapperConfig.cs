@@ -25,9 +25,6 @@ public class MapperConfig
             {
                 option.MapFrom(src => DateTime.Now);
             });
-
-            if (source.PhoneNumber.StartsWith("0"))
-                source.PhoneNumber = source.PhoneNumber.Remove(0, 1);
         });
 
         return new Mapper(configuration).Map<UserRegisterModel, ApplicationUser>(source);
