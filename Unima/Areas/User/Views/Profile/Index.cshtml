@@ -114,11 +114,11 @@
                         <label class="fs-5 d-inline-block text-secondary mb-2">جنسیت</label>
                         <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
                             <div>
-                                <span class="fs-6">مرد</span>
+                                <span class="fs-6">@Model.ProfileModel.Gender</span>
                             </div>
                             <div class="icon-edit">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateGender">
-                                    <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateGender" onclick="getGenderData()">
+                                    <i class="fa-solid fa-pen-to-square fs-6 text-black" onclick="getGenderData()"></i>
                                 </a>
                             </div>
                         </div>
@@ -127,7 +127,7 @@
                         <label class="fs-5 d-inline-block text-secondary mb-2">سلف پیش‌فرض</label>
                         <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
                             <div>
-                                <span class="fs-6">مرکزی</span>
+                                <span class="fs-6">@Model.ProfileModel.DefaultSelfService</span>
                             </div>
                             <div class="icon-edit">
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateGender">
@@ -377,8 +377,8 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="UpdateGender" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true">
+                <div class="modal fade" id="UpdateGender" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content bg-light">
                     <div class="modal-header">
@@ -400,26 +400,20 @@
                             </div>
                             <div class="col-5 col-sm-4 col-md-3">
                                 <div class="gender-option border rounded p-3" id="Femaleoption">
-                                    <input class="d-none w-100 h-100" type="radio" id="Female" name="gender"
-                                        value="Female">
+                                    <input class="d-none w-100 h-100" type="radio" id="Female" name="gender" value="Female">
                                     <div class="gender-icon">👩🏻</div>
                                     <label for="Female" class="fw-bold d-block mt-2">زن</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="d-none row" id="MaleSelfContainer">
+                        <div class="d-none" row" id="MaleSelfContainer">
                             <h6 class="mb-3 text-end">سلف پیش‌فرض (مرد):</h6>
-                            <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
-                                <div class="border rounded p-2 px-4 self-option" data-value="markazi">مرکزی</div>
-                                <div class="border rounded p-2 px-4 self-option" data-value="abuzar">ابوذر</div>
-                                <div class="border rounded p-2 px-4 self-option" data-value="amirabad">امیرآباد</div>
+                            <div class="d-flex flex-wrap justify-content-center gap-2 mb-4" id="MaleSelfOption">
                             </div>
                         </div>
                         <div class="d-none" id="FemaleSelfContainer">
                             <h6 class="mb-3 text-end">سلف پیش‌فرض (زن):</h6>
-                            <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
-                                <div class="border rounded p-2 px-4 self-option" data-value="sadaf">صدف</div>
-                                <div class="border rounded p-2 px-4 self-option" data-value="towhid">توحید</div>
+                            <div class="d-flex flex-wrap justify-content-center gap-2 mb-4" id="FemaleSelfOption">
                             </div>
                         </div>
                         <div id="ErrorGender" class="d-none text-end text-danger mt-3"></div>

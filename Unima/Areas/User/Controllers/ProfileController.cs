@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Text.RegularExpressions;
 using Unima.Areas.User.Models.Profile;
 using Unima.Areas.User.Models.ViewModels;
@@ -37,44 +36,31 @@ namespace Unima.Areas.User.Controllers
             {
                 Gender = new List<SelectListItem>
                 {
-                    new SelectListItem("انتخاب کنید", "1" ,!currentUser.Gender.HasValue || currentUser.Gender.Value == Gender.NotSelected),
-                    new SelectListItem("مرد","2",currentUser.Gender.HasValue && currentUser.Gender.Value == Gender.Male),
-                    new SelectListItem("زن" , "3", currentUser.Gender.HasValue && currentUser.Gender.Value == Gender.Female)
+                    new SelectListItem("مرد","1",currentUser.Gender.HasValue && currentUser.Gender.Value == Gender.Male),
+                    new SelectListItem("زن" , "2", currentUser.Gender.HasValue && currentUser.Gender.Value == Gender.Female)
                 }
             });
         }
 
         [HttpGet]
-        [Route("User/Profile/GetSelfLocationsData/{genderId:int?}")]
-        public async Task<IActionResult> GetSelfLocationsDataAsync(int? genderId)
+        [Route("User/Profile/GetSelfLocationsData")]
+        public async Task<IActionResult> GetSelfLocationsDataAsync()
         {
-            Gender gender = genderId.HasValue && genderId.Value != 1 ? (Gender)genderId : Gender.NotSelected;
-
             ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
 
-            if (currentUser is null)
-                return BadRequest();
+            var maleSelfLocations = (await _unitOfWork.RepositoryBase<SelfLocation>().GetAllAsync())
+                          .Where(self => self.Gender == Gender.Male)
+                          .Select(self => new SelectListItem(self.Title, self.Id.ToString(), currentUser.DefaultSelfLocationId.HasValue && currentUser.DefaultSelfLocationId == self.Id))
+                          .DefaultIfEmpty(new SelectListItem("سلفی ثبت نشده است", "-1"));
 
-            IEnumerable<SelectListItem> selfLocations;
-
-            if (gender == Gender.NotSelected)
-            {
-                selfLocations = new List<SelectListItem>
-                {
-                    new SelectListItem("ابتدا جنسیت را مشخص کنید","0",true)
-                };
-            }
-            else
-            {
-                selfLocations = (await _unitOfWork.RepositoryBase<SelfLocation>().GetAllAsync())
-                                .Where(self => self.Gender == gender)
-                                .Select(self => new SelectListItem(self.Title, self.Id.ToString(), currentUser.DefaultSelfLocationId.HasValue && currentUser.DefaultSelfLocationId == self.Id))
-                                .DefaultIfEmpty(new SelectListItem("سلفی ثبت نشده است", "-1"));
-            }
-
+            var femaleSelfLocations = (await _unitOfWork.RepositoryBase<SelfLocation>().GetAllAsync())
+                          .Where(self => self.Gender == Gender.Female)
+                          .Select(self => new SelectListItem(self.Title, self.Id.ToString(), currentUser.DefaultSelfLocationId.HasValue && currentUser.DefaultSelfLocationId == self.Id))
+                          .DefaultIfEmpty(new SelectListItem("سلفی ثبت نشده است", "-1"));
             return Ok(new
             {
-                SelfLocations = selfLocations,
+                MaleSelfLocations = maleSelfLocations,
+                FemaleSelfLocations = femaleSelfLocations
             });
         }
 
@@ -85,13 +71,18 @@ namespace Unima.Areas.User.Controllers
             if (currentUser is null)
                 return NotFound();
 
+            string defaultSelfService = currentUser.DefaultSelfLocationId.HasValue ?
+                                        (await _unitOfWork.RepositoryBase<SelfLocation>().GetAllAsync()).FirstOrDefault(self => self.Id == currentUser.DefaultSelfLocationId.Value)?.Title :
+                                        "ثبت نشده";
+
             ProfileModel profileModel = new()
             {
                 FullName = currentUser.FullName,
                 Username = currentUser.UserName,
                 PhoneNumber = currentUser.PhoneNumber,
                 Email = string.IsNullOrEmpty(currentUser.Email) ? "ثبت نشده" : currentUser.Email,
-                //Gender = Gender.Male
+                Gender = !currentUser.Gender.HasValue || currentUser.Gender.Value == Gender.NotSelected ? "ثبت نشده" : currentUser.Gender.Value == Gender.Male ? "مرد" : "زن",
+                DefaultSelfService = defaultSelfService
             };
 
             ProfileViewModel viewModel = new ProfileViewModel
