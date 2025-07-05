@@ -328,8 +328,9 @@ $(document).ready(function () {
         document.querySelectorAll('.gender-option').forEach(opt => opt.classList.remove('selected'));
         option.classList.add('selected');
 
-        const input = option.querySelector('input[type="radio"]');
-        input.checked = true;
+        const input = document.getElementById('Gender');
+        input.value = option.getAttribute('data-GenderId');
+        input.setAttribute('data-TextValue', option.getAttribute('data-TextValue'));
 
         hideAllSelfContainers();
         deselectAllSelfOptions();
@@ -349,6 +350,10 @@ $(document).ready(function () {
         const selfOption = e.target.closest('.self-option');
         if (!selfOption) return;
 
+        const defaultSelfLocationInput = document.getElementById('DefaultSelfLocation');
+        defaultSelfLocationInput.value = selfOption.getAttribute('data-DefaultSelfLocationId');
+        defaultSelfLocationInput.setAttribute('data-TextValue', selfOption.getAttribute('data-TextValue'));
+
         const parent = selfOption.closest('.d-flex');
         if (!parent) return;
 
@@ -362,21 +367,20 @@ $(document).ready(function () {
     saveButton.addEventListener('click', () => {
         $ErrorGender.addClass('d-none').text('');
 
-        const selectedGenderInput = document.querySelector('.gender-option.selected input[type="radio"]');
+        const selectedGenderInput = document.getElementById('Gender');
         const selectedGender = selectedGenderInput ? selectedGenderInput.value : null;
         let selectedSelf = null;
 
-        if (selectedGender === 'Male') {
+        if (selectedGender === '1') {
             const sel = maleSelfContainer.querySelector('.self-option.selected');
             selectedSelf = sel ? sel.dataset.value : null;
-        } else if (selectedGender === 'Female') {
+        } else if (selectedGender === '2') {
             const sel = femaleSelfContainer.querySelector('.self-option.selected');
             selectedSelf = sel ? sel.dataset.value : null;
         }
 
         if (selectedGender && selectedSelf) {
-            const modal = bootstrap.Modal.getInstance(document.getElementById('UpdateGender'));
-            modal.hide();
+            submitModalData('PersonalInformation', true);
         } else {
             if (!selectedGender) {
                 $ErrorGender.removeClass('d-none').text('لطفا جنسیت خود را وارد کنید.');
@@ -433,7 +437,6 @@ function getGenderData() {
             const genderOptionsData = data.gender;
             const genderContainer = document.getElementById('GenderContainer');
 
-            // Remove old options (except the title)
             const children = Array.from(genderContainer.children).slice(1);
             children.forEach(child => child.remove());
 
@@ -447,6 +450,8 @@ function getGenderData() {
                 const genderOption = document.createElement('div');
                 genderOption.className = `gender-option border rounded p-3 ${item.selected ? 'selected' : ''}`;
                 genderOption.id = `${id}Option`;
+                genderOption.setAttribute('data-GenderId', item.value);
+                genderOption.setAttribute('data-TextValue', item.text);
 
                 const iconDiv = document.createElement('div');
                 iconDiv.className = 'gender-icon';
@@ -461,6 +466,12 @@ function getGenderData() {
                 genderOption.appendChild(label);
                 col.appendChild(genderOption);
                 genderContainer.appendChild(col);
+
+                if (item.selected) {
+                    const genderInput = document.getElementById('Gender');
+                    genderInput.value = item.value;
+                    genderInput.setAttribute('data-TextValue', item.text);
+                }
             });
 
             getSelfLocationData();
@@ -485,12 +496,18 @@ function populateSelfOptions(gender, options) {
     options.forEach(option => {
         const div = document.createElement('div');
         div.className = 'border rounded p-2 px-4 self-option';
+        div.setAttribute('data-DefaultSelfLocationId', option.value);
+        div.setAttribute('data-TextValue', option.text);
         div.dataset.value = option.value;
         div.textContent = option.text;
 
         if (option.selected) {
             div.classList.add('selected');
             container.classList.remove('d-none');
+
+            const defaultSelfLocationInput = document.getElementById('DefaultSelfLocation');
+            defaultSelfLocationInput.value = option.value;
+            defaultSelfLocationInput.setAttribute('data-TextValue', option.text);
         }
 
         selfOption.appendChild(div);
@@ -498,7 +515,7 @@ function populateSelfOptions(gender, options) {
 }
 
 
-async function submitModalData(modalId) {
+async function submitModalData(modalId, isSetTextValue = false) {
     const modal = document.getElementById(`Update${modalId}`);
 
     const inputs = modal.querySelectorAll('input, select, textarea');
@@ -538,10 +555,10 @@ async function submitModalData(modalId) {
     inputs.forEach(input => {
         const id = input.id;
         const value = input.value.trim();
-
+        const textValue = input.getAttribute('data-TextValue');
         if (id) {
             var span = document.getElementById(`${id}Span`);
-            span.textContent = value;
+            span.textContent = isSetTextValue ? textValue : value;
         }
     });
     $(`#Update${modalId}`).modal('hide');

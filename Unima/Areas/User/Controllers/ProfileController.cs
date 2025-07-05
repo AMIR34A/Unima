@@ -9,8 +9,6 @@ using Unima.Biz.UoW;
 using Unima.Dal.Entities;
 using Unima.Dal.Entities.Models;
 using Unima.Dal.Enums;
-using Unima.HelperClasses.ExtensionMethods;
-using Unima.Models.ViewModels;
 
 namespace Unima.Areas.User.Controllers
 {
@@ -218,6 +216,27 @@ namespace Unima.Areas.User.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpPost]
+        [Route("Users/Profile/UpdatePersonalInformation")]
+        public async Task<IActionResult> UpdatePersonalInformation([FromForm] int gender, [FromForm] int defaultSelfLocation)
+        {
+            if (gender == 0 || defaultSelfLocation == 0)
+            {
+                ModelState.AddModelError("PersonalInformation", "جنسیت و سلف پیش فرض را انتخاب کنید");
+                return BadRequest(ModelState);
+            }
+
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return NotFound();
+
+            currentUser.Gender = (Gender)gender;
+            currentUser.DefaultSelfLocationId = defaultSelfLocation;
+
+            return (await _userManager.UpdateAsync(currentUser)).Succeeded ? Ok() : BadRequest();
         }
     }
 }
