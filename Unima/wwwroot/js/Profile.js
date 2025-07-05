@@ -448,14 +448,6 @@ function getGenderData() {
                 genderOption.className = `gender-option border rounded p-3 ${item.selected ? 'selected' : ''}`;
                 genderOption.id = `${id}Option`;
 
-                const input = document.createElement('input');
-                input.type = 'radio';
-                input.name = 'gender';
-                input.id = id;
-                input.value = item.value;
-                input.className = 'd-none w-100 h-100';
-                if (item.selected) input.checked = true;
-
                 const iconDiv = document.createElement('div');
                 iconDiv.className = 'gender-icon';
                 iconDiv.textContent = icon;
@@ -465,7 +457,6 @@ function getGenderData() {
                 label.className = 'fw-bold d-block mt-2';
                 label.textContent = item.text;
 
-                genderOption.appendChild(input);
                 genderOption.appendChild(iconDiv);
                 genderOption.appendChild(label);
                 col.appendChild(genderOption);
