@@ -52,12 +52,12 @@ namespace Unima.Areas.User.Controllers
             var maleSelfLocations = (await _unitOfWork.RepositoryBase<SelfLocation>().GetAllAsync())
                           .Where(self => self.Gender == Gender.Male)
                           .Select(self => new SelectListItem(self.Title, self.Id.ToString(), currentUser.DefaultSelfLocationId.HasValue && currentUser.DefaultSelfLocationId == self.Id))
-                          .DefaultIfEmpty(new SelectListItem("سلفی ثبت نشده است", "-1"));
+                          .DefaultIfEmpty(new SelectListItem("سلفی ثبت نشده است", "0"));
 
             var femaleSelfLocations = (await _unitOfWork.RepositoryBase<SelfLocation>().GetAllAsync())
                           .Where(self => self.Gender == Gender.Female)
                           .Select(self => new SelectListItem(self.Title, self.Id.ToString(), currentUser.DefaultSelfLocationId.HasValue && currentUser.DefaultSelfLocationId == self.Id))
-                          .DefaultIfEmpty(new SelectListItem("سلفی ثبت نشده است", "-1"));
+                          .DefaultIfEmpty(new SelectListItem("سلفی ثبت نشده است", "0"));
             return Ok(new
             {
                 MaleSelfLocations = maleSelfLocations,
