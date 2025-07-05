@@ -213,26 +213,6 @@ $(document).ready(function () {
         clearInterval(countdownInterval);
     });
 
-    function getGenderData() {
-        const gender = document.getElementById('gender')?.value || '';
-
-        fetch(`/User/Profile/GetGenderData`)
-            .then(res => res.json())
-            .then(data => {
-                const select = document.getElementById('gender');
-
-                select.innerHTML = '';
-                data.gender.forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = item.value;
-                    option.text = item.text;
-                    option.selected = item.selected;
-                    select.appendChild(option);
-                });
-                getSelfLocationData();
-            });
-    }
-
     $passwordToggles.on('click', function () {
         const targetId = $(this).data('target');
         const $input = $('#' + targetId);
@@ -282,11 +262,11 @@ $(document).ready(function () {
         $input.removeClass('is-invalid');
     }
     $('#UpdatePassword').on('hidden.bs.modal', function () {
-    const $form = $('#ChangePasswordForm');
-    $form[0].reset();
+        const $form = $('#ChangePasswordForm');
+        $form[0].reset();
 
-    $form.find('.form-control').removeClass('is-invalid border-danger');
-    $form.find('.invalid-feedback').hide();
+        $form.find('.form-control').removeClass('is-invalid border-danger');
+        $form.find('.invalid-feedback').hide();
     });
 
     //gender
@@ -300,35 +280,43 @@ $(document).ready(function () {
         allSelfOptions.forEach(opt => opt.classList.remove('selected'));
     }
 
-    genderOptions.forEach(option => {
-        option.addEventListener('click', () => {
-            genderOptions.forEach(opt => opt.classList.remove('selected'));
-            option.classList.add('selected');
-            option.querySelector('input[type="radio"]').checked = true;
+    document.getElementById('genderContainer').addEventListener('click', function (e) {
+        const option = e.target.closest('.gender-option');
+        if (!option) return;
 
-            hideAllSelfContainers();
-            deselectAllSelfOptions();
+        document.querySelectorAll('.gender-option').forEach(opt => opt.classList.remove('selected'));
+        option.classList.add('selected');
 
-            const selectedGender = option.querySelector('input[type="radio"]').value;
-            if (selectedGender === 'Male') {
-                maleSelfContainer.classList.remove('d-none');
-            } else {
-                femaleSelfContainer.classList.remove('d-none');
-            }
+        const input = option.querySelector('input[type="radio"]');
+        input.checked = true;
 
-            $ErrorGender.addClass('d-none').text('');
-        });
+        hideAllSelfContainers();
+        deselectAllSelfOptions();
+
+        const selectedGender = input.value;
+        if (selectedGender === '2') {
+            maleSelfContainer.classList.remove('d-none');
+        } else {
+            femaleSelfContainer.classList.remove('d-none');
+        }
+
+        $ErrorGender.addClass('d-none').text('');
     });
 
-    allSelfOptions.forEach(option => {
-        option.addEventListener('click', () => {
-            const parent = option.closest('.d-flex');
-            parent.querySelectorAll('.self-option').forEach(opt => opt.classList.remove('selected'));
-            option.classList.add('selected');
 
-            $ErrorGender.addClass('d-none').text('');
-        });
+    document.addEventListener('click', function (e) {
+        const selfOption = e.target.closest('.self-option');
+        if (!selfOption) return;
+
+        const parent = selfOption.closest('.d-flex');
+        if (!parent) return;
+
+        parent.querySelectorAll('.self-option').forEach(opt => opt.classList.remove('selected'));
+        selfOption.classList.add('selected');
+
+        $ErrorGender.addClass('d-none').text('');
     });
+
 
     saveButton.addEventListener('click', () => {
         $ErrorGender.addClass('d-none').text('');
@@ -358,13 +346,13 @@ $(document).ready(function () {
     });
 
     document.getElementById('UpdateGender').addEventListener('show.bs.modal', () => {
-        genderOptions.forEach(opt => opt.classList.remove('selected'));
-        hideAllSelfContainers();
-        deselectAllSelfOptions();
+        //genderOptions.forEach(opt => opt.classList.remove('selected'));
+        //hideAllSelfContainers();
+        //deselectAllSelfOptions();
         $ErrorGender.addClass('d-none').text('');
     });
 
-    modalIds.forEach(function(modalId) {
+    modalIds.forEach(function (modalId) {
         $('#' + modalId).on('hide.bs.modal', function () {
             document.activeElement.blur();
             $('body').focus();
@@ -375,35 +363,86 @@ $(document).ready(function () {
     getGenderData();
 });
 
-
-function getSelfLocationData() {
-    const genderId = document.getElementById('gender')?.value || '';
-
-    fetch(`/User/Profile/GetSelfLocationsData?genderId=${genderId}`)
+function getGenderData() {
+    fetch(`/User/Profile/GetGenderData`)
         .then(res => res.json())
         .then(data => {
-            populateSelectsFromBackendData(data);
-        })
-        .catch(err => {
-            console.error('Error loading data:', err);
+            const genderOptionsData = data.gender;
+            const genderContainer = document.getElementById('genderContainer');
+
+            // Remove old options (except the title)
+            const children = Array.from(genderContainer.children).slice(1);
+            children.forEach(child => child.remove());
+
+            genderOptionsData.forEach(item => {
+                const id = item.value === "1" ? "Male" : "Female";
+                const icon = item.value === "1" ? "👨🏻" : "👩🏻";
+
+                const col = document.createElement('div');
+                col.className = 'col-5 col-sm-4 col-md-3';
+
+                const genderOption = document.createElement('div');
+                genderOption.className = `gender-option border rounded p-3 ${item.selected ? 'selected' : ''}`;
+                genderOption.id = `${id}Option`;
+
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'gender';
+                input.id = id;
+                input.value = item.value;
+                input.className = 'd-none w-100 h-100';
+                if (item.selected) input.checked = true;
+
+                const iconDiv = document.createElement('div');
+                iconDiv.className = 'gender-icon';
+                iconDiv.textContent = icon;
+
+                const label = document.createElement('label');
+                label.htmlFor = id;
+                label.className = 'fw-bold d-block mt-2';
+                label.textContent = item.text;
+
+                genderOption.appendChild(input);
+                genderOption.appendChild(iconDiv);
+                genderOption.appendChild(label);
+                col.appendChild(genderOption);
+                genderContainer.appendChild(col);
+            });
+
+            getSelfLocationData();
         });
 }
 
-function populateSelectsFromBackendData(data) {
-    Object.entries(data).forEach(([key, items]) => {
-        const select = document.getElementById(key);
-        if (!select || !Array.isArray(items)) return;
-
-        select.innerHTML = '';
-        items.forEach(item => {
-            const option = document.createElement('option');
-            option.value = item.value;
-            option.text = item.text;
-            option.selected = item.selected;
-            select.appendChild(option);
+function getSelfLocationData() {
+    fetch('/User/Profile/GetSelfLocationsData?genderId')
+        .then(res => res.json())
+        .then(data => {
+            populateSelfOptions("Male", data.maleSelfLocations);
+            populateSelfOptions("Female", data.femaleSelfLocations);
         });
+}
+
+function populateSelfOptions(gender, options) {
+    const container = document.getElementById(`${gender}SelfContainer`);
+    const selfOption = document.getElementById(`${gender}SelfOption`);
+    selfOption.innerHTML = '';
+    container.classList.add('d-none');
+
+    options.forEach(option => {
+        const div = document.createElement('div');
+        div.className = 'border rounded p-2 px-4 self-option';
+        div.dataset.value = option.value;
+        div.textContent = option.text;
+
+        if (option.selected) {
+            div.classList.add('selected');
+            container.classList.remove('d-none');
+        }
+
+        selfOption.appendChild(div);
     });
 }
+
 
 async function submitModalData(modalId) {
     const modal = document.getElementById(`Update${modalId}`);

@@ -21,8 +21,8 @@ public class ProfileModel
     public string? SelfServicePassword { get; set; }
 
     [Display(Name = "جنسیت")]
-    public Gender? Gender { get; set; }
+    public required string Gender { get; set; }
 
     [Display(Name = "سلف پیشفرض")]
-    public int? DefaultSelfServiceLocation { get; set; }
+    public required string DefaultSelfService { get; set; }
 }
