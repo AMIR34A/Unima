@@ -277,7 +277,7 @@ $(document).ready(function () {
     }
 
     function deselectAllSelfOptions() {
-        allSelfOptions.forEach(opt => opt.classList.remove('selected'));
+        document.querySelectorAll('.self-option').forEach(opt => opt.classList.remove('selected'));
     }
 
     document.getElementById('genderContainer').addEventListener('click', function (e) {
@@ -294,7 +294,7 @@ $(document).ready(function () {
         deselectAllSelfOptions();
 
         const selectedGender = input.value;
-        if (selectedGender === '2') {
+        if (selectedGender === '1') {
             maleSelfContainer.classList.remove('d-none');
         } else {
             femaleSelfContainer.classList.remove('d-none');
