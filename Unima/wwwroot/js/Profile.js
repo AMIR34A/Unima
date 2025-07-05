@@ -19,10 +19,8 @@ $(document).ready(function () {
     const $savePasswordBtn = $('#UpdatePassword .btn-danger');
     const $passwordToggles = $('.toggle-password');
 
-    const genderOptions = document.querySelectorAll('.gender-option');
     const maleSelfContainer = document.getElementById('MaleSelfContainer');
     const femaleSelfContainer = document.getElementById('FemaleSelfContainer');
-    const allSelfOptions = document.querySelectorAll('.self-option');
     const saveButton = document.getElementById('SubmitBtnGender');
     const $ErrorGender = $('#ErrorGender');
 
