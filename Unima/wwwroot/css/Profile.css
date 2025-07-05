@@ -110,6 +110,7 @@
 
         .form-control{
             background-color: #ebebeb !important;
+            border-color: #474c50;
         }
         .form-control:focus{
             box-shadow: 0 0 0 0.2rem #dda85350 !important;
@@ -265,13 +266,18 @@
 
         .form-floating > .form-control:focus ~ label,
         .form-floating > .form-control:not(:placeholder-shown) ~ label {
-        opacity: 0.65;
+        opacity: 0.8;
         display: inline;
         margin: 0;
         padding: 0;
         height: 25px;
-        background-color: whitesmoke;
-        transform: scale(.92) translateY(-0.9rem) translateX(-0.12rem);
+        background: linear-gradient(180deg,#fff 53%,#ebebeb 47%);
+        border: none;
+        transform: scale(.92) translateY(-0.55rem) translateX( .6rem);
+        }
+
+        .form-floating{
+            margin-inline-end: 20px;
         }
 
         .toggle-password {
@@ -294,8 +300,14 @@
         }
 
         .form-control::placeholder {
+        position: absolute;
         color: #2f2f2f;
+        font-size: 14px;
+        top: .75rem;
+        right: 1.5rem;
+        left: auto;
         }
+
         .form-floating > .form-control::placeholder {
         
         text-align: right !important;
@@ -304,13 +316,16 @@
         }
         .form-floating > .form-control {
         direction: rtl;
+        min-height: 20px;
+        height: 48px;
         padding-left: 0;
         padding-right: 2.5rem; 
         }
         .form-floating > label {
         color: black;
-        font-size: 15px;
-        right: 0.75rem; 
+        font-size: 14px;
+        top: -0.2rem !important;
+        right: .75rem; 
         left: auto; 
         }
         .modal-header .btn-close {

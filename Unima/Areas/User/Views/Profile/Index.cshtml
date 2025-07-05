@@ -10,10 +10,8 @@
 <link rel="stylesheet" href="/css/Profile.css">
 }
 @section Scripts{
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/Profile.js"></script>
-
 }
 
 
@@ -157,11 +155,15 @@
                         پویا
                         همخوانی داشته باشد.
                     </p>
-                    <div class="d-flex flex-nowrap justify-content-between">
-                        <div class="m-2 w-50">
+                    <div novalidate>
+                        @* <div class="m-2 w-50">
                             <label for="FullName" class="fs-6 mb-2">نام و نام‌خانوادگی</label>
                             <input type="text" class="form-control bg-light w-100" id="FullName" required>
                             <div class="form-text text-danger mt-1" id="FullNameError" style="display: none;"></div>
+                        </div> *@
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="FullName" placeholder="نام‌ونام‌خانوادگی" required>
+                            <label for="FullName">نام‌ونام‌خانوادگی</label>
                         </div>
                     </div>
                 </div>
@@ -187,10 +189,14 @@
                     <form>
                         <div class="d-flex flex-wrap justify-content-between">
                             <div class="w-100">
-                                <label for="Email" class="form-label fs-6">ایمیل خود را وارد کنید.</label>
+                                @* <label for="Email" class="form-label fs-6">ایمیل خود را وارد کنید.</label>
                                 <div class="mb-3 d-flex align-items-center w-75">
                                     <input type="email" class="form-control bg-light border border-1 border-dark"
                                         id="Email" dir="ltr" placeholder="example@email.com">
+                                </div> *@
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="Email" placeholder="example@gmail.com" required>
+                                    <label for="Email">لطفا ایمیل خود را وارد کنید.</label>
                                 </div>
                                 <div class="form-text text-danger fs-7" id="EmailError" style="display: none;">
                                 </div>
