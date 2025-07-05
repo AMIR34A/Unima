@@ -159,11 +159,11 @@
                         @* <div class="m-2 w-50">
                             <label for="FullName" class="fs-6 mb-2">نام و نام‌خانوادگی</label>
                             <input type="text" class="form-control bg-light w-100" id="FullName" required>
-                            <div class="form-text text-danger mt-1" id="FullNameError" style="display: none;"></div>
                         </div> *@
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="FullName" placeholder="نام‌ونام‌خانوادگی" required>
                             <label for="FullName">نام‌ونام‌خانوادگی</label>
+                            <div class="form-text text-danger mt-1" id="FullNameError" style="display: none;"></div>
                         </div>
                     </div>
                 </div>
@@ -195,8 +195,8 @@
                                         id="Email" dir="ltr" placeholder="example@email.com">
                                 </div> *@
                                 <div class="form-floating mb-3">
-                                    <input type="email" class="form-control" id="Email" placeholder="example@gmail.com" required>
-                                    <label for="Email">لطفا ایمیل خود را وارد کنید.</label>
+                                    <input type="email" class="form-control" id="Email" placeholder="example@gmail.com" dir="rtl" required>
+                                    <label for="Email"> ایمیل خود را وارد کنید.</label>
                                 </div>
                                 <div class="form-text text-danger fs-7" id="EmailError" style="display: none;">
                                 </div>
@@ -227,7 +227,7 @@
                     <div class="step-indicator">
                         <div class="step active" id="step-indicator-1">
                             1
-                            <div class="step-text">شماره تلفن</div>
+                            <div class="step-text">شماره موبایل</div>
                         </div>
                         <div class="step" id="step-indicator-2">
                             2
@@ -240,18 +240,19 @@
                     </div>
 
                     <form id="step-1">
-                        <div class="mb-4">
-                            <label for="PhoneNumber" class="form-label fw-bolder fs-6">شماره همراه</label>
-                            <div class="input-group d-flex flex-wrap justify-content-between">
-                                <div class="w-100">
+                        <div class="my-5">
+                                @* <div class="w-100">
                                     <input type="tel" class="form-control bg-light border border-1 border-dark"
                                         id="PhoneNumber" placeholder="09123456789" maxlength="11">
                                 </div>
-                                <div class="form-text text-danger fs-7" id="PhoneNumberError" style="display: none;">
+                                 *@
+                                <div class="form-floating mb-3">
+                                    <input type="tel" class="form-control" id="PhoneNumber" placeholder="شماره خود را وارد کنید." maxlength="11" dir="rtl" required>
+                                    <label for="PhoneNumber"> شماره خود را وارد کنید.</label>
+                                    <div class="form-text text-danger fs-7" id="PhoneNumberError" style="display: none;"></div>
                                 </div>
-                            </div>
                         </div>
-                        <div class="d-grid gap-2 mt-4">
+                        <div class="d-grid gap-2">
                             <button class="btn btn-primary submitCode" id="sendCodeBtn">ارسال کد تأیید</button>
                         </div>
                     </form>
@@ -267,19 +268,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="verificationCode" class="form-label fw-bolder fs-6">کد تأیید</label>
-                            <div class="input-group">
-                                <div class="d-flex flex-wrap">
-                                    <input type="text" class="form-control border border-1 border-dark"
-                                        id="VerificationCode" placeholder="کد ۶ رقمی" maxlength="6">
+                        <div class="my-3">
+                                <div>
+                                    @* <input type="text" class="form-control border border-1 border-dark"
+                                        id="VerificationCode" placeholder="کد ۶ رقمی" maxlength="6"> *@
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="VerificationCode" placeholder="کد تایید" maxlength="6" dir="rtl" required>
+                                        <label for="VerificationCode">کد تایید</label>
+                                    </div>
                                     <div class="form-text text-danger fs-7" id="VerificationCodeError"
                                         style="display: none;"></div>
                                 </div>
-                            </div>
                         </div>
                         <div class="text-center mb-3">
-                            <span class="resend-link" id="ResendCode">ارسال مجدد کد</span>
+                            @* <span class="resend-link" id="ResendCode">ارسال مجدد کد</span> *@
                         </div>
 
                         <div class="d-grid gap-2 mt-4">
@@ -318,20 +320,28 @@
                         لطفا اطلاعات خواسته شده را دقیق وارد کنید.<br>
                         سامانه یونیما هیچ مسئولیتی در قبال اطلاعات نادرست نمیپذیرد.
                     </p>
-                    <form id="StudentForm" class="d-flex flex-nowrap justify-content-between">
+                    <form id="StudentForm my-2" class="d-flex flex-nowrap justify-content-between">
                         <div class="m-2 w-50">
-                            <label for="StudentCode" class="fs-6 mb-2">شماره‌ دانشجویی</label>
+                            @* <label for="StudentCode" class="fs-6 mb-2">شماره‌ دانشجویی</label>
                             <input type="text" id="StudentCode"
                                 class="form-control bg-light w-100 border border-1 border-dark" maxlength="10"
-                                inputmode="numeric" required>
-                            <div id="ErrorStudentCode" class="text-danger mt-1" style="display: none;">
-                                کد دانشجویی باید دقیقاً ۱۰ رقم عددی باشد
+                                inputmode="numeric" required> *@
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" inputmode="numeric" id="StudentCode" placeholder="شماره دانشجویی" maxlength="10" dir="rtl" required>
+                                <label for="StudentCode">شماره دانشجویی</label>
+                                <div id="ErrorStudentCode" class="text-danger mt-1" style="display: none;">
+                                    کد دانشجویی باید دقیقاً ۱۰ رقم عددی باشد
+                                </div>
                             </div>
                         </div>
                         <div class="m-2 w-50">
-                            <label for="SelfPassword" class="mb-2 fs-6">رمز سلف دانشجویی</label>
+                            @* <label for="SelfPassword" class="mb-2 fs-6">رمز سلف دانشجویی</label>
                             <input type="text" id="SelfPassword"
-                                class="form-control bg-light w-100 border border-1 border-dark" required>
+                                class="form-control bg-light w-100 border border-1 border-dark" required> *@
+                            <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="SelfPassword" placeholder="رمز سلف دانشجویی" dir="rtl" required>
+                                    <label for="SelfPassword">رمز سلف دانشجویی</label>
+                            </div>
                         </div>
                     </form>
 

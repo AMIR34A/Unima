@@ -101,14 +101,14 @@ $(document).ready(function () {
         $nameError.hide();
 
         if (!name) {
-            $nameError.text('لطفا نام و نام‌خانوادگی را وارد کنید.').show();
+            $nameError.text(' نام و نام‌خانوادگی را وارد کنید.').show();
             return false;
         }
 
         const nameParts = name.split(/\s+/).filter(part => part.length > 0);
 
         if (nameParts.length < 2) {
-            $nameError.text('لطفا نام و نام‌خانوادگی خود را کامل وارد کنید.').show();
+            $nameError.text(' نام و نام‌خانوادگی خود را کامل وارد کنید.').show();
             return false;
         }
 
@@ -120,14 +120,14 @@ $(document).ready(function () {
         $emailError.hide();
 
         if (!email) {
-            $emailError.text('لطفا ایمیل را وارد کنید.').show();
+            $emailError.text(' ایمیل را وارد کنید.').show();
             return false;
         }
 
         const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
         if (!regex.test(email)) {
-            $emailError.text('لطفا ایمیل معتبر وارد کنید.').show();
+            $emailError.text(' ایمیل معتبر وارد کنید.').show();
             return false;
         }
 
@@ -204,7 +204,7 @@ $(document).ready(function () {
             startCountdown();
         }
         else {
-            $phoneError.text('لطفاً یک شماره همراه معتبر 11 رقمی وارد کنید (شروع با 09 و فقط اعداد).').show();
+            $phoneError.text('ً یک شماره همراه معتبر 11 رقمی وارد کنید (شروع با 09 و فقط اعداد).').show();
         }
     });
 
@@ -240,7 +240,7 @@ $(document).ready(function () {
             showStep($step3Form, 3);
         }
         else {
-            $verificationCodeError.text('لطفاً کد تأیید 6 رقمی را به درستی وارد کنید.').show();
+            $verificationCodeError.text('ً کد تأیید 6 رقمی را به درستی وارد کنید.').show();
         }
     });
 
@@ -383,9 +383,9 @@ $(document).ready(function () {
             submitModalData('PersonalInformation', true);
         } else {
             if (!selectedGender) {
-                $ErrorGender.removeClass('d-none').text('لطفا جنسیت خود را وارد کنید.');
+                $ErrorGender.removeClass('d-none').text(' جنسیت خود را وارد کنید.');
             } else {
-                $ErrorGender.removeClass('d-none').text('لطفا سلف پیش‌فرض خود را وارد کنید.');
+                $ErrorGender.removeClass('d-none').text(' سلف پیش‌فرض خود را وارد کنید.');
             }
         }
     });
@@ -410,8 +410,8 @@ $(document).ready(function () {
 
 
 $(function () {
-    $('#submitStudentInformation').on('click', function (e) {
-        e.preventDefault();
+    $('#submitStudentInformation').on('click', function (SubmitInformation) {
+        SubmitInformation.preventDefault();
 
         const studentcode = $('#StudentCode').val().trim();
         const selfPassword = $('#SelfPassword').val().trim();

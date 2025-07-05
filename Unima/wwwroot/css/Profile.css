@@ -266,18 +266,19 @@
 
         .form-floating > .form-control:focus ~ label,
         .form-floating > .form-control:not(:placeholder-shown) ~ label {
-        opacity: 0.8;
+        opacity: 1;
         display: inline;
         margin: 0;
         padding: 0;
         height: 25px;
-        background: linear-gradient(180deg,#fff 53%,#ebebeb 47%);
+        color: #2f2f2f;
+        background: linear-gradient(180deg,#ffffff 47%,#ebebeb 20%);
         border: none;
         transform: scale(.92) translateY(-0.55rem) translateX( .6rem);
         }
 
         .form-floating{
-            margin-inline-end: 20px;
+            margin-inline-end: 0px;
         }
 
         .toggle-password {
@@ -319,7 +320,8 @@
         min-height: 20px;
         height: 48px;
         padding-left: 0;
-        padding-right: 2.5rem; 
+        padding-right: 1.3rem !important;
+        padding-top: 1.2rem !important; 
         }
         .form-floating > label {
         color: black;
