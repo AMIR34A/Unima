@@ -19,8 +19,10 @@ $(document).ready(function () {
     const $savePasswordBtn = $('#UpdatePassword .btn-danger');
     const $passwordToggles = $('.toggle-password');
 
+    const genderOptions = document.querySelectorAll('.gender-option');
     const maleSelfContainer = document.getElementById('MaleSelfContainer');
     const femaleSelfContainer = document.getElementById('FemaleSelfContainer');
+    const allSelfOptions = document.querySelectorAll('.self-option');
     const saveButton = document.getElementById('SubmitBtnGender');
     const $ErrorGender = $('#ErrorGender');
 
@@ -319,7 +321,7 @@ $(document).ready(function () {
         document.querySelectorAll('.self-option').forEach(opt => opt.classList.remove('selected'));
     }
 
-    document.getElementById('genderContainer').addEventListener('click', function (e) {
+    document.getElementById('GenderContainer').addEventListener('click', function (e) {
         const option = e.target.closest('.gender-option');
         if (!option) return;
 
@@ -391,36 +393,37 @@ $(document).ready(function () {
         $ErrorGender.addClass('d-none').text('');
     });
 
-    modalIds.forEach(function(modalId) {
+    modalIds.forEach(function (modalId) {
         $('#' + modalId).on('hide.bs.modal', function () {
             document.activeElement.blur();
             $('body').focus();
         });
     });
+
     //Call the fuctions here that need to executen when page is loaded.
     getGenderData();
 });
 
 
-$(function() {
-  $('#submitStudentInformation').on('click', function(e) {
-    e.preventDefault();
+$(function () {
+    $('#submitStudentInformation').on('click', function (e) {
+        e.preventDefault();
 
-    const studentcode = $('#StudentCode').val().trim();
-    const selfPassword = $('#SelfPassword').val().trim();
+        const studentcode = $('#StudentCode').val().trim();
+        const selfPassword = $('#SelfPassword').val().trim();
 
-    $('#ErrorStudentCode').hide();
+        $('#ErrorStudentCode').hide();
 
-    if (!/^\d{10}$/.test(studentcode)) {
-      $('#ErrorStudentCode').text('کد دانشجویی باید دقیقاً ۱۰ رقم باشد.').show();
-      return; 
-    }
-    if (selfPassword === '') {
-      $('#ErrorStudentCode').text('رمز سلف خود را وارد کنید.').show();
-      return;
-    }
-    $('#StudentForm').submit();
-  });
+        if (!/^\d{10}$/.test(studentcode)) {
+            $('#ErrorStudentCode').text('کد دانشجویی باید دقیقاً ۱۰ رقم باشد.').show();
+            return;
+        }
+        if (selfPassword === '') {
+            $('#ErrorStudentCode').text('رمز سلف خود را وارد کنید.').show();
+            return;
+        }
+        $('#StudentForm').submit();
+    });
 });
 
 function getGenderData() {
@@ -428,7 +431,7 @@ function getGenderData() {
         .then(res => res.json())
         .then(data => {
             const genderOptionsData = data.gender;
-            const genderContainer = document.getElementById('genderContainer');
+            const genderContainer = document.getElementById('GenderContainer');
 
             // Remove old options (except the title)
             const children = Array.from(genderContainer.children).slice(1);
@@ -474,7 +477,7 @@ function getGenderData() {
 }
 
 function getSelfLocationData() {
-    fetch('/User/Profile/GetSelfLocationsData?genderId')
+    fetch('/User/Profile/GetSelfLocationsData')
         .then(res => res.json())
         .then(data => {
             populateSelfOptions("Male", data.maleSelfLocations);
