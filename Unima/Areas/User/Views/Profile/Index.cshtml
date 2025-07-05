@@ -26,7 +26,8 @@
                     اطلاعات شخصی
                 </p>
             </div>
-            <div class="Section-Card p-5 m-1 bg-white rounded col-xl-11 col-md-12 d-flex justify-content-center flex-wrap m-auto">
+            <div
+                class="Section-Card p-5 m-1 bg-white rounded col-xl-11 col-md-12 d-flex justify-content-center flex-wrap m-auto">
                 <div class="row xxx">
                     <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
                         <label asp-for="ProfileModel.FullName" class="fs-5 d-inline-block text-secondary mb-2"></label>
@@ -55,7 +56,8 @@
                         </div>
                     </div>
                     <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                        <label asp-for="ProfileModel.PhoneNumber" class="fs-5 d-inline-block text-secondary mb-2"></label>
+                        <label asp-for="ProfileModel.PhoneNumber"
+                            class="fs-5 d-inline-block text-secondary mb-2"></label>
                         <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
                             <div>
                                 <span id="EmailSpan" class="fs-6">@Model.ProfileModel.PhoneNumber</span>
@@ -95,7 +97,8 @@
                         <div style="display: none;" class="success-password text-danger"></div>
                     </div>
                     <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                        <label asp-for="ProfileModel.SelfServicePassword" class="fs-5 d-inline-block text-secondary mb-2"></label>
+                        <label asp-for="ProfileModel.SelfServicePassword"
+                            class="fs-5 d-inline-block text-secondary mb-2"></label>
                         <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
                             <div>
                                 <span class="fs-6">b1234567</span>
@@ -108,7 +111,7 @@
                         </div>
                     </div>
                     <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                        <label  class="fs-5 d-inline-block text-secondary mb-2">جنسیت</label>
+                        <label class="fs-5 d-inline-block text-secondary mb-2">جنسیت</label>
                         <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
                             <div>
                                 <span class="fs-6">مرد</span>
@@ -121,7 +124,7 @@
                         </div>
                     </div>
                     <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                        <label  class="fs-5 d-inline-block text-secondary mb-2">سلف پیش‌فرض</label>
+                        <label class="fs-5 d-inline-block text-secondary mb-2">سلف پیش‌فرض</label>
                         <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
                             <div>
                                 <span class="fs-6">مرکزی</span>
@@ -139,7 +142,7 @@
 
         @* MODALS *@
         <div class="modal fade" id="UpdateFullName" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-             aria-hidden="true">
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content bg-light">
                     <div class="modal-header">
@@ -164,13 +167,14 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-modal-id="FullName" id="SubmitBtnName">ذخیره</button>
+                        <button type="button" class="btn btn-danger" data-modal-id="FullName"
+                            id="SubmitBtnName">ذخیره</button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal fade" id="UpdateEmail" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-             aria-hidden="true">
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered ">
                 <div class="modal-content bg-light" style="z-index: 30;">
                     <div class="modal-header">
@@ -178,7 +182,8 @@
                             <i class="fa-solid fa-envelope m-1 fs-6"></i>
                             <span class="fs-6 m-1 w-100">ایمیل</span>
                         </div>
-                        <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="close-tab"></button>
+                        <button type="button" class="btn-close " data-bs-dismiss="modal"
+                            aria-label="close-tab"></button>
                     </div>
                     <div class="modal-body">
                         <form>
@@ -187,21 +192,23 @@
                                     <label for="Email" class="form-label fs-6">ایمیل خود را وارد کنید.</label>
                                     <div class="mb-3 d-flex align-items-center w-75">
                                         <input type="email" class="form-control bg-light border border-1 border-dark"
-                                               id="Email" dir="ltr" placeholder="example@email.com">
+                                            id="Email" dir="ltr" placeholder="example@email.com">
                                     </div>
-                                    <div class="form-text text-danger fs-7" id="EmailError" style="display: none;"></div>
+                                    <div class="form-text text-danger fs-7" id="EmailError" style="display: none;">
+                                    </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-modal-id="Email" id="SubmitBtnEmail">ذخیره</button>
+                        <button type="button" class="btn btn-danger" data-modal-id="Email"
+                            id="SubmitBtnEmail">ذخیره</button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal fade" id="UpdatePhoneNumber" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-             aria-hidden="true">
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered ">
                 <div class="modal-content bg-light" style="width: 85% !important;">
                     <div class="modal-header">
@@ -209,8 +216,7 @@
                             <i class="fa-solid fa-phone-flip m-1 fs-6"></i>
                             <span class="fs-6 m-1 w-100">تغییر شماره‌همراه</span>
                         </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="close-tab"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close-tab"></button>
                     </div>
                     <div class="modal-body">
                         <div class="step-indicator">
@@ -232,8 +238,10 @@
                             <div class="mb-4">
                                 <label for="PhoneNumber" class="form-label">شماره همراه</label>
                                 <div class="input-group">
-                                    <input type="tel" class="form-control bg-light border border-1 border-dark" id="PhoneNumber" placeholder="09123456789" maxlength="11">
-                                    <div class="form-text text-danger fs-7" id="PhoneNumberError" style="display: none;"></div>
+                                    <input type="tel" class="form-control bg-light border border-1 border-dark"
+                                        id="PhoneNumber" placeholder="09123456789" maxlength="11">
+                                    <div class="form-text text-danger fs-7" id="PhoneNumberError"
+                                        style="display: none;"></div>
                                 </div>
                             </div>
                             <div class="d-grid gap-2 mt-4">
@@ -247,15 +255,18 @@
                                     <span>کد تأیید به شماره </span>
                                     <strong id="PhoneNumberDisplay">09123456789</strong>
                                     <span> ارسال گردید</span>
-                                    <div class="timer text-danger">زمان باقیمانده: <span id="countdown">02:00</span></div>
+                                    <div class="timer text-danger">زمان باقیمانده: <span id="countdown">02:00</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="verificationCode" class="form-label">کد تأیید</label>
                                 <div class="input-group">
                                     <div class="d-flex flex-wrap">
-                                        <input type="text" class="form-control border border-1 border-dark" id="VerificationCode" placeholder="کد ۶ رقمی" maxlength="6">
-                                        <div class="form-text text-danger fs-7" id="VerificationCodeError" style="display: none;"></div>
+                                        <input type="text" class="form-control border border-1 border-dark"
+                                            id="VerificationCode" placeholder="کد ۶ رقمی" maxlength="6">
+                                        <div class="form-text text-danger fs-7" id="VerificationCodeError"
+                                            style="display: none;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -283,7 +294,7 @@
             </div>
         </div>
         <div class="modal fade" id="UpdateInformation" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-             aria-hidden="true">
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content bg-light">
                     <div class="modal-header position-relative">
@@ -291,34 +302,42 @@
                             <i class="fa-solid fa-circle-info m-1 fs-6"></i>
                             <span class="fs-6 m-1 w-100">اطلاعات دانشجویی</span>
                         </div>
-                        <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal" aria-label="close-tab"></button>
+                        <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal"
+                            aria-label="close-tab"></button>
                     </div>
                     <div class="modal-body d-flex flex-column m-2 fs-7">
                         <p class="m-2">
                             لطفا اطلاعات خواسته شده را دقیق وارد کنید.<br>
                             سامانه یونیما هیچ مسئولیتی در قبال اطلاعات نادرست نمیپذیرد.
                         </p>
-                        <div class="d-flex flex-nowrap justify-content-between">
+                        <form id="StudentForm" class="d-flex flex-nowrap justify-content-between">
                             <div class="m-2 w-50">
-                                <label for="name" class="fs-6 mb-2">شماره‌ دانشجویی</label>
-                                <input type="text"
-                                       class="form-control bg-light w-100 border border-1 border-dark" id="name" pattern="\d{10}"
-                                       title="شماره دانشجویی باید دقیقاً 10 رقم باشد">
+                                <label for="StudentCode" class="fs-6 mb-2">شماره‌ دانشجویی</label>
+                                <input type="text" id="StudentCode"
+                                    class="form-control bg-light w-100 border border-1 border-dark" maxlength="10"
+                                    inputmode="numeric" required>
+                                <div id="ErrorStudentCode" class="text-danger mt-1" style="display: none;">
+                                    کد دانشجویی باید دقیقاً ۱۰ رقم عددی باشد
+                                </div>
                             </div>
                             <div class="m-2 w-50">
-                                <label for="family" class="mb-2 fs-6">رمز سلف دانشجویی</label>
-                                <input type="text" class="form-control bg-light w-100 border border-1 border-dark" id="family">
+                                <label for="SelfPassword" class="mb-2 fs-6">رمز سلف دانشجویی</label>
+                                <input type="text" id="SelfPassword"
+                                    class="form-control bg-light w-100 border border-1 border-dark" required>
                             </div>
-                        </div>
+                        </form>
+
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-modal-id="StudentInformation" id="submitStudentInformation">ذخیره</button>
+                        <button type="button" class="btn btn-danger" id="submitStudentInformation">
+                            ذخیره
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal fade" id="UpdatePassword" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-             aria-hidden="true">
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered ">
                 <div class="modal-content bg-light" style="width: 85% !important;">
                     <div class="modal-header">
@@ -327,22 +346,25 @@
                             <span class="fs-6 m-1 w-100">رمزعبور</span>
                         </div>
                         <button type="button" class="btn-close text-white" data-bs-dismiss="modal"
-                                aria-label="close-tab"></button>
+                            aria-label="close-tab"></button>
                     </div>
                     <div class="modal-body">
                         <form id="ChangePasswordForm" novalidate>
                             <div class="form-floating mb-3 password-wrapper">
-                                <input type="text" class="form-control" id="CurrentPassword" placeholder="رمزعبور فعلی" required>
+                                <input type="text" class="form-control" id="CurrentPassword" placeholder="رمزعبور فعلی"
+                                    required>
                                 <label for="CurrentPassword">رمزعبور فعلی</label>
                                 <i class="fa-solid fa-eye toggle-password" data-target="CurrentPassword"></i>
                             </div>
                             <div class="form-floating mb-3 password-wrapper">
-                                <input type="text" class="form-control" id="NewPassword" placeholder="رمزعبور جدید" required>
+                                <input type="text" class="form-control" id="NewPassword" placeholder="رمزعبور جدید"
+                                    required>
                                 <label for="NewPassword">رمزعبور جدید</label>
                                 <i class="fa-solid fa-eye toggle-password" data-target="NewPassword"></i>
                             </div>
                             <div class="form-floating mb-3 password-wrapper">
-                                <input type="text" class="form-control" id="ConfirmPassword" placeholder="تکرار رمزعبور جدید" required>
+                                <input type="text" class="form-control" id="ConfirmPassword"
+                                    placeholder="تکرار رمزعبور جدید" required>
                                 <label for="ConfirmPassword">تکرار رمزعبور</label>
                                 <i class="fa-solid fa-eye toggle-password" data-target="ConfirmPassword"></i>
                             </div>
@@ -355,8 +377,8 @@
                 </div>
             </div>
         </div>
-                <div class="modal fade" id="UpdateGender" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-             aria-hidden="true">
+        <div class="modal fade" id="UpdateGender" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content bg-light">
                     <div class="modal-header">
@@ -378,7 +400,8 @@
                             </div>
                             <div class="col-5 col-sm-4 col-md-3">
                                 <div class="gender-option border rounded p-3" id="Femaleoption">
-                                    <input class="d-none w-100 h-100" type="radio" id="Female" name="gender" value="Female">
+                                    <input class="d-none w-100 h-100" type="radio" id="Female" name="gender"
+                                        value="Female">
                                     <div class="gender-icon">👩🏻</div>
                                     <label for="Female" class="fw-bold d-block mt-2">زن</label>
                                 </div>
@@ -402,7 +425,8 @@
                         <div id="ErrorGender" class="d-none text-end text-danger mt-3"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-modal-id="FullName" id="SubmitBtnGender">ذخیره</button>
+                        <button type="button" class="btn btn-danger" data-modal-id="FullName"
+                            id="SubmitBtnGender">ذخیره</button>
                     </div>
                 </div>
             </div>
@@ -410,4 +434,5 @@
     </section>
     <script src="/js/Profile.js"></script>
 </body>
+
 </html>

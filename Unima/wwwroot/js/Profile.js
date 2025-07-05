@@ -364,12 +364,39 @@ $(document).ready(function () {
         $ErrorGender.addClass('d-none').text('');
     });
 
+
+    //Error Modals
     modalIds.forEach(function(modalId) {
         $('#' + modalId).on('hide.bs.modal', function () {
             document.activeElement.blur();
             $('body').focus();
         });
     });
+
+    //Information
+    $(function() {
+  $('#submitStudentInformation').on('click', function(e) {
+    e.preventDefault();
+
+    const studentcode = $('#StudentCode').val().trim();
+    const selfPassword = $('#SelfPassword').val().trim();
+
+    $('#ErrorStudentCode').hide();
+
+    if (!/^\d{10}$/.test(studentcode)) {
+      $('#ErrorStudentCode').text('کد دانشجویی باید دقیقاً ۱۰ رقم باشد.').show();
+      return;
+    }
+
+    if (selfPassword === '') {
+      $('#ErrorStudentCode').text('رمز سلف خود را وارد کنید.').show();
+      return;
+    }
+
+    $('#StudentForm').submit();
+  });
+});
+
 
     //Call the fuctions here that need to executen when page is loaded.
     getGenderData();
