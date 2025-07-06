@@ -121,7 +121,6 @@
             border-color:rgba(33, 37, 41, 0.5) !important;
         }
         .modal-header{
-            background: #DDA853;
             position: relative;
             background: linear-gradient(75deg, rgba(221, 168, 83, 1) 38%, rgb(233, 214, 181) 95%);
             height: 55px;
