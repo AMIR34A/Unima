@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Unima.Biz\Unima.Biz.csproj" />
     <ProjectReference Include="..\Unima.Dal\Unima.Dal.csproj" />
+    <ProjectReference Include="..\Unima.Infrastructure\Unima.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

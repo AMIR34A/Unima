@@ -6,6 +6,7 @@ using Unima.Dal.Entities;
 using Unima.Dal.Entities.Identity.User;
 using Unima.Dal.Identity.Context;
 using Unima.HelperClasses;
+using Unima.HelperClasses.ExtensionMethods;
 using Unima.HelperClasses.SelfService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -73,6 +74,8 @@ builder.Services.AddTransient<ISelfServiceBuilder, SelfServiceBuilder>();
 
 //builder.Services.AddSingleton<UserManager<ApplicationUser>>();
 //builder.Services.AddSingleton<SignInManager<ApplicationUser>, SignInManager<ApplicationUser>>();
+
+builder.Services.ConfigSmsNotification();
 
 var app = builder.Build();
 

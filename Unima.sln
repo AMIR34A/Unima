@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unima.Dal", "Unima.Dal\Unim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unima.Biz", "Unima.Biz\Unima.Biz.csproj", "{D83621DA-761B-4274-834B-AD7B72CDBF2A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unima.Infrastructure", "Unima.Infrastructure\Unima.Infrastructure.csproj", "{8CF18EFD-A723-4DF0-97F6-8603CF71E97B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D83621DA-761B-4274-834B-AD7B72CDBF2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D83621DA-761B-4274-834B-AD7B72CDBF2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D83621DA-761B-4274-834B-AD7B72CDBF2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CF18EFD-A723-4DF0-97F6-8603CF71E97B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CF18EFD-A723-4DF0-97F6-8603CF71E97B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CF18EFD-A723-4DF0-97F6-8603CF71E97B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CF18EFD-A723-4DF0-97F6-8603CF71E97B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
