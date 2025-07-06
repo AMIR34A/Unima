@@ -84,7 +84,8 @@ namespace Unima.Areas.User.Controllers
                 PhoneNumber = currentUser.PhoneNumber,
                 Email = string.IsNullOrEmpty(currentUser.Email) ? "ثبت نشده" : currentUser.Email,
                 Gender = !currentUser.Gender.HasValue || currentUser.Gender.Value == Gender.NotSelected ? "ثبت نشده" : currentUser.Gender.Value == Gender.Male ? "مرد" : "زن",
-                DefaultSelfService = defaultSelfService
+                DefaultSelfService = defaultSelfService,
+                SelfServicePassword = currentUser.SelfServicePassword
             };
 
             ProfileViewModel viewModel = new ProfileViewModel
@@ -164,14 +165,14 @@ namespace Unima.Areas.User.Controllers
         {
             if (string.IsNullOrWhiteSpace(phoneNumber))
             {
-                ModelState.AddModelError("PhoneNumber", "شماره تلفن همراه خود را وارد کنید");
+                ModelState.AddModelError("PhoneNumber", "شماره موبایل همراه خود را وارد کنید");
                 return BadRequest(ModelState);
             }
 
             string pattern = @"^09\d{9}$";
             if (!Regex.Match(phoneNumber, pattern).Success)
             {
-                ModelState.AddModelError("PhoneNumber", "شماره تلفن همراه وارد شده معتبر نمی‌باشد");
+                ModelState.AddModelError("PhoneNumber", "شماره موبایل وارد شده معتبر نمی‌باشد");
                 return BadRequest(ModelState);
             }
 
@@ -182,7 +183,7 @@ namespace Unima.Areas.User.Controllers
 
             if (await _userManager.Users.AnyAsync(user => user.Id == currentUser.Id && user.PhoneNumber.Equals(phoneNumber)))
             {
-                ModelState.AddModelError("PhoneNumber", "این شماره همراه متعلق به شخص دیگری می‌باشد");
+                ModelState.AddModelError("PhoneNumber", "این شماره موبایل متعلق به شخص دیگری می‌باشد");
                 return BadRequest(ModelState);
             }
 
@@ -271,6 +272,32 @@ namespace Unima.Areas.User.Controllers
             await _signInManager.SignOutAsync();
 
             return Ok();
+        }
+
+        [HttpPost]
+        [Route("Users/Profile/UpdateStudentInformation")]
+        public async Task<IActionResult> UpdateStudentInformation(string username, string selfPassword)
+        {
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(selfPassword))
+            {
+                ModelState.AddModelError("Password", "تمام فیلدها باید به درستی پر شوند");
+                return BadRequest(ModelState);
+            }
+
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return NotFound();
+
+            currentUser.SelfServicePassword = selfPassword;
+            IdentityResult? identityResult = await _userManager.SetUserNameAsync(currentUser, username);
+            if (!identityResult.Succeeded)
+            {
+                ModelState.AddModelError("StudentInformation", identityResult.Errors.FirstOrDefault()?.Description);
+                return BadRequest(ModelState);
+            }
+
+            return Ok(); ;
         }
     }
 }

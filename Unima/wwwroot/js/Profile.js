@@ -417,12 +417,12 @@ $(function () {
     $('#submitStudentInformation').on('click', function (SubmitInformation) {
         SubmitInformation.preventDefault();
 
-        const studentcode = $('#StudentCode').val().trim();
+        const username = $('#Username').val().trim();
         const selfPassword = $('#SelfPassword').val().trim();
 
         $('#ErrorStudentCode').hide();
 
-        if (!/^\d{10}$/.test(studentcode)) {
+        if (!/^\d{10}$/.test(username)) {
             $('#ErrorStudentCode').text('کد دانشجویی باید دقیقاً ۱۰ رقم باشد.').show();
             return;
         }
@@ -430,7 +430,9 @@ $(function () {
             $('#ErrorStudentCode').text('رمز سلف خود را وارد کنید.').show();
             return;
         }
-        $('#StudentForm').submit();
+
+        modalId = this.getAttribute("data-modal-id");
+        submitModalData(modalI);
     });
 });
 
@@ -587,14 +589,14 @@ function extractFirstModelError(errorObj) {
 document.addEventListener('DOMContentLoaded', function() {
     var fillInputLink = document.getElementById('FillInput');
     var studentCodeSpan = document.querySelector('.StudentCodeNumber');
-    var studentCodeInput = document.getElementById('StudentCode');
+    var usernameInput = document.getElementById('Username');
     
     const updateInformationModal = document.getElementById('UpdateInformation');
 
-    if (fillInputLink && studentCodeSpan && studentCodeInput) {
+    if (fillInputLink && studentCodeSpan && usernameInput) {
         fillInputLink.addEventListener('click', function() {
             var username = studentCodeSpan.textContent;
-            studentCodeInput.value = username;
+            usernameInput.value = username;
         });
     }
 

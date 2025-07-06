@@ -11,7 +11,7 @@ public class ProfileModel
     [Display(Name = "شماره دانشجویی")]
     public required string Username { get; set; }
 
-    [Display(Name = "تلفن همراه")]
+    [Display(Name = "شماره موبایل")]
     public required string PhoneNumber { get; set; }
 
     [Display(Name = "ایمیل")]
