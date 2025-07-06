@@ -405,6 +405,9 @@ $(document).ready(function () {
         });
     });
 
+
+
+
     //Call the fuctions here that need to executen when page is loaded.
     getGenderData();
 });
@@ -580,3 +583,28 @@ function extractFirstModelError(errorObj) {
     const firstArray = errors[0];
     return Array.isArray(firstArray) && firstArray.length > 0 ? firstArray[0] : null;
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    var fillInputLink = document.getElementById('FillInput');
+    var studentCodeSpan = document.querySelector('.StudentCodeNumber');
+    var studentCodeInput = document.getElementById('StudentCode');
+    
+    const updateInformationModal = document.getElementById('UpdateInformation');
+
+    if (fillInputLink && studentCodeSpan && studentCodeInput) {
+        fillInputLink.addEventListener('click', function() {
+            var username = studentCodeSpan.textContent;
+            studentCodeInput.value = username;
+        });
+    }
+
+    if (updateInformationModal) {
+        updateInformationModal.addEventListener('hidden.bs.modal', function () {
+            const textInputs = this.querySelectorAll('input, textarea');
+
+            textInputs.forEach(input => {
+                input.value = '';
+            });
+        });
+    }
+});
