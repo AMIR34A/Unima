@@ -54,7 +54,7 @@ $(document).ready(function () {
     const $closeButtons = $editPhoneModal.find('[data-bs-dismiss="modal"]');
 
     let countdownInterval;
-    const initialCountdownTime = 120;
+    const initialCountdownTime = 60;
     let currentCountdownTime = initialCountdownTime;
 
     function showStep($formToShow, indicatorNumber) {
