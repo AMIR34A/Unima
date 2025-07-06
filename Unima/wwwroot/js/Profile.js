@@ -15,7 +15,7 @@ $(document).ready(function () {
     const $changePasswordForm = $('#ChangePasswordForm');
     const $currentPassword = $('#CurrentPassword');
     const $newPassword = $('#NewPassword');
-    const $confirmPassword = $('#ConfirmPassword');
+    const $confirmNewPassword = $('#ConfirmNewPassword');
     const $savePasswordBtn = $('#UpdatePassword .btn-danger');
     const $passwordToggles = $('.toggle-password');
 
@@ -271,7 +271,7 @@ $(document).ready(function () {
 
         const currentVal = $currentPassword.val().trim();
         const newVal = $newPassword.val().trim();
-        const confirmVal = $confirmPassword.val().trim();
+        const confirmVal = $confirmNewPassword.val().trim();
 
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
@@ -286,13 +286,14 @@ $(document).ready(function () {
         }
 
         if (newVal !== confirmVal) {
-            showError($confirmPassword, 'رمزهای جدید با هم مطابقت ندارند.');
+            showError($confirmNewPassword, 'رمزهای جدید با هم مطابقت ندارند.');
             isValid = false;
         }
 
         if (isValid) {
+            modalId = this.getAttribute("data-modal-id");
+            submitModalData(modalId, false, false);
             $changePasswordForm[0].reset();
-            $('#UpdatePassword').modal('hide');
         }
     });
 
@@ -515,7 +516,7 @@ function populateSelfOptions(gender, options) {
 }
 
 
-async function submitModalData(modalId, isSetTextValue = false) {
+async function submitModalData(modalId, isSetTextValue = false, updateTheSpan = true) {
     const modal = document.getElementById(`Update${modalId}`);
 
     const inputs = modal.querySelectorAll('input, select, textarea');
@@ -552,11 +553,16 @@ async function submitModalData(modalId, isSetTextValue = false) {
         return;
     }
 
+    if (modalId == 'Password')
+    {
+        window.location.replace('/Account/Index');
+    }
+
     inputs.forEach(input => {
         const id = input.id;
         const value = input.value.trim();
         const textValue = input.getAttribute('data-TextValue');
-        if (id) {
+        if (updateTheSpan && id) {
             var span = document.getElementById(`${id}Span`);
             span.textContent = isSetTextValue ? textValue : value;
         }

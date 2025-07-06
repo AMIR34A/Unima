@@ -17,11 +17,12 @@ namespace Unima.Areas.User.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<ApplicationUser> _userManager;
-
-        public ProfileController(UserManager<ApplicationUser> userManager, IUnitOfWork unitOfWork)
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        public ProfileController(IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
-            _userManager = userManager;
             _unitOfWork = unitOfWork;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpGet]
@@ -237,6 +238,39 @@ namespace Unima.Areas.User.Controllers
             currentUser.DefaultSelfLocationId = defaultSelfLocation;
 
             return (await _userManager.UpdateAsync(currentUser)).Succeeded ? Ok() : BadRequest();
+        }
+
+        [HttpPost]
+        [Route("Users/Profile/UpdatePassword")]
+        public async Task<IActionResult> UpdatePassword(string currentPassword, string newPassword, string confirmNewPassword)
+        {
+            if (string.IsNullOrWhiteSpace(currentPassword) || string.IsNullOrWhiteSpace(newPassword) || string.IsNullOrWhiteSpace(confirmNewPassword))
+            {
+                ModelState.AddModelError("Password", "تمام فیلدها باید به درستی پر شوند");
+                return BadRequest(ModelState);
+            }
+
+            if (!string.Equals(newPassword, confirmNewPassword))
+            {
+                ModelState.AddModelError("Password", "رمز عبور جدید و تکرار آن یکسان نمی‌باشند");
+                return BadRequest(ModelState);
+            }
+
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return NotFound();
+
+            IdentityResult? identityResult = await _userManager.ChangePasswordAsync(currentUser, currentPassword, newPassword);
+            if (!identityResult.Succeeded)
+            {
+                ModelState.AddModelError("Password", identityResult.Errors.FirstOrDefault()?.Description);
+                return BadRequest(ModelState);
+            }
+
+            await _signInManager.SignOutAsync();
+
+            return Ok();
         }
     }
 }
