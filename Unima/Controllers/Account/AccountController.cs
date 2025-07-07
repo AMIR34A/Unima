@@ -133,9 +133,7 @@ public class AccountController : Controller
             SignInResult signInResult = await _signInManager.PasswordSignInAsync(user, registerModel.ConfirmPassword, false, false);
             if (signInResult.IsNotAllowed)
             {
-                string newPhoneNumber = user.PhoneNumber.StartsWith("0") ? user.PhoneNumber.Remove(0, 1) : user.PhoneNumber;
-
-                string token = await _userManager.GenerateChangePhoneNumberTokenAsync(user, newPhoneNumber);
+                string token = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber);
 
                 Console.WriteLine(token);
 
@@ -168,9 +166,7 @@ public class AccountController : Controller
         if (user is null)
             return BadRequest();
 
-        string newPhoneNumber = model.PhoneNumber.StartsWith("0") ? user.PhoneNumber.Remove(0, 1) : model.PhoneNumber;
-
-        bool isValid = await _userManager.VerifyChangePhoneNumberTokenAsync(user, model.Token, newPhoneNumber);
+        bool isValid = await _userManager.VerifyChangePhoneNumberTokenAsync(user, model.Token, model.PhoneNumber);
 
         if (isValid)
         {
