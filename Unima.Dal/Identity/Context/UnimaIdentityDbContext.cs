@@ -9,7 +9,6 @@ namespace Unima.Dal.Identity.Context;
 
 public class UnimaIdentityDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, int>
 {
-
     public DbSet<Support> Supports { get; set; }
 
     public DbSet<Food> Foods { get; set; }
@@ -17,6 +16,8 @@ public class UnimaIdentityDbContext : IdentityDbContext<ApplicationUser, Applica
     public DbSet<Plan> Plans { get; set; }
 
     public DbSet<SelfLocation> SelfLocations { get; set; }
+
+    public DbSet<QuestionAndAnswer> QuestionAndAnswers { get; set; }
 
     public UnimaIdentityDbContext()
     {

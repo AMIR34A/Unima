@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Unima.Areas.User.Models.Plan;
+using Unima.Areas.User.Models.Q_A;
 using Unima.Areas.User.Models.User;
 using Unima.Areas.User.Models.ViewModels;
 using Unima.Biz.UoW;
@@ -61,24 +62,60 @@ public class DashboardController : Controller
         };
 
         IEnumerable<PlanModel>? plans = (await _unitOfWork.RepositoryBase<Plan>().GetAllAsync())
-                                                .Select(plan => new PlanModel
-                                                {
-                                                    Title = plan.Title,
-                                                    Type = plan.Type,
-                                                    HasTelegramBot = plan.HasTelegramBot.HasValue && plan.HasTelegramBot.Value,
-                                                    HasSmsNotification = plan.HasSMSNotification.HasValue && plan.HasSMSNotification.Value,
-                                                    HasEmailNotification = plan.HasEmailNotification.HasValue && plan.HasEmailNotification.Value,
-                                                    CountOfMeal = plan.CountOfMeal,
-                                                    Period = plan.Period,
-                                                    Price = plan.Price
-                                                });
+                                        .Select(plan => new PlanModel
+                                        {
+                                            Title = plan.Title,
+                                            Type = plan.Type,
+                                            HasTelegramBot = plan.HasTelegramBot.HasValue && plan.HasTelegramBot.Value,
+                                            HasSmsNotification = plan.HasSMSNotification.HasValue && plan.HasSMSNotification.Value,
+                                            HasEmailNotification = plan.HasEmailNotification.HasValue && plan.HasEmailNotification.Value,
+                                            CountOfMeal = plan.CountOfMeal,
+                                            Period = plan.Period,
+                                            Price = plan.Price
+                                        });
 
+        //IEnumerable<QuestionAndAnswerModel> questionAndAnswerModels = (await _unitOfWork.RepositoryBase<QuestionAndAnswer>().GetAllAsync())
+        //                                                              .Select(qa => new QuestionAndAnswerModel
+        //                                                              {
+        //                                                                  Question = qa.Question,
+        //                                                                  Answer = qa.Answer,
+        //                                                                  Priority = qa.Priority
+        //                                                              });
+
+        IEnumerable<QuestionAndAnswerModel> questionAndAnswerModels = new List<QuestionAndAnswerModel>
+        {
+            new QuestionAndAnswerModel
+            {
+                Question = "آیا سامانه بطور خودکار کار میکنید؟",
+                Answer = "بله.",
+                Priority = 1
+            },
+            new QuestionAndAnswerModel
+            {
+                Question = "آیا سامانه بطور خودکار کار میکنید؟",
+                Answer = "بله.",
+                Priority = 2
+            },
+            new QuestionAndAnswerModel
+            {
+                Question = "آیا سامانه بطور خودکار کار میکنید؟",
+                Answer = "بله.",
+                Priority = 3
+            },
+            new QuestionAndAnswerModel
+            {
+                Question = "آیا سامانه بطور خودکار کار میکنید؟",
+                Answer = "بله.",
+                Priority = 4
+            }
+        };
 
         DashboardViewModel dashboardViewModel = new()
         {
             ReservedFoods = reservedFoods,
-            DayOfWeek = dayOfWeek,
-            Plans = plans
+            Plans = plans,
+            QuestionAndAnswers = questionAndAnswerModels,
+            DayOfWeek = dayOfWeek
         };
         return View(dashboardViewModel);
     }

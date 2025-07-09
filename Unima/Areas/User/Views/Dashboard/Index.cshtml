@@ -181,9 +181,11 @@
 </section>
 <!-- schedule  -->
 <section>
-    @await Html.PartialAsync("_PlansPartial",Model.Plans)
+    @await Html.PartialAsync("_PlansPartial", Model.Plans)
 </section>
-
+<section>
+    @await Html.PartialAsync("_SupportWidgetPartial", Model.QuestionAndAnswers)
+</section>
 <script>
     fetch('/User/Dashboard/GetCredit')
         .then(response => response.text())

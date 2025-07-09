@@ -1,6 +1,6 @@
-@section Styles {
-    <link rel="stylesheet" href="/css/layoutStyle.css">
-}
+@using Unima.Areas.User.Models.Q_A
+@model IEnumerable<QuestionAndAnswerModel>
+
 
 <style>
     @@media (max-width: 576px) {
@@ -18,8 +18,6 @@
 
 
 
-
-
 <button class="chat-toggle" id="chatToggle" title="پشتیبانی">
     <i class="fa-solid fa-comment"></i>
 </button>
@@ -33,60 +31,32 @@
     </div>
 
     <div class="support-content">
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-content">
-                <h2 class="accordion-header" id="headingTwo">
-                    <div class="d-flex align-items-center w-100 my-3">
-                        <div class="vertical-divider me-3 my-1"></div>
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapse1">
-                            از رزرو شدن غذا مطمئن باشم؟
-                        </button>
+        @{
+            if (Model is not null)
+            {
+                foreach (var qa in Model)
+                {
+                    string id = $"collapse{qa.Priority}";
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-content">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <div class="d-flex align-items-center w-100 my-3">
+                                    <div class="vertical-divider me-3 my-1"></div>
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#@id">
+                                        @qa.Question
+                                    </button>
+                                </div>
+                            </h2>
+                            <div id="@id" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div class="accordion-body px-1">
+                                    @qa.Answer
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </h2>
-                <div id="collapse1" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body px-1">
-                        از رزرو شدن غذای خود اطمینان حاصل کنید.
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-content">
-                <h2 class="accordion-header">
-                    <div class="d-flex align-items-center w-100 my-3">
-                        <div class="vertical-divider me-3 my-1"></div>
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapse3">
-                            از رزرو شدن غذا مطمئن باشم؟
-                        </button>
-                    </div>
-                </h2>
-                <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body px-1">
-                        از رزرو شدن غذای خود اطمینان حاصل کنید.
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-content">
-                <h2 class="accordion-header">
-                    <div class="d-flex align-items-center w-100 my-3">
-                        <div class="vertical-divider me-3 my-1"></div>
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapse2">
-                            از رزرو شدن غذا مطمئن باشم؟
-                        </button>
-                    </div>
-                </h2>
-                <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body px-1">
-                        از رزرو شدن غذای خود اطمینان حاصل کنید.
-                    </div>
-                </div>
-            </div>
-        </div>
+                }
+            }
+        }
     </div>
 </div>
 
