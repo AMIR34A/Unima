@@ -1,0 +1,91 @@
+@section Styles {
+    <link rel="stylesheet" href="/css/layoutStyle.css">
+}
+
+@section Scripts{
+    <script src="/js/Dashbord.js"></script>
+}
+
+<style>
+    @@media (max-width: 576px) {
+        .support-panel {
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100% !important;
+            max-width: 100% !important;
+            border-radius: 0;
+        }
+    }
+</style>
+
+<button class="chat-toggle" id="chatToggle" title="پشتیبانی">
+    <i class="fa-solid fa-comment"></i>
+</button>
+
+<div class="support-panel" id="supportPanel">
+    <div class="support-header p-4">
+        <span class="fs-6">پشتیبانی یونیما</span>
+        <div class="text-start d-flex align-items-center">
+            <button class="btn-close" id="closePanel"></button>
+        </div>
+    </div>
+
+    <div class="support-content">
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-content">
+                <h2 class="accordion-header" id="headingTwo">
+                    <div class="d-flex align-items-center w-100 my-3">
+                        <div class="vertical-divider me-3 my-1"></div>
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse1">
+                            از رزرو شدن غذا مطمئن باشم؟
+                        </button>
+                    </div>
+                </h2>
+                <div id="collapse1" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body px-1">
+                        از رزرو شدن غذای خود اطمینان حاصل کنید.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-content">
+                <h2 class="accordion-header">
+                    <div class="d-flex align-items-center w-100 my-3">
+                        <div class="vertical-divider me-3 my-1"></div>
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse3">
+                            از رزرو شدن غذا مطمئن باشم؟
+                        </button>
+                    </div>
+                </h2>
+                <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body px-1">
+                        از رزرو شدن غذای خود اطمینان حاصل کنید.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-content">
+                <h2 class="accordion-header">
+                    <div class="d-flex align-items-center w-100 my-3">
+                        <div class="vertical-divider me-3 my-1"></div>
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse2">
+                            از رزرو شدن غذا مطمئن باشم؟
+                        </button>
+                    </div>
+                </h2>
+                <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body px-1">
+                        از رزرو شدن غذای خود اطمینان حاصل کنید.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
