@@ -8,14 +8,10 @@
     <link href="~/css/layoutStyle.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-
- 
-@Html.Partial("~/Areas/User/Views/Shared/_SupportWidget.cshtml")
-
-@RenderSection("Styles" , required:false)
 </head>
 <body>
- <nav class="navbar navbar-expand-md navbar-dark">
+    @await Html.PartialAsync("_SupportWidgetPartial")
+    <nav class="navbar navbar-expand-md navbar-dark">
         <button class="navbar-toggler  mb-2 bg-secondary m-3 " data-bs-toggle="collapse" data-bs-target="#sidebar">
             <span class="navbar-toggler-icon fs-6 "></span>
         </button>
@@ -24,8 +20,7 @@
                 <div class="row">
 
                     <!--sidebar-->
-                    <div
-                        class="col-xl-2 col-lg-3 col-md-4 sidebar mt-md-0 mt-5 mb-3 mb-md-0 px-3 pt-sm-5 fixed-top text-dark-emphasis ">
+                    <div class="col-xl-2 col-lg-3 col-md-4 sidebar mt-md-0 mt-5 mb-3 mb-md-0 px-3 pt-sm-5 fixed-top text-dark-emphasis ">
                         <ul class="nav-bar list-unstyled  mt-sm-5 mb-md-0 options">
                             <li class="nav-item current text-center">
                                 <a href="" class="nav-link p-3 mb-2">
@@ -34,14 +29,14 @@
                             </li>
                             <li class="nav-item linksidebar mx-1">
                                 <a href=""
-                                    class="nav-link d-flex justify-content-start  align-items-center gap-2 p-3 mb-2">
+                                   class="nav-link d-flex justify-content-start  align-items-center gap-2 p-3 mb-2">
                                     <i class="fa-solid fa-utensils ml-3 fa-lg  "></i> رزرو غذا
                                 </a>
                             </li>
                             <hr>
                             <li class="nav-item linksidebar mx-1">
                                 <a href=""
-                                    class="nav-link d-flex justify-content-start align-items-center gap-2  p-3 mb-2">
+                                   class="nav-link d-flex justify-content-start align-items-center gap-2  p-3 mb-2">
                                     <i class="fas fa-user  fa-lg  "></i> پروفایل
                                 </a>
                             </li>
@@ -64,22 +59,22 @@
                             </li>
                         </ul>
                         <button type="button"
-                            class="btn d-none d-lg-block btn-outline-danger position-absolute bottom-0 mt-5 quit rounded-5 w-75 mb-4 me-3 p-2"
-                            data-bs-toggle="modal" data-bs-target="#leaveSite">
+                                class="btn d-none d-lg-block btn-outline-danger position-absolute bottom-0 mt-5 quit rounded-5 w-75 mb-4 me-3 p-2"
+                                data-bs-toggle="modal" data-bs-target="#leaveSite">
                             خروج <i class="fa-solid fa-arrow-right-from-bracket"></i>
                         </button>
                     </div>
                     <!--end of sidebar-->
-
                     <!--topnav-->
                     <div class="col-xl-10 col-lg-9 col-md-8 fixed-top me-auto p-3 top-nav ">
                         <div class=" d-flex justify-content-around align-items-center ">
                             <button class="navbar-toggler bg-secondary mb-2  mt-1 " data-bs-toggle="collapse"
-                                data-bs-target="#sidebar">
+                                    data-bs-target="#sidebar">
                                 <span class="navbar-toggler-icon fs-6"></span>
                             </button>
                             <div class=" d-inline-block text-white">
-                                <h4 class="text-dark d-inline-block fw-bold me-3 "><span class="brand">یونیما</span>
+                                <h4 class="text-dark d-inline-block fw-bold me-3 ">
+                                    <span class="brand">یونیما</span>
                                 </h4>
                             </div>
                             <div class="col me-auto">
@@ -97,28 +92,32 @@
                                     <li class="nav-item mx-3 text-muted mr-md-auto dropdown ">
 
                                         <button class="btn profile-icon" type="button" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
+                                                aria-expanded="false">
                                             <i class="fas fa-user fa-lg  text-muted  ms-2"></i>
                                         </button>
-                                        <ul
-                                            class="dropdown-menu position-absolute bg-secondary-subtle bg-gradient dropdown-menu-light custom-dropdown">
+                                        <ul class="dropdown-menu position-absolute bg-secondary-subtle bg-gradient dropdown-menu-light custom-dropdown">
                                             <li class="text-center my-4 fw-bold ">مشخصات دانشجو</li>
                                             <hr>
                                             <li class="my-2 text-center ">
-                                                 <span class="fs-6">حمید
-                                                    قاسمی</span>
+                                                <span class="fs-6">
+                                                    حمید
+                                                    قاسمی
+                                                </span>
                                             </li>
                                             <li class="text-center ">
                                                 <span>
-                                                    ۴۰۰۱۲۲۶۰۸۶</span>
+                                                    ۴۰۰۱۲۲۶۰۸۶
+                                                </span>
                                             </li>
 
                                             <hr class="dropdown-divider">
-                                            <div class="text-center "><a
-                                                    class=" topnavExitButton dropdown-item link-danger " href="#"><i
-                                                        class="fa-solid fa-arrow-right-from-bracket mx-2"></i>خروج از
+                                            <div class="text-center ">
+                                                <a class=" topnavExitButton dropdown-item link-danger " href="#">
+                                                    <i class="fa-solid fa-arrow-right-from-bracket mx-2"></i>خروج از
                                                     حساب
-                                                    کاربری </a></div>
+                                                    کاربری
+                                                </a>
+                                            </div>
                                     </li>
 
                                 </ul>
@@ -162,7 +161,7 @@
     </div>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="~/js/Dashboard.js"></script>
-    @RenderSection("Scripts" , required:false)
+    @RenderSection("Scripts", required: false)
 
 </body>
 </html>
