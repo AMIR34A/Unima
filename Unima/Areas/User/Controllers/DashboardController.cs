@@ -8,6 +8,7 @@ using Unima.Areas.User.Models.User;
 using Unima.Areas.User.Models.ViewModels;
 using Unima.Biz.UoW;
 using Unima.Dal.Entities;
+using Unima.Dal.Entities.Entities;
 using Unima.Dal.Entities.Models;
 using Unima.Dal.Enums;
 using Unima.HelperClasses.SelfService;
@@ -86,19 +87,19 @@ public class DashboardController : Controller
         {
             new QuestionAndAnswerModel
             {
-                Question = "آیا سامانه بطور خودکار کار میکنید؟",
+                Question = "آیا سامانه بطور خودکار رزرو را انجام میدهد؟",
                 Answer = "بله.",
                 Priority = 1
             },
             new QuestionAndAnswerModel
             {
-                Question = "آیا سامانه بطور خودکار کار میکنید؟",
+                Question = "آیا سامانه بطور خودکار رزرو را انجام میدهد؟",
                 Answer = "بله.",
                 Priority = 2
             },
             new QuestionAndAnswerModel
             {
-                Question = "آیا سامانه بطور خودکار کار میکنید؟",
+                Question = "آیا سامانه بطور خودکار رزرو را انجام میدهد؟",
                 Answer = "بله.",
                 Priority = 3
             },
