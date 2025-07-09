@@ -387,3 +387,15 @@ tbody tr td {
         width: 1px;
     }
 
+    .accordion-body{
+    white-space: normal !important;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow: visible !important;
+    display: block !important;
+    width: 100% !important;
+    text-align: right;
+    padding-left: 2rem;
+    overflow: hidden;
+    }
+
