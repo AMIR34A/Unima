@@ -364,7 +364,7 @@ tbody tr td {
     overflow: hidden;
     }
 
-    .accordion{
+    .accordion-content{
         border-bottom: 1px solid rgba(111, 129, 148, .16);
         width: 90%;
         margin: 0 auto;
