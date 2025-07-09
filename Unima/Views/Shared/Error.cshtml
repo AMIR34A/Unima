@@ -17,7 +17,50 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            overflow: hidden;
         }
+
+        main{
+            position: relative;
+            z-index: 1;
+        }
+        
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 0;
+        }
+
+
+        .star {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #dda853;
+            clip-path: polygon(
+                50% 0%, 60% 40%, 100% 50%, 60% 60%,
+                50% 100%, 40% 60%, 0% 50%, 40% 40%
+            );
+            opacity: 0;
+            animation: twinkle 5s infinite ease-in-out;
+        }
+
+
+
+        
+        .star:nth-child(even) { animation-delay: 0.5s; }
+        .star:nth-child(odd) { animation-delay: 2.5s; }
+
+        @@keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
 
         .error-box{
             padding: 40px;
@@ -26,6 +69,8 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             max-width: 500px;
             animation: fadeInScale 0.8s ease-in-out;
+            z-index: 1 !important;
+            backdrop-filter: blur(8px);
         }
 
         .error-code{
@@ -56,13 +101,50 @@
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
         }
+
+        .image2{
+            background: url("/Images/icon.png") no-repeat center center;
+            background-size: contain;
+            transform-origin: center;
+            overflow: hidden;
+            animation: scalePulse 4s ease-in-out infinite;
+            width: 100%;
+            height: 70px;
+        }
+
+        @@keyframes scalePulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.15); }
+        100% { transform: scale(1); }
+        }
+
+
     </style>
+    <div class="stars"></div>
 <main>
     <div class="error-box">
-        <div class="error-code">404
-        </div>
+        <div class="image2"></div>
+        <div class="error-code">404</div>
         <h3 class="mt-3">مشکلی پیش امده است لطفا دوباره امتحان کنید.</h3>
         <button class="btn btn-primary btn-back">بازگشت به لاگین</button>
     </div>
 
 </main>
+
+
+<script>
+        const starsContainer = document.querySelector('.stars');
+        const numStars = 300; 
+
+        for (let i = 0; i < numStars; i++) {
+            let star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = Math.random() * 5 + 5 + 'px'; 
+            star.style.height = star.style.width;
+            star.style.top = Math.random() * 99 + '%';
+            star.style.left = Math.random() * 99 + '%';
+            star.style.animationDelay = Math.random() * 5 + 's'; 
+            starsContainer.appendChild(star);
+        }
+    </script>
+</script>
