@@ -34,10 +34,11 @@
         @{
             if (Model is not null)
             {
-                foreach (var qa in Model)
-                {
-                    string id = $"collapse{qa.Priority}";
-                    <div class="accordion" id="accordionExample">
+                <div class="accordion" id="SupportAccordion">
+
+                    @foreach (var qa in Model)
+                    {
+                        string id = $"collapse{qa.Priority}";
                         <div class="accordion-content">
                             <h2 class="accordion-header" id="headingTwo">
                                 <div class="d-flex align-items-center w-100 my-3">
@@ -47,14 +48,14 @@
                                     </button>
                                 </div>
                             </h2>
-                            <div id="@id" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div id="@id" class="accordion-collapse collapse" data-bs-parent="#SupportAccordionk">
                                 <div class="accordion-body px-1">
                                     @qa.Answer
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             }
         }
     </div>
