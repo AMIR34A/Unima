@@ -22,12 +22,12 @@ body {
 
 
 .login-panel {
-  background-color: #889E73;
+  background-color:#b4b5b3;
   border-radius: 100px !important;
   z-index: 1;  
   box-shadow: -1px 0px 4px #273340;
-  width: 400px ;
-  height: 650px;
+  width: 350px ;
+  height: 600px;
 }
 .title {
   color: #243642;
@@ -193,9 +193,9 @@ input:-webkit-autofill::first-line {
 }
       
 .carrousel {
-  width: 600px !important;
-  height: 560px !important;
-  border:18px solid #889E73;  
+  width: 500px !important;
+  height: 510px !important;
+  border:18px solid #b4b5b3;  
   border-radius: 10px !important;
   box-shadow: -1px 0px 4px #584a35;
 }
@@ -213,6 +213,10 @@ input:-webkit-autofill::first-line {
 .slide1{
   background-color: transparent !important ;
 }
+.slide1 img{
+  width: fit-content !important;
+  height: fit-content !important;
+}
 .slide2 {
   background-color: #FCE7C8 !important;
   width: 100%;
@@ -225,6 +229,7 @@ input:-webkit-autofill::first-line {
   background-color: #FCE7C8 !important;
   width: 100%;
   height: 100%;
+  line-height: 20px;
   
 }
 .support{
