@@ -19,18 +19,18 @@
                 };
                 var iconClass = plan.Type switch
                 {
-                    PlanType.Gift => "fa-gift",
+                    PlanType.Gift => "fa-gift ",
                     PlanType.Standard => "fa-fire",
                     _ => "fa-medal"
                 };
-                var titleBadge = plan.Type == PlanType.Standard ? "<span class=\"popular-title rounded rounded-5 shadow px-4 py-2\">پرطرفدار</span>" : "";
+                var titleBadge = plan.Type == PlanType.Standard ? "<span class=\"popular-title icon-shake  rounded rounded-5 shadow px-4 py-2\">پرطرفدار</span>" : "";
                 <div class="col-xl-3 col-lg-3 col-sm-8 col-10 p-4 mb-5 mt-5 rounded rounded-5 @planClass text-dark-emphasis">
                     <div class="d-flex justify-content-around align-items-center mb-5">
                         @Html.Raw(titleBadge)
-                        <i class="fa-solid @iconClass mt-4 text-primary-emphasis shadow shadow-lg fa-xl me-auto"></i>
+                        <i class="fa-solid  @iconClass mt-4 text-primary-emphasis shadow shadow-lg fa-xl me-auto"></i>
                     </div>
                     <h2 class="my-4 text-center">@plan.Title</h2>
-                    <h5 class="my-4 @(plan.Type == PlanType.Plus ? "d-none": "d-block text-center")">بهترین پلن موجود</h5>
+                    <h6 class="my-4 @(plan.Type == PlanType.Plus ? "d-none": "d-block fw-light p-2 rounded rounded-4 text-center ")">بهترین پلن موجود</h6>
                     <div class="d-flex align-items-center justify-content-center mb-4 ">
                         <span class="h3 mt-2 @(isFree ? "text-danger  mt-3" : "")">@price</span>
                         <span class=" fw-light mb-2  me-1 rounded rounded-3 ms-4">@((isFree  ? "" : "تومان"))</span>
@@ -45,7 +45,7 @@
                     <span class="@(plan.HasTelegramBot ? "d-block" : "d-none") my-4">
                         <i class="fa-brands fa-lg ms-3 fa-bots"></i>اطلاع رسانی وضعیت از طریق ربات تلگرام
                     </span>
-                    <span class="@(plan.HasEmailNotification ? "d-block" : "d-none") my-4">
+                    <span class="@(plan.HasEmailNotification ? "d-block " : "d-none") my-4">
                         <i class="fa-solid fa-envelope fa-lg ms-3 "></i> اطلاع رسانی از طریق ایمیل
                     </span>
                     <span class="@(plan.HasSmsNotification ? "d-block" : "d-none") my-4">
