@@ -3,7 +3,7 @@
 @model IEnumerable<PlanModel>?
 <!-- plans -->
 <section class="mt-sm-5">
-    <div class="row justify-content-center gap-5 align-items-center">
+    <div class="row justify-content-center  gap-5 align-items-center">
         @if (Model is not null)
         {
             foreach (var plan in Model)
@@ -30,11 +30,11 @@
                         <i class="fa-solid @iconClass mt-4 text-primary-emphasis shadow shadow-lg fa-xl me-auto"></i>
                     </div>
                     <h2 class="my-4 text-center">@plan.Title</h2>
-                    <h5 class="my-4 @(plan.Type == PlanType.Plus ? "d-none": "d-block")">بهترین پلن موجود</h5>
-                    <div class="d-flex align-items-center justify-content-center my-4">
-                        <span class="h3 @(isFree ? "text-danger mt-3" : "")">@price</span>
-                        <span class="fw-light mb-2 me-1 rounded rounded-3 ms-4">@((isFree ? "" : "تومان"))</span>
-                        <span class="me-5 fw-bolder fs-4"> @plan.Period روزه</span>
+                    <h5 class="my-4 @(plan.Type == PlanType.Plus ? "d-none": "d-block text-center")">بهترین پلن موجود</h5>
+                    <div class="d-flex align-items-center justify-content-center mb-4 ">
+                        <span class="h3 mt-2 @(isFree ? "text-danger  mt-3" : "")">@price</span>
+                        <span class=" fw-light mb-2  me-1 rounded rounded-3 ms-4">@((isFree  ? "" : "تومان"))</span>
+                        <span class="me-5 fw-bold fs-5"> @plan.Period روزه</span>
                     </div>
                     <div>
                         <button class="planActiovationButton py-2 mt-3 mb-4 w-100 fs-5 shadow-lg rounded rounded-4 bought-button">
