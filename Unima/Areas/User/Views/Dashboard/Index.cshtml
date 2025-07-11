@@ -186,6 +186,7 @@
 <section>
     @await Html.PartialAsync("_SupportWidgetPartial", Model.QuestionAndAnswers)
 </section>
+<script src="/js/Dashboard.js"></script>
 <script>
     fetch('/User/Dashboard/GetCredit')
         .then(response => response.text())
