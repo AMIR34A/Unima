@@ -180,4 +180,11 @@ public class AccountController : Controller
         ViewData.SetError(ModelState, "VerificationError", "کد وارد شده معتبر نمی‌باشد");
         return View("Verification", model);
     }
+
+    [Route("User/Account/LogOut")]
+    public async Task<IActionResult> LogOut()
+    {
+        await _signInManager.SignOutAsync();
+        return RedirectToAction("Index");
+    }
 }
