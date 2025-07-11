@@ -75,41 +75,13 @@ public class DashboardController : Controller
                                             Price = plan.Price
                                         });
 
-        //IEnumerable<QuestionAndAnswerModel> questionAndAnswerModels = (await _unitOfWork.RepositoryBase<QuestionAndAnswer>().GetAllAsync())
-        //                                                              .Select(qa => new QuestionAndAnswerModel
-        //                                                              {
-        //                                                                  Question = qa.Question,
-        //                                                                  Answer = qa.Answer,
-        //                                                                  Priority = qa.Priority
-        //                                                              });
-
-        IEnumerable<QuestionAndAnswerModel> questionAndAnswerModels = new List<QuestionAndAnswerModel>
-        {
-            new QuestionAndAnswerModel
-            {
-                Question = "آیا سامانه بطور خودکار رزرو را انجام میدهد؟",
-                Answer = "بله.",
-                Priority = 1
-            },
-            new QuestionAndAnswerModel
-            {
-                Question = "آیا سامانه بطور خودکار رزرو را انجام میدهد؟",
-                Answer = "بله.",
-                Priority = 2
-            },
-            new QuestionAndAnswerModel
-            {
-                Question = "آیا سامانه بطور خودکار رزرو را انجام میدهد؟",
-                Answer = "بله.",
-                Priority = 3
-            },
-            new QuestionAndAnswerModel
-            {
-                Question = "آیا سامانه بطور خودکار کار میکنید؟",
-                Answer = "بله.",
-                Priority = 4
-            }
-        };
+        IEnumerable<QuestionAndAnswerModel> questionAndAnswerModels = (await _unitOfWork.RepositoryBase<QuestionAndAnswer>().GetAllAsync())
+                                                                      .Select(qa => new QuestionAndAnswerModel
+                                                                      {
+                                                                          Question = qa.Question,
+                                                                          Answer = qa.Answer,
+                                                                          Priority = qa.Priority
+                                                                      });
 
         DashboardViewModel dashboardViewModel = new()
         {

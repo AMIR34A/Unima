@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using Unima.Areas.User.Models.Profile;
+using Unima.Areas.User.Models.Q_A;
 using Unima.Areas.User.Models.ViewModels;
 using Unima.Biz.UoW;
 using Unima.Dal.Entities;
+using Unima.Dal.Entities.Entities;
 using Unima.Dal.Entities.Models;
 using Unima.Dal.Enums;
 
@@ -88,9 +90,19 @@ namespace Unima.Areas.User.Controllers
                 SelfServicePassword = currentUser.SelfServicePassword
             };
 
+
+            IEnumerable<QuestionAndAnswerModel> questionAndAnswerModels = (await _unitOfWork.RepositoryBase<QuestionAndAnswer>().GetAllAsync())
+                                                                          .Select(qa => new QuestionAndAnswerModel
+                                                                          {
+                                                                              Question = qa.Question,
+                                                                              Answer = qa.Answer,
+                                                                              Priority = qa.Priority
+                                                                          });
+
             ProfileViewModel viewModel = new ProfileViewModel
             {
-                ProfileModel = profileModel
+                ProfileModel = profileModel,
+                QuestionAndAnswers = questionAndAnswerModels
             };
 
             return View(viewModel);

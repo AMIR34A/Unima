@@ -4,16 +4,10 @@
 @model ProfileViewModel
 @{
     Layout = "/Areas/User/Views/Shared/_Layout.cshtml";
-}
-
-@section Styles {
     <link rel="stylesheet" href="/css/Profile.css">
-}
-@section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/Profile.js"></script>
 }
-
 
 <section class="Setting align-items-center">
     <div class="Section-Personal row">
@@ -91,7 +85,7 @@
                     <div style="display: none;" class="success-password text-danger"></div>
                 </div>
                 <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                    <label asp-for="ProfileModel.SelfServicePassword"class="fs-5 d-inline-block text-secondary mb-2"></label>
+                    <label asp-for="ProfileModel.SelfServicePassword" class="fs-5 d-inline-block text-secondary mb-2"></label>
                     <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
                         <div>
                             <span id="SelfPasswordSpan" class="fs-6">@Model.ProfileModel.SelfServicePassword</span>
@@ -421,4 +415,7 @@
             </div>
         </div>
     </div>
+</section>
+<section>
+    @await Html.PartialAsync("_SupportWidgetPartial", Model.QuestionAndAnswers)
 </section>
