@@ -2,7 +2,7 @@
 {
     public interface ISelfService
     {
-        Task LogIn(string username, string password);
+        Task<bool> LogIn(string username, string password);
 
         Task<string> GetBalance();
     }

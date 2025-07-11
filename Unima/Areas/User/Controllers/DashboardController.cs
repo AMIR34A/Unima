@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using Unima.Areas.User.Models.Plan;
 using Unima.Areas.User.Models.Q_A;
 using Unima.Areas.User.Models.User;
@@ -83,12 +84,16 @@ public class DashboardController : Controller
                                                                           Priority = qa.Priority
                                                                       });
 
+
+
         DashboardViewModel dashboardViewModel = new()
         {
             ReservedFoods = reservedFoods,
             Plans = plans,
             QuestionAndAnswers = questionAndAnswerModels,
-            DayOfWeek = dayOfWeek
+            DayOfWeek = dayOfWeek,
+            UserPlan = currentUser.Plan is not null ? currentUser.Plan.Title : "پلن خریداری نشده است",
+            TodayDate = GetPersianDateTime()
         };
         return View(dashboardViewModel);
     }
@@ -102,13 +107,23 @@ public class DashboardController : Controller
         if (user is null)
             return string.Empty;
 
-        if (string.IsNullOrWhiteSpace(user.SelfServicePassword))
-            return "ابتدا از داخل تنظیمات رمز عبور سامانه سلف را ثبت نمایید";
+        //if (string.IsNullOrWhiteSpace(user.SelfServicePassword))
+        return "ابتدا از داخل تنظیمات رمز عبور سامانه سلف را ثبت نمایید";
 
         SelfService? selfService = (await _selfServiceBuilder
             .WithCredentials(user.UserName, user.SelfServicePassword)
             .BuildAsync());
 
         return await selfService.GetBalance();
+    }
+
+    private string GetPersianDateTime()
+    {
+        PersianCalendar persianCalendar = new PersianCalendar();
+        int year = persianCalendar.GetYear(DateTime.Now);
+        int month = persianCalendar.GetMonth(DateTime.Now);
+        int day = persianCalendar.GetDayOfMonth(DateTime.Now);
+
+        return string.Format("{0}/{1}/{2}", year, month, day);
     }
 }

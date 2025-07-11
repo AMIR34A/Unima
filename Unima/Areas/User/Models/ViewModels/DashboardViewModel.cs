@@ -14,4 +14,8 @@ public class DashboardViewModel
     public IEnumerable<QuestionAndAnswerModel>? QuestionAndAnswers { get; set; }
 
     public WeekDay DayOfWeek { get; set; }
+
+    public string? UserPlan { get; set; }
+
+    public required string TodayDate { get; set; }
 }

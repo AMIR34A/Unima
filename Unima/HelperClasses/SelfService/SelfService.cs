@@ -18,63 +18,71 @@ namespace Unima.HelperClasses.SelfService
             _httpClient = httpClientFactory.CreateClient();
         }
 
-        public async Task LogIn(string username, string password)
+        public async Task<bool> LogIn(string username, string password)
         {
-            HttpRequestMessage request = ConfigHttpRequest(HttpMethod.Get, "https://selfservice.birjand.ac.ir");
-            HttpResponseMessage response = await _httpClient.SendAsync(request);
-
-            string? responseBody = await response.Content.ReadAsStringAsync();
-            string regexPattern = @"idsrv.xsrf&quot;,&quot;value&quot;:&quot;([\w-]+)&quot;";
-            var bodyXsrf = Regex.Match(responseBody, regexPattern).Groups[1].Value;
-
-            //var captchaCookie = _handler.CookieContainer.GetCookies(new Uri("https://selfservice.birjand.ac.ir"))
-            //    .Cast<Cookie>()
-            //    .ToDictionary(cookie => cookie.Name, cookie => cookie.Value);
-
-            //HttpRequestMessage captchaRequest = ConfigHttpRequest(HttpMethod.Get,
-            //    "https://selfservice.birjand.ac.ir/api/v0/Captcha?id=11215188",
-            //    captchaCookie,
-            //    "", "", response.RequestMessage.RequestUri.AbsoluteUri);
-
-            //HttpResponseMessage captchaResponse = await _httpClient.SendAsync(captchaRequest);
-            //var captchaBytes = await captchaResponse.Content.ReadAsByteArrayAsync();
-            //string captchaPath = Path.Combine(Environment.CurrentDirectory, "captcha.jpg");
-            //await File.WriteAllBytesAsync(captchaPath, captchaBytes);
-            //string captchaCode = await SolveCaptcha(captchaPath);
-
-            var loginCookies = _cookieContainer.GetCookies(new Uri(response.RequestMessage.RequestUri.AbsoluteUri))
-                .Cast<Cookie>()
-                .ToDictionary(cookie => cookie.Name, cookie => cookie.Value);
-
-            HttpRequestMessage loginRequest = ConfigHttpRequest(HttpMethod.Post, response.RequestMessage.RequestUri.AbsoluteUri,
-                loginCookies, $"idsrv.xsrf={bodyXsrf}&username={username}&password={password}", "application/x-www-form-urlencoded");
-
-            HttpResponseMessage loginResponse = await _httpClient.SendAsync(loginRequest);
-            string loginResponseStr = await loginResponse.Content.ReadAsStringAsync();
-
-            HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(loginResponseStr);
-            var inputNodes = doc.DocumentNode.SelectNodes("//input");
-
-            StringBuilder dataStr = new StringBuilder();
-
-            foreach (var input in inputNodes)
+            try
             {
-                string inputName = input.GetAttributeValue("name", "");
-                string inputValue = input.GetAttributeValue("value", "");
-                dataStr.Append($"{inputName}={inputValue}&");
+                HttpRequestMessage request = ConfigHttpRequest(HttpMethod.Get, "https://selfservice.birjand.ac.ir");
+                HttpResponseMessage response = await _httpClient.SendAsync(request);
+
+                string? responseBody = await response.Content.ReadAsStringAsync();
+                string regexPattern = @"idsrv.xsrf&quot;,&quot;value&quot;:&quot;([\w-]+)&quot;";
+                var bodyXsrf = Regex.Match(responseBody, regexPattern).Groups[1].Value;
+
+                //var captchaCookie = _handler.CookieContainer.GetCookies(new Uri("https://selfservice.birjand.ac.ir"))
+                //    .Cast<Cookie>()
+                //    .ToDictionary(cookie => cookie.Name, cookie => cookie.Value);
+
+                //HttpRequestMessage captchaRequest = ConfigHttpRequest(HttpMethod.Get,
+                //    "https://selfservice.birjand.ac.ir/api/v0/Captcha?id=11215188",
+                //    captchaCookie,
+                //    "", "", response.RequestMessage.RequestUri.AbsoluteUri);
+
+                //HttpResponseMessage captchaResponse = await _httpClient.SendAsync(captchaRequest);
+                //var captchaBytes = await captchaResponse.Content.ReadAsByteArrayAsync();
+                //string captchaPath = Path.Combine(Environment.CurrentDirectory, "captcha.jpg");
+                //await File.WriteAllBytesAsync(captchaPath, captchaBytes);
+                //string captchaCode = await SolveCaptcha(captchaPath);
+
+                var loginCookies = _cookieContainer.GetCookies(new Uri(response.RequestMessage.RequestUri.AbsoluteUri))
+                    .Cast<Cookie>()
+                    .ToDictionary(cookie => cookie.Name, cookie => cookie.Value);
+
+                HttpRequestMessage loginRequest = ConfigHttpRequest(HttpMethod.Post, response.RequestMessage.RequestUri.AbsoluteUri,
+                    loginCookies, $"idsrv.xsrf={bodyXsrf}&username={username}&password={password}", "application/x-www-form-urlencoded");
+
+                HttpResponseMessage loginResponse = await _httpClient.SendAsync(loginRequest);
+                string loginResponseStr = await loginResponse.Content.ReadAsStringAsync();
+
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(loginResponseStr);
+                var inputNodes = doc.DocumentNode.SelectNodes("//input");
+
+                StringBuilder dataStr = new StringBuilder();
+
+                foreach (var input in inputNodes)
+                {
+                    string inputName = input.GetAttributeValue("name", "");
+                    string inputValue = input.GetAttributeValue("value", "");
+                    dataStr.Append($"{inputName}={inputValue}&");
+                }
+                dataStr.Remove(dataStr.Length - 1, 1);
+
+                HttpRequestMessage finalRequest = ConfigHttpRequest(HttpMethod.Post, "https://selfservice.birjand.ac.ir",
+                    loginCookies,
+                    dataStr.ToString(),
+                    "application/x-www-form-urlencoded");
+
+                HttpResponseMessage finalResponse = await _httpClient.SendAsync(finalRequest);
+                _neededCookies = _cookieContainer.GetCookies(new Uri("https://selfservice.birjand.ac.ir"))
+                                 .Cast<Cookie>()
+                                 .ToDictionary(cookie => cookie.Name, cookie => cookie.Value);
+                return true;
             }
-            dataStr.Remove(dataStr.Length - 1, 1);
-
-            HttpRequestMessage finalRequest = ConfigHttpRequest(HttpMethod.Post, "https://selfservice.birjand.ac.ir",
-                loginCookies,
-                dataStr.ToString(),
-                "application/x-www-form-urlencoded");
-
-            HttpResponseMessage finalResponse = await _httpClient.SendAsync(finalRequest);
-            _neededCookies = _cookieContainer.GetCookies(new Uri("https://selfservice.birjand.ac.ir"))
-                             .Cast<Cookie>()
-                             .ToDictionary(cookie => cookie.Name, cookie => cookie.Value);
+            catch
+            {
+                return false;
+            }
         }
 
         public async Task<string> GetBalance()

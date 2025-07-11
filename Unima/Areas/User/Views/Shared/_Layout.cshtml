@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Unima.Dal.Entities
+@inject UserManager<ApplicationUser> _userManager
+<!DOCTYPE html>
 <html lang="en" dir="rtl">
 <head>
     <meta charset="utf-8" />
@@ -17,43 +20,42 @@
         <div class="navbar-collapse collapse" id="sidebar">
             <div class="container-fluid">
                 <div class="row">
-
                     <!--sidebar-->
                     <div class="col-xl-2 col-lg-3 col-md-4 sidebar mt-md-0 mt-5 mb-3 mb-md-0 px-3 pt-sm-5 fixed-top text-dark-emphasis ">
                         <ul class="nav-bar list-unstyled  mt-sm-5 mb-md-0 options">
                             <li class="nav-item current text-center">
-                                <a href="" class="nav-link p-3 mb-2">
+                                <a href="/User/Dashboard" class="nav-link p-3 mb-2">
                                     <i class="fas fa-home ml-3 fa-lg"></i> داشبورد
                                 </a>
                             </li>
                             <li class="nav-item linksidebar mx-1">
                                 <a href=""
                                    class="nav-link d-flex justify-content-start  align-items-center gap-2 p-3 mb-2">
-                                    <i class="fa-solid fa-utensils ml-3 fa-lg  "></i> رزرو غذا
+                                    <i class="fa-solid fa-utensils ml-3 fa-lg"></i> رزرو غذا
                                 </a>
                             </li>
                             <hr>
                             <li class="nav-item linksidebar mx-1">
-                                <a href=""
+                                <a href="/User/Profile"
                                    class="nav-link d-flex justify-content-start align-items-center gap-2  p-3 mb-2">
-                                    <i class="fas fa-user  fa-lg  "></i> پروفایل
+                                    <i class="fas fa-user fa-lg"></i> پروفایل
                                 </a>
                             </li>
                             <li class="nav-item linksidebar mx-1 ">
                                 <a href="" class="nav-link d-flex justify-content-start align-items-center gap-2  p-3 ">
-                                    <i class="fa-solid fa-bowl-food fa-lg  "></i> پشتیبانی
+                                    <i class="fa-solid fa-bowl-food fa-lg"></i> پشتیبانی
                                 </a>
                             </li>
                         </ul>
                         <ul class="nav-bar list-unstyled d-none flex-column mt-4 align-items-start options">
                             <li class="nav-item linksidebar">
-                                <a href="" class="nav-link  p-3 mb-2">
-                                    <i class="fas fa-user ml-3 fa-lg  "></i> پروفایل
+                                <a href="" class="nav-link p-3 mb-2">
+                                    <i class="fas fa-user ml-3 fa-lg"></i> پروفایل
                                 </a>
                             </li>
                             <li class="nav-item linksidebar ">
-                                <a href="" class="nav-link  p-3 mb-2">
-                                    <i class="fa-solid fa-bowl-food ml-3 fa-lg  "></i> پشتیبانی
+                                <a href="" class="nav-link p-3 mb-2">
+                                    <i class="fa-solid fa-bowl-food ml-3 fa-lg"></i> پشتیبانی
                                 </a>
                             </li>
                         </ul>
@@ -88,37 +90,37 @@
                                             <i class="fas fa-bell fa-lg text-muted"></i>
                                         </a>
                                     </li>
-                                    <li class="nav-item mx-3 text-muted mr-md-auto dropdown ">
-
-                                        <button class="btn profile-icon" type="button" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                            <i class="fas fa-user fa-lg  text-muted  ms-2"></i>
-                                        </button>
-                                        <ul class="dropdown-menu position-absolute bg-secondary-subtle bg-gradient dropdown-menu-light custom-dropdown">
-                                            <li class="text-center my-4 fw-bold ">مشخصات دانشجو</li>
-                                            <hr>
-                                            <li class="my-2 text-center ">
-                                                <span class="fs-6">
-                                                    حمید
-                                                    قاسمی
-                                                </span>
-                                            </li>
-                                            <li class="text-center ">
-                                                <span>
-                                                    ۴۰۰۱۲۲۶۰۸۶
-                                                </span>
-                                            </li>
-
-                                            <hr class="dropdown-divider">
-                                            <div class="text-center ">
-                                                <a class=" topnavExitButton dropdown-item link-danger " href="#">
-                                                    <i class="fa-solid fa-arrow-right-from-bracket mx-2"></i>خروج از
-                                                    حساب
-                                                    کاربری
-                                                </a>
-                                            </div>
-                                    </li>
-
+                                    @{
+                                        var user = await _userManager.GetUserAsync(User);
+                                        <li class="nav-item mx-3 text-muted mr-md-auto dropdown ">
+                                            <button class="btn profile-icon" type="button" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                <i class="fas fa-user fa-lg  text-muted  ms-2"></i>
+                                            </button>
+                                            <ul class="dropdown-menu position-absolute bg-secondary-subtle bg-gradient dropdown-menu-light custom-dropdown">
+                                                <li class="text-center my-4 fw-bold ">مشخصات دانشجو</li>
+                                                <hr>
+                                                <li class="my-2 text-center ">
+                                                    <span class="fs-6">
+                                                        @user?.FullName
+                                                    </span>
+                                                </li>
+                                                <li class="text-center ">
+                                                    <span>
+                                                        @user?.UserName
+                                                    </span>
+                                                </li>
+                                                <hr class="dropdown-divider">
+                                                <div class="text-center ">
+                                                    <a class=" topnavExitButton dropdown-item link-danger " href="/User/Account/LogOut">
+                                                        <i class="fa-solid fa-arrow-right-from-bracket mx-2"></i>خروج از
+                                                        حساب
+                                                        کاربری
+                                                    </a>
+                                                </div>
+                                            </ul>
+                                        </li>
+                                    }
                                 </ul>
                             </div>
                         </div>
@@ -151,7 +153,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">خیر</button>
                     <a class="btn btn-danger"
-                            href="/User/Account/LogOut">
+                       href="/User/Account/LogOut">
                         بله
                     </a>
                 </div>
