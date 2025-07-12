@@ -1,36 +1,37 @@
-﻿using System.Net;
+﻿using Unima.Models.Api;
 
-namespace Unima.HelperClasses.SelfService
+namespace Unima.HelperClasses.SelfService;
+
+public class SelfServiceBuilder : ISelfServiceBuilder
 {
-    public class SelfServiceBuilder : ISelfServiceBuilder
+    private readonly IHttpClientFactory _httpClientFactory;
+    private string _username;
+    private string _password;
+
+    public SelfServiceBuilder(IHttpClientFactory httpClientFactory)
     {
-        private readonly IHttpClientFactory _httpClientFactory; 
-        private string _username;
-        private string _password;
+        _httpClientFactory = httpClientFactory;
+    }
 
-        public SelfServiceBuilder(IHttpClientFactory httpClientFactory)
+
+    public SelfServiceBuilder WithCredentials(string username, string password)
+    {
+        _username = username;
+        _password = password;
+        return this;
+    }
+
+    public async Task<ApiResult<SelfService>> BuildAsync()
+    {
+        var selfService = new SelfService(_httpClientFactory);
+
+        bool result = false;
+        if (!string.IsNullOrEmpty(_username) && !string.IsNullOrEmpty(_password))
         {
-            _httpClientFactory = httpClientFactory;
+            result = await selfService.LogIn(_username, _password);
+            return new ApiResult<SelfService>(result, StatusCode.OK, string.Empty, selfService);
         }
 
-
-        public SelfServiceBuilder WithCredentials(string username, string password)
-        {
-            _username = username;
-            _password = password;
-            return this;
-        }
-
-        public async Task<SelfService> BuildAsync()
-        {
-            var selfService = new SelfService(_httpClientFactory);
-
-            if (!string.IsNullOrEmpty(_username) && !string.IsNullOrEmpty(_password))
-            {
-                await selfService.LogIn(_username, _password);
-            }
-
-            return selfService;
-        }
+        return new ApiResult<SelfService>(false, StatusCode.InternalServerError, "خطایی در اتصال به سامانه سلف رخ داد", null);
     }
 }

@@ -13,6 +13,7 @@ using Unima.Dal.Entities.Entities;
 using Unima.Dal.Entities.Models;
 using Unima.Dal.Enums;
 using Unima.HelperClasses.SelfService;
+using Unima.Models.Api;
 
 namespace Unima.Areas.User.Controllers;
 
@@ -107,14 +108,14 @@ public class DashboardController : Controller
         if (user is null)
             return string.Empty;
 
-        //if (string.IsNullOrWhiteSpace(user.SelfServicePassword))
-        return "ابتدا از داخل تنظیمات رمز عبور سامانه سلف را ثبت نمایید";
+        if (string.IsNullOrWhiteSpace(user.SelfServicePassword))
+            return "ابتدا از داخل تنظیمات رمز عبور سامانه سلف را ثبت نمایید";
 
-        SelfService? selfService = (await _selfServiceBuilder
+        ApiResult<SelfService>? selfService = (await _selfServiceBuilder
             .WithCredentials(user.UserName, user.SelfServicePassword)
             .BuildAsync());
 
-        return await selfService.GetBalance();
+        return selfService.IsSuccess ? await selfService.Data.GetBalance() : "خطایی در اتصال به سامانه سلف رخ داد";
     }
 
     private string GetPersianDateTime()
