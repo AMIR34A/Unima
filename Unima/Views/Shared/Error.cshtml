@@ -20,7 +20,7 @@
         }
 
         body {
-            background-color: #dcdbdb;
+            background-color: #c1c0c0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -78,7 +78,7 @@
         width: 80%;
         max-width: 400px;
         min-width: 280px;
-        background-color: #dcdbdb7c;
+        background-color: #dcdbdb;
         border-radius: 16px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         padding: 2rem;
@@ -126,9 +126,10 @@
         
         
         .image2{
-            background: url("/Images/icon.png") no-repeat center center;
+            background: url("/Images/icon2.png") no-repeat center center;
             background-size: contain;
             transform-origin: center;
+            font-size: 16px;
             overflow: hidden;
             animation: scalePulse 4s ease-in-out infinite;
             width: 100%;
@@ -158,22 +159,29 @@
         }
         
         @@keyframes scalePulse {
-        0% { transform: scale(1.15); }
-        50% { transform: scale(1); }
-        100% { transform: scale(1.15); }
+        0% { transform: scale(3.35); }
+        50% { transform: scale(3.2); }
+        100% { transform: scale(3.35); }
         }
     
         @@keyframes twinkle {
             0%, 100% { opacity: 0; transform: scale(0.5); }
             50% { opacity: 1; transform: scale(1.2); }
         }
+        #lottie {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 20px;
+    z-index: 2;
+}
+
 
     </style>
     <div class="stars"></div>
 <main>
     <div class="error-box">
         <div class="image2"></div>
-        <div class="error-code">404</div>
+          <div id="lottie"></div>
         <h3 class="mt-3">.مشکلی پیش امده است لطفا دوباره امتحان کنید</h3>
         <button class="btn btn-primary btn-back">بازگشت به خانه</button>
     </div>
@@ -195,5 +203,16 @@
             star.style.animationDelay = Math.random() * 3 + 's'; 
             starsContainer.appendChild(star);
         }
-    </script>
+    
 </script>
+  <script>
+    lottie.loadAnimation({
+      container: document.getElementById('lottie'), // جای نمایش انیمیشن
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: '/Images/1.json' 
+    });
+  </script>
+
+  
