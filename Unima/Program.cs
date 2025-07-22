@@ -100,6 +100,11 @@ app.MapAreaControllerRoute(
     areaName: "User",
     pattern: "User/{controller}/{action=Index}/{id?}");
 
+app.MapAreaControllerRoute(
+    name: "ProfessorArea",
+    areaName: "Professor",
+    pattern: "Professor/{controller}/{action=Index}/{id?}");
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=Index}/{id?}");

@@ -2,6 +2,7 @@
 
 namespace Unima.Areas.Professor.Controllers;
 
+[Area("User")]
 public class StatusController : Controller
 {
     public IActionResult Index()
