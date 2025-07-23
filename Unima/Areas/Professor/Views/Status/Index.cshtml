@@ -21,6 +21,23 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
+        align-items: center;
+    }
+
+    .room-wrapper {
+        width: 80px;
+        height: 100px;
+        position: relative;
+    }
+
+    .left-room .room {
+        left: 0;
+        right: unset;
+    }
+
+    .right-room .room {
+        right: 0;
+        left: unset;
     }
 
     #hallway {
@@ -32,7 +49,8 @@
     }
 
     .room {
-        position: relative;
+        position: absolute;
+        top: 0;
         width: 30px;
         height: 100px;
         border-radius: 5px;
@@ -40,7 +58,8 @@
         transition: width 0.6s ease;
         background-color: #66bb6a;
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
         align-items: center;
         flex-direction: column;
         overflow: visible;
@@ -51,7 +70,7 @@
     }
 
     .room.expanded {
-        width: 80px;
+        width: 160px;
         box-shadow: 0 0 8px #1976d2;
         z-index: 10;
         padding-top: 10px;
@@ -63,6 +82,7 @@
         pointer-events: none;
         user-select: none;
         white-space: nowrap;
+        text-align: center;
         margin-bottom: 6px;
         flex-shrink: 0;
     }
@@ -74,7 +94,6 @@
         writing-mode: horizontal-tb;
         transform: none;
         text-align: center;
-        margin-top: 6px;
     }
 
     .room-details {
@@ -88,7 +107,7 @@
     .details-button {
         background-color: #1976d2;
         color: white;
-        padding: 6px 12px;
+        padding: 8px 6px;
         border: none;
         border-radius: 5px;
         cursor: pointer;
@@ -116,6 +135,7 @@
         border-radius: 50%;
         z-index: 100;
     }
+
     #entrance-label {
         position: absolute;
         bottom: 20px;
@@ -138,32 +158,40 @@
 
 <div id="mapWrapper">
     <div class="room-column" id="leftColumn">
-        <div class="room status-inmeeting" data-room-id="101" data-teacher="دکتر احمدی" data-status="در حال جلسه" tabindex="0">
-            <div class="teacher-name">دکتر احمدی</div>
-            <div class="room-details">
-                <div class="details-status">وضعیت: در حال جلسه</div>
-                <button class="details-button">نمایش مسیر</button>
+        <div class="room-wrapper left-room">
+            <div class="room status-inmeeting" data-room-id="101" data-teacher="دکتر احمدی" data-status="در حال جلسه" tabindex="0">
+                <div class="teacher-name">دکتر احمدی</div>
+                <div class="room-details">
+                    <div class="details-status">وضعیت: <br>در حال جلسه</div>
+                    <button class="details-button">نمایش مسیر</button>
+                </div>
             </div>
         </div>
-        <div class="room status-present" data-room-id="103" data-teacher="مهندس رضایی" data-status="حاضر" tabindex="0">
-            <div class="teacher-name">مهندس رضایی</div>
-            <div class="room-details">
-                <div class="details-status">وضعیت: حاضر</div>
-                <button class="details-button">نمایش مسیر</button>
+        <div class="room-wrapper left-room">
+            <div class="room status-present" data-room-id="103" data-teacher="مهندس رضایی" data-status="حاضر" tabindex="0">
+                <div class="teacher-name">مهندس رضایی</div>
+                <div class="room-details">
+                    <div class="details-status">وضعیت: حاضر</div>
+                    <button class="details-button">نمایش مسیر</button>
+                </div>
             </div>
         </div>
-        <div class="room status-absent" data-room-id="105" data-teacher="دکتر کاظمی" data-status="غایب" tabindex="0">
-            <div class="teacher-name">دکتر کاظمی</div>
-            <div class="room-details">
-                <div class="details-status">وضعیت: غایب</div>
-                <button class="details-button">نمایش مسیر</button>
+        <div class="room-wrapper left-room">
+            <div class="room status-absent" data-room-id="105" data-teacher="دکتر کاظمی" data-status="غایب" tabindex="0">
+                <div class="teacher-name">دکتر کاظمی</div>
+                <div class="room-details">
+                    <div class="details-status">وضعیت: غایب</div>
+                    <button class="details-button">نمایش مسیر</button>
+                </div>
             </div>
         </div>
-        <div class="room status-present" data-room-id="107" data-teacher="دکتر نوری" data-status="حاضر" tabindex="0">
-            <div class="teacher-name">دکتر نوری</div>
-            <div class="room-details">
-                <div class="details-status">وضعیت: حاضر</div>
-                <button class="details-button">نمایش مسیر</button>
+        <div class="room-wrapper left-room">
+            <div class="room status-present" data-room-id="107" data-teacher="دکتر نوری" data-status="حاضر" tabindex="0">
+                <div class="teacher-name">دکتر نوری</div>
+                <div class="room-details">
+                    <div class="details-status">وضعیت: حاضر</div>
+                    <button class="details-button">نمایش مسیر</button>
+                </div>
             </div>
         </div>
     </div>
@@ -171,32 +199,40 @@
     <div id="hallway"></div>
 
     <div class="room-column" id="rightColumn">
-        <div class="room status-absent" data-room-id="102" data-teacher="مهندس صادقی" data-status="غایب" tabindex="0">
-            <div class="teacher-name">مهندس صادقی</div>
-            <div class="room-details">
-                <div class="details-status">وضعیت: غایب</div>
-                <button class="details-button">نمایش مسیر</button>
+        <div class="room-wrapper right-room">
+            <div class="room status-absent" data-room-id="102" data-teacher="مهندس صادقی" data-status="غایب" tabindex="0">
+                <div class="teacher-name">مهندس صادقی</div>
+                <div class="room-details">
+                    <div class="details-status">وضعیت: غایب</div>
+                    <button class="details-button">نمایش مسیر</button>
+                </div>
             </div>
         </div>
-        <div class="room status-present" data-room-id="104" data-teacher="دکتر جمشیدی" data-status="حاضر" tabindex="0">
-            <div class="teacher-name">دکتر جمشیدی</div>
-            <div class="room-details">
-                <div class="details-status">وضعیت: حاضر</div>
-                <button class="details-button">نمایش مسیر</button>
+        <div class="room-wrapper right-room">
+            <div class="room status-present" data-room-id="104" data-teacher="دکتر جمشیدی" data-status="حاضر" tabindex="0">
+                <div class="teacher-name">دکتر جمشیدی</div>
+                <div class="room-details">
+                    <div class="details-status">وضعیت: حاضر</div>
+                    <button class="details-button">نمایش مسیر</button>
+                </div>
             </div>
         </div>
-        <div class="room status-inmeeting" data-room-id="106" data-teacher="دکتر رحیمی" data-status="در حال جلسه" tabindex="0">
-            <div class="teacher-name">دکتر رحیمی</div>
-            <div class="room-details">
-                <div class="details-status">وضعیت: در حال جلسه</div>
-                <button class="details-button">نمایش مسیر</button>
+        <div class="room-wrapper right-room">
+            <div class="room status-inmeeting" data-room-id="106" data-teacher="دکتر رحیمی" data-status="در حال جلسه" tabindex="0">
+                <div class="teacher-name">دکتر رحیمی</div>
+                <div class="room-details">
+                    <div class="details-status">وضعیت: در حال جلسه</div>
+                    <button class="details-button">نمایش مسیر</button>
+                </div>
             </div>
         </div>
-        <div class="room status-present" data-room-id="108" data-teacher="مهندس رستمی" data-status="حاضر" tabindex="0">
-            <div class="teacher-name">مهندس رستمی</div>
-            <div class="room-details">
-                <div class="details-status">وضعیت: حاضر</div>
-                <button class="details-button">نمایش مسیر</button>
+        <div class="room-wrapper right-room">
+            <div class="room status-present" data-room-id="108" data-teacher="مهندس رستمی" data-status="حاضر" tabindex="0">
+                <div class="teacher-name">مهندس رستمی</div>
+                <div class="room-details">
+                    <div class="details-status">وضعیت: حاضر</div>
+                    <button class="details-button">نمایش مسیر</button>
+                </div>
             </div>
         </div>
     </div>
@@ -204,60 +240,50 @@
     <div id="entrance"></div>
     <div id="entrance-label">ورودی</div>
 </div>
-
 <script>
     const rooms = document.querySelectorAll('.room');
     let expandedRoom = null;
 
     rooms.forEach(room => {
         room.addEventListener('click', () => {
-            if (expandedRoom && expandedRoom !== room) {
-                collapseRoom(expandedRoom);
-            }
-            if (room.classList.contains('expanded')) {
-                collapseRoom(room);
-            } else {
-                expandRoom(room);
-            }
+            if (expandedRoom && expandedRoom !== room) collapseRoom(expandedRoom);
+            room.classList.toggle('expanded');
+            expandedRoom = room.classList.contains('expanded') ? room : null;
+            clearPath();
         });
 
-        const btn = room.querySelector('.details-button');
-        btn.addEventListener('click', (e) => {
+        room.querySelector('.details-button').addEventListener('click', e => {
             e.stopPropagation();
             drawPathToRoom(room);
         });
     });
 
-    function expandRoom(room) {
-        room.classList.add('expanded');
-        expandedRoom = room;
-    }
-
-    function collapseRoom(room) {
-        room.classList.remove('expanded');
-        expandedRoom = null;
-        clearPath();
-    }
-
     function drawPathToRoom(room) {
         clearPath();
-        const entrance = document.getElementById('entrance');
-        const mapWrapper = document.getElementById('mapWrapper');
-        const ctx = getOrCreateCanvasCtx();
 
+        const mapWrapper   = document.getElementById('mapWrapper');
+        const entrance     = document.getElementById('entrance');
+        const mapRect      = mapWrapper.getBoundingClientRect();
         const entranceRect = entrance.getBoundingClientRect();
-        const mapRect = mapWrapper.getBoundingClientRect();
+        const roomRect     = room.getBoundingClientRect();
+
         const startX = entranceRect.left + entranceRect.width / 2 - mapRect.left;
         const startY = entranceRect.top + entranceRect.height / 2 - mapRect.top;
 
-        const roomRect = room.getBoundingClientRect();
-        const roomX = roomRect.left + roomRect.width / 2 - mapRect.left;
-        const roomY = roomRect.top + roomRect.height / 2 - mapRect.top;
+        const wrapper = room.closest('.room-wrapper');
+        const isLeft  = wrapper.classList.contains('left-room');
 
+        const targetX = isLeft
+            ? roomRect.left - mapRect.left
+            : roomRect.right - mapRect.left;
+
+        const targetY = roomRect.top + roomRect.height / 2 - mapRect.top;
+
+        const ctx = getOrCreateCanvasCtx();
         ctx.beginPath();
         ctx.moveTo(startX, startY);
-        ctx.lineTo(startX, roomY);
-        ctx.lineTo(roomX, roomY);
+        ctx.lineTo(startX, targetY);
+        ctx.lineTo(targetX, targetY);
         ctx.strokeStyle = '#1976d2';
         ctx.lineWidth = 4;
         ctx.setLineDash([6, 4]);
@@ -265,13 +291,12 @@
     }
 
     function getOrCreateCanvasCtx() {
-        let canvas = document.getElementById('routeCanvas');
         const mapWrapper = document.getElementById('mapWrapper');
+        let canvas = document.getElementById('routeCanvas');
+
         if (!canvas) {
             canvas = document.createElement('canvas');
             canvas.id = 'routeCanvas';
-            canvas.width = mapWrapper.clientWidth;
-            canvas.height = mapWrapper.clientHeight;
             canvas.style.position = 'absolute';
             canvas.style.top = 0;
             canvas.style.left = 0;
@@ -279,6 +304,10 @@
             canvas.style.zIndex = 50;
             mapWrapper.appendChild(canvas);
         }
+
+        canvas.width = mapWrapper.clientWidth;
+        canvas.height = mapWrapper.clientHeight;
+
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         return ctx;
@@ -293,24 +322,24 @@
     }
 
     function searchAndDraw() {
-        const val = document.getElementById('searchInput').value.trim();
+        const val = document.getElementById('searchInput')?.value.trim();
         if (!val) return;
 
-        let target = null;
-        if (/^\d+$/.test(val)) {
-            target = [...rooms].find(r => r.dataset.roomId === val);
-        } else {
-            target = [...rooms].find(r => r.dataset.teacher.includes(val));
-        }
+        let target = /^\d+$/.test(val)
+            ? [...rooms].find(r => r.dataset.roomId === val)
+            : [...rooms].find(r => r.dataset.teacher.includes(val));
 
-        if (!target) {
-            alert('موردی یافت نشد');
-            return;
-        }
+        if (!target) { alert('موردی یافت نشد'); return; }
 
         if (expandedRoom) collapseRoom(expandedRoom);
-        expandRoom(target);
+        target.classList.add('expanded');
+        expandedRoom = target;
         drawPathToRoom(target);
-        target.scrollIntoView({ behavior: "smooth", block: "center" });
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function collapseRoom(room) {
+        room.classList.remove('expanded');
+        if (expandedRoom === room) expandedRoom = null;
     }
 </script>
