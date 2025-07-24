@@ -2,7 +2,7 @@
     Layout = "/Areas/User/Views/Shared/_Layout.cshtml";
 }
 
-<script src="https://unpkg.com/@@panzoom/panzoom/dist/panzoom.min.js"></script>
+ <script src="https://unpkg.com/@@panzoom/panzoom/dist/panzoom.min.js"></script>
 
 <style>
     #mapContainer {
@@ -106,10 +106,9 @@
     }
 
     .room.expanded {
-        width: 160px;
-        box-shadow: 0 0 8px #1976d2;
+        width: 200px;
+        box-shadow: 0 0 8px #444;
         z-index: 10;
-        padding-top: 10px;
     }
 
     .teacher-name {
@@ -118,7 +117,7 @@
         pointer-events: none;
         white-space: nowrap;
         text-align: center;
-        margin-bottom: 6px;
+        margin: auto !important;
     }
 
     .room.expanded .room-details {
@@ -130,22 +129,51 @@
         text-align: center;
     }
 
+    .room.expanded .teacher-name {
+        font-weight: bold;
+        font-size: 14px;
+        text-shadow: 0 0 3px #1976d2;
+        transition: all 0.3s ease;
+        transform: rotate(-90deg);
+        position: absolute;
+        right: 30px;
+        top: 30px;
+    }
+
+
     .room-details {
+        padding-top: 12px;
         display: none;
+    }
+
+    .img-detail{
+        position: absolute;
+        background: url("/Images/icons8-user-32.png") no-repeat center center;
+        color: #000;
+        top: 2px;
+        right: 12px;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        background-color: #dcdbdb;
     }
 
     .details-status {
         margin-bottom: 8px;
+        margin-left: -70px;
     }
 
     .details-button {
         background-color: #1976d2;
+        position: absolute;
+        bottom: 0;
+        left: 0;
         color: white;
-        padding: 8px 6px;
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        width: 100%;
+        width: 60%;
+        height: 25px;
         font-size: 14px;
         transition: background-color 0.3s ease;
     }
@@ -197,7 +225,14 @@
                 <div class="room status-inmeeting" data-room-id="101" data-teacher="دکتر احمدی" data-status="در حال جلسه" tabindex="0">
                     <div class="teacher-name">دکتر احمدی</div>
                     <div class="room-details">
-                        <div class="details-status">وضعیت: <br>در حال جلسه</div>
+                        <div class="img-detail align-items-center"></div>
+                        <div class="details-status">
+                            <ul>
+                                <li>09152552525</li>
+                                <li>کامپیوتر</li>
+                                <li>حاضر</li>
+                            </ul>
+                        </div>
                         <button class="details-button">نمایش مسیر</button>
                     </div>
                 </div>
@@ -206,7 +241,6 @@
                 <div class="room status-present" data-room-id="103" data-teacher="مهندس رضایی" data-status="حاضر" tabindex="0">
                     <div class="teacher-name">مهندس رضایی</div>
                     <div class="room-details">
-                        <div class="details-status">وضعیت: حاضر</div>
                         <button class="details-button">نمایش مسیر</button>
                     </div>
                 </div>
@@ -215,7 +249,6 @@
                 <div class="room status-absent" data-room-id="105" data-teacher="دکتر کاظمی" data-status="غایب" tabindex="0">
                     <div class="teacher-name">دکتر کاظمی</div>
                     <div class="room-details">
-                        <div class="details-status">وضعیت: غایب</div>
                         <button class="details-button">نمایش مسیر</button>
                     </div>
                 </div>
@@ -224,7 +257,6 @@
                 <div class="room status-present" data-room-id="107" data-teacher="دکتر نوری" data-status="حاضر" tabindex="0">
                     <div class="teacher-name">دکتر نوری</div>
                     <div class="room-details">
-                        <div class="details-status">وضعیت: حاضر</div>
                         <button class="details-button">نمایش مسیر</button>
                     </div>
                 </div>
@@ -238,7 +270,6 @@
                 <div class="room status-absent" data-room-id="102" data-teacher="مهندس صادقی" data-status="غایب" tabindex="0">
                     <div class="teacher-name">مهندس صادقی</div>
                     <div class="room-details">
-                        <div class="details-status">وضعیت: غایب</div>
                         <button class="details-button">نمایش مسیر</button>
                     </div>
                 </div>
@@ -247,7 +278,6 @@
                 <div class="room status-present" data-room-id="104" data-teacher="دکتر جمشیدی" data-status="حاضر" tabindex="0">
                     <div class="teacher-name">دکتر جمشیدی</div>
                     <div class="room-details">
-                        <div class="details-status">وضعیت: حاضر</div>
                         <button class="details-button">نمایش مسیر</button>
                     </div>
                 </div>
@@ -256,7 +286,6 @@
                 <div class="room status-inmeeting" data-room-id="106" data-teacher="دکتر رحیمی" data-status="در حال جلسه" tabindex="0">
                     <div class="teacher-name">دکتر رحیمی</div>
                     <div class="room-details">
-                        <div class="details-status">وضعیت: در حال جلسه</div>
                         <button class="details-button">نمایش مسیر</button>
                     </div>
                 </div>
@@ -265,7 +294,6 @@
                 <div class="room status-present" data-room-id="108" data-teacher="مهندس رستمی" data-status="حاضر" tabindex="0">
                     <div class="teacher-name">مهندس رستمی</div>
                     <div class="room-details">
-                        <div class="details-status">وضعیت: حاضر</div>
                         <button class="details-button">نمایش مسیر</button>
                     </div>
                 </div>
