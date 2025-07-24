@@ -106,9 +106,12 @@
     }
 
     .room.expanded {
-        width: 200px;
+        width: 160px;
         box-shadow: 0 0 8px #444;
         z-index: 10;
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
     }
 
     .teacher-name {
@@ -127,7 +130,8 @@
         writing-mode: horizontal-tb;
         transform: none;
         text-align: center;
-    }
+        }
+
 
     .room.expanded .teacher-name {
         font-weight: bold;
@@ -136,8 +140,7 @@
         transition: all 0.3s ease;
         transform: rotate(-90deg);
         position: absolute;
-        right: 30px;
-        top: 30px;
+        top: 35px;
     }
 
 
@@ -147,15 +150,13 @@
     }
 
     .img-detail{
-        position: absolute;
         background: url("/Images/icons8-user-32.png") no-repeat center center;
         color: #000;
-        top: 2px;
-        right: 12px;
         border-radius: 50%;
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
         background-color: #dcdbdb;
+        margin-top: -3px;
     }
 
     .details-status {
@@ -223,41 +224,61 @@
         <div class="room-column" id="leftColumn">
             <div class="room-wrapper left-room">
                 <div class="room status-inmeeting" data-room-id="101" data-teacher="دکتر احمدی" data-status="در حال جلسه" tabindex="0">
-                    <div class="teacher-name">دکتر احمدی</div>
                     <div class="room-details">
                         <div class="img-detail align-items-center"></div>
-                        <div class="details-status">
-                            <ul>
-                                <li>09152552525</li>
-                                <li>کامپیوتر</li>
-                                <li>حاضر</li>
-                            </ul>
+                    </div>
+                    <div class="teacher-name">دکتر احمدی</div>
+                    <div class="room-details" style="margin-top: -35px;">
+                        <div class="d-flex gap-2">
+                            <a href="#"><i class="fa-solid fa-info-circle text-black"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger"></i></a>
                         </div>
-                        <button class="details-button">نمایش مسیر</button>
                     </div>
                 </div>
             </div>
             <div class="room-wrapper left-room">
                 <div class="room status-present" data-room-id="103" data-teacher="مهندس رضایی" data-status="حاضر" tabindex="0">
-                    <div class="teacher-name">مهندس رضایی</div>
                     <div class="room-details">
-                        <button class="details-button">نمایش مسیر</button>
+                        <div class="img-detail align-items-center"></div>
+                    </div>
+                    <div class="teacher-name">مهندس رضایی</div>
+                    <div class="room-details" style="margin-top: -35px;">
+                        <div class="d-flex gap-2">
+                            <a href="#"><i class="fa-solid fa-info-circle text-black"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="room-wrapper left-room">
                 <div class="room status-absent" data-room-id="105" data-teacher="دکتر کاظمی" data-status="غایب" tabindex="0">
-                    <div class="teacher-name">دکتر کاظمی</div>
                     <div class="room-details">
-                        <button class="details-button">نمایش مسیر</button>
+                        <div class="img-detail align-items-center"></div>
+                    </div>
+                    <div class="teacher-name">دکتر کاظمی</div>
+                    <div class="room-details" style="margin-top: -35px;">
+                        <div class="d-flex gap-2">
+                            <a href="#"><i class="fa-solid fa-info-circle text-black"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="room-wrapper left-room">
                 <div class="room status-present" data-room-id="107" data-teacher="دکتر نوری" data-status="حاضر" tabindex="0">
-                    <div class="teacher-name">دکتر نوری</div>
                     <div class="room-details">
-                        <button class="details-button">نمایش مسیر</button>
+                        <div class="img-detail align-items-center"></div>
+                    </div>
+                    <div class="teacher-name">دکتر نوری</div>
+                    <div class="room-details" style="margin-top: -35px;">
+                        <div class="d-flex gap-2">
+                            <a href="#"><i class="fa-solid fa-info-circle text-black"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -268,33 +289,61 @@
         <div class="room-column" id="rightColumn">
             <div class="room-wrapper right-room">
                 <div class="room status-absent" data-room-id="102" data-teacher="مهندس صادقی" data-status="غایب" tabindex="0">
-                    <div class="teacher-name">مهندس صادقی</div>
                     <div class="room-details">
-                        <button class="details-button">نمایش مسیر</button>
+                        <div class="img-detail align-items-center"></div>
+                    </div>
+                    <div class="teacher-name">مهندس صادقی</div>
+                    <div class="room-details" style="margin-top: -35px;">
+                        <div class="d-flex gap-2">
+                            <a href="#"><i class="fa-solid fa-info-circle text-black"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="room-wrapper right-room">
                 <div class="room status-present" data-room-id="104" data-teacher="دکتر جمشیدی" data-status="حاضر" tabindex="0">
-                    <div class="teacher-name">دکتر جمشیدی</div>
                     <div class="room-details">
-                        <button class="details-button">نمایش مسیر</button>
+                        <div class="img-detail align-items-center"></div>
+                    </div>
+                    <div class="teacher-name">دکتر جمشیدی</div>
+                    <div class="room-details" style="margin-top: -35px;">
+                        <div class="d-flex gap-2">
+                            <a href="#"><i class="fa-solid fa-info-circle text-black"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="room-wrapper right-room">
                 <div class="room status-inmeeting" data-room-id="106" data-teacher="دکتر رحیمی" data-status="در حال جلسه" tabindex="0">
-                    <div class="teacher-name">دکتر رحیمی</div>
                     <div class="room-details">
-                        <button class="details-button">نمایش مسیر</button>
+                        <div class="img-detail align-items-center"></div>
+                    </div>
+                    <div class="teacher-name">دکتر رحیمی</div>
+                    <div class="room-details" style="margin-top: -35px;">
+                        <div class="d-flex gap-2">
+                            <a href="#"><i class="fa-solid fa-info-circle text-black"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="room-wrapper right-room">
                 <div class="room status-present" data-room-id="108" data-teacher="مهندس رستمی" data-status="حاضر" tabindex="0">
-                    <div class="teacher-name">مهندس رستمی</div>
                     <div class="room-details">
-                        <button class="details-button">نمایش مسیر</button>
+                        <div class="img-detail align-items-center"></div>
+                    </div>
+                    <div class="teacher-name">مهندس رستمی</div>
+                    <div class="room-details" style="margin-top: -35px;">
+                        <div class="d-flex gap-2">
+                            <a href="#"><i class="fa-solid fa-info-circle text-black"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -309,12 +358,12 @@
         <button id="zoomOut" class="zoom-btn" title="کوچک نمایی">−</button>
     </div>
 </div>
-
 <script>
     const rooms = document.querySelectorAll('.room');
     let expandedRoom = null;
 
     rooms.forEach(room => {
+        // کلیک روی خود اتاق
         room.addEventListener('click', () => {
             if (expandedRoom && expandedRoom !== room) collapseRoom(expandedRoom);
             room.classList.toggle('expanded');
@@ -322,10 +371,14 @@
             clearPath();
         });
 
-        room.querySelector('.details-button').addEventListener('click', e => {
-            e.stopPropagation();
-            drawPathToRoom(room);
-        });
+        const directionLink = room.querySelector('.direction-link');
+        if (directionLink) {
+            directionLink.addEventListener('click', e => {
+                e.preventDefault();        
+                e.stopPropagation();        
+                drawPathToRoom(room);
+            });
+        }
     });
 
     function drawPathToRoom(room) {
