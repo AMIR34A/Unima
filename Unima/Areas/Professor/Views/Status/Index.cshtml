@@ -422,35 +422,72 @@
     });
 
     function drawPathToRoom(room) {
-        clearPath();
+    clearPath();
 
+    panzoomInstance.reset({ animate: true });
+
+    setTimeout(() => {
         const mapWrapper = document.getElementById('mapWrapper');
         const entrance = document.getElementById('entrance');
         const mapRect = mapWrapper.getBoundingClientRect();
         const entranceRect = entrance.getBoundingClientRect();
         const roomRect = room.getBoundingClientRect();
 
-        const startX = entranceRect.left + entranceRect.width / 2 - mapRect.left;
-        const startY = entranceRect.top + entranceRect.height / 2 - mapRect.top;
+        const start = {
+            x: entranceRect.left + entranceRect.width / 2 - mapRect.left,
+            y: entranceRect.top + entranceRect.height / 2 - mapRect.top
+        };
 
         const wrapper = room.closest('.room-wrapper');
         const isLeft = wrapper.classList.contains('left-room');
 
-        const targetX = isLeft
-            ? roomRect.left - mapRect.left
-            : roomRect.right - mapRect.left;
+        const end = {
+            x: isLeft
+                ? roomRect.left - mapRect.left
+                : roomRect.right - mapRect.left,
+            y: roomRect.top + roomRect.height / 2 - mapRect.top
+        };
 
-        const targetY = roomRect.top + roomRect.height / 2 - mapRect.top;
+        const mid = { x: start.x, y: end.y };
 
         const ctx = getOrCreateCanvasCtx();
-        ctx.beginPath();
-        ctx.moveTo(startX, startY);
-        ctx.lineTo(startX, targetY);
-        ctx.lineTo(targetX, targetY);
-        ctx.strokeStyle = '#1976d2';
-        ctx.lineWidth = 4;
-        ctx.setLineDash([6, 4]);
-        ctx.stroke();
+        animatePath(ctx, [start, mid, end], 800);
+        }, 200);
+    }
+
+
+    function animatePath(ctx, points, duration = 600) {
+        const [start, mid, end] = points;
+        const startTime = performance.now();
+
+        function draw(currentTime) {
+            const elapsed = currentTime - startTime;
+            const t = Math.min(elapsed / duration, 1);
+
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            ctx.beginPath();
+            ctx.moveTo(start.x, start.y);
+
+            if (t < 0.5) {
+                const y = start.y + (mid.y - start.y) * (t / 0.5);
+                ctx.lineTo(start.x, y);
+            } else {
+                ctx.lineTo(start.x, mid.y);
+                const x = mid.x + (end.x - mid.x) * ((t - 0.5) / 0.5);
+                ctx.lineTo(x, mid.y);
+            }
+
+            ctx.strokeStyle = '#1976d2';
+            ctx.lineWidth = 4;
+            ctx.setLineDash([6, 4]);
+            ctx.stroke();
+
+            if (t < 1) {
+                requestAnimationFrame(draw);
+            }
+        }
+
+        requestAnimationFrame(draw);
     }
 
     function getOrCreateCanvasCtx() {
@@ -463,7 +500,7 @@
             canvas.style.position = 'absolute';
             canvas.style.top = 0;
             canvas.style.left = 0;
-            canvas.style.pointerEvents = 'none'; // تا قابل کلیک نباشد
+            canvas.style.pointerEvents = 'none';
             mapWrapper.appendChild(canvas);
         }
 
@@ -498,8 +535,6 @@
     mapContainer.addEventListener('wheel', panzoomInstance.zoomWithWheel);
     document.getElementById('zoomIn').addEventListener('click', () => panzoomInstance.zoomIn());
     document.getElementById('zoomOut').addEventListener('click', () => panzoomInstance.zoomOut());
-
-    // --- شروع کد جستجو و فوکوس ---
 
     const searchInput = document.getElementById('teacherSearchInput');
     const searchButton = document.getElementById('searchButton');
@@ -539,27 +574,25 @@
 
     function focusOnElement(element) {
         const targetScale = 1.4;
+        const mapWrapper = document.getElementById('mapWrapper');
         const roomWrapper = element.closest('.room-wrapper');
 
         const roomCenterX = roomWrapper.offsetLeft + roomWrapper.offsetWidth / 2;
         const roomCenterY = roomWrapper.offsetTop + roomWrapper.offsetHeight / 2;
 
-        const containerCenterX = mapContainer.clientWidth / 2;
-        const containerCenterY = mapContainer.clientHeight / 2;
-
-        const panX = containerCenterX - (roomCenterX * targetScale);
-        const panY = containerCenterY - (roomCenterY * targetScale);
-
-        panzoomInstance.zoom(targetScale, { animate: true });
-        panzoomInstance.pan(panX, panY, { animate: true, duration: 800 });
+        panzoomInstance.zoom(targetScale, {
+            animate: true,
+            focal: {
+                x: roomCenterX,
+                y: roomCenterY
+            }
+        });
     }
 
     searchButton.addEventListener('click', searchAndFocus);
-
     searchInput.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
             searchAndFocus();
         }
     });
-
 </script>
