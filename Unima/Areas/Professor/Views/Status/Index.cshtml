@@ -5,6 +5,13 @@
  <script src="https://unpkg.com/@@panzoom/panzoom/dist/panzoom.min.js"></script>
 
 <style>
+
+
+    @@keyframes fadeInScale {
+        from { opacity: 0; transform: scale(1.25); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
     #mapContainer {
         width: 900px; 
         height: 600px;     
@@ -21,7 +28,7 @@
         display: flex;
         justify-content: center;
         align-items: flex-start;
-        gap: 20px;
+        gap: 2px;
         position: relative;
         width: 900px;  
         height: 600px; 
@@ -81,7 +88,7 @@
         height: 100%;
         background: #a5a5a5;
         border-radius: 5px;
-        box-shadow: inset 0 0 5px #a5d6a7;
+        box-shadow: inset 0 0 5px #444;
     }
 
     .room {
@@ -133,20 +140,26 @@
         }
 
 
-    .room.expanded .teacher-name {
-        font-weight: bold;
-        font-size: 14px;
-        text-shadow: 0 0 3px #1976d2;
-        transition: all 0.3s ease;
-        transform: rotate(-90deg);
-        position: absolute;
-        top: 35px;
-    }
+.room.expanded .teacher-name {
+    font-weight: bold;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    writing-mode: horizontal-tb; 
+    width: 90px; 
+    position: absolute;
+    top: 55px;  
+    transform: rotate(0deg);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
 
 
     .room-details {
         padding-top: 12px;
         display: none;
+        animation: fadeInScale 0.8s ease-in-out;
     }
 
     .img-detail{
@@ -181,6 +194,14 @@
 
     .details-button:hover {
         background-color: #0d47a1;
+    }
+
+    .icon-edit{
+        transition: all .3s ease;
+    }
+
+    .icon-edit:hover{
+       transform: scale(1.15);
     }
 
     .status-present { background-color: #66bb6a; }
@@ -223,16 +244,16 @@
     <div id="mapWrapper">
         <div class="room-column" id="leftColumn">
             <div class="room-wrapper left-room">
-                <div class="room status-inmeeting" data-room-id="101" data-teacher="دکتر احمدی" data-status="در حال جلسه" tabindex="0">
+                <div class="room status-present" data-room-id="101" data-teacher="دکتر احمدی" data-status="در حال جلسه" tabindex="0">
                     <div class="room-details">
                         <div class="img-detail align-items-center"></div>
                     </div>
                     <div class="teacher-name">دکتر احمدی</div>
-                    <div class="room-details" style="margin-top: -35px;">
+                    <div class="room-details">
                         <div class="d-flex gap-2">
-                            <a href="#"><i class="fa-solid fa-info-circle text-black"></i></a>
-                            <a href="#"><i class="fa-solid fa-phone-flip"></i></a>
-                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger"></i></a>
+                            <a href="#"><i class="fa-solid fa-info-circle text-black icon-edit"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger icon-edit"></i></a>
                         </div>
                     </div>
                 </div>
@@ -243,11 +264,11 @@
                         <div class="img-detail align-items-center"></div>
                     </div>
                     <div class="teacher-name">مهندس رضایی</div>
-                    <div class="room-details" style="margin-top: -35px;">
+                    <div class="room-details">
                         <div class="d-flex gap-2">
-                            <a href="#"><i class="fa-solid fa-info-circle text-black"></i></a>
-                            <a href="#"><i class="fa-solid fa-phone-flip"></i></a>
-                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger"></i></a>
+                            <a href="#"><i class="fa-solid fa-info-circle text-black icon-edit"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger icon-edit"></i></a>
                         </div>
                     </div>
                 </div>
@@ -258,11 +279,11 @@
                         <div class="img-detail align-items-center"></div>
                     </div>
                     <div class="teacher-name">دکتر کاظمی</div>
-                    <div class="room-details" style="margin-top: -35px;">
+                    <div class="room-details">
                         <div class="d-flex gap-2">
-                            <a href="#"><i class="fa-solid fa-info-circle text-black"></i></a>
-                            <a href="#"><i class="fa-solid fa-phone-flip"></i></a>
-                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger"></i></a>
+                            <a href="#"><i class="fa-solid fa-info-circle text-black icon-edit"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger icon-edit"></i></a>
                         </div>
                     </div>
                 </div>
@@ -273,11 +294,11 @@
                         <div class="img-detail align-items-center"></div>
                     </div>
                     <div class="teacher-name">دکتر نوری</div>
-                    <div class="room-details" style="margin-top: -35px;">
+                    <div class="room-details">
                         <div class="d-flex gap-2">
-                            <a href="#"><i class="fa-solid fa-info-circle text-black"></i></a>
-                            <a href="#"><i class="fa-solid fa-phone-flip"></i></a>
-                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger"></i></a>
+                            <a href="#"><i class="fa-solid fa-info-circle text-black icon-edit"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger icon-edit"></i></a>
                         </div>
                     </div>
                 </div>
@@ -293,11 +314,11 @@
                         <div class="img-detail align-items-center"></div>
                     </div>
                     <div class="teacher-name">مهندس صادقی</div>
-                    <div class="room-details" style="margin-top: -35px;">
+                    <div class="room-details">
                         <div class="d-flex gap-2">
-                            <a href="#"><i class="fa-solid fa-info-circle text-black"></i></a>
-                            <a href="#"><i class="fa-solid fa-phone-flip"></i></a>
-                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger"></i></a>
+                            <a href="#"><i class="fa-solid fa-info-circle text-black icon-edit"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger icon-edit"></i></a>
                         </div>
                     </div>
                 </div>
@@ -308,26 +329,26 @@
                         <div class="img-detail align-items-center"></div>
                     </div>
                     <div class="teacher-name">دکتر جمشیدی</div>
-                    <div class="room-details" style="margin-top: -35px;">
+                    <div class="room-details">
                         <div class="d-flex gap-2">
-                            <a href="#"><i class="fa-solid fa-info-circle text-black"></i></a>
-                            <a href="#"><i class="fa-solid fa-phone-flip"></i></a>
-                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger"></i></a>
+                            <a href="#"><i class="fa-solid fa-info-circle text-black icon-edit"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger icon-edit"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="room-wrapper right-room">
-                <div class="room status-inmeeting" data-room-id="106" data-teacher="دکتر رحیمی" data-status="در حال جلسه" tabindex="0">
+                <div class="room status-present" data-room-id="106" data-teacher="دکتر رحیمی" data-status="در حال جلسه" tabindex="0">
                     <div class="room-details">
                         <div class="img-detail align-items-center"></div>
                     </div>
                     <div class="teacher-name">دکتر رحیمی</div>
-                    <div class="room-details" style="margin-top: -35px;">
+                    <div class="room-details">
                         <div class="d-flex gap-2">
-                            <a href="#"><i class="fa-solid fa-info-circle text-black"></i></a>
-                            <a href="#"><i class="fa-solid fa-phone-flip"></i></a>
-                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger"></i></a>
+                            <a href="#"><i class="fa-solid fa-info-circle text-black icon-edit"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger icon-edit"></i></a>
                         </div>
                     </div>
                 </div>
@@ -338,11 +359,11 @@
                         <div class="img-detail align-items-center"></div>
                     </div>
                     <div class="teacher-name">مهندس رستمی</div>
-                    <div class="room-details" style="margin-top: -35px;">
+                    <div class="room-details">
                         <div class="d-flex gap-2">
-                            <a href="#"><i class="fa-solid fa-info-circle text-black"></i></a>
-                            <a href="#"><i class="fa-solid fa-phone-flip"></i></a>
-                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger"></i></a>
+                            <a href="#"><i class="fa-solid fa-info-circle text-black icon-edit"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-danger icon-edit"></i></a>
                         </div>
                     </div>
                 </div>
