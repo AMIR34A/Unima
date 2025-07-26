@@ -1,556 +1,569 @@
-﻿@using Unima.Areas.Professor.Models.ViewModels
-@model StatusViewModel
-@{
-    Layout = "/Areas/User/Views/Shared/_Layout.cshtml";
-}
-
-<script src="https://unpkg.com/@@panzoom/panzoom/dist/panzoom.min.js"></script>
-
-<style>
-    .input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-control, .input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-select, .input-group:not(.has-validation) > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating) {
-        border-bottom-left-radius: 0;
-        border-top-left-radius: 0;
-        border-bottom-right-radius: 5px;
-        border-top-right-radius: 5px;
+﻿    @using Unima.Areas.Professor.Models.ViewModels
+    @model StatusViewModel
+    @{
+        Layout = "/Areas/User/Views/Shared/_Layout.cshtml";
     }
 
-    .input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
-        border-bottom-left-radius: 5px;
-        border-top-left-radius: 5px;
-        border-bottom-right-radius: 0;
-        border-top-right-radius: 0;
-    }
+    <script src="https://unpkg.com/@@panzoom/panzoom/dist/panzoom.min.js"></script>
 
-
-    @@keyframes fadeInScale {
-        from {
-            opacity: 0;
-            transform: scale(1.25);
+    <style>
+        .input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-control, .input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-select, .input-group:not(.has-validation) > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating) {
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+            border-bottom-right-radius: 5px;
+            border-top-right-radius: 5px;
         }
 
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-    #mapContainer {
-        width: 900px;
-        height: 600px;
-        overflow: hidden;
-        position: relative;
-        border: 2px solid #444;
-        margin: 20px auto;
-        background: white;
-        border-radius: 8px;
-        user-select: none;
-    }
-
-    #mapWrapper {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 2px;
-        position: relative;
-        width: 900px;
-        height: 600px;
-        background: #dcdbdb;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        padding: 20px;
-        touch-action: none;
-    }
-
-    #zoomControls {
-        position: absolute;
-        bottom: 10px;
-        left: 10px;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        z-index: 150;
-    }
-
-    .zoom-btn {
-        width: 38px;
-        height: 38px;
-        font-size: 22px;
-        font-weight: bold;
-        color: white;
-        background-color: #444;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        transition: background-color 0.3s ease;
-    }
-
-        .zoom-btn:hover {
-            background-color: #0d47a1;
+        .input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0;
         }
 
-    .room-column {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        align-items: center;
-    }
 
-    .room-wrapper {
-        width: 80px;
-        height: 100px;
-        position: relative;
-    }
+        @@keyframes fadeInScaleForCards {
+            from {
+                opacity: 0;
+                transform: scale(1.25);
+            }
 
-    .left-room .room {
-        left: 0;
-        right: unset;
-    }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
 
-    .right-room .room {
-        right: 0;
-        left: unset;
-    }
+        @@keyframes SlideInRightToLeft {
+            from { opacity: 0; transform: translateY(-50%);}
+            to { opacity: 1; transform: translateY(0%);}
+        }
 
-    #hallway {
-        width: 60px;
-        height: 100%;
-        background: #a5a5a5;
-        border-radius: 5px;
-        box-shadow: inset 0 0 5px #444;
-    }
 
-    .room {
-        position: absolute;
-        top: 0;
-        width: 30px;
-        height: 100px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: width 0.6s ease;
-        background-color: #66bb6a;
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        align-items: center;
-        flex-direction: column;
-        overflow: visible;
-        color: white;
-        font-weight: bold;
-        font-size: 14px;
-        user-select: none;
-    }
+        #mapContainer {
+            width: 900px;
+            height: 600px;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid #444;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            user-select: none;
+            animation: fadeInScale 0.8s ease-in-out;
+        }
 
-        .room.expanded {
-            width: 160px;
-            box-shadow: 0 0 8px #444;
-            z-index: 10;
+        #mapWrapper {
             display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 2px;
+            position: relative;
+            width: 900px;
+            height: 600px;
+            background: #dcdbdb;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            touch-action: none;
+        }
+
+        #zoomControls {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 150;
+        }
+
+        .input-group{
+            animation: SlideInRightToLeft 0.4s ease-in-out;
+        }
+
+        .zoom-btn {
+            width: 38px;
+            height: 38px;
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            background-color: #444;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease;
+        }
+
+            .zoom-btn:hover {
+                background-color: #0d47a1;
+            }
+
+        .room-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
             align-items: center;
-            flex-wrap: nowrap;
         }
 
-    .teacher-name {
-        writing-mode: vertical-rl;
-        transform: rotate(180deg);
-        pointer-events: none;
-        white-space: nowrap;
-        text-align: center;
-        margin: auto !important;
-    }
-
-    .room.expanded .room-details {
-        display: block;
-        color: black;
-        font-weight: normal;
-        writing-mode: horizontal-tb;
-        transform: none;
-        text-align: center;
-    }
-
-
-    .room.expanded .teacher-name {
-        font-weight: bold;
-        font-size: 14px;
-        transition: all 0.3s ease;
-        writing-mode: horizontal-tb;
-        width: 90px;
-        position: absolute;
-        top: 55px;
-        transform: rotate(0deg);
-        text-align: center;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-
-    .room-details {
-        padding-top: 12px;
-        display: none;
-        animation: fadeInScale 0.8s ease-in-out;
-    }
-
-    .img-detail {
-        background: url("/Images/icons8-user-32.png") no-repeat center center;
-        color: #000;
-        border-radius: 50%;
-        width: 45px;
-        height: 45px;
-        background-color: #dcdbdb;
-        margin-top: -3px;
-    }
-
-    .details-status {
-        margin-bottom: 8px;
-        margin-left: -70px;
-    }
-
-    .details-button {
-        background-color: #1976d2;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        width: 60%;
-        height: 25px;
-        font-size: 14px;
-        transition: background-color 0.3s ease;
-    }
-
-        .details-button:hover {
-            background-color: #0d47a1;
+        .room-wrapper {
+            width: 80px;
+            height: 100px;
+            position: relative;
         }
 
-    .icon-edit {
-        transition: all .3s ease;
-    }
-
-        .icon-edit:hover {
-            transform: scale(1.15);
+        .left-room .room {
+            left: 0;
+            right: unset;
         }
 
-    .status-Unspecified {
-        background-color: #a39b9b;
-    }
+        .right-room .room {
+            right: 0;
+            left: unset;
+        }
 
-    .status-Available {
-        background-color: #81c784;
-    }
+        #hallway {
+            width: 60px;
+            height: 100%;
+            background: #a5a5a5;
+            border-radius: 5px;
+            box-shadow: inset 0 0 5px #444;
+        }
 
-    .status-Busy {
-        background-color: #ef5350;
-    }
+        .room {
+            position: absolute;
+            top: 0;
+            width: 30px;
+            height: 100px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: width 0.6s ease;
+            background-color: #66bb6a;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: center;
+            flex-direction: column;
+            overflow: visible;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            user-select: none;
+        }
 
-    .status-DoNotDisturb {
-        background-color: #ef5350;
-    }
+            .room.expanded {
+                width: 160px;
+                box-shadow: 0 0 8px #444;
+                z-index: 10;
+                display: flex;
+                align-items: center;
+                flex-wrap: nowrap;
+            }
 
-    .status-BeRightBack {
-        background-color: #fae57f;
-    }
+        .teacher-name {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            pointer-events: none;
+            white-space: nowrap;
+            text-align: center;
+            margin: auto !important;
+        }
 
-    .status-Offline {
-        background-color: #939fdb;
-    }
+        .room.expanded .room-details {
+            display: block;
+            color: black;
+            font-weight: normal;
+            writing-mode: horizontal-tb;
+            transform: none;
+            text-align: center;
+        }
 
-    #entrance {
-        position: absolute;
-        bottom: 40px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 24px;
-        height: 24px;
-        background: #3949ab;
-        border-radius: 50%;
-        z-index: 100;
-    }
 
-    #entrance-label {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 14px;
-        text-align: center;
-        color: #000;
-        z-index: 100;
-    }
+        .room.expanded .teacher-name {
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            writing-mode: horizontal-tb;
+            width: 90px;
+            position: absolute;
+            top: 55px;
+            transform: rotate(0deg);
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-    #routeCanvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-        z-index: 50;
-    }
-</style>
 
-<div class="container" style="max-width: 600px; margin-top: 20px;">
-    <div class="input-group">
-        <input type="text" id="teacherSearchInput" class="form-control" placeholder="نام استاد را جستجو کنید...">
-        <button class="btn btn-dark" type="button" id="searchButton">
-            <i class="fa-solid fa-search"></i> جستجو
-        </button>
+        .room-details {
+            padding-top: 12px;
+            display: none;
+            animation: fadeInScaleForCards 0.8s ease-in-out;
+        }
+
+        .img-detail {
+            background: url("/Images/icons8-user-32.png") no-repeat center center;
+            color: #000;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            background-color: #dcdbdb;
+            margin-top: -3px;
+        }
+
+        .details-status {
+            margin-bottom: 8px;
+            margin-left: -70px;
+        }
+
+        .details-button {
+            background-color: #1976d2;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 60%;
+            height: 25px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+            .details-button:hover {
+                background-color: #0d47a1;
+            }
+
+        .icon-edit {
+            transition: all .3s ease;
+        }
+
+            .icon-edit:hover {
+                transform: scale(1.15);
+            }
+
+        .status-Unspecified {
+            background-color: #a39b9b;
+        }
+
+        .status-Available {
+            background-color: #81c784;
+        }
+
+        .status-Busy {
+            background-color: #ef5350;
+        }
+
+        .status-DoNotDisturb {
+            background-color: #ef5350;
+        }
+
+        .status-BeRightBack {
+            background-color: #fae57f;
+        }
+
+        .status-Offline {
+            background-color: #939fdb;
+        }
+
+        #entrance {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background: #3949ab;
+            border-radius: 50%;
+            z-index: 100;
+        }
+
+        #entrance-label {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            text-align: center;
+            color: #000;
+            z-index: 100;
+        }
+
+        #routeCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 50;
+        }
+    </style>
+
+    <div class="container" style="max-width: 600px; margin-top: 20px;">
+        <div class="input-group">
+            <input type="text" id="teacherSearchInput" class="form-control" placeholder="نام استاد را جستجو کنید...">
+            <button class="btn btn-dark" type="button" id="searchButton">
+                <i class="fa-solid fa-search"></i> جستجو
+            </button>
+        </div>
     </div>
-</div>
-<div id="mapContainer">
-    <div id="mapWrapper">
-        <div class="room-column" id="leftColumn">
-            @if (Model.LeftRooms is not null)
-            {
-                foreach (var room in Model.LeftRooms)
+    <div id="mapContainer">
+        <div id="mapWrapper">
+            <div class="room-column" id="leftColumn">
+                @if (Model.LeftRooms is not null)
                 {
-                    <div class="room-wrapper left-room">
-                        <div class="room status-@(room.StatusStr)" data-room-id="@room.No" data-teacher="@room.ProfessorFullName" data-status="@room.Status" tabindex="0">
-                            <div class="room-details">
-                                <div class="img-detail align-items-center"></div>
-                            </div>
-                            <div class="teacher-name">@room.ProfessorFullName</div>
-                            <div class="room-details">
-                                <div class="d-flex gap-2">
-                                    <a href="#"><i class="fa-solid fa-info-circle text-white icon-edit"></i></a>
-                                    <a href="tel:{@room.PhoneNumber}"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
-                                    <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
+                    foreach (var room in Model.LeftRooms)
+                    {
+                        <div class="room-wrapper left-room">
+                            <div class="room status-@(room.StatusStr)" data-room-id="@room.No" data-teacher="@room.ProfessorFullName" data-status="@room.Status" tabindex="0">
+                                <div class="room-details">
+                                    <div class="img-detail align-items-center"></div>
+                                </div>
+                                <div class="teacher-name">@room.ProfessorFullName</div>
+                                <div class="room-details">
+                                    <div class="d-flex gap-2">
+                                        <a href="#"><i class="fa-solid fa-info-circle text-white icon-edit"></i></a>
+                                        <a href="tel:{@room.PhoneNumber}"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                                        <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 }
-            }
-        </div>
+            </div>
 
-        <div id="hallway"></div>
+            <div id="hallway"></div>
 
-        <div class="room-column" id="rightColumn">
-            @if (Model.RightRooms is not null)
-            {
-                foreach (var room in Model.RightRooms)
+            <div class="room-column" id="rightColumn">
+                @if (Model.RightRooms is not null)
                 {
-                    <div class="room-wrapper right-room">
-                        <div class="room status-@(room.StatusStr)" data-room-id="@room.No" data-teacher="@room.ProfessorFullName" data-status="@room.Status" tabindex="0">
-                            <div class="room-details">
-                                <div class="img-detail align-items-center"></div>
-                            </div>
-                            <div class="teacher-name">@room.ProfessorFullName</div>
-                            <div class="room-details">
-                                <div class="d-flex gap-2">
-                                    <a href="#"><i class="fa-solid fa-info-circle text-white icon-edit"></i></a>
-                                    <a href="tel:{@room.PhoneNumber}"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
-                                    <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
+                    foreach (var room in Model.RightRooms)
+                    {
+                        <div class="room-wrapper right-room">
+                            <div class="room status-@(room.StatusStr)" data-room-id="@room.No" data-teacher="@room.ProfessorFullName" data-status="@room.Status" tabindex="0">
+                                <div class="room-details">
+                                    <div class="img-detail align-items-center"></div>
+                                </div>
+                                <div class="teacher-name">@room.ProfessorFullName</div>
+                                <div class="room-details">
+                                    <div class="d-flex gap-2">
+                                        <a href="#"><i class="fa-solid fa-info-circle text-white icon-edit"></i></a>
+                                        <a href="tel:{@room.PhoneNumber}"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                                        <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 }
-            }
+            </div>
+
+            <div id="entrance"></div>
+            <div id="entrance-label">ورودی</div>
         </div>
-
-        <div id="entrance"></div>
-        <div id="entrance-label">ورودی</div>
+        <div id="zoomControls">
+            <button id="zoomIn" class="zoom-btn" title="بزرگنمایی">+</button>
+            <button id="zoomOut" class="zoom-btn" title="کوچک نمایی">−</button>
+        </div>
     </div>
-    <div id="zoomControls">
-        <button id="zoomIn" class="zoom-btn" title="بزرگنمایی">+</button>
-        <button id="zoomOut" class="zoom-btn" title="کوچک نمایی">−</button>
-    </div>
-</div>
-<script>
-    const rooms = document.querySelectorAll('.room');
-    let expandedRoom = null;
-
-    rooms.forEach(room => {
-        room.addEventListener('click', () => {
-            if (expandedRoom && expandedRoom !== room) collapseRoom(expandedRoom);
-            room.classList.toggle('expanded');
-            expandedRoom = room.classList.contains('expanded') ? room : null;
-            clearPath();
-        });
-
-        const directionLink = room.querySelector('.direction-link');
-        if (directionLink) {
-            directionLink.addEventListener('click', e => {
-                e.preventDefault();
-                e.stopPropagation();
-                drawPathToRoom(room);
-            });
-        }
-    });
-
-    function drawPathToRoom(room) {
-    clearPath();
-
-    panzoomInstance.reset({ animate: true });
-
-    setTimeout(() => {
-        const mapWrapper = document.getElementById('mapWrapper');
-        const entrance = document.getElementById('entrance');
-        const mapRect = mapWrapper.getBoundingClientRect();
-        const entranceRect = entrance.getBoundingClientRect();
-        const roomRect = room.getBoundingClientRect();
-
-        const start = {
-            x: entranceRect.left + entranceRect.width / 2 - mapRect.left,
-            y: entranceRect.top + entranceRect.height / 2 - mapRect.top
-        };
-
-        const wrapper = room.closest('.room-wrapper');
-        const isLeft = wrapper.classList.contains('left-room');
-
-        const end = {
-            x: isLeft
-                ? roomRect.left - mapRect.left
-                : roomRect.right - mapRect.left,
-            y: roomRect.top + roomRect.height / 2 - mapRect.top
-        };
-
-        const mid = { x: start.x, y: end.y };
-
-        const ctx = getOrCreateCanvasCtx();
-        animatePath(ctx, [start, mid, end], 800);
-        }, 200);
-    }
-
-
-    function animatePath(ctx, points, duration = 600) {
-        const [start, mid, end] = points;
-        const startTime = performance.now();
-
-        function draw(currentTime) {
-            const elapsed = currentTime - startTime;
-            const t = Math.min(elapsed / duration, 1);
-
-            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-            ctx.beginPath();
-            ctx.moveTo(start.x, start.y);
-
-            if (t < 0.5) {
-                const y = start.y + (mid.y - start.y) * (t / 0.5);
-                ctx.lineTo(start.x, y);
-            } else {
-                ctx.lineTo(start.x, mid.y);
-                const x = mid.x + (end.x - mid.x) * ((t - 0.5) / 0.5);
-                ctx.lineTo(x, mid.y);
-            }
-
-            ctx.strokeStyle = '#1976d2';
-            ctx.lineWidth = 4;
-            ctx.setLineDash([6, 4]);
-            ctx.stroke();
-
-            if (t < 1) {
-                requestAnimationFrame(draw);
-            }
-        }
-
-        requestAnimationFrame(draw);
-    }
-
-    function getOrCreateCanvasCtx() {
-        const mapWrapper = document.getElementById('mapWrapper');
-        let canvas = document.getElementById('routeCanvas');
-
-        if (!canvas) {
-            canvas = document.createElement('canvas');
-            canvas.id = 'routeCanvas';
-            canvas.style.position = 'absolute';
-            canvas.style.top = 0;
-            canvas.style.left = 0;
-            canvas.style.pointerEvents = 'none';
-            mapWrapper.appendChild(canvas);
-        }
-
-        canvas.width = mapWrapper.clientWidth;
-        canvas.height = mapWrapper.clientHeight;
-
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        return ctx;
-    }
-
-    function clearPath() {
-        const canvas = document.getElementById('routeCanvas');
-        if (canvas) {
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-    }
-
-    function collapseRoom(room) {
-        room.classList.remove('expanded');
-        if (expandedRoom === room) expandedRoom = null;
-    }
-
-    const mapContainer = document.getElementById('mapContainer');
-    const panzoomInstance = Panzoom(document.getElementById('mapWrapper'), {
-        maxScale: 3,
-        minScale: 0,
-        contain: 'outside',
-    });
-
-    mapContainer.addEventListener('wheel', panzoomInstance.zoomWithWheel);
-    document.getElementById('zoomIn').addEventListener('click', () => panzoomInstance.zoomIn());
-    document.getElementById('zoomOut').addEventListener('click', () => panzoomInstance.zoomOut());
-
-    const searchInput = document.getElementById('teacherSearchInput');
-    const searchButton = document.getElementById('searchButton');
-
-    function searchAndFocus() {
-        const searchTerm = searchInput.value.trim();
-        if (!searchTerm) return;
-
-        let foundRoom = null;
-        const normalizedSearchTerm = searchTerm.replace(/ /g, '');
+    <script>
+        const rooms = document.querySelectorAll('.room');
+        let expandedRoom = null;
 
         rooms.forEach(room => {
-            const teacherName = room.dataset.teacher;
-            const normalizedTeacherName = teacherName.replace(/ /g, '');
+            room.addEventListener('click', () => {
+                if (expandedRoom && expandedRoom !== room) collapseRoom(expandedRoom);
+                room.classList.toggle('expanded');
+                expandedRoom = room.classList.contains('expanded') ? room : null;
+                clearPath();
+            });
 
-            if (normalizedTeacherName.includes(normalizedSearchTerm)) {
-                foundRoom = room;
+            const directionLink = room.querySelector('.direction-link');
+            if (directionLink) {
+                directionLink.addEventListener('click', e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    drawPathToRoom(room);
+                });
             }
         });
 
-        if (foundRoom) {
-            if (expandedRoom && expandedRoom !== foundRoom) {
-                collapseRoom(expandedRoom);
-            }
+        function drawPathToRoom(room) {
+        clearPath();
 
-            if (!foundRoom.classList.contains('expanded')) {
-                foundRoom.classList.add('expanded');
-                expandedRoom = foundRoom;
-            }
+        panzoomInstance.reset({ animate: true });
 
-            clearPath();
-            focusOnElement(foundRoom);
-        } else {
-            alert('استادی با این نام پیدا نشد.');
+        setTimeout(() => {
+            const mapWrapper = document.getElementById('mapWrapper');
+            const entrance = document.getElementById('entrance');
+            const mapRect = mapWrapper.getBoundingClientRect();
+            const entranceRect = entrance.getBoundingClientRect();
+            const roomRect = room.getBoundingClientRect();
+
+            const start = {
+                x: entranceRect.left + entranceRect.width / 2 - mapRect.left,
+                y: entranceRect.top + entranceRect.height / 2 - mapRect.top
+            };
+
+            const wrapper = room.closest('.room-wrapper');
+            const isLeft = wrapper.classList.contains('left-room');
+
+            const end = {
+                x: isLeft
+                    ? roomRect.left - mapRect.left
+                    : roomRect.right - mapRect.left,
+                y: roomRect.top + roomRect.height / 2 - mapRect.top
+            };
+
+            const mid = { x: start.x, y: end.y };
+
+            const ctx = getOrCreateCanvasCtx();
+            animatePath(ctx, [start, mid, end], 800);
+            }, 200);
         }
-    }
 
-    function focusOnElement(element) {
-        const targetScale = 1.4;
-        const mapWrapper = document.getElementById('mapWrapper');
-        const roomWrapper = element.closest('.room-wrapper');
 
-        const roomCenterX = roomWrapper.offsetLeft + roomWrapper.offsetWidth / 2;
-        const roomCenterY = roomWrapper.offsetTop + roomWrapper.offsetHeight / 2;
+        function animatePath(ctx, points, duration = 600) {
+            const [start, mid, end] = points;
+            const startTime = performance.now();
 
-        panzoomInstance.zoom(targetScale, {
-            animate: true,
-            focal: {
-                x: roomCenterX,
-                y: roomCenterY
+            function draw(currentTime) {
+                const elapsed = currentTime - startTime;
+                const t = Math.min(elapsed / duration, 1);
+
+                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                ctx.beginPath();
+                ctx.moveTo(start.x, start.y);
+
+                if (t < 0.5) {
+                    const y = start.y + (mid.y - start.y) * (t / 0.5);
+                    ctx.lineTo(start.x, y);
+                } else {
+                    ctx.lineTo(start.x, mid.y);
+                    const x = mid.x + (end.x - mid.x) * ((t - 0.5) / 0.5);
+                    ctx.lineTo(x, mid.y);
+                }
+
+                ctx.strokeStyle = '#1976d2';
+                ctx.lineWidth = 4;
+                ctx.setLineDash([6, 4]);
+                ctx.stroke();
+
+                if (t < 1) {
+                    requestAnimationFrame(draw);
+                }
+            }
+
+            requestAnimationFrame(draw);
+        }
+
+        function getOrCreateCanvasCtx() {
+            const mapWrapper = document.getElementById('mapWrapper');
+            let canvas = document.getElementById('routeCanvas');
+
+            if (!canvas) {
+                canvas = document.createElement('canvas');
+                canvas.id = 'routeCanvas';
+                canvas.style.position = 'absolute';
+                canvas.style.top = 0;
+                canvas.style.left = 0;
+                canvas.style.pointerEvents = 'none';
+                mapWrapper.appendChild(canvas);
+            }
+
+            canvas.width = mapWrapper.clientWidth;
+            canvas.height = mapWrapper.clientHeight;
+
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            return ctx;
+        }
+
+        function clearPath() {
+            const canvas = document.getElementById('routeCanvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+
+        function collapseRoom(room) {
+            room.classList.remove('expanded');
+            if (expandedRoom === room) expandedRoom = null;
+        }
+
+        const mapContainer = document.getElementById('mapContainer');
+        const panzoomInstance = Panzoom(document.getElementById('mapWrapper'), {
+            maxScale: 3,
+            minScale: 0,
+            contain: 'outside',
+        });
+
+        mapContainer.addEventListener('wheel', panzoomInstance.zoomWithWheel);
+        document.getElementById('zoomIn').addEventListener('click', () => panzoomInstance.zoomIn());
+        document.getElementById('zoomOut').addEventListener('click', () => panzoomInstance.zoomOut());
+
+        const searchInput = document.getElementById('teacherSearchInput');
+        const searchButton = document.getElementById('searchButton');
+
+        function searchAndFocus() {
+            const searchTerm = searchInput.value.trim();
+            if (!searchTerm) return;
+
+            let foundRoom = null;
+            const normalizedSearchTerm = searchTerm.replace(/ /g, '');
+
+            rooms.forEach(room => {
+                const teacherName = room.dataset.teacher;
+                const normalizedTeacherName = teacherName.replace(/ /g, '');
+
+                if (normalizedTeacherName.includes(normalizedSearchTerm)) {
+                    foundRoom = room;
+                }
+            });
+
+            if (foundRoom) {
+                if (expandedRoom && expandedRoom !== foundRoom) {
+                    collapseRoom(expandedRoom);
+                }
+
+                if (!foundRoom.classList.contains('expanded')) {
+                    foundRoom.classList.add('expanded');
+                    expandedRoom = foundRoom;
+                }
+
+                clearPath();
+                focusOnElement(foundRoom);
+            } else {
+                alert('استادی با این نام پیدا نشد.');
+            }
+        }
+
+        function focusOnElement(element) {
+            const targetScale = 1.4;
+            const mapWrapper = document.getElementById('mapWrapper');
+            const roomWrapper = element.closest('.room-wrapper');
+
+            const roomCenterX = roomWrapper.offsetLeft + roomWrapper.offsetWidth / 2;
+            const roomCenterY = roomWrapper.offsetTop + roomWrapper.offsetHeight / 2;
+
+            panzoomInstance.zoom(targetScale, {
+                animate: true,
+                focal: {
+                    x: roomCenterX,
+                    y: roomCenterY
+                }
+            });
+        }
+
+        searchButton.addEventListener('click', searchAndFocus);
+        searchInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                searchAndFocus();
             }
         });
-    }
+    </script>
 
-    searchButton.addEventListener('click', searchAndFocus);
-    searchInput.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-            searchAndFocus();
-        }
-    });
-</script>
+
