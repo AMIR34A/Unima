@@ -29,4 +29,6 @@ public class ApplicationUser : IdentityUser<int>
     public Plan? Plan { get; set; }
 
     public ICollection<UserFood> UserFoods { get; set; }
+
+    public ProfessorInformation? ProfessorInformation { get; set; }
 }

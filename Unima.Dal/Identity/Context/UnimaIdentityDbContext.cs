@@ -19,6 +19,8 @@ public class UnimaIdentityDbContext : IdentityDbContext<ApplicationUser, Applica
 
     public DbSet<QuestionAndAnswer> QuestionAndAnswers { get; set; }
 
+    public DbSet<ProfessorInformation> ProfessorsInformation { get; set; }
+
     public UnimaIdentityDbContext()
     {
 
@@ -75,6 +77,11 @@ public class UnimaIdentityDbContext : IdentityDbContext<ApplicationUser, Applica
                     .WithOne(entity => entity.DefaultSelfLocation)
                     .HasForeignKey(entity => entity.DefaultSelfLocationId)
                     .IsRequired(false);
+
+        modelBuilder.Entity<ProfessorInformation>()
+                    .HasOne(entity => entity.User)
+                    .WithOne(entity => entity.ProfessorInformation)
+                    .HasForeignKey<ProfessorInformation>();
 
         base.OnModelCreating(modelBuilder);
     }
