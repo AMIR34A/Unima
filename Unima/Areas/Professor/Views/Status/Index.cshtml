@@ -5,6 +5,25 @@
  <script src="https://unpkg.com/@@panzoom/panzoom/dist/panzoom.min.js"></script>
 
 <style>
+    .input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-control, .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-select, .input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating){
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        border-bottom-right-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+    .input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback){
+        border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+
+    @@keyframes fadeInScale {
+        from { opacity: 0; transform: scale(1.25); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
     #mapContainer {
         width: 900px; 
         height: 600px;     
@@ -21,7 +40,7 @@
         display: flex;
         justify-content: center;
         align-items: flex-start;
-        gap: 20px;
+        gap: 2px;
         position: relative;
         width: 900px;  
         height: 600px; 
@@ -81,7 +100,7 @@
         height: 100%;
         background: #a5a5a5;
         border-radius: 5px;
-        box-shadow: inset 0 0 5px #a5d6a7;
+        box-shadow: inset 0 0 5px #444;
     }
 
     .room {
@@ -106,9 +125,12 @@
     }
 
     .room.expanded {
-        width: 200px;
+        width: 160px;
         box-shadow: 0 0 8px #444;
         z-index: 10;
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
     }
 
     .teacher-name {
@@ -127,35 +149,39 @@
         writing-mode: horizontal-tb;
         transform: none;
         text-align: center;
-    }
+        }
 
-    .room.expanded .teacher-name {
-        font-weight: bold;
-        font-size: 14px;
-        text-shadow: 0 0 3px #1976d2;
-        transition: all 0.3s ease;
-        transform: rotate(-90deg);
-        position: absolute;
-        right: 30px;
-        top: 30px;
-    }
+
+.room.expanded .teacher-name {
+    font-weight: bold;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    writing-mode: horizontal-tb; 
+    width: 90px; 
+    position: absolute;
+    top: 55px;  
+    transform: rotate(0deg);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
 
 
     .room-details {
         padding-top: 12px;
         display: none;
+        animation: fadeInScale 0.8s ease-in-out;
     }
 
     .img-detail{
-        position: absolute;
         background: url("/Images/icons8-user-32.png") no-repeat center center;
         color: #000;
-        top: 2px;
-        right: 12px;
         border-radius: 50%;
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
         background-color: #dcdbdb;
+        margin-top: -3px;
     }
 
     .details-status {
@@ -180,6 +206,14 @@
 
     .details-button:hover {
         background-color: #0d47a1;
+    }
+
+    .icon-edit{
+        transition: all .3s ease;
+    }
+
+    .icon-edit:hover{
+       transform: scale(1.15);
     }
 
     .status-present { background-color: #66bb6a; }
@@ -218,46 +252,74 @@
     }
 </style>
 
+<div class="container" style="max-width: 600px; margin-top: 20px;">
+    <div class="input-group">
+        <input type="text" id="teacherSearchInput" class="form-control" placeholder="نام استاد را جستجو کنید...">
+        <button class="btn btn-dark" type="button" id="searchButton">
+            <i class="fa-solid fa-search"></i> جستجو
+        </button>
+    </div>
+</div>
 <div id="mapContainer">
     <div id="mapWrapper">
         <div class="room-column" id="leftColumn">
             <div class="room-wrapper left-room">
-                <div class="room status-inmeeting" data-room-id="101" data-teacher="دکتر احمدی" data-status="در حال جلسه" tabindex="0">
-                    <div class="teacher-name">دکتر احمدی</div>
+                <div class="room status-present" data-room-id="101" data-teacher="دکتر احمدی" data-status="در حال جلسه" tabindex="0">
                     <div class="room-details">
                         <div class="img-detail align-items-center"></div>
-                        <div class="details-status">
-                            <ul>
-                                <li>09152552525</li>
-                                <li>کامپیوتر</li>
-                                <li>حاضر</li>
-                            </ul>
+                    </div>
+                    <div class="teacher-name">دکتر احمدی</div>
+                    <div class="room-details">
+                        <div class="d-flex gap-2">
+                            <a href="#"><i class="fa-solid fa-info-circle text-white icon-edit"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
                         </div>
-                        <button class="details-button">نمایش مسیر</button>
                     </div>
                 </div>
             </div>
             <div class="room-wrapper left-room">
                 <div class="room status-present" data-room-id="103" data-teacher="مهندس رضایی" data-status="حاضر" tabindex="0">
+                    <div class="room-details">
+                        <div class="img-detail align-items-center"></div>
+                    </div>
                     <div class="teacher-name">مهندس رضایی</div>
                     <div class="room-details">
-                        <button class="details-button">نمایش مسیر</button>
+                        <div class="d-flex gap-2">
+                            <a href="#"><i class="fa-solid fa-info-circle text-white icon-edit"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="room-wrapper left-room">
                 <div class="room status-absent" data-room-id="105" data-teacher="دکتر کاظمی" data-status="غایب" tabindex="0">
+                    <div class="room-details">
+                        <div class="img-detail align-items-center"></div>
+                    </div>
                     <div class="teacher-name">دکتر کاظمی</div>
                     <div class="room-details">
-                        <button class="details-button">نمایش مسیر</button>
+                        <div class="d-flex gap-2">
+                            <a href="#"><i class="fa-solid fa-info-circle text-white icon-edit"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="room-wrapper left-room">
                 <div class="room status-present" data-room-id="107" data-teacher="دکتر نوری" data-status="حاضر" tabindex="0">
+                    <div class="room-details">
+                        <div class="img-detail align-items-center"></div>
+                    </div>
                     <div class="teacher-name">دکتر نوری</div>
                     <div class="room-details">
-                        <button class="details-button">نمایش مسیر</button>
+                        <div class="d-flex gap-2">
+                            <a href="#"><i class="fa-solid fa-info-circle text-white icon-edit"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -268,33 +330,61 @@
         <div class="room-column" id="rightColumn">
             <div class="room-wrapper right-room">
                 <div class="room status-absent" data-room-id="102" data-teacher="مهندس صادقی" data-status="غایب" tabindex="0">
+                    <div class="room-details">
+                        <div class="img-detail align-items-center"></div>
+                    </div>
                     <div class="teacher-name">مهندس صادقی</div>
                     <div class="room-details">
-                        <button class="details-button">نمایش مسیر</button>
+                        <div class="d-flex gap-2">
+                            <a href="#"><i class="fa-solid fa-info-circle text-white icon-edit"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="room-wrapper right-room">
                 <div class="room status-present" data-room-id="104" data-teacher="دکتر جمشیدی" data-status="حاضر" tabindex="0">
+                    <div class="room-details">
+                        <div class="img-detail align-items-center"></div>
+                    </div>
                     <div class="teacher-name">دکتر جمشیدی</div>
                     <div class="room-details">
-                        <button class="details-button">نمایش مسیر</button>
+                        <div class="d-flex gap-2">
+                            <a href="#"><i class="fa-solid fa-info-circle text-white icon-edit"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="room-wrapper right-room">
-                <div class="room status-inmeeting" data-room-id="106" data-teacher="دکتر رحیمی" data-status="در حال جلسه" tabindex="0">
+                <div class="room status-present" data-room-id="106" data-teacher="دکتر رحیمی" data-status="در حال جلسه" tabindex="0">
+                    <div class="room-details">
+                        <div class="img-detail align-items-center"></div>
+                    </div>
                     <div class="teacher-name">دکتر رحیمی</div>
                     <div class="room-details">
-                        <button class="details-button">نمایش مسیر</button>
+                        <div class="d-flex gap-2">
+                            <a href="#"><i class="fa-solid fa-info-circle text-white icon-edit"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="room-wrapper right-room">
                 <div class="room status-present" data-room-id="108" data-teacher="مهندس رستمی" data-status="حاضر" tabindex="0">
+                    <div class="room-details">
+                        <div class="img-detail align-items-center"></div>
+                    </div>
                     <div class="teacher-name">مهندس رستمی</div>
                     <div class="room-details">
-                        <button class="details-button">نمایش مسیر</button>
+                        <div class="d-flex gap-2">
+                            <a href="#"><i class="fa-solid fa-info-circle text-white icon-edit"></i></a>
+                            <a href="#"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                            <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -309,7 +399,6 @@
         <button id="zoomOut" class="zoom-btn" title="کوچک نمایی">−</button>
     </div>
 </div>
-
 <script>
     const rooms = document.querySelectorAll('.room');
     let expandedRoom = null;
@@ -322,42 +411,83 @@
             clearPath();
         });
 
-        room.querySelector('.details-button').addEventListener('click', e => {
-            e.stopPropagation();
-            drawPathToRoom(room);
-        });
+        const directionLink = room.querySelector('.direction-link');
+        if (directionLink) {
+            directionLink.addEventListener('click', e => {
+                e.preventDefault();
+                e.stopPropagation();
+                drawPathToRoom(room);
+            });
+        }
     });
 
     function drawPathToRoom(room) {
-        clearPath();
+    clearPath();
 
+    panzoomInstance.reset({ animate: true });
+
+    setTimeout(() => {
         const mapWrapper = document.getElementById('mapWrapper');
         const entrance = document.getElementById('entrance');
         const mapRect = mapWrapper.getBoundingClientRect();
         const entranceRect = entrance.getBoundingClientRect();
         const roomRect = room.getBoundingClientRect();
 
-        const startX = entranceRect.left + entranceRect.width / 2 - mapRect.left;
-        const startY = entranceRect.top + entranceRect.height / 2 - mapRect.top;
+        const start = {
+            x: entranceRect.left + entranceRect.width / 2 - mapRect.left,
+            y: entranceRect.top + entranceRect.height / 2 - mapRect.top
+        };
 
         const wrapper = room.closest('.room-wrapper');
         const isLeft = wrapper.classList.contains('left-room');
 
-        const targetX = isLeft
-            ? roomRect.left - mapRect.left
-            : roomRect.right - mapRect.left;
+        const end = {
+            x: isLeft
+                ? roomRect.left - mapRect.left
+                : roomRect.right - mapRect.left,
+            y: roomRect.top + roomRect.height / 2 - mapRect.top
+        };
 
-        const targetY = roomRect.top + roomRect.height / 2 - mapRect.top;
+        const mid = { x: start.x, y: end.y };
 
         const ctx = getOrCreateCanvasCtx();
-        ctx.beginPath();
-        ctx.moveTo(startX, startY);
-        ctx.lineTo(startX, targetY);
-        ctx.lineTo(targetX, targetY);
-        ctx.strokeStyle = '#1976d2';
-        ctx.lineWidth = 4;
-        ctx.setLineDash([6, 4]);
-        ctx.stroke();
+        animatePath(ctx, [start, mid, end], 800);
+        }, 200);
+    }
+
+
+    function animatePath(ctx, points, duration = 600) {
+        const [start, mid, end] = points;
+        const startTime = performance.now();
+
+        function draw(currentTime) {
+            const elapsed = currentTime - startTime;
+            const t = Math.min(elapsed / duration, 1);
+
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            ctx.beginPath();
+            ctx.moveTo(start.x, start.y);
+
+            if (t < 0.5) {
+                const y = start.y + (mid.y - start.y) * (t / 0.5);
+                ctx.lineTo(start.x, y);
+            } else {
+                ctx.lineTo(start.x, mid.y);
+                const x = mid.x + (end.x - mid.x) * ((t - 0.5) / 0.5);
+                ctx.lineTo(x, mid.y);
+            }
+
+            ctx.strokeStyle = '#1976d2';
+            ctx.lineWidth = 4;
+            ctx.setLineDash([6, 4]);
+            ctx.stroke();
+
+            if (t < 1) {
+                requestAnimationFrame(draw);
+            }
+        }
+
+        requestAnimationFrame(draw);
     }
 
     function getOrCreateCanvasCtx() {
@@ -367,6 +497,10 @@
         if (!canvas) {
             canvas = document.createElement('canvas');
             canvas.id = 'routeCanvas';
+            canvas.style.position = 'absolute';
+            canvas.style.top = 0;
+            canvas.style.left = 0;
+            canvas.style.pointerEvents = 'none';
             mapWrapper.appendChild(canvas);
         }
 
@@ -399,7 +533,66 @@
     });
 
     mapContainer.addEventListener('wheel', panzoomInstance.zoomWithWheel);
-
     document.getElementById('zoomIn').addEventListener('click', () => panzoomInstance.zoomIn());
     document.getElementById('zoomOut').addEventListener('click', () => panzoomInstance.zoomOut());
+
+    const searchInput = document.getElementById('teacherSearchInput');
+    const searchButton = document.getElementById('searchButton');
+
+    function searchAndFocus() {
+        const searchTerm = searchInput.value.trim();
+        if (!searchTerm) return;
+
+        let foundRoom = null;
+        const normalizedSearchTerm = searchTerm.replace(/ /g, '');
+
+        rooms.forEach(room => {
+            const teacherName = room.dataset.teacher;
+            const normalizedTeacherName = teacherName.replace(/ /g, '');
+
+            if (normalizedTeacherName.includes(normalizedSearchTerm)) {
+                foundRoom = room;
+            }
+        });
+
+        if (foundRoom) {
+            if (expandedRoom && expandedRoom !== foundRoom) {
+                collapseRoom(expandedRoom);
+            }
+
+            if (!foundRoom.classList.contains('expanded')) {
+                foundRoom.classList.add('expanded');
+                expandedRoom = foundRoom;
+            }
+
+            clearPath();
+            focusOnElement(foundRoom);
+        } else {
+            alert('استادی با این نام پیدا نشد.');
+        }
+    }
+
+    function focusOnElement(element) {
+        const targetScale = 1.4;
+        const mapWrapper = document.getElementById('mapWrapper');
+        const roomWrapper = element.closest('.room-wrapper');
+
+        const roomCenterX = roomWrapper.offsetLeft + roomWrapper.offsetWidth / 2;
+        const roomCenterY = roomWrapper.offsetTop + roomWrapper.offsetHeight / 2;
+
+        panzoomInstance.zoom(targetScale, {
+            animate: true,
+            focal: {
+                x: roomCenterX,
+                y: roomCenterY
+            }
+        });
+    }
+
+    searchButton.addEventListener('click', searchAndFocus);
+    searchInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            searchAndFocus();
+        }
+    });
 </script>
