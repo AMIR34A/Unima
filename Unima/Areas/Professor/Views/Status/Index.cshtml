@@ -59,8 +59,7 @@
             align-items: flex-start;
             gap: 2px;
             position: relative;
-            width: 900px;
-            height: 600px;
+            width: 1000px; 
             background: #dcdbdb;
             border: 1px solid #ccc;
             border-radius: 8px;
@@ -96,9 +95,9 @@
             transition: background-color 0.3s ease;
         }
 
-            .zoom-btn:hover {
-                background-color: #0d47a1;
-            }
+        .zoom-btn:hover {
+            background-color: #868686;
+        }
 
         .room-column {
             display: flex;
@@ -361,7 +360,6 @@
             </div>
 
             <div id="entrance"></div>
-            <div id="entrance-label">ورودی</div>
         </div>
         <div id="zoomControls">
             <button id="zoomIn" class="zoom-btn" title="بزرگنمایی">+</button>
@@ -369,6 +367,27 @@
         </div>
     </div>
     <script>
+        fitMapToContent();
+        
+        function fitMapToContent() {
+            const mapWrapper = document.getElementById('mapWrapper');
+            const roomWrappers = mapWrapper.querySelectorAll('.room-wrapper');
+
+            let maxRight = 0;
+            let maxBottom = 0;
+
+            roomWrappers.forEach(wrapper => {
+                const right = wrapper.offsetLeft + wrapper.offsetWidth;
+                const bottom = wrapper.offsetTop + wrapper.offsetHeight;
+
+                if (right > maxRight) maxRight = right;
+                if (bottom > maxBottom) maxBottom = bottom;
+            });
+
+            mapWrapper.style.width = (maxRight + 285) + 'px';   // 40px برای حاشیه
+            mapWrapper.style.height = (maxBottom + 285) + 'px';
+        }
+
         const rooms = document.querySelectorAll('.room');
         let expandedRoom = null;
 
