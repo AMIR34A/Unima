@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
+using Unima.Areas.Professor.Hubs;
 using Unima.Biz.UoW;
 using Unima.Dal.Entities;
 using Unima.Dal.Entities.Identity.User;
@@ -76,6 +77,7 @@ builder.Services.AddTransient<ISelfServiceBuilder, SelfServiceBuilder>();
 //builder.Services.AddSingleton<SignInManager<ApplicationUser>, SignInManager<ApplicationUser>>();
 
 builder.Services.ConfigSmsNotification();
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -90,9 +92,7 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapAreaControllerRoute(
@@ -108,5 +108,7 @@ app.MapAreaControllerRoute(
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=Index}/{id?}");
+
+app.MapHub<StatusHub>("/StatusHub");
 
 app.Run();

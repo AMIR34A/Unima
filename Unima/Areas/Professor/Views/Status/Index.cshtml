@@ -1,300 +1,308 @@
 ﻿    @using Unima.Areas.Professor.Models.ViewModels
     @model StatusViewModel
-    @{
-        Layout = "/Areas/User/Views/Shared/_Layout.cshtml";
+@{
+    Layout = "/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://unpkg.com/@@panzoom/panzoom/dist/panzoom.min.js"></script>
+
+<link rel="stylesheet" href="/css/Profile.css">
+
+<style>
+    .input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-control, .input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-select, .input-group:not(.has-validation) > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating) {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        border-bottom-right-radius: 5px;
+        border-top-right-radius: 5px;
     }
 
-    <script src="https://unpkg.com/@@panzoom/panzoom/dist/panzoom.min.js"></script>
+    .input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+        border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
 
-    <link rel="stylesheet" href="/css/Profile.css">
 
-    <style>
-        .input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-control, .input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-select, .input-group:not(.has-validation) > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating) {
-            border-bottom-left-radius: 0;
-            border-top-left-radius: 0;
-            border-bottom-right-radius: 5px;
-            border-top-right-radius: 5px;
+    @@keyframes fadeInScaleForCards {
+        from {
+            opacity: 0;
+            transform: scale(1.25);
         }
 
-        .input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
-            border-bottom-left-radius: 5px;
-            border-top-left-radius: 5px;
-            border-bottom-right-radius: 0;
-            border-top-right-radius: 0;
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @@keyframes SlideInRightToLeft {
+        from {
+            opacity: 0;
+            transform: translateY(-50%);
         }
 
-
-        @@keyframes fadeInScaleForCards {
-            from {
-                opacity: 0;
-                transform: scale(1.25);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        to {
+            opacity: 1;
+            transform: translateY(0%);
         }
-
-        @@keyframes SlideInRightToLeft {
-            from { opacity: 0; transform: translateY(-50%);}
-            to { opacity: 1; transform: translateY(0%);}
-        }
+    }
 
 
-        #mapContainer {
-            width: 1100px;
-            height: 540px;
-            overflow: hidden;
-            position: relative;
-            border: 2px solid #444;
-            margin: 20px auto;
-            background: white;
-            border-radius: 8px;
-            user-select: none;
-            animation: fadeInScale 0.8s ease-in-out;
-        }
+    #mapContainer {
+        width: 1100px;
+        height: 540px;
+        overflow: hidden;
+        position: relative;
+        border: 2px solid #444;
+        margin: 20px auto;
+        background: white;
+        border-radius: 8px;
+        user-select: none;
+        animation: fadeInScale 0.8s ease-in-out;
+    }
 
-        #mapWrapper {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 2px;
-            position: relative;
-            width: 1400px; 
-            background: #dcdbdb;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 20px;
-            touch-action: none;
-        }
+    #mapWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 2px;
+        position: relative;
+        width: 1400px;
+        background: #dcdbdb;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 20px;
+        touch-action: none;
+    }
 
-        #zoomControls {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            z-index: 150;
-        }
+    #zoomControls {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        z-index: 150;
+    }
 
-        .input-group{
-            animation: SlideInRightToLeft 0.4s ease-in-out;
-        }
+    .input-group {
+        animation: SlideInRightToLeft 0.4s ease-in-out;
+    }
 
-        .zoom-btn {
-            width: 38px;
-            height: 38px;
-            font-size: 22px;
-            font-weight: bold;
-            color: white;
-            background-color: #444;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: background-color 0.3s ease;
-        }
+    .zoom-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 22px;
+        font-weight: bold;
+        color: white;
+        background-color: #444;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        transition: background-color 0.3s ease;
+    }
 
         .zoom-btn:hover {
             background-color: #868686;
         }
 
-        .room-column {
+    .room-column {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .room-wrapper {
+        width: 80px;
+        height: 100px;
+        position: relative;
+    }
+
+    .left-room .room {
+        left: 0;
+        right: unset;
+    }
+
+    .right-room .room {
+        right: 0;
+        left: unset;
+    }
+
+    #hallway {
+        width: 60px;
+        height: 100%;
+        background: #a5a5a5;
+        border-radius: 5px;
+        box-shadow: inset 0 0 5px #444;
+    }
+
+    .room {
+        position: absolute;
+        top: 0;
+        width: 30px;
+        height: 100px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: width 0.6s ease;
+        background-color: #66bb6a;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+        flex-direction: column;
+        overflow: visible;
+        color: white;
+        font-weight: bold;
+        font-size: 14px;
+        user-select: none;
+    }
+
+        .room.expanded {
+            width: 160px;
+            box-shadow: 0 0 8px #444;
+            z-index: 10;
             display: flex;
-            flex-direction: column;
-            gap: 20px;
             align-items: center;
+            flex-wrap: nowrap;
         }
 
-        .room-wrapper {
-            width: 80px;
-            height: 100px;
-            position: relative;
+    .teacher-name {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        pointer-events: none;
+        white-space: nowrap;
+        text-align: center;
+        margin: auto !important;
+    }
+
+    .room.expanded .room-details {
+        display: block;
+        color: black;
+        font-weight: normal;
+        writing-mode: horizontal-tb;
+        transform: none;
+        text-align: center;
+    }
+
+
+    .room.expanded .teacher-name {
+        font-weight: bold;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        writing-mode: horizontal-tb;
+        width: 90px;
+        position: absolute;
+        top: 55px;
+        transform: rotate(0deg);
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+
+    .room-details {
+        padding-top: 12px;
+        display: none;
+        animation: fadeInScaleForCards 0.8s ease-in-out;
+    }
+
+    .img-detail {
+        background: url("/Images/icons8-user-32.png") no-repeat center center;
+        color: #000;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        background-color: #dcdbdb;
+        margin-top: -3px;
+    }
+
+    .details-status {
+        margin-bottom: 8px;
+        margin-left: -70px;
+    }
+
+    .details-button {
+        background-color: #1976d2;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 60%;
+        height: 25px;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+    }
+
+        .details-button:hover {
+            background-color: #0d47a1;
         }
 
-        .left-room .room {
-            left: 0;
-            right: unset;
+    .icon-edit {
+        transition: all .3s ease;
+    }
+
+        .icon-edit:hover {
+            transform: scale(1.15);
         }
 
-        .right-room .room {
-            right: 0;
-            left: unset;
-        }
+    .status-Unspecified {
+        background-color: #a39b9b;
+    }
 
-        #hallway {
-            width: 60px;
-            height: 100%;
-            background: #a5a5a5;
-            border-radius: 5px;
-            box-shadow: inset 0 0 5px #444;
-        }
+    .status-Available {
+        background-color: #81c784;
+    }
 
-        .room {
-            position: absolute;
-            top: 0;
-            width: 30px;
-            height: 100px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: width 0.6s ease;
-            background-color: #66bb6a;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            align-items: center;
-            flex-direction: column;
-            overflow: visible;
-            color: white;
-            font-weight: bold;
-            font-size: 14px;
-            user-select: none;
-        }
+    .status-Busy {
+        background-color: #ef5350;
+    }
 
-            .room.expanded {
-                width: 160px;
-                box-shadow: 0 0 8px #444;
-                z-index: 10;
-                display: flex;
-                align-items: center;
-                flex-wrap: nowrap;
-            }
+    .status-DoNotDisturb {
+        background-color: #ef5350;
+    }
 
-        .teacher-name {
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-            pointer-events: none;
-            white-space: nowrap;
-            text-align: center;
-            margin: auto !important;
-        }
+    .status-BeRightBack {
+        background-color: #fae57f;
+    }
 
-        .room.expanded .room-details {
-            display: block;
-            color: black;
-            font-weight: normal;
-            writing-mode: horizontal-tb;
-            transform: none;
-            text-align: center;
-        }
+    .status-Offline {
+        background-color: #939fdb;
+    }
 
+    .Professor-option {
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        transition: all .3s ease;
+        user-select: none;
+    }
 
-        .room.expanded .teacher-name {
-            font-weight: bold;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            writing-mode: horizontal-tb;
-            width: 90px;
-            position: absolute;
-            top: 55px;
-            transform: rotate(0deg);
-            text-align: center;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-
-        .room-details {
-            padding-top: 12px;
-            display: none;
-            animation: fadeInScaleForCards 0.8s ease-in-out;
-        }
-
-        .img-detail {
-            background: url("/Images/icons8-user-32.png") no-repeat center center;
-            color: #000;
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            background-color: #dcdbdb;
-            margin-top: -3px;
-        }
-
-        .details-status {
-            margin-bottom: 8px;
-            margin-left: -70px;
-        }
-
-        .details-button {
-            background-color: #1976d2;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 60%;
-            height: 25px;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
-        }
-
-            .details-button:hover {
-                background-color: #0d47a1;
-            }
-
-        .icon-edit {
-            transition: all .3s ease;
-        }
-
-            .icon-edit:hover {
-                transform: scale(1.15);
-            }
-
-        .status-Unspecified {
-            background-color: #a39b9b;
-        }
-
-        .status-Available {
-            background-color: #81c784;
-        }
-
-        .status-Busy {
-            background-color: #ef5350;
-        }
-
-        .status-DoNotDisturb {
-            background-color: #ef5350;
-        }
-
-        .status-BeRightBack {
-            background-color: #fae57f;
-        }
-
-        .status-Offline {
-            background-color: #939fdb;
-        }
-
-        .Professor-option{
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-            transition: all .3s ease;
-            user-select: none;
-        }
-
-        .Professor-option:hover{
+        .Professor-option:hover {
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
             border-color: #dda853 !important;
         }
 
-        .tab-content {
-            margin-top: 25px;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            border: 1px solid #dee2e6;
-            text-align: right;
-        }   
+    .tab-content {
+        margin-top: 25px;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+        text-align: right;
+    }
 
-        .schedule-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0 8px;
-        }
+    .schedule-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 8px;
+    }
+
         .schedule-table th, .schedule-table td {
             text-align: center;
             vertical-align: middle;
@@ -307,509 +315,524 @@
             min-width: 120px;
             height: 60px;
         }
+
         .schedule-table thead th {
             background-color: #0d6efd;
             color: white;
             font-size: 15px;
         }
+
         .schedule-table tbody th {
             background-color: #dee2e6;
             font-weight: 700;
             font-size: 14px;
             border-radius: 8px 0 0 8px;
         }
-        .busy {
-            background-color: #839c90;
-            color: black !important;
-            box-shadow: 0 0 8px rgba(25, 135, 84, 0.6);
-            cursor: default;
-            white-space: pre-line;
-        }
-        .schedule-table tbody tr:hover td:not(.busy) {
-            background-color: #f0f0f0;
-            cursor: default;
-        }
 
-        #schedule{
-            width: 500px;
-        }
-
-        #entrance {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 24px;
-            height: 24px;
-            background: #3949ab;
-            border-radius: 50%;
-            z-index: 100;
-        }
-
-        #entrance-label {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
-            text-align: center;
-            color: #000;
-            z-index: 100;
-        }
-
-        #routeCanvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 50;
-        }
-    </style>
-
-    <div class="container" style="max-width: 600px; margin-top: 20px;">
-        <div class="input-group">
-            <input type="text" id="teacherSearchInput" class="form-control" placeholder="نام استاد را جستجو کنید...">
-            <button class="btn btn-dark" type="button" id="searchButton">
-                <i class="fa-solid fa-search"></i> جستجو
-            </button>
-        </div>
-    </div>
-    <div id="mapContainer">
-        <div id="mapWrapper">
-            <div class="room-column" id="leftColumn">
-                @if (Model.LeftRooms is not null)
-                {
-                    foreach (var room in Model.LeftRooms)
-                    {
-                        <div class="room-wrapper left-room">
-                            <div class="room status-@(room.StatusStr)" data-room-id="@room.No" data-teacher="@room.ProfessorFullName" data-status="@room.Status" tabindex="0">
-                                <div class="room-details">
-                                    <div class="img-detail align-items-center"></div>
-                                </div>
-                                <div class="teacher-name">@room.ProfessorFullName</div>
-                                <div class="room-details">
-                                    <div class="d-flex gap-2">
-                                        <a href="#"><i class="fa-solid fa-info-circle text-white icon-edit"></i></a>
-                                        <a href="tel:{@room.PhoneNumber}"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
-                                        <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    }
-                }
-            </div>
-
-            <div id="hallway"></div>
-
-            <div class="room-column" id="rightColumn">
-                @if (Model.RightRooms is not null)
-                {
-                    foreach (var room in Model.RightRooms)
-                    {
-                        <div class="room-wrapper right-room">
-                            <div class="room status-@(room.StatusStr)" data-room-id="@room.No" data-teacher="@room.ProfessorFullName" data-status="@room.Status" tabindex="0">
-                                <div class="room-details">
-                                    <div class="img-detail align-items-center"></div>
-                                </div>
-                                <div class="teacher-name">@room.ProfessorFullName</div>
-                                <div class="room-details">
-                                    <div class="d-flex gap-2">
-                                        <a href="#" data-bs-target="#InformationProfessor" data-bs-toggle="modal">
-                                            <i class="fa-solid fa-info-circle text-white icon-edit"></i>
-                                        </a>
-                                        <a href="tel:{@room.PhoneNumber}"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
-                                        <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                }
-            </div>
-
-            <div id="entrance"></div>
-        </div>
-        <div id="zoomControls">
-            <button id="zoomIn" class="zoom-btn" title="بزرگنمایی">+</button>
-            <button id="zoomOut" class="zoom-btn" title="کوچک نمایی">−</button>
-        </div>
-        <div class="info-map"></div>
-    </div>
-    <div class="modal fade" id="InformationProfessor" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-light">
-                <div class="modal-header">
-                    <div class="modal-header-content">
-                        <i class="fa-solid fa-chalkboard-teacher m-1 fs-6"></i>
-                        <span class="fs-6 m-1 w-100">اطلاعات‌ استاد</span>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close-tab"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <div class="row tabs">
-
-                        <div class="col-4 tab active" data-tab="bio">
-                            <div class="Professor-option border rounded p-2 ">
-                                <label class="fw-bold d-block mt-2">بیوگرافی</label>
-                            </div>
-                        </div>
-                        <div class="col-4 tab" data-tab="schedule">
-                            <div class="Professor-option border rounded p-2 ">
-                                <label class="fw-bold d-block mt-2">برنامه کلاسی</label>
-                            </div>
-                        </div>
-                        <div class="col-4 tab" data-tab="contact">
-                            <div class="Professor-option border rounded p-2 ">
-                                <label class="fw-bold d-block mt-2">راه ارتباطی</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane active d-block" id="bio">
-                            <div class="text-start d-flex gap-2">
-                                <div class="img-detail align-items-center d-block"></div>
-                                <div class="mt-1 text-start">
-                                    <div>
-                                        <span>اسم استاد:</span><span class="fw-bold">دکتر حسین موسوی</span>
-                                    </div>
-                                    <span>گروه آموزشی:</span><span class="fw-bold">کامپیوتر</span>
-                                </div>
-                            </div>
-                            <div class="infoProfessor mt-4">
-                                <h5>بیوگرافی</h5>
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora iusto optio ipsum amet consequuntur explicabo quidem, veritatis incidunt. Corrupti quam doloribus tenetur fuga accusantium architecto suscipit perferendis modi optio incidunt?    </p>
-                            </div>
-                        </div>
-                        <div class="tab-pane d-none" id="schedule">
-                            <table class="scheduleTable">
-                                <thead>
-                                    <tr>
-                                        <th>روز و ساعت</th>
-                                        <th>8 - 10</th>
-                                        <th>10 - 12</th>
-                                        <th>12 - 14</th>
-                                        <th>14 - 16</th>
-                                        <th>16 - 18</th>
-                                        <th>18 - 20</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th>شنبه</th>
-                                        <td class="busy">ورزش<br>کلاس 101</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="busy">تاریخ تحلیلی<br>کلاس 102</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <th>یکشنبه</th>
-                                        <td></td>
-                                        <td class="busy">مهندسی نرم افزار<br>کلاس 201</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="busy">ریزپردازنده<br>کلاس 202</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <th>دوشنبه</th>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="busy">مهندسی نرم افزار<br>کلاس 301</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="busy">ریزپردازنده<br>کلاس 302</td>
-                                    </tr>
-                                    <tr>
-                                        <th>سه‌شنبه</th>
-                                        <td class="busy">طراحی الگوریتم<br>کلاس 101</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="busy">پایگاه داده<br>کلاس 102</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <th>چهارشنبه</th>
-                                        <td></td>
-                                        <td class="busy">پایگاه داده<br>کلاس 201</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="busy">طراحی الگوریتم<br>کلاس 202</td>
-                                    </tr>
-                                    <tr>
-                                        <th>پنجشنبه</th>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <th>جمعه</th>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="close-tab">
-                        بستن
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        fitMapToContent();
-
-        function fitMapToContent() {
-            const mapWrapper = document.getElementById('mapWrapper');
-            const roomWrappers = mapWrapper.querySelectorAll('.room-wrapper');
-
-            let maxRight = 0;
-            let maxBottom = 0;
-
-            roomWrappers.forEach(wrapper => {
-                const right = wrapper.offsetLeft + wrapper.offsetWidth;
-                const bottom = wrapper.offsetTop + wrapper.offsetHeight;
-
-                if (right > maxRight) maxRight = right;
-                if (bottom > maxBottom) maxBottom = bottom;
-            });
-
-            mapWrapper.style.width = (maxRight + 285) + 'px';   // 40px برای حاشیه
-            mapWrapper.style.height = (maxBottom + 285) + 'px';
-        }
-
-        const rooms = document.querySelectorAll('.room');
-        let expandedRoom = null;
-
-        rooms.forEach(room => {
-    // START of change
-    room.addEventListener('click', (e) => {
-        // اگر کلیک روی آیکون‌ها یا لینک‌های داخل اتاق بود، کاری نکن
-        if (e.target.closest('a')) {
-            return;
-        }
-
-        if (expandedRoom && expandedRoom !== room) collapseRoom(expandedRoom);
-        room.classList.toggle('expanded');
-        expandedRoom = room.classList.contains('expanded') ? room : null;
-        clearPath();
-    });
-    // END of change
-
-    const directionLink = room.querySelector('.direction-link');
-    if (directionLink) {
-        directionLink.addEventListener('click', e => {
-            e.preventDefault();
-            e.stopPropagation();
-            drawPathToRoom(room);
-        });
+    .busy {
+        background-color: #839c90;
+        color: black !important;
+        box-shadow: 0 0 8px rgba(25, 135, 84, 0.6);
+        cursor: default;
+        white-space: pre-line;
     }
-});
 
-        function drawPathToRoom(room) {
-        clearPath();
+    .schedule-table tbody tr:hover td:not(.busy) {
+        background-color: #f0f0f0;
+        cursor: default;
+    }
 
-        panzoomInstance.reset({ animate: true });
+    #schedule {
+        width: 500px;
+    }
 
-        setTimeout(() => {
-            const mapWrapper = document.getElementById('mapWrapper');
-            const entrance = document.getElementById('entrance');
-            const mapRect = mapWrapper.getBoundingClientRect();
-            const entranceRect = entrance.getBoundingClientRect();
-            const roomRect = room.getBoundingClientRect();
+    #entrance {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 24px;
+        height: 24px;
+        background: #3949ab;
+        border-radius: 50%;
+        z-index: 100;
+    }
 
-            const start = {
-                x: entranceRect.left + entranceRect.width / 2 - mapRect.left,
-                y: entranceRect.top + entranceRect.height / 2 - mapRect.top
-            };
+    #entrance-label {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 14px;
+        text-align: center;
+        color: #000;
+        z-index: 100;
+    }
 
-            const wrapper = room.closest('.room-wrapper');
-            const isLeft = wrapper.classList.contains('left-room');
+    #routeCanvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 50;
+    }
+</style>
 
-            const end = {
-                x: isLeft
-                    ? roomRect.left - mapRect.left
-                    : roomRect.right - mapRect.left,
-                y: roomRect.top + roomRect.height / 2 - mapRect.top
-            };
+<div class="container" style="max-width: 600px; margin-top: 20px;">
+    <div class="input-group">
+        <input type="text" id="teacherSearchInput" class="form-control" placeholder="نام استاد را جستجو کنید...">
+        <button class="btn btn-dark" type="button" id="searchButton">
+            <i class="fa-solid fa-search"></i> جستجو
+        </button>
+    </div>
+</div>
+<div id="mapContainer">
+    <div id="mapWrapper">
+        <div class="room-column" id="leftColumn">
+            @if (Model.LeftRooms is not null)
+            {
+                foreach (var room in Model.LeftRooms)
+                {
+                    <div class="room-wrapper left-room">
+                        <div id="room-@room.No" class="room status-@(room.StatusStr)" data-room-id="@room.No" data-teacher="@room.ProfessorFullName" data-status="@room.Status" tabindex="0">
+                            <div class="room-details">
+                                <div class="img-detail align-items-center"></div>
+                            </div>
+                            <div class="teacher-name">@room.ProfessorFullName</div>
+                            <div class="room-details">
+                                <div class="d-flex gap-2">
+                                    <a href="#"><i class="fa-solid fa-info-circle text-white icon-edit"></i></a>
+                                    <a href="tel:{@room.PhoneNumber}"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                                    <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-            const mid = { x: start.x, y: end.y };
-
-            const ctx = getOrCreateCanvasCtx();
-            animatePath(ctx, [start, mid, end], 800);
-            }, 200);
-        }
-
-
-        function animatePath(ctx, points, duration = 600) {
-            const [start, mid, end] = points;
-            const startTime = performance.now();
-
-            function draw(currentTime) {
-                const elapsed = currentTime - startTime;
-                const t = Math.min(elapsed / duration, 1);
-
-                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-                ctx.beginPath();
-                ctx.moveTo(start.x, start.y);
-
-                if (t < 0.5) {
-                    const y = start.y + (mid.y - start.y) * (t / 0.5);
-                    ctx.lineTo(start.x, y);
-                } else {
-                    ctx.lineTo(start.x, mid.y);
-                    const x = mid.x + (end.x - mid.x) * ((t - 0.5) / 0.5);
-                    ctx.lineTo(x, mid.y);
-                }
-
-                ctx.strokeStyle = '#1976d2';
-                ctx.lineWidth = 4;
-                ctx.setLineDash([6, 4]);
-                ctx.stroke();
-
-                if (t < 1) {
-                    requestAnimationFrame(draw);
                 }
             }
+        </div>
 
-            requestAnimationFrame(draw);
-        }
+        <div id="hallway"></div>
 
-        function getOrCreateCanvasCtx() {
-            const mapWrapper = document.getElementById('mapWrapper');
-            let canvas = document.getElementById('routeCanvas');
-
-            if (!canvas) {
-                canvas = document.createElement('canvas');
-                canvas.id = 'routeCanvas';
-                canvas.style.position = 'absolute';
-                canvas.style.top = 0;
-                canvas.style.left = 0;
-                canvas.style.pointerEvents = 'none';
-                mapWrapper.appendChild(canvas);
-            }
-
-            canvas.width = mapWrapper.clientWidth;
-            canvas.height = mapWrapper.clientHeight;
-
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            return ctx;
-        }
-
-        function clearPath() {
-            const canvas = document.getElementById('routeCanvas');
-            if (canvas) {
-                const ctx = canvas.getContext('2d');
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-            }
-        }
-
-        function collapseRoom(room) {
-            room.classList.remove('expanded');
-            if (expandedRoom === room) expandedRoom = null;
-        }
-
-        const mapContainer = document.getElementById('mapContainer');
-        const panzoomInstance = Panzoom(document.getElementById('mapWrapper'), {
-            maxScale: 3,
-            minScale: 0,
-            contain: 'outside',
-        });
-
-        mapContainer.addEventListener('wheel', panzoomInstance.zoomWithWheel);
-        document.getElementById('zoomIn').addEventListener('click', () => panzoomInstance.zoomIn());
-        document.getElementById('zoomOut').addEventListener('click', () => panzoomInstance.zoomOut());
-
-        const searchInput = document.getElementById('teacherSearchInput');
-        const searchButton = document.getElementById('searchButton');
-
-        function searchAndFocus() {
-            const searchTerm = searchInput.value.trim();
-            if (!searchTerm) return;
-
-            let foundRoom = null;
-            const normalizedSearchTerm = searchTerm.replace(/ /g, '');
-
-            rooms.forEach(room => {
-                const teacherName = room.dataset.teacher;
-                const normalizedTeacherName = teacherName.replace(/ /g, '');
-
-                if (normalizedTeacherName.includes(normalizedSearchTerm)) {
-                    foundRoom = room;
+        <div class="room-column" id="rightColumn">
+            @if (Model.RightRooms is not null)
+            {
+                foreach (var room in Model.RightRooms)
+                {
+                    <div class="room-wrapper right-room">
+                        <div class="room status-@(room.StatusStr)" data-room-id="@room.No" data-teacher="@room.ProfessorFullName" data-status="@room.Status" tabindex="0">
+                            <div class="room-details">
+                                <div class="img-detail align-items-center"></div>
+                            </div>
+                            <div class="teacher-name">@room.ProfessorFullName</div>
+                            <div class="room-details">
+                                <div class="d-flex gap-2">
+                                    <a href="#" data-bs-target="#InformationProfessor" data-bs-toggle="modal">
+                                        <i class="fa-solid fa-info-circle text-white icon-edit"></i>
+                                    </a>
+                                    <a href="tel:{@room.PhoneNumber}"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                                    <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 }
-            });
-
-            if (foundRoom) {
-                if (expandedRoom && expandedRoom !== foundRoom) {
-                    collapseRoom(expandedRoom);
-                }
-
-                if (!foundRoom.classList.contains('expanded')) {
-                    foundRoom.classList.add('expanded');
-                    expandedRoom = foundRoom;
-                }
-
-                clearPath();
-                focusOnElement(foundRoom);
-            } else {
-                alert('استادی با این نام پیدا نشد.');
             }
-        }
+        </div>
 
-        function focusOnElement(element) {
-            const targetScale = 1.4;
-            const mapWrapper = document.getElementById('mapWrapper');
-            const roomWrapper = element.closest('.room-wrapper');
+        <div id="entrance"></div>
+    </div>
+    <div id="zoomControls">
+        <button id="zoomIn" class="zoom-btn" title="بزرگنمایی">+</button>
+        <button id="zoomOut" class="zoom-btn" title="کوچک نمایی">−</button>
+    </div>
+    <div class="info-map"></div>
+</div>
+<div class="modal fade" id="InformationProfessor" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-light">
+            <div class="modal-header">
+                <div class="modal-header-content">
+                    <i class="fa-solid fa-chalkboard-teacher m-1 fs-6"></i>
+                    <span class="fs-6 m-1 w-100">اطلاعات‌ استاد</span>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close-tab"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="row tabs">
 
-            const roomCenterX = roomWrapper.offsetLeft + roomWrapper.offsetWidth / 2;
-            const roomCenterY = roomWrapper.offsetTop + roomWrapper.offsetHeight / 2;
-
-            panzoomInstance.zoom(targetScale, {
-                animate: true,
-                focal: {
-                    x: roomCenterX,
-                    y: roomCenterY
-                }
-            });
-        }
-
-        searchButton.addEventListener('click', searchAndFocus);
-        searchInput.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-                searchAndFocus();
-            }
-        });
-    </script>
+                    <div class="col-4 tab active" data-tab="bio">
+                        <div class="Professor-option border rounded p-2 ">
+                            <label class="fw-bold d-block mt-2">بیوگرافی</label>
+                        </div>
+                    </div>
+                    <div class="col-4 tab" data-tab="schedule">
+                        <div class="Professor-option border rounded p-2 ">
+                            <label class="fw-bold d-block mt-2">برنامه کلاسی</label>
+                        </div>
+                    </div>
+                    <div class="col-4 tab" data-tab="contact">
+                        <div class="Professor-option border rounded p-2 ">
+                            <label class="fw-bold d-block mt-2">راه ارتباطی</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active d-block" id="bio">
+                        <div class="text-start d-flex gap-2">
+                            <div class="img-detail align-items-center d-block"></div>
+                            <div class="mt-1 text-start">
+                                <div>
+                                    <span>اسم استاد:</span><span class="fw-bold">دکتر حسین موسوی</span>
+                                </div>
+                                <span>گروه آموزشی:</span><span class="fw-bold">کامپیوتر</span>
+                            </div>
+                        </div>
+                        <div class="infoProfessor mt-4">
+                            <h5>بیوگرافی</h5>
+                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora iusto optio ipsum amet consequuntur explicabo quidem, veritatis incidunt. Corrupti quam doloribus tenetur fuga accusantium architecto suscipit perferendis modi optio incidunt?    </p>
+                        </div>
+                    </div>
+                    <div class="tab-pane d-none" id="schedule">
+                        <table class="scheduleTable">
+                            <thead>
+                                <tr>
+                                    <th>روز و ساعت</th>
+                                    <th>8 - 10</th>
+                                    <th>10 - 12</th>
+                                    <th>12 - 14</th>
+                                    <th>14 - 16</th>
+                                    <th>16 - 18</th>
+                                    <th>18 - 20</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>شنبه</th>
+                                    <td class="busy">ورزش<br>کلاس 101</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="busy">تاریخ تحلیلی<br>کلاس 102</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>یکشنبه</th>
+                                    <td></td>
+                                    <td class="busy">مهندسی نرم افزار<br>کلاس 201</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="busy">ریزپردازنده<br>کلاس 202</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>دوشنبه</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="busy">مهندسی نرم افزار<br>کلاس 301</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="busy">ریزپردازنده<br>کلاس 302</td>
+                                </tr>
+                                <tr>
+                                    <th>سه‌شنبه</th>
+                                    <td class="busy">طراحی الگوریتم<br>کلاس 101</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="busy">پایگاه داده<br>کلاس 102</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>چهارشنبه</th>
+                                    <td></td>
+                                    <td class="busy">پایگاه داده<br>کلاس 201</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="busy">طراحی الگوریتم<br>کلاس 202</td>
+                                </tr>
+                                <tr>
+                                    <th>پنجشنبه</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>جمعه</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="close-tab">
+                    بستن
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    document.body.addEventListener('click', function (e) {
-        const target = e.target.closest('.open-info-modal');
-        if (target) {
-            e.preventDefault();
-            e.stopPropagation(); // جلوگیری از کلیک روی .room
-            const modal = new bootstrap.Modal(document.getElementById('InformationProfessor'));
-            modal.show();
-        }
+    const connection = new signalR.HubConnectionBuilder()
+                         .withUrl("/StatusHub")
+                         .build();
+
+                     connection.on("UpdateRoomStatus", (roomId, status) => {
+                         var room = document.getElementById(`room-${roomId}`);
+                         if (room)
+                            room.className = `room status-${status}`;
+                     });
+                      connection.start();
+             fitMapToContent();
+
+             function fitMapToContent() {
+                 const mapWrapper = document.getElementById('mapWrapper');
+                 const roomWrappers = mapWrapper.querySelectorAll('.room-wrapper');
+
+                 let maxRight = 0;
+                 let maxBottom = 0;
+
+                 roomWrappers.forEach(wrapper => {
+                     const right = wrapper.offsetLeft + wrapper.offsetWidth;
+                     const bottom = wrapper.offsetTop + wrapper.offsetHeight;
+
+                     if (right > maxRight) maxRight = right;
+                     if (bottom > maxBottom) maxBottom = bottom;
+                 });
+
+                 mapWrapper.style.width = (maxRight + 285) + 'px';   // 40px برای حاشیه
+                 mapWrapper.style.height = (maxBottom + 285) + 'px';
+             }
+
+             const rooms = document.querySelectorAll('.room');
+             let expandedRoom = null;
+
+             rooms.forEach(room => {
+         // START of change
+         room.addEventListener('click', (e) => {
+             // اگر کلیک روی آیکون‌ها یا لینک‌های داخل اتاق بود، کاری نکن
+             if (e.target.closest('a')) {
+                 return;
+             }
+
+             if (expandedRoom && expandedRoom !== room) collapseRoom(expandedRoom);
+             room.classList.toggle('expanded');
+             expandedRoom = room.classList.contains('expanded') ? room : null;
+             clearPath();
+         });
+         // END of change
+
+         const directionLink = room.querySelector('.direction-link');
+         if (directionLink) {
+             directionLink.addEventListener('click', e => {
+                 e.preventDefault();
+                 e.stopPropagation();
+                 drawPathToRoom(room);
+             });
+         }
+     });
+
+             function drawPathToRoom(room) {
+             clearPath();
+
+             panzoomInstance.reset({ animate: true });
+
+             setTimeout(() => {
+                 const mapWrapper = document.getElementById('mapWrapper');
+                 const entrance = document.getElementById('entrance');
+                 const mapRect = mapWrapper.getBoundingClientRect();
+                 const entranceRect = entrance.getBoundingClientRect();
+                 const roomRect = room.getBoundingClientRect();
+
+                 const start = {
+                     x: entranceRect.left + entranceRect.width / 2 - mapRect.left,
+                     y: entranceRect.top + entranceRect.height / 2 - mapRect.top
+                 };
+
+                 const wrapper = room.closest('.room-wrapper');
+                 const isLeft = wrapper.classList.contains('left-room');
+
+                 const end = {
+                     x: isLeft
+                         ? roomRect.left - mapRect.left
+                         : roomRect.right - mapRect.left,
+                     y: roomRect.top + roomRect.height / 2 - mapRect.top
+                 };
+
+                 const mid = { x: start.x, y: end.y };
+
+                 const ctx = getOrCreateCanvasCtx();
+                 animatePath(ctx, [start, mid, end], 800);
+                 }, 200);
+             }
+
+
+             function animatePath(ctx, points, duration = 600) {
+                 const [start, mid, end] = points;
+                 const startTime = performance.now();
+
+                 function draw(currentTime) {
+                     const elapsed = currentTime - startTime;
+                     const t = Math.min(elapsed / duration, 1);
+
+                     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                     ctx.beginPath();
+                     ctx.moveTo(start.x, start.y);
+
+                     if (t < 0.5) {
+                         const y = start.y + (mid.y - start.y) * (t / 0.5);
+                         ctx.lineTo(start.x, y);
+                     } else {
+                         ctx.lineTo(start.x, mid.y);
+                         const x = mid.x + (end.x - mid.x) * ((t - 0.5) / 0.5);
+                         ctx.lineTo(x, mid.y);
+                     }
+
+                     ctx.strokeStyle = '#1976d2';
+                     ctx.lineWidth = 4;
+                     ctx.setLineDash([6, 4]);
+                     ctx.stroke();
+
+                     if (t < 1) {
+                         requestAnimationFrame(draw);
+                     }
+                 }
+
+                 requestAnimationFrame(draw);
+             }
+
+             function getOrCreateCanvasCtx() {
+                 const mapWrapper = document.getElementById('mapWrapper');
+                 let canvas = document.getElementById('routeCanvas');
+
+                 if (!canvas) {
+                     canvas = document.createElement('canvas');
+                     canvas.id = 'routeCanvas';
+                     canvas.style.position = 'absolute';
+                     canvas.style.top = 0;
+                     canvas.style.left = 0;
+                     canvas.style.pointerEvents = 'none';
+                     mapWrapper.appendChild(canvas);
+                 }
+
+                 canvas.width = mapWrapper.clientWidth;
+                 canvas.height = mapWrapper.clientHeight;
+
+                 const ctx = canvas.getContext('2d');
+                 ctx.clearRect(0, 0, canvas.width, canvas.height);
+                 return ctx;
+             }
+
+             function clearPath() {
+                 const canvas = document.getElementById('routeCanvas');
+                 if (canvas) {
+                     const ctx = canvas.getContext('2d');
+                     ctx.clearRect(0, 0, canvas.width, canvas.height);
+                 }
+             }
+
+             function collapseRoom(room) {
+                 room.classList.remove('expanded');
+                 if (expandedRoom === room) expandedRoom = null;
+             }
+
+             const mapContainer = document.getElementById('mapContainer');
+             const panzoomInstance = Panzoom(document.getElementById('mapWrapper'), {
+                 maxScale: 3,
+                 minScale: 0,
+                 contain: 'outside',
+             });
+
+             mapContainer.addEventListener('wheel', panzoomInstance.zoomWithWheel);
+             document.getElementById('zoomIn').addEventListener('click', () => panzoomInstance.zoomIn());
+             document.getElementById('zoomOut').addEventListener('click', () => panzoomInstance.zoomOut());
+
+             const searchInput = document.getElementById('teacherSearchInput');
+             const searchButton = document.getElementById('searchButton');
+
+             function searchAndFocus() {
+                 const searchTerm = searchInput.value.trim();
+                 if (!searchTerm) return;
+
+                 let foundRoom = null;
+                 const normalizedSearchTerm = searchTerm.replace(/ /g, '');
+
+                 rooms.forEach(room => {
+                     const teacherName = room.dataset.teacher;
+                     const normalizedTeacherName = teacherName.replace(/ /g, '');
+
+                     if (normalizedTeacherName.includes(normalizedSearchTerm)) {
+                         foundRoom = room;
+                     }
+                 });
+
+                 if (foundRoom) {
+                     if (expandedRoom && expandedRoom !== foundRoom) {
+                         collapseRoom(expandedRoom);
+                     }
+
+                     if (!foundRoom.classList.contains('expanded')) {
+                         foundRoom.classList.add('expanded');
+                         expandedRoom = foundRoom;
+                     }
+
+                     clearPath();
+                     focusOnElement(foundRoom);
+                 } else {
+                     alert('استادی با این نام پیدا نشد.');
+                 }
+             }
+
+             function focusOnElement(element) {
+                 const targetScale = 1.4;
+                 const mapWrapper = document.getElementById('mapWrapper');
+                 const roomWrapper = element.closest('.room-wrapper');
+
+                 const roomCenterX = roomWrapper.offsetLeft + roomWrapper.offsetWidth / 2;
+                 const roomCenterY = roomWrapper.offsetTop + roomWrapper.offsetHeight / 2;
+
+                 panzoomInstance.zoom(targetScale, {
+                     animate: true,
+                     focal: {
+                         x: roomCenterX,
+                         y: roomCenterY
+                     }
+                 });
+             }
+
+             searchButton.addEventListener('click', searchAndFocus);
+             searchInput.addEventListener('keydown', (event) => {
+                 if (event.key === 'Enter') {
+                     searchAndFocus();
+                 }
+             });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.body.addEventListener('click', function (e) {
+            const target = e.target.closest('.open-info-modal');
+            if (target) {
+                e.preventDefault();
+                e.stopPropagation(); // جلوگیری از کلیک روی .room
+                const modal = new bootstrap.Modal(document.getElementById('InformationProfessor'));
+                modal.show();
+            }
+        });
     });
-});
 </script>
