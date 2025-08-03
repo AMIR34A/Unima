@@ -23,6 +23,11 @@
         border-top-right-radius: 0;
     }
 
+    @@keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
 
     @@keyframes fadeInScaleForCards {
         from {
@@ -84,6 +89,10 @@
         flex-direction: column;
         gap: 5px;
         z-index: 150;
+    }
+    
+    .modal{
+        --bs-modal-width: 550px;
     }
 
     .input-group {
@@ -211,7 +220,7 @@
     }
 
     .img-detail {
-        background: url("/Images/icons8-user-32.png") no-repeat center center;
+        /* background: url("/Images/icons8-user-32.png") no-repeat center center; */
         color: #000;
         border-radius: 50%;
         width: 45px;
@@ -240,9 +249,9 @@
         transition: background-color 0.3s ease;
     }
 
-        .details-button:hover {
-            background-color: #0d47a1;
-        }
+    .details-button:hover {
+        background-color: #0d47a1;
+    }
 
     .icon-edit {
         transition: all .3s ease;
@@ -276,6 +285,10 @@
         background-color: #939fdb;
     }
 
+    .Professor-option *{
+        cursor: inherit;
+    }
+
     .Professor-option {
         cursor: pointer;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
@@ -283,10 +296,10 @@
         user-select: none;
     }
 
-        .Professor-option:hover {
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
-            border-color: #dda853 !important;
-        }
+    .Professor-option:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+        border-color: #dda853 !important;
+    }
 
     .tab-content {
         margin-top: 25px;
@@ -303,36 +316,35 @@
         border-spacing: 0 8px;
     }
 
-        .schedule-table th, .schedule-table td {
-            text-align: center;
-            vertical-align: middle;
-            padding: 12px 10px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
-            min-width: 120px;
-            height: 60px;
-        }
+    .schedule-table th, .schedule-table td {
+        text-align: center;
+        vertical-align: middle;
+        padding: 12px 10px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+        min-width: 120px;
+        height: 60px;
+    }
 
-        .schedule-table thead th {
-            background-color: #0d6efd;
-            color: white;
-            font-size: 15px;
-        }
+    .schedule-table thead th {
+        background-color: #0d6efd;
+        color: white;
+        font-size: 15px;
+    }
 
-        .schedule-table tbody th {
-            background-color: #dee2e6;
-            font-weight: 700;
-            font-size: 14px;
-            border-radius: 8px 0 0 8px;
-        }
+    .schedule-table tbody th {
+        background-color: #dee2e6;
+        font-weight: 700;
+        font-size: 14px;
+        border-radius: 8px 0 0 8px;
+    }
 
     .busy {
-        background-color: #839c90;
+        background-color: #dcdbdb !important ;
         color: black !important;
-        box-shadow: 0 0 8px rgba(25, 135, 84, 0.6);
         cursor: default;
         white-space: pre-line;
     }
@@ -341,9 +353,87 @@
         background-color: #f0f0f0;
         cursor: default;
     }
+    #InformationProfessor .modal-dialog {
+        transition: max-width 0.4s ease-in-out;
+    }
+
+    #InformationProfessor .modal-dialog-wide {
+        max-width: 900px;
+    }
+
+    .tabs .tab .Professor-option {
+        cursor: pointer;
+        transition: background-color 0.3s, border-color 0.3s;
+        border: 2px solid #dee2e6;
+    }
+
+    .tabs .tab .Professor-option:hover {
+        background-color: #e9ecef;
+        border-color: #adb5bd;
+    }
+
+    .Professor-option .active{
+        border-color: #dda853 !important;
+    }
+    
+    .tab-pane {
+        display: none;
+    }
+    .tab-pane.active {
+        display: block;
+        animation: fadeIn 0.5s;
+    }
+
+    .bio-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .bio-header .img-detail {
+        width: 70px;
+        height: 70px;
+        background-color: #ccc;
+        border-radius: 50%;
+        background-image: url('https://via.placeholder.com/70'); /* تصویر استاد */
+        background-size: cover;
+    }
+
+    .scheduleTable {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+
+    .scheduleTable th, .scheduleTable td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    .scheduleTable thead th {
+        background-color: #f8f9fa;
+    }
+        
+    .scheduleTable .busy {
+        background-color: #e0f7fa;
+        font-weight: bold;
+    }
+        
+    .contact-info .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+    }
+    .contact-info .contact-item i {
+       color: black;
+    }
+
 
     #schedule {
-        width: 500px;
+        width: 100%;
     }
 
     #entrance {
@@ -396,13 +486,16 @@
                     <div class="room-wrapper left-room">
                         <div id="room-@room.No" class="room status-@(room.StatusStr)" data-room-id="@room.No" data-teacher="@room.ProfessorFullName" data-status="@room.Status" tabindex="0">
                             <div class="room-details">
-                                <div class="img-detail align-items-center"></div>
+                                <div class="img-detail align-items-center d-flex justify-content-center">
+                                    <i class="fa-solid fa-user-tie text-center fs-4"></i>
+                                </div>
                             </div>
                             <div class="teacher-name">@room.ProfessorFullName</div>
                             <div class="room-details">
                                 <div class="d-flex gap-2">
-                                    <a href="#"><i class="fa-solid fa-info-circle text-white icon-edit"></i></a>
-                                    <a href="tel:{@room.PhoneNumber}"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                                    <a href="#" data-bs-target="#InformationProfessor" data-bs-toggle="modal">
+                                        <i class="fa-solid fa-info-circle text-white icon-edit"></i>
+                                    </a>                                    <a href="tel:{@room.PhoneNumber}"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
                                     <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
                                 </div>
                             </div>
@@ -423,7 +516,9 @@
                     <div class="room-wrapper right-room">
                         <div class="room status-@(room.StatusStr)" data-room-id="@room.No" data-teacher="@room.ProfessorFullName" data-status="@room.Status" tabindex="0">
                             <div class="room-details">
-                                <div class="img-detail align-items-center"></div>
+                                <div class="img-detail align-items-center d-flex justify-content-center">
+                                    <i class="fa-solid fa-user-tie text-center fs-4"></i>
+                                </div>
                             </div>
                             <div class="teacher-name">@room.ProfessorFullName</div>
                             <div class="room-details">
@@ -449,138 +544,143 @@
     </div>
     <div class="info-map"></div>
 </div>
-<div class="modal fade" id="InformationProfessor" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-     aria-hidden="true">
+
+<div class="modal fade" id="InformationProfessor" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-light">
             <div class="modal-header">
-                <div class="modal-header-content">
-                    <i class="fa-solid fa-chalkboard-teacher m-1 fs-6"></i>
+                <div class="modal-header-content d-flex align-items-center">
+                    <i class="fa-solid fa-chalkboard-teacher m-1 fs-5"></i>
                     <span class="fs-6 m-1 w-100">اطلاعات‌ استاد</span>
                 </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close-tab"></button>
+                <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="close-tab"></button>
             </div>
             <div class="modal-body text-center">
-                <div class="row tabs">
-
+                <div class="row tabs mb-4">
                     <div class="col-4 tab active" data-tab="bio">
-                        <div class="Professor-option border rounded p-2 ">
-                            <label class="fw-bold d-block mt-2">بیوگرافی</label>
+                        <div class="Professor-option border rounded p-2">
+                            <i class="fa-solid fa-user-tie d-block fs-4 mb-1"></i>
+                            <span class="fw-bold d-block">بیوگرافی<spanی>
                         </div>
                     </div>
                     <div class="col-4 tab" data-tab="schedule">
-                        <div class="Professor-option border rounded p-2 ">
-                            <label class="fw-bold d-block mt-2">برنامه کلاسی</label>
+                        <div class="Professor-option border rounded p-2">
+                            <i class="fa-solid fa-calendar-week d-block fs-4 mb-1"></i>
+                            <span class="fw-bold d-block">برنامه کلاسی</span>
                         </div>
                     </div>
                     <div class="col-4 tab" data-tab="contact">
-                        <div class="Professor-option border rounded p-2 ">
-                            <label class="fw-bold d-block mt-2">راه ارتباطی</label>
+                        <div class="Professor-option border rounded p-2">
+                            <i class="fa-solid fa-address-card d-block fs-4 mb-1"></i>
+                            <span class="fw-bold d-block">راه ارتباطی</span>
                         </div>
                     </div>
                 </div>
+
                 <div class="tab-content">
-                    <div class="tab-pane active d-block" id="bio">
-                        <div class="text-start d-flex gap-2">
-                            <div class="img-detail align-items-center d-block"></div>
-                            <div class="mt-1 text-start">
+                    <div class="tab-pane active" id="bio">
+                        <div class="bio-header text-end d-flex gap-2">
+                                <div class="img-detail align-items-center d-flex justify-content-center">
+                                    <i class="fa-solid fa-user-tie text-center fs-2"></i>
+                                </div>                            <div class="mt-1">
                                 <div>
-                                    <span>اسم استاد:</span><span class="fw-bold">دکتر حسین موسوی</span>
+                                    <span>اسم استاد: </span><span class="fw-bold">دکتر حسین موسوی</span>
                                 </div>
-                                <span>گروه آموزشی:</span><span class="fw-bold">کامپیوتر</span>
+                                <span>گروه آموزشی: </span><span class="fw-bold">مهندسی کامپیوتر</span>
                             </div>
                         </div>
-                        <div class="infoProfessor mt-4">
-                            <h5>بیوگرافی</h5>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora iusto optio ipsum amet consequuntur explicabo quidem, veritatis incidunt. Corrupti quam doloribus tenetur fuga accusantium architecto suscipit perferendis modi optio incidunt?    </p>
+                        <div class="infoProfessor mt-4 text-end">
+                            <h5 class="border-bottom pb-2">بیوگرافی</h5>
+                            <p class="text-muted" style="text-align: justify;">
+                                دکتر حسین موسوی دانشیار گروه مهندسی کامپیوتر و متخصص در زمینه هوش مصنوعی و یادگیری ماشین هستند. ایشان مدرک دکتری خود را از دانشگاه صنعتی شریف دریافت کرده و بیش از ۱۰ سال سابقه تدریس و تحقیق در دانشگاه‌های معتبر را دارند.
+                            </p>
                         </div>
                     </div>
-                    <div class="tab-pane d-none" id="schedule">
-                        <table class="scheduleTable">
+
+                    <div class="tab-pane" id="schedule">
+                        <table class="scheduleTable table-bordered">
                             <thead>
                                 <tr>
-                                    <th>روز و ساعت</th>
-                                    <th>8 - 10</th>
-                                    <th>10 - 12</th>
-                                    <th>12 - 14</th>
-                                    <th>14 - 16</th>
-                                    <th>16 - 18</th>
-                                    <th>18 - 20</th>
+                                    <th>روز/ساعت</th>
+                                    <th>8-10</th><th>10-12</th><th>12-14</th>
+                                    <th>14-16</th><th>16-18</th><th>18-20</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <th>شنبه</th>
-                                    <td class="busy">ورزش<br>کلاس 101</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="busy">تاریخ تحلیلی<br>کلاس 102</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td class="busy">ورزش<br><small class="text-muted">کلاس 101</small></td>
+                                    <td></td><td></td>
+                                    <td class="busy">تاریخ تحلیلی<br><small class="text-muted">کلاس 102</small></td>
+                                    <td></td><td></td>
                                 </tr>
                                 <tr>
                                     <th>یکشنبه</th>
                                     <td></td>
-                                    <td class="busy">مهندسی نرم افزار<br>کلاس 201</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="busy">ریزپردازنده<br>کلاس 202</td>
+                                    <td class="busy">مهندسی نرم‌افزار<br><small class="text-muted">کلاس 201</small></td>
+                                    <td></td><td></td>
+                                    <td class="busy">ریزپردازنده<br><small class="text-muted">کلاس 202</small></td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <th>دوشنبه</th>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="busy">مهندسی نرم افزار<br>کلاس 301</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="busy">ریزپردازنده<br>کلاس 302</td>
+                                    <td></td><td></td>
+                                    <td class="busy">مهندسی نرم‌افزار<br><small class="text-muted">کلاس 301</small></td>
+                                    <td></td><td></td>
+                                    <td class="busy">ریزپردازنده<br><small class="text-muted">کلاس 302</small></td>
                                 </tr>
                                 <tr>
                                     <th>سه‌شنبه</th>
-                                    <td class="busy">طراحی الگوریتم<br>کلاس 101</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="busy">پایگاه داده<br>کلاس 102</td>
+                                    <td class="busy">طراحی الگوریتم<br><small class="text-muted">کلاس 101</small></td>
+                                    <td></td><td></td><td></td>
+                                    <td class="busy">پایگاه داده<br><small class="text-muted">کلاس 102</small></td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <th>چهارشنبه</th>
                                     <td></td>
-                                    <td class="busy">پایگاه داده<br>کلاس 201</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="busy">طراحی الگوریتم<br>کلاس 202</td>
+                                    <td class="busy">پایگاه داده<br><small class="text-muted">کلاس 201</small></td>
+                                    <td></td><td></td><td></td>
+                                    <td class="busy">طراحی الگوریتم<br><small class="text-muted">کلاس 202</small></td>
                                 </tr>
-                                <tr>
+                                 <tr>
                                     <th>پنجشنبه</th>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>جمعه</th>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td></td><td></td><td></td><td></td><td></td><td></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+
+                    <div class="tab-pane" id="contact">
+                         <div class="contact-info text-start">
+                            <h5 class="border-bottom pb-2 mb-3 text-end">راه‌های ارتباطی</h5>
+                            <div class="contact-item">
+                                <i class="fa-solid fa-envelope fs-5"></i>
+                                <div>
+                                    <span class="d-block fw-bold text-end">ایمیل</span>
+                                    <span class="text-muted">h.mousavi@university.ac.ir</span>
+                                </div>
+                            </div>
+                             <div class="contact-item">
+                                <i class="fa-solid fa-location-dot fs-5"></i>
+                                <div>
+                                    <span class="d-block fw-bold text-end">دفتر استاد</span>
+                                    <span class="text-muted">دانشکده مهندسی، ساختمان شماره ۲، طبقه سوم، اتاق ۳۱۲</span>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fa-solid fa-clock fs-5"></i>
+                                <div>
+                                    <span class="d-block fw-bold text-end">ساعات مراجعه حضوری</span>
+                                    <span class="text-muted">یکشنبه‌ها و سه‌شنبه‌ها از ساعت ۱۰ الی ۱۲</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="close-tab">
-                    بستن
-                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
             </div>
         </div>
     </div>
@@ -588,251 +688,277 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
 
 <script>
-    const connection = new signalR.HubConnectionBuilder()
-                         .withUrl("/StatusHub")
-                         .build();
-
-                     connection.on("UpdateRoomStatus", (roomId, status) => {
-                         var room = document.getElementById(`room-${roomId}`);
-                         if (room)
-                            room.className = `room status-${status}`;
-                     });
-                      connection.start();
-             fitMapToContent();
-
-             function fitMapToContent() {
-                 const mapWrapper = document.getElementById('mapWrapper');
-                 const roomWrappers = mapWrapper.querySelectorAll('.room-wrapper');
-
-                 let maxRight = 0;
-                 let maxBottom = 0;
-
-                 roomWrappers.forEach(wrapper => {
-                     const right = wrapper.offsetLeft + wrapper.offsetWidth;
-                     const bottom = wrapper.offsetTop + wrapper.offsetHeight;
-
-                     if (right > maxRight) maxRight = right;
-                     if (bottom > maxBottom) maxBottom = bottom;
-                 });
-
-                 mapWrapper.style.width = (maxRight + 285) + 'px';   // 40px برای حاشیه
-                 mapWrapper.style.height = (maxBottom + 285) + 'px';
-             }
-
-             const rooms = document.querySelectorAll('.room');
-             let expandedRoom = null;
-
-             rooms.forEach(room => {
-         // START of change
-         room.addEventListener('click', (e) => {
-             // اگر کلیک روی آیکون‌ها یا لینک‌های داخل اتاق بود، کاری نکن
-             if (e.target.closest('a')) {
-                 return;
-             }
-
-             if (expandedRoom && expandedRoom !== room) collapseRoom(expandedRoom);
-             room.classList.toggle('expanded');
-             expandedRoom = room.classList.contains('expanded') ? room : null;
-             clearPath();
-         });
-         // END of change
-
-         const directionLink = room.querySelector('.direction-link');
-         if (directionLink) {
-             directionLink.addEventListener('click', e => {
-                 e.preventDefault();
-                 e.stopPropagation();
-                 drawPathToRoom(room);
-             });
-         }
-     });
-
-             function drawPathToRoom(room) {
-             clearPath();
-
-             panzoomInstance.reset({ animate: true });
-
-             setTimeout(() => {
-                 const mapWrapper = document.getElementById('mapWrapper');
-                 const entrance = document.getElementById('entrance');
-                 const mapRect = mapWrapper.getBoundingClientRect();
-                 const entranceRect = entrance.getBoundingClientRect();
-                 const roomRect = room.getBoundingClientRect();
-
-                 const start = {
-                     x: entranceRect.left + entranceRect.width / 2 - mapRect.left,
-                     y: entranceRect.top + entranceRect.height / 2 - mapRect.top
-                 };
-
-                 const wrapper = room.closest('.room-wrapper');
-                 const isLeft = wrapper.classList.contains('left-room');
-
-                 const end = {
-                     x: isLeft
-                         ? roomRect.left - mapRect.left
-                         : roomRect.right - mapRect.left,
-                     y: roomRect.top + roomRect.height / 2 - mapRect.top
-                 };
-
-                 const mid = { x: start.x, y: end.y };
-
-                 const ctx = getOrCreateCanvasCtx();
-                 animatePath(ctx, [start, mid, end], 800);
-                 }, 200);
-             }
-
-
-             function animatePath(ctx, points, duration = 600) {
-                 const [start, mid, end] = points;
-                 const startTime = performance.now();
-
-                 function draw(currentTime) {
-                     const elapsed = currentTime - startTime;
-                     const t = Math.min(elapsed / duration, 1);
-
-                     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-                     ctx.beginPath();
-                     ctx.moveTo(start.x, start.y);
-
-                     if (t < 0.5) {
-                         const y = start.y + (mid.y - start.y) * (t / 0.5);
-                         ctx.lineTo(start.x, y);
-                     } else {
-                         ctx.lineTo(start.x, mid.y);
-                         const x = mid.x + (end.x - mid.x) * ((t - 0.5) / 0.5);
-                         ctx.lineTo(x, mid.y);
-                     }
-
-                     ctx.strokeStyle = '#1976d2';
-                     ctx.lineWidth = 4;
-                     ctx.setLineDash([6, 4]);
-                     ctx.stroke();
-
-                     if (t < 1) {
-                         requestAnimationFrame(draw);
-                     }
-                 }
-
-                 requestAnimationFrame(draw);
-             }
-
-             function getOrCreateCanvasCtx() {
-                 const mapWrapper = document.getElementById('mapWrapper');
-                 let canvas = document.getElementById('routeCanvas');
-
-                 if (!canvas) {
-                     canvas = document.createElement('canvas');
-                     canvas.id = 'routeCanvas';
-                     canvas.style.position = 'absolute';
-                     canvas.style.top = 0;
-                     canvas.style.left = 0;
-                     canvas.style.pointerEvents = 'none';
-                     mapWrapper.appendChild(canvas);
-                 }
-
-                 canvas.width = mapWrapper.clientWidth;
-                 canvas.height = mapWrapper.clientHeight;
-
-                 const ctx = canvas.getContext('2d');
-                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                 return ctx;
-             }
-
-             function clearPath() {
-                 const canvas = document.getElementById('routeCanvas');
-                 if (canvas) {
-                     const ctx = canvas.getContext('2d');
-                     ctx.clearRect(0, 0, canvas.width, canvas.height);
-                 }
-             }
-
-             function collapseRoom(room) {
-                 room.classList.remove('expanded');
-                 if (expandedRoom === room) expandedRoom = null;
-             }
-
-             const mapContainer = document.getElementById('mapContainer');
-             const panzoomInstance = Panzoom(document.getElementById('mapWrapper'), {
-                 maxScale: 3,
-                 minScale: 0,
-                 contain: 'outside',
-             });
-
-             mapContainer.addEventListener('wheel', panzoomInstance.zoomWithWheel);
-             document.getElementById('zoomIn').addEventListener('click', () => panzoomInstance.zoomIn());
-             document.getElementById('zoomOut').addEventListener('click', () => panzoomInstance.zoomOut());
-
-             const searchInput = document.getElementById('teacherSearchInput');
-             const searchButton = document.getElementById('searchButton');
-
-             function searchAndFocus() {
-                 const searchTerm = searchInput.value.trim();
-                 if (!searchTerm) return;
-
-                 let foundRoom = null;
-                 const normalizedSearchTerm = searchTerm.replace(/ /g, '');
-
-                 rooms.forEach(room => {
-                     const teacherName = room.dataset.teacher;
-                     const normalizedTeacherName = teacherName.replace(/ /g, '');
-
-                     if (normalizedTeacherName.includes(normalizedSearchTerm)) {
-                         foundRoom = room;
-                     }
-                 });
-
-                 if (foundRoom) {
-                     if (expandedRoom && expandedRoom !== foundRoom) {
-                         collapseRoom(expandedRoom);
-                     }
-
-                     if (!foundRoom.classList.contains('expanded')) {
-                         foundRoom.classList.add('expanded');
-                         expandedRoom = foundRoom;
-                     }
-
-                     clearPath();
-                     focusOnElement(foundRoom);
-                 } else {
-                     alert('استادی با این نام پیدا نشد.');
-                 }
-             }
-
-             function focusOnElement(element) {
-                 const targetScale = 1.4;
-                 const mapWrapper = document.getElementById('mapWrapper');
-                 const roomWrapper = element.closest('.room-wrapper');
-
-                 const roomCenterX = roomWrapper.offsetLeft + roomWrapper.offsetWidth / 2;
-                 const roomCenterY = roomWrapper.offsetTop + roomWrapper.offsetHeight / 2;
-
-                 panzoomInstance.zoom(targetScale, {
-                     animate: true,
-                     focal: {
-                         x: roomCenterX,
-                         y: roomCenterY
-                     }
-                 });
-             }
-
-             searchButton.addEventListener('click', searchAndFocus);
-             searchInput.addEventListener('keydown', (event) => {
-                 if (event.key === 'Enter') {
-                     searchAndFocus();
-                 }
-             });
-</script>
-
-<script>
     document.addEventListener('DOMContentLoaded', function () {
-        document.body.addEventListener('click', function (e) {
-            const target = e.target.closest('.open-info-modal');
-            if (target) {
+
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/StatusHub")
+        .build();
+
+    connection.on("UpdateRoomStatus", (roomId, status) => {
+        const room = document.getElementById(`room-${roomId}`);
+        if (room) {
+            room.className = `room status-${status}`;
+        }
+    });
+
+    connection.start().catch(err => console.error(err.toString()));
+
+    const mapContainer = document.getElementById('mapContainer');
+    const mapWrapper = document.getElementById('mapWrapper');
+    const rooms = document.querySelectorAll('.room');
+    let expandedRoom = null;
+
+    function fitMapToContent() {
+        const roomWrappers = mapWrapper.querySelectorAll('.room-wrapper');
+        let maxRight = 0;
+        let maxBottom = 0;
+
+        roomWrappers.forEach(wrapper => {
+            const right = wrapper.offsetLeft + wrapper.offsetWidth;
+            const bottom = wrapper.offsetTop + wrapper.offsetHeight;
+            if (right > maxRight) maxRight = right;
+            if (bottom > maxBottom) maxBottom = bottom;
+        });
+
+        mapWrapper.style.width = (maxRight + 285) + 'px';
+        mapWrapper.style.height = (maxBottom + 285) + 'px';
+    }
+    fitMapToContent(); 
+
+    const panzoomInstance = Panzoom(document.getElementById('mapWrapper'), {
+        maxScale: 3,
+        minScale: 0.5, 
+        contain: 'outside',
+    });
+    mapContainer.addEventListener('wheel', panzoomInstance.zoomWithWheel);
+
+    rooms.forEach(room => {
+        room.addEventListener('click', (e) => {
+            if (e.target.closest('a, button')) {
+                return;
+            }
+
+            if (expandedRoom && expandedRoom !== room) {
+                collapseRoom(expandedRoom);
+            }
+            room.classList.toggle('expanded');
+            expandedRoom = room.classList.contains('expanded') ? room : null;
+            clearPath();
+        });
+
+        const directionLink = room.querySelector('.direction-link');
+        if (directionLink) {
+            directionLink.addEventListener('click', e => {
                 e.preventDefault();
-                e.stopPropagation(); // جلوگیری از کلیک روی .room
-                const modal = new bootstrap.Modal(document.getElementById('InformationProfessor'));
-                modal.show();
+                e.stopPropagation();
+                drawPathToRoom(room);
+            });
+        }
+    });
+
+    function collapseRoom(room) {
+        room.classList.remove('expanded');
+        if (expandedRoom === room) {
+            expandedRoom = null;
+        }
+    }
+
+    function drawPathToRoom(room) {
+        clearPath();
+        panzoomInstance.reset({ animate: true });
+
+        setTimeout(() => {
+            const entrance = document.getElementById('entrance');
+            const mapRect = mapWrapper.getBoundingClientRect();
+            const entranceRect = entrance.getBoundingClientRect();
+            const roomRect = room.getBoundingClientRect();
+
+            const start = {
+                x: entranceRect.left + entranceRect.width / 2 - mapRect.left,
+                y: entranceRect.top + entranceRect.height / 2 - mapRect.top
+            };
+
+            const wrapper = room.closest('.room-wrapper');
+            const isLeft = wrapper.classList.contains('left-room');
+
+            const end = {
+                x: isLeft ? roomRect.left - mapRect.left : roomRect.right - mapRect.left,
+                y: roomRect.top + roomRect.height / 2 - mapRect.top
+            };
+
+            const mid = { x: start.x, y: end.y };
+            const ctx = getOrCreateCanvasCtx();
+            animatePath(ctx, [start, mid, end], 800);
+        }, 300);
+    }
+
+    function animatePath(ctx, points, duration = 600) {
+        const [start, mid, end] = points;
+        const startTime = performance.now();
+
+        function draw(currentTime) {
+            const elapsed = currentTime - startTime;
+            const t = Math.min(elapsed / duration, 1);
+
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            ctx.beginPath();
+            ctx.moveTo(start.x, start.y);
+
+            if (t < 0.5) {
+                const y = start.y + (mid.y - start.y) * (t / 0.5);
+                ctx.lineTo(start.x, y);
+            } else {
+                ctx.lineTo(start.x, mid.y);
+                const x = mid.x + (end.x - mid.x) * ((t - 0.5) / 0.5);
+                ctx.lineTo(x, mid.y);
+            }
+
+            ctx.strokeStyle = '#1976d2';
+            ctx.lineWidth = 4;
+            ctx.setLineDash([6, 4]);
+            ctx.stroke();
+
+            if (t < 1) {
+                requestAnimationFrame(draw);
+            }
+        }
+        requestAnimationFrame(draw);
+    }
+
+    function getOrCreateCanvasCtx() {
+        let canvas = document.getElementById('routeCanvas');
+        if (!canvas) {
+            canvas = document.createElement('canvas');
+            canvas.id = 'routeCanvas';
+            canvas.style.position = 'absolute';
+            canvas.style.top = 0;
+            canvas.style.left = 0;
+            canvas.style.pointerEvents = 'none';
+            mapWrapper.appendChild(canvas);
+        }
+        canvas.width = mapWrapper.clientWidth;
+        canvas.height = mapWrapper.clientHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        return ctx;
+    }
+
+    function clearPath() {
+        const canvas = document.getElementById('routeCanvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    }
+
+    const searchInput = document.getElementById('teacherSearchInput');
+    const searchButton = document.getElementById('searchButton');
+
+    function searchAndFocus() {
+        const searchTerm = searchInput.value.trim();
+        if (!searchTerm) return;
+
+        let foundRoom = null;
+        const normalizedSearchTerm = searchTerm.replace(/ /g, '');
+
+        rooms.forEach(room => {
+            const teacherName = room.dataset.teacher || '';
+            const normalizedTeacherName = teacherName.replace(/ /g, '');
+            if (normalizedTeacherName.includes(normalizedSearchTerm)) {
+                foundRoom = room;
+            }
+        });
+
+        if (foundRoom) {
+            if (expandedRoom && expandedRoom !== foundRoom) {
+                collapseRoom(expandedRoom);
+            }
+            if (!foundRoom.classList.contains('expanded')) {
+                foundRoom.classList.add('expanded');
+                expandedRoom = foundRoom;
+            }
+            clearPath();
+            focusOnElement(foundRoom);
+        } else {
+            alert('استادی با این نام پیدا نشد.');
+        }
+    }
+
+    function focusOnElement(element) {
+        const targetScale = 1.4;
+        const roomWrapper = element.closest('.room-wrapper');
+        const roomCenterX = roomWrapper.offsetLeft + roomWrapper.offsetWidth / 2;
+        const roomCenterY = roomWrapper.offsetTop + roomWrapper.offsetHeight / 2;
+
+        panzoomInstance.zoom(targetScale, {
+            animate: true,
+            focal: { x: roomCenterX, y: roomCenterY }
+        });
+    }
+
+    searchButton.addEventListener('click', searchAndFocus);
+    searchInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            searchAndFocus();
+        }
+    });
+
+    document.getElementById('zoomIn').addEventListener('click', () => panzoomInstance.zoomIn());
+    document.getElementById('zoomOut').addEventListener('click', () => panzoomInstance.zoomOut());
+
+    document.body.addEventListener('click', function (e) {
+        const target = e.target.closest('.open-info-modal');
+        if (target) {
+            e.preventDefault();
+            e.stopPropagation(); 
+            const modal = new bootstrap.Modal(document.getElementById('InformationProfessor'));
+            modal.show();
+        }
+    });
+});
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+        const tabId = this.getAttribute('data-tab');
+        
+        document.querySelectorAll('.tab').forEach(t => {
+            t.classList.remove('active');
+        });
+        
+        document.querySelectorAll('.tab-pane').forEach(pane => {
+            pane.classList.remove('active');
+        });
+        
+        this.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const tabs = document.querySelectorAll('#InformationProfessor .tab');
+    const panes = document.querySelectorAll('#InformationProfessor .tab-pane');
+    const modalDialog = document.querySelector('#InformationProfessor .modal-dialog');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function () {
+            const tabId = this.dataset.tab;
+
+            tabs.forEach(item => item.classList.remove('active'));
+            this.classList.add('active');
+
+            panes.forEach(pane => {
+                if (pane.id === tabId) {
+                    pane.classList.add('active');
+                } else {
+                    pane.classList.remove('active');
+                }
+            });
+
+            if (tabId === 'schedule') {
+                modalDialog.classList.add('modal-dialog-wide');
+            } else {
+                modalDialog.classList.remove('modal-dialog-wide');
             }
         });
     });
+});
 </script>
