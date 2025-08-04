@@ -1,6 +1,6 @@
 ﻿namespace Unima.Dal.Enums;
 
-public enum RoomStatus : byte
+public enum OfficeStatus : byte
 {
     Unspecified,
     Available,

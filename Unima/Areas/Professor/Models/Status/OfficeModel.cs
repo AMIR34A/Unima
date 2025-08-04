@@ -2,7 +2,7 @@
 
 namespace Unima.Areas.Professor.Models.Status;
 
-public class RoomModel
+public class OfficeModel
 {
     public required string ProfessorFullName { get; set; }
 

@@ -10,13 +10,19 @@ public class ProfessorInformation
 
     public Degree Degree { get; set; }
 
-    public int RoomNo { get; set; }
+    public int OfficeNo { get; set; }
 
-    public RoomStatus RoomStatus { get; set; }
+    public OfficeStatus RoomStatus { get; set; }
 
     public Line Line { get; set; }
 
     public Side Side { get; set; }
+
+    public string? Biography { get; set; }
+
+    public required string Address { get; set; }
+
+    public string? Description { get; set; }
 
     public string? OfficePhoneNumber { get; set; }
 

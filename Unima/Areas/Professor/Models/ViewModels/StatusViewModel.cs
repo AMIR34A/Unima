@@ -4,7 +4,7 @@ namespace Unima.Areas.Professor.Models.ViewModels;
 
 public class StatusViewModel
 {
-    public IEnumerable<RoomModel> LeftRooms { get; set; }
+    public IEnumerable<OfficeModel> LeftOffices { get; set; }
 
-    public IEnumerable<RoomModel> RightRooms { get; set; }
+    public IEnumerable<OfficeModel> RightOffices { get; set; }
 }

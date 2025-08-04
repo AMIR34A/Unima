@@ -23,56 +23,76 @@ public class StatusController : Controller
 
     public async Task<IActionResult> Index()
     {
-        IEnumerable<RoomModel>? leftRooms = (await _unitOfWork.RepositoryBase<ProfessorInformation>().GetAllAsync("User"))
-                                            .Where(professor => professor.Side == Side.Left)
-                                            .Select(professor => new RoomModel()
-                                            {
-                                                ProfessorFullName = professor.User.FullName,
-                                                No = professor.RoomNo,
-                                                Status = professor.RoomStatus switch
+        IEnumerable<OfficeModel>? leftOffices = (await _unitOfWork.RepositoryBase<ProfessorInformation>().GetAllAsync("User"))
+                                                .Where(professor => professor.Side == Side.Left)
+                                                .Select(professor => new OfficeModel()
                                                 {
-                                                    RoomStatus.Unspecified => "در سامانه ثبت نشده است",
-                                                    RoomStatus.Available => "حاضر",
-                                                    RoomStatus.Busy => "مشغول",
-                                                    RoomStatus.DoNotDisturb => "مزاحم نشوید",
-                                                    RoomStatus.Offline => "حضور ندارد",
-                                                    _ => string.Empty
-                                                },
-                                                StatusStr = professor.RoomStatus.ToString(),
-                                                PhoneNumber = professor.PublicPhoneNumber
-                                            });
+                                                    ProfessorFullName = professor.User.FullName,
+                                                    No = professor.OfficeNo,
+                                                    Status = professor.RoomStatus switch
+                                                    {
+                                                        OfficeStatus.Unspecified => "در سامانه ثبت نشده است",
+                                                        OfficeStatus.Available => "حاضر",
+                                                        OfficeStatus.Busy => "مشغول",
+                                                        OfficeStatus.DoNotDisturb => "مزاحم نشوید",
+                                                        OfficeStatus.Offline => "حضور ندارد",
+                                                        _ => string.Empty
+                                                    },
+                                                    StatusStr = professor.RoomStatus.ToString(),
+                                                    PhoneNumber = professor.PublicPhoneNumber
+                                                });
 
-        IEnumerable<RoomModel>? rightRooms = (await _unitOfWork.RepositoryBase<ProfessorInformation>().GetAllAsync("User"))
-                                             .Where(professor => professor.Side == Side.Right)
-                                             .Select(professor => new RoomModel()
-                                             {
-                                                 ProfessorFullName = professor.User.FullName,
-                                                 No = professor.RoomNo,
-                                                 Status = professor.RoomStatus switch
+        IEnumerable<OfficeModel>? rightOffices = (await _unitOfWork.RepositoryBase<ProfessorInformation>().GetAllAsync("User"))
+                                                 .Where(professor => professor.Side == Side.Right)
+                                                 .Select(professor => new OfficeModel()
                                                  {
-                                                     RoomStatus.Unspecified => "در سامانه ثبت نشده است",
-                                                     RoomStatus.Available => "حاضر",
-                                                     RoomStatus.Busy => "مشغول",
-                                                     RoomStatus.DoNotDisturb => "مزاحم نشوید",
-                                                     RoomStatus.Offline => "حضور ندارد",
-                                                     _ => string.Empty
-                                                 },
-                                                 StatusStr = professor.RoomStatus.ToString(),
-                                                 PhoneNumber = professor.PublicPhoneNumber
-                                             });
+                                                     ProfessorFullName = professor.User.FullName,
+                                                     No = professor.OfficeNo,
+                                                     Status = professor.RoomStatus switch
+                                                     {
+                                                         OfficeStatus.Unspecified => "در سامانه ثبت نشده است",
+                                                         OfficeStatus.Available => "حاضر",
+                                                         OfficeStatus.Busy => "مشغول",
+                                                         OfficeStatus.DoNotDisturb => "مزاحم نشوید",
+                                                         OfficeStatus.Offline => "حضور ندارد",
+                                                         _ => string.Empty
+                                                     },
+                                                     StatusStr = professor.RoomStatus.ToString(),
+                                                     PhoneNumber = professor.PublicPhoneNumber
+                                                 });
 
         StatusViewModel statusViewModel = new StatusViewModel()
         {
-            LeftRooms = leftRooms,
-            RightRooms = rightRooms
+            LeftOffices = leftOffices,
+            RightOffices = rightOffices
         };
 
         return View(statusViewModel);
     }
 
     [Route("Professor/Status/UpdateStatus/{roomId:int}/{roomStatus:int}")]
-    public async Task UpdateStatus(int roomId, RoomStatus roomStatus)
+    public async Task UpdateStatus(int roomId, OfficeStatus roomStatus)
     {
         await _hubContext.Clients.All.SendAsync("UpdateRoomStatus", roomId, roomStatus.ToString());
+    }
+
+    [HttpGet]
+    [Route("Professor/Status/GetProfessorInformation/{officeNo:int}")]
+    public async Task<IActionResult> GetProfessorInformationAsync(int officeNo)
+    {
+        ProfessorInformation? professor = (await _unitOfWork.RepositoryBase<ProfessorInformation>().GetAllAsync("User"))
+                                          .FirstOrDefault(professor => professor.OfficeNo == officeNo);
+        if (professor is null)
+            return BadRequest();
+
+        return Ok(new
+        {
+            FullName = professor.User.FullName,
+            Department = professor.Department,
+            Bio = professor.Biography,
+            Email = professor.User.Email,
+            Address= professor.Address,
+            Description = professor.Description
+        });
     }
 }
