@@ -4,7 +4,6 @@
     Layout = "/Areas/User/Views/Shared/_Layout.cshtml";
 }
 
-
 <script src="https://unpkg.com/@@panzoom/panzoom/dist/panzoom.min.js"></script>
 <script src="/js/Professor.js"></script>
 <link rel="stylesheet" href="/css/Profile.css">
@@ -119,22 +118,28 @@
             </div>
             <div class="modal-body text-center">
                 <div class="row tabs mb-4">
-                    <div class="col-4 tab active" data-tab="bio">
+                    <div class="col-3 tab active" data-tab="bio">
                         <div class="Professor-option border rounded p-2">
                             <i class="fa-solid fa-user-tie d-block fs-4 mb-1"></i>
                             <span class="fw-bold d-block">بیوگرافی</span>
                         </div>
                     </div>
-                    <div class="col-4 tab" data-tab="schedule">
+                    <div class="col-3 tab" data-tab="schedule">
                         <div class="Professor-option border rounded p-2">
                             <i class="fa-solid fa-calendar-week d-block fs-4 mb-1"></i>
                             <span class="fw-bold d-block">برنامه کلاسی</span>
                         </div>
                     </div>
-                    <div class="col-4 tab" data-tab="contact">
+                    <div class="col-3 tab" data-tab="contact">
                         <div class="Professor-option border rounded p-2">
                             <i class="fa-solid fa-address-card d-block fs-4 mb-1"></i>
                             <span class="fw-bold d-block">راه ارتباطی</span>
+                        </div>
+                    </div>
+                    <div class="col-3 tab" data-tab="Reservation">
+                        <div class="Professor-option border rounded p-2">
+                            <i class="fa-solid fa-calendar-plus d-block fs-4 mb-1"></i>
+                            <span class="fw-bold d-block">رزرو وقت</span>
                         </div>
                     </div>
                 </div>
@@ -237,26 +242,72 @@
                             <h5 class="border-bottom pb-2 mb-3 text-end">راه‌های ارتباطی</h5>
                             <div class="contact-item">
                                 <i class="fa-solid fa-envelope fs-5"></i>
-                                <div>
+                                <div class="text-end">
                                     <span class="d-block fw-bold text-end">ایمیل</span>
-                                    <span id="Email" class="text-muted"></span>
+                                    <span id="Email" class="text-muted text-end"></span>
                                 </div>
                             </div>
                             <div class="contact-item">
                                 <i class="fa-solid fa-location-dot fs-5"></i>
-                                <div>
+                                <div class="text-end">
                                     <span class="d-block fw-bold text-end">دفتر استاد</span>
                                     <span id="Address" class="text-muted"></span>
                                 </div>
                             </div>
                             <div class="contact-item">
                                 <i class="fa-solid fa-clock fs-5"></i>
-                                <div>
+                                <div class="text-end">
                                     <span class="d-block fw-bold text-end">ساعات مراجعه حضوری</span>
                                     <span id="Description" class="text-muted"></span>
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="tab-pane" id="Reservation">
+                        <form class="text-end" id="ReservationForm" novalidate>
+                            <h5 class="border-bottom pb-2 mb-3">فرم رزرو وقت</h5>
+
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">موضوع</label>
+                                <input type="text" id="subject" class="form-control" required>
+                                <div class="invalid-feedback">وارد کردن موضوع الزامی است</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="description" class="form-label">توضیحات</label>
+                                <textarea class="form-control" id="description" rows="3" required></textarea>
+                                <div class="invalid-feedback">وارد کردن توضیحات الزامی است</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="location" class="form-label">مکان</label>
+                                <select class="form-select" id="location" required>
+                                    <option value="">انتخاب کنید</option>
+                                    <option value="daftar">دفتر استاد</option>
+                                    <option value="class">کلاس</option>
+                                </select>
+                                <div class="invalid-feedback">وارد کردن مکان رزرو الزامی است</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="date" class="form-label">تاریخ</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="date-input" placeholder="1400/05/10" readonly>
+                                        <button class="btn btn-outline-secondary" type="button" id="calenderTriger">
+                                            <i class="fa-solid fa-calendar-days"></i>
+                                        </button>
+                                    </div>
+                                    <input type="hidden" id="hidden-date">
+                                    <div class="invalid-feedback">وارد کردن تاریخ الزامی است</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="time" class="form-label">ساعت</label>
+                                    <input type="time" class="form-control" id="time" required>
+                                    <div class="invalid-feedback">ساعت را وارد کنید</div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -267,3 +318,20 @@
     </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+<script src="/lib/datetimepicker/mds.bs.datetimepicker.js"></script>
+<link href="/lib/datetimepicker/mds.bs.datetimepicker.style.css" rel="stylesheet">
+
+<script>
+  const picker = new mds.MdsPersianDateTimePicker(
+    document.getElementById('calenderTriger'), // دقیقاً همین ID
+    {
+      targetTextSelector: '#date-input',
+      enableTimePicker: false,
+      isGregorian: false,
+      persianNumber: true,
+      textFormat: 'yyyy/MM/dd',
+      dateFormat: 'yyyy/MM/dd',
+      trigger: 'click'
+    }
+  );
+</script>

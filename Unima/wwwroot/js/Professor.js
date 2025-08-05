@@ -1,3 +1,7 @@
+
+
+
+
 function loadProfessorData(officeNo) {
     fetch(`/Professor/Status/GetProfessorInformation/${officeNo}`) // Replace with your actual API URL
     .then(response => {
@@ -264,3 +268,5 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+
