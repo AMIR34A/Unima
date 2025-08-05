@@ -68,7 +68,7 @@
         gap: 2px;
         position: relative;
         width: 1400px;
-        background: #dcdbdb;
+        background: #eee;
         border: 1px solid #ccc;
         border-radius: 8px;
         padding: 20px;
@@ -256,27 +256,27 @@
         }
 
     .status-Unspecified {
-        background-color: #a39b9b;
+        background-color: #bdbdbd;
     }
 
     .status-Available {
-        background-color: #81c784;
+        background-color: #4CAF50;
     }
 
     .status-Busy {
-        background-color: #ef5350;
+        background-color: #F44336;
     }
 
-    .status-DoNotDisturb {
+    /* .status-DoNotDisturb {
         background-color: #ef5350;
-    }
+    } */
 
     .status-BeRightBack {
-        background-color: #fae57f;
+        background-color: #FFEB3B;
     }
 
     .status-Offline {
-        background-color: #939fdb;
+        background-color: #86A4AE;
     }
 
     .Professor-option * {
@@ -463,3 +463,42 @@
         pointer-events: none;
         z-index: 50;
     }
+
+    .status-guide {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #444;
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    padding: 10px 15px;
+    z-index: 20;
+    font-size: 14px;
+    text-align: right;
+    direction: rtl;
+}
+
+.status-guide .guide-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+    transition: all .3s ease;
+}
+
+.status-guide .guide-item:last-child {
+    margin-bottom: 0;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-left: 8px;
+    border-radius: 50%;
+}
+
+.guide-item:hover{
+    transform: scale(1.05);
+}
+

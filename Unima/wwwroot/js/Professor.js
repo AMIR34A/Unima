@@ -254,31 +254,4 @@
             });
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const tabs = document.querySelectorAll('#InformationProfessor .tab');
-            const panes = document.querySelectorAll('#InformationProfessor .tab-pane');
-            const modalDialog = document.querySelector('#InformationProfessor .modal-dialog');
-
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function () {
-                    const tabId = this.dataset.tab;
-
-                    tabs.forEach(item => item.classList.remove('active'));
-                    this.classList.add('active');
-
-                    panes.forEach(pane => {
-                        if (pane.id === tabId) {
-                            pane.classList.add('active');
-                        } else {
-                            pane.classList.remove('active');
-                        }
-                    });
-
-                    if (tabId === 'schedule') {
-                        modalDialog.classList.add('modal-dialog-wide');
-                    } else {
-                        modalDialog.classList.remove('modal-dialog-wide');
-                    }
-                });
-            });
-        });
+        
