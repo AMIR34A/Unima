@@ -1,470 +1,470 @@
-    .input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-control, .input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-select, .input-group:not(.has-validation) > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating) {
-        border-bottom-left-radius: 0;
-        border-top-left-radius: 0;
-        border-bottom-right-radius: 5px;
-        border-top-right-radius: 5px;
+.input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-control, .input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-select, .input-group:not(.has-validation) > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating) {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+@keyframes fadeIn {
+    from {
+    opacity: 0;
     }
 
-    .input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
-        border-bottom-left-radius: 5px;
-        border-top-left-radius: 5px;
-        border-bottom-right-radius: 0;
-        border-top-right-radius: 0;
+    to {
+    opacity: 1;
+    }
+}
+
+
+@keyframes fadeInScaleForCards {
+    from {
+    opacity: 0;
+    transform: scale(1.25);
     }
 
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
+    to {
+    opacity: 1;
+    transform: scale(1);
+    }
+}
 
-        to {
-            opacity: 1;
-        }
+@keyframes SlideInRightToLeft {
+    from {
+    opacity: 0;
+    transform: translateY(-50%);
     }
 
-
-    @keyframes fadeInScaleForCards {
-        from {
-            opacity: 0;
-            transform: scale(1.25);
-        }
-
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
+    to {
+    opacity: 1;
+    transform: translateY(0%);
     }
-
-    @keyframes SlideInRightToLeft {
-        from {
-            opacity: 0;
-            transform: translateY(-50%);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0%);
-        }
-    }
-
-
-    #mapContainer {
-        width: 1100px;
-        height: 540px;
-        overflow: hidden;
-        position: relative;
-        border: 2px solid #444;
-        margin: 20px auto;
-        background: white;
-        border-radius: 8px;
-        user-select: none;
-        animation: fadeInScale 0.8s ease-in-out;
-    }
-
-    #mapWrapper {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 2px;
-        position: relative;
-        width: 1400px;
-        background: #eee;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        padding: 20px;
-        touch-action: none;
-    }
-
-    #zoomControls {
-        position: absolute;
-        bottom: 10px;
-        left: 10px;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        z-index: 150;
-    }
-
-    .modal {
-        --bs-modal-width: 550px;
-    }
-
-    .input-group {
-        animation: SlideInRightToLeft 0.4s ease-in-out;
-    }
-
-    .zoom-btn {
-        width: 38px;
-        height: 38px;
-        font-size: 22px;
-        font-weight: bold;
-        color: white;
-        background-color: #444;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        transition: background-color 0.3s ease;
-    }
-
-        .zoom-btn:hover {
-            background-color: #868686;
-        }
-
-    .room-column {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        align-items: center;
-    }
-
-    .room-wrapper {
-        width: 80px;
-        height: 100px;
-        position: relative;
-    }
-
-    .left-room .room {
-        left: 0;
-        right: unset;
-    }
-
-    .right-room .room {
-        right: 0;
-        left: unset;
-    }
-
-    #hallway {
-        width: 60px;
-        height: 100%;
-        background: #a5a5a5;
-        border-radius: 5px;
-        box-shadow: inset 0 0 5px #444;
-    }
-
-    .room {
-        position: absolute;
-        top: 0;
-        width: 30px;
-        height: 100px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: width 0.6s ease;
-        background-color: #66bb6a;
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        align-items: center;
-        flex-direction: column;
-        overflow: visible;
-        color: white;
-        font-weight: bold;
-        font-size: 14px;
-        user-select: none;
-    }
-
-        .room.expanded {
-            width: 160px;
-            box-shadow: 0 0 8px #444;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            flex-wrap: nowrap;
-        }
-
-    .teacher-name {
-        writing-mode: vertical-rl;
-        transform: rotate(180deg);
-        pointer-events: none;
-        white-space: nowrap;
-        text-align: center;
-        margin: auto !important;
-    }
-
-    .room.expanded .room-details {
-        display: block;
-        color: black;
-        font-weight: normal;
-        writing-mode: horizontal-tb;
-        transform: none;
-        text-align: center;
-    }
-
-
-    .room.expanded .teacher-name {
-        font-weight: bold;
-        font-size: 14px;
-        transition: all 0.3s ease;
-        writing-mode: horizontal-tb;
-        width: 90px;
-        position: absolute;
-        top: 55px;
-        transform: rotate(0deg);
-        text-align: center;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-
-    .room-details {
-        padding-top: 12px;
-        display: none;
-        animation: fadeInScaleForCards 0.8s ease-in-out;
-    }
-
-    .img-detail {
-        /* background: url("/Images/icons8-user-32.png") no-repeat center center; */
-        color: #000;
-        border-radius: 50%;
-        width: 45px;
-        height: 45px;
-        background-color: #dcdbdb;
-        margin-top: -3px;
-    }
-
-    .details-status {
-        margin-bottom: 8px;
-        margin-left: -70px;
-    }
-
-    .details-button {
-        background-color: #1976d2;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        width: 60%;
-        height: 25px;
-        font-size: 14px;
-        transition: background-color 0.3s ease;
-    }
-
-        .details-button:hover {
-            background-color: #0d47a1;
-        }
-
-    .icon-edit {
-        transition: all .3s ease;
-    }
-
-        .icon-edit:hover {
-            transform: scale(1.15);
-        }
-
-    .status-Unspecified {
-        background-color: #bdbdbd;
-    }
-
-    .status-Available {
-        background-color: #4CAF50;
-    }
-
-    .status-Busy {
-        background-color: #F44336;
-    }
-
-    /* .status-DoNotDisturb {
-        background-color: #ef5350;
-    } */
-
-    .status-BeRightBack {
-        background-color: #FFEB3B;
-    }
-
-    .status-Offline {
-        background-color: #86A4AE;
-    }
-
-    .Professor-option * {
-        cursor: inherit;
-    }
-
-    .Professor-option {
-        cursor: pointer;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        transition: all .3s ease;
-        user-select: none;
-    }
-
-        .Professor-option:hover {
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
-            border-color: #dda853 !important;
-        }
-
-    .tab-content {
-        margin-top: 25px;
-        padding: 20px;
-        background-color: #ffffff;
-        border-radius: 8px;
-        border: 1px solid #dee2e6;
-        text-align: right;
-    }
-
-    .schedule-table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0 8px;
-    }
-
-        .schedule-table th, .schedule-table td {
-            text-align: center;
-            vertical-align: middle;
-            padding: 12px 10px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
-            min-width: 120px;
-            height: 60px;
-        }
-
-        .schedule-table thead th {
-            background-color: #0d6efd;
-            color: white;
-            font-size: 15px;
-        }
-
-        .schedule-table tbody th {
-            background-color: #dee2e6;
-            font-weight: 700;
-            font-size: 14px;
-            border-radius: 8px 0 0 8px;
-        }
-
-    .busy {
-        background-color: #dcdbdb !important;
-        color: black !important;
-        cursor: default;
-        white-space: pre-line;
-    }
-
-    .schedule-table tbody tr:hover td:not(.busy) {
-        background-color: #f0f0f0;
-        cursor: default;
-    }
-
-    #InformationProfessor .modal-dialog {
-        transition: max-width 0.4s ease-in-out;
-    }
-
-    #InformationProfessor .modal-dialog-wide {
-        max-width: 900px;
-    }
-
-    .tabs .tab .Professor-option {
-        cursor: pointer;
-        transition: background-color 0.3s, border-color 0.3s;
-        border: 2px solid #dee2e6;
-    }
-
-        .tabs .tab .Professor-option:hover {
-            background-color: #e9ecef;
-            border-color: #adb5bd;
-        }
-
-    .Professor-option .active {
-        border-color: #dda853 !important;
-    }
-
-    .tab-pane {
-        display: none;
-    }
-
-        .tab-pane.active {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-
-    .bio-header {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-
-        .bio-header .img-detail {
-            width: 70px;
-            height: 70px;
-            background-color: #ccc;
-            border-radius: 50%;
-            background-image: url('https://via.placeholder.com/70'); /* تصویر استاد */
-            background-size: cover;
-        }
-
-    .scheduleTable {
-        width: 100%;
-        border-collapse: collapse;
-        text-align: center;
-        font-size: 0.9rem;
-    }
-
-        .scheduleTable th, .scheduleTable td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-        .scheduleTable thead th {
-            background-color: #f8f9fa;
-        }
-
-        .scheduleTable .busy {
-            background-color: #e0f7fa;
-            font-weight: bold;
-        }
-
-    .contact-info .contact-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px;
-        border-bottom: 1px solid #eee;
-    }
-
-        .contact-info .contact-item i {
-            color: black;
-        }
-
-
-    #schedule {
-        width: 100%;
-    }
-
-    #entrance {
-        position: absolute;
-        bottom: 40px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 24px;
-        height: 24px;
-        background: #3949ab;
-        border-radius: 50%;
-        z-index: 100;
-    }
-
-    #entrance-label {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 14px;
-        text-align: center;
-        color: #000;
-        z-index: 100;
-    }
-
-    #routeCanvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-        z-index: 50;
-    }
-
-    .status-guide {
+}
+
+
+#mapContainer {
+    width: 1100px;
+    height: 540px;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid #444;
+    margin: 20px auto;
+    background: white;
+    border-radius: 8px;
+    user-select: none;
+    animation: fadeInScale 0.8s ease-in-out;
+}
+
+#mapWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2px;
+    position: relative;
+    width: 1400px;
+    background: #eee;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    touch-action: none;
+}
+
+#zoomControls {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 150;
+}
+
+.modal {
+    --bs-modal-width: 550px;
+}
+
+.input-group {
+    animation: SlideInRightToLeft 0.4s ease-in-out;
+}
+
+.zoom-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    background-color: #444;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease;
+}
+
+.zoom-btn:hover {
+    background-color: #868686;
+}
+
+.room-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.room-wrapper {
+    width: 80px;
+    height: 100px;
+    position: relative;
+}
+
+.left-room .room {
+    left: 0;
+    right: unset;
+}
+
+.right-room .room {
+    right: 0;
+    left: unset;
+}
+
+#hallway {
+    width: 60px;
+    height: 100%;
+    background: #a5a5a5;
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px #444;
+}
+
+.room {
+    position: absolute;
+    top: 0;
+    width: 30px;
+    height: 100px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: width 0.6s ease;
+    background-color: #66bb6a;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column;
+    overflow: visible;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    user-select: none;
+}
+
+.room.expanded {
+    width: 160px;
+    box-shadow: 0 0 8px #444;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.teacher-name {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    pointer-events: none;
+    white-space: nowrap;
+    text-align: center;
+    margin: auto !important;
+}
+
+.room.expanded .room-details {
+    display: block;
+    color: black;
+    font-weight: normal;
+    writing-mode: horizontal-tb;
+    transform: none;
+    text-align: center;
+}
+
+
+.room.expanded .teacher-name {
+    font-weight: bold;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    writing-mode: horizontal-tb;
+    width: 90px;
+    position: absolute;
+    top: 55px;
+    transform: rotate(0deg);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.room-details {
+    padding-top: 12px;
+    display: none;
+    animation: fadeInScaleForCards 0.8s ease-in-out;
+}
+
+.img-detail {
+    /* background: url("/Images/icons8-user-32.png") no-repeat center center; */
+    color: #000;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    background-color: #dcdbdb;
+    margin-top: -3px;
+}
+
+.details-status {
+    margin-bottom: 8px;
+    margin-left: -70px;
+}
+
+.details-button {
+    background-color: #1976d2;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 60%;
+    height: 25px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.details-button:hover {
+    background-color: #0d47a1;
+}
+
+.icon-edit {
+    transition: all .3s ease;
+}
+
+.icon-edit:hover {
+    transform: scale(1.15);
+}
+
+.status-Unspecified {
+    background-color: #bdbdbd;
+}
+
+.status-Available {
+    background-color: #4CAF50;
+}
+
+.status-Busy {
+    background-color: #F44336;
+}
+
+/* .status-DoNotDisturb {
+background-color: #ef5350;
+} */
+
+.status-BeRightBack {
+    background-color: #FFEB3B;
+}
+
+.status-Offline {
+    background-color: #86A4AE;
+}
+
+.Professor-option * {
+    cursor: inherit;
+}
+
+.Professor-option {
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: all .3s ease;
+    user-select: none;
+}
+
+.Professor-option:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+    border-color: #dda853 !important;
+}
+
+.tab-content {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    text-align: right;
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+.schedule-table th, .schedule-table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 12px 10px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    min-width: 120px;
+    height: 60px;
+}
+
+.schedule-table thead th {
+    background-color: #0d6efd;
+    color: white;
+    font-size: 15px;
+}
+
+.schedule-table tbody th {
+    background-color: #dee2e6;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 8px 0 0 8px;
+}
+
+.busy {
+    background-color: #dcdbdb !important;
+    color: black !important;
+    cursor: default;
+    white-space: pre-line;
+}
+
+.schedule-table tbody tr:hover td:not(.busy) {
+    background-color: #f0f0f0;
+    cursor: default;
+}
+
+#InformationProfessor .modal-dialog {
+    transition: max-width 0.4s ease-in-out;
+}
+
+#InformationProfessor .modal-dialog-wide {
+    max-width: 900px;
+}
+
+.tabs .tab .Professor-option {
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+    border: 2px solid #dee2e6;
+}
+
+.tabs .tab .Professor-option:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.Professor-option .active {
+    border-color: #dda853 !important;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+    animation: fadeIn 0.5s;
+}
+
+.bio-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.bio-header .img-detail {
+    width: 70px;
+    height: 70px;
+    background-color: #ccc;
+    border-radius: 50%;
+    background-image: url('https://via.placeholder.com/70'); /* تصویر استاد */
+    background-size: cover;
+}
+
+.scheduleTable {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.scheduleTable th, .scheduleTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.scheduleTable thead th {
+    background-color: #f8f9fa;
+}
+
+.scheduleTable .busy {
+    background-color: #e0f7fa;
+    font-weight: bold;
+}
+
+.contact-info .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.contact-info .contact-item i {
+    color: black;
+}
+
+
+#schedule {
+    width: 100%;
+}
+
+#entrance {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 24px;
+    background: #3949ab;
+    border-radius: 50%;
+    z-index: 100;
+}
+
+#entrance-label {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    text-align: center;
+    color: #000;
+    z-index: 100;
+}
+
+#routeCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 50;
+}
+
+.status-guide {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -501,4 +501,3 @@
 .guide-item:hover{
     transform: scale(1.05);
 }
-
