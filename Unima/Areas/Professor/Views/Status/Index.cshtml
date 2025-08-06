@@ -4,6 +4,8 @@
     Layout = "/Areas/User/Views/Shared/_Layout.cshtml";
 }
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mds.bs.datetimepicker/dist/mds.bs.datetimepicker.min.css">
+
 <script src="https://unpkg.com/@@panzoom/panzoom/dist/panzoom.min.js"></script>
 <script src="/js/Professor.js"></script>
 <link rel="stylesheet" href="/css/Profile.css">
@@ -104,7 +106,6 @@
 
 </div>
 
-</div>
 
 <div class="modal fade" id="InformationProfessor" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -266,31 +267,34 @@
 
                     <div class="tab-pane" id="Reservation">
                         <form class="text-end" id="ReservationForm" novalidate>
-                            <h5 class="border-bottom pb-2 mb-3">فرم رزرو وقت</h5>
+                            <h5 class="border-bottom pb-1 mb-1">فرم رزرو وقت</h5>
 
-                            <div class="mb-3">
-                                <label for="subject" class="form-label">موضوع</label>
-                                <input type="text" id="subject" class="form-control" required>
-                                <div class="invalid-feedback">وارد کردن موضوع الزامی است</div>
+                            <div class="row">
+                                <div class="col-md-6 mb-1">
+                                    <label for="subject" class="form-label">موضوع</label>
+                                    <input type="text" id="subject" class="form-control" required>
+                                    <div class="invalid-feedback">وارد کردن موضوع الزامی است</div>
+                                </div>
+                                <div class="col-md-6 mb-1">
+                                    <label for="location" class="form-label">مکان</label>
+                                    <select class="form-select" id="location" required>
+                                        <option value="">انتخاب کنید</option>
+                                        <option value="daftar">دفتر استاد</option>
+                                        <option value="class">کلاس</option>
+                                    </select>
+                                    <div class="invalid-feedback">وارد کردن مکان رزرو الزامی است</div>
+                                </div>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="description" class="form-label">توضیحات</label>
-                                <textarea class="form-control" id="description" rows="3" required></textarea>
-                                <div class="invalid-feedback">وارد کردن توضیحات الزامی است</div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="location" class="form-label">مکان</label>
-                                <select class="form-select" id="location" required>
-                                    <option value="">انتخاب کنید</option>
-                                    <option value="daftar">دفتر استاد</option>
-                                    <option value="class">کلاس</option>
-                                </select>
-                                <div class="invalid-feedback">وارد کردن مکان رزرو الزامی است</div>
+                            <div class="row">
+                                <div class="mb-1">
+                                    <label for="description" class="form-label">توضیحات</label>
+                                    <textarea class="form-control" id="description" rows="2" required></textarea>
+                                    <div class="invalid-feedback">وارد کردن توضیحات الزامی است</div>
+                                </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-1">
                                     <label for="date" class="form-label">تاریخ</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="date-input" placeholder="1400/05/10" readonly>
@@ -301,11 +305,26 @@
                                     <input type="hidden" id="hidden-date">
                                     <div class="invalid-feedback">وارد کردن تاریخ الزامی است</div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-1">
                                     <label for="time" class="form-label">ساعت</label>
                                     <input type="time" class="form-control" id="time" required>
                                     <div class="invalid-feedback">ساعت را وارد کنید</div>
                                 </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 mb-2">
+                                    <label for="duration" class="form-label">مدت زمان جلسه</label>
+                                    <input type="number" class="form-control" id="duration" min="10" value="10" step="5" required>
+                                    <div class="invalid-feedback">مدت زمان را مشخص کنید.</div>
+                                </div>
+                                <div class="col-md-9 mb-2">
+                                    <label for="fileUpload" class="form-label">آپلود فایل</label>
+                                    <input type="file" class="form-control" id="fildUpload" accept=".pdf,.doc,.docx,.png,.jpg">
+                                    <div id="filePreview" class="form-text text-muted">فایل انتخاب نشده است.</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <button type="submit" class="btn btn-primary">رزرو</button>
                             </div>
                         </form>
                     </div>
@@ -318,20 +337,4 @@
     </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
-<script src="/lib/datetimepicker/mds.bs.datetimepicker.js"></script>
-<link href="/lib/datetimepicker/mds.bs.datetimepicker.style.css" rel="stylesheet">
 
-<script>
-  const picker = new mds.MdsPersianDateTimePicker(
-    document.getElementById('calenderTriger'), // دقیقاً همین ID
-    {
-      targetTextSelector: '#date-input',
-      enableTimePicker: false,
-      isGregorian: false,
-      persianNumber: true,
-      textFormat: 'yyyy/MM/dd',
-      dateFormat: 'yyyy/MM/dd',
-      trigger: 'click'
-    }
-  );
-</script>
