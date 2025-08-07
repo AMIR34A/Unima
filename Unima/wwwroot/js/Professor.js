@@ -270,7 +270,8 @@ document.addEventListener('DOMContentLoaded', function () {
             targetDateSelector: '#hidden-date', 
             isGregorian: false,
             enableTimePicker: false,
-            textFormat: 'yyyy/MM/dd'
+            textFormat: 'yyyy/MM/dd',
+            disableBeforeToday: true
         }
     );
 });

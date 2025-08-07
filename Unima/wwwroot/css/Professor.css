@@ -504,3 +504,15 @@ background-color: #ef5350;
 .mds-bs-dtp-container {
     z-index: 1060 !important;
 }
+.days:hover{
+    box-shadow: none;
+    transform: none;
+    background-color: none;
+}
+/* تغییر استایل روزهای گذشته (غیرفعال) در تقویم */
+.mds-bs-dtp-container .table-days tbody td.disabled {
+    background-color: #e9ecef !important; /* یک رنگ خاکستری روشن برای پس‌زمینه */
+    color: #adb5bd !important;            /* یک رنگ خاکستری تیره‌تر برای متن */
+    font-style: italic;                   /* می‌توانید استایل فونت را هم تغییر دهید */
+    /* text-decoration: line-through; */   /* یا یک خط روی آن‌ها بکشید */
+}
