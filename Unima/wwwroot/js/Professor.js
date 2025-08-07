@@ -1,7 +1,3 @@
-
-
-
-
 function loadProfessorData(officeNo) {
     fetch(`/Professor/Status/GetProfessorInformation/${officeNo}`) // Replace with your actual API URL
     .then(response => {
@@ -267,6 +263,14 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+    new mds.MdsPersianDateTimePicker(
+        document.getElementById("calenderTriger"), 
+        {
+            targetTextSelector: '#date-input', 
+            targetDateSelector: '#hidden-date', 
+            isGregorian: false,
+            enableTimePicker: false,
+            textFormat: 'yyyy/MM/dd'
+        }
+    );
 });
-
-
