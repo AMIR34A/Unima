@@ -509,3 +509,26 @@ background-color: #ef5350;
     transform: none;
     background-color: none;
 }
+.input-group{
+    animation: none !important;
+}
+
+.btn-icon-center {
+  display: flex;
+  justify-content: center; 
+  align-items: center;   
+}
+
+.form-select{
+    background-color: #ebebeb !important;
+    border-color: #474c50;
+}
+
+.form-label{
+    margin-bottom: 0.2rem;
+}
+
+.form-select:focus{
+    border-color: #dda85363 !important;
+    box-shadow: 0 0 0 0.2rem #dda85350 !important;
+}

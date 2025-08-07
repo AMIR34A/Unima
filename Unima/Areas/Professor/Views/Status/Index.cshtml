@@ -5,7 +5,8 @@
 }
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mds.bs.datetimepicker/dist/mds.bs.datetimepicker.min.css">
 <link rel="stylesheet" href="/lib/md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker.style.css">
-<!-- <link rel="stylesheet" href="/css/Profile.css"> -->
+<link href="/lib/timepicker/gijgo.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/css/Profile.css">
 <link rel="stylesheet" href="/css/Professor.css">
 
 <div class="container" style="max-width: 600px; margin-top: 20px;">
@@ -264,15 +265,15 @@
 
                     <div class="tab-pane" id="Reservation">
                         <form class="text-end" id="ReservationForm" novalidate>
-                            <h5 class="border-bottom pb-1 mb-1">فرم رزرو وقت</h5>
+                            <h5 class="border-bottom pb-1 mb-2">فرم رزرو وقت</h5>
 
                             <div class="row">
-                                <div class="col-md-6 mb-1">
+                                <div class="col-md-6 mb-2">
                                     <label for="subject" class="form-label">موضوع</label>
                                     <input type="text" id="subject" class="form-control" required>
                                     <div class="invalid-feedback">وارد کردن موضوع الزامی است</div>
                                 </div>
-                                <div class="col-md-6 mb-1">
+                                <div class="col-md-6 mb-2">
                                     <label for="location" class="form-label">مکان</label>
                                     <select class="form-select" id="location" required>
                                         <option value="">انتخاب کنید</option>
@@ -291,37 +292,37 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 mb-1">
+                                <div class="col-md-5 mb-2">
                                     <label for="date" class="form-label">تاریخ</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="date-input" placeholder="1400/05/10" readonly>
-                                        <button class="btn btn-outline-secondary" type="button" id="calenderTriger">
+                                        <button class="btn btn-outline-secondary btn-icon-center" type="button" id="calenderTriger">
                                             <i class="fa-solid fa-calendar-days"></i>
                                         </button>
                                     </div>
                                     <input type="hidden" id="hidden-date">
                                     <div class="invalid-feedback">وارد کردن تاریخ الزامی است</div>
                                 </div>
-                                <div class="col-md-6 mb-1">
+                                <div class="col-md-4 mb-2">
                                     <label for="time" class="form-label">ساعت</label>
-                                    <input type="time" class="form-control" id="time" required>
+                                    <input class="form-control" id="timepicker" placeholder="00:00" readonly required>
                                     <div class="invalid-feedback">ساعت را وارد کنید</div>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <label for="duration" class="form-label">مدت زمان جلسه</label>
+                                    <input type="number" class="form-control" id="duration" min="10" value="10" step="5" readonly required>
+                                    <div class="invalid-feedback">مدت زمان را مشخص کنید.</div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3 mb-2">
-                                    <label for="duration" class="form-label">مدت زمان جلسه</label>
-                                    <input type="number" class="form-control" id="duration" min="10" value="10" step="5" required>
-                                    <div class="invalid-feedback">مدت زمان را مشخص کنید.</div>
-                                </div>
-                                <div class="col-md-9 mb-2">
+                                <div class="col-md-12 mb-2">
                                     <label for="fileUpload" class="form-label">آپلود فایل</label>
                                     <input type="file" class="form-control" id="fildUpload" accept=".pdf,.doc,.docx,.png,.jpg">
                                     <div id="filePreview" class="form-text text-muted">فایل انتخاب نشده است.</div>
                                 </div>
                             </div>
                             <div class="row">
-                                <button type="submit" class="btn btn-primary">رزرو</button>
+                                <button type="submit" class="btn btn-primary submitCode">رزرو</button>
                             </div>
                         </form>
                     </div>
@@ -333,8 +334,16 @@
         </div>
     </div>
 </div>
+<script src="/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
 <script src="https://unpkg.com/@@panzoom/panzoom/dist/panzoom.min.js"></script>
 <script src="~/lib/md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker.js"></script>
+<script src="/lib/timepicker/gijgo.min.js" type="text/javascript"></script>
 <script src="~/js/Professor.js"></script>
+    <script>
+        $('#timepicker').timepicker({
+            uiLibrary: 'bootstrap5',
+            iconsLibrary: 'fontawesome'
+        });
+    </script>
