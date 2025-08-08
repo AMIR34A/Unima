@@ -29,7 +29,7 @@
                             <div class="room-details">
                                 <div class="img-detail align-items-center d-flex justify-content-center">
                                     @* <i class="fa-solid fa-user-tie text-center fs-4"></i> *@
-                                    <img src="@office.ProfilePhotoUrl" alt="عکس استاد">
+                                    <img src="@office.ProfilePhotoUrl" class="img-detail" alt="عکس استاد">
                                 </div>
                             </div>
                             <div class="teacher-name">@office.ProfessorFullName</div>
@@ -60,7 +60,7 @@
                         <div class="room status-@(office.StatusStr)" data-room-id="@office.No" data-teacher="@office.ProfessorFullName" data-status="@office.Status" tabindex="0">
                             <div class="room-details">
                                 <div class="img-detail align-items-center d-flex justify-content-center">
-                                    <img src="@office.ProfilePhotoUrl" alt="عکس استاد">
+                                    <img src="@office.ProfilePhotoUrl" class="img-detail" alt="عکس استاد">
                                 </div>
                             </div>
                             <div class="teacher-name">@office.ProfessorFullName</div>
@@ -148,7 +148,7 @@
                     <div class="tab-pane active" id="bio">
                         <div class="bio-header text-end d-flex gap-2">
                             <div class="img-detail align-items-center d-flex justify-content-center">
-                                <img id="ProfilePhoto" src="" alt="عکس استاد">
+                                <img id="ProfilePhoto" src="" class="img-detail" alt="عکس استاد">
                             </div>
                             <div class="mt-1">
                                 <div>
@@ -322,7 +322,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <button type="submit" class="btn btn-primary submitCode">رزرو</button>
+                                <button type="submit" class="btn btn-primary submitCode" id="submitReservationBtn">رزرو</button>
                             </div>
                         </form>
                     </div>
@@ -335,21 +335,9 @@
     </div>
 </div>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
 <script src="https://unpkg.com/@@panzoom/panzoom/dist/panzoom.min.js"></script>
 <script src="~/lib/md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker.js"></script>
 <script src="~/lib/timepicker/flatpickr.js"></script>
 <script src="~/js/Professor.js"></script>
-<script>
-    flatpickr("#my-inline-timepicker", {
-        enableTime: true,  
-        noCalendar: true,   
-        dateFormat: "H:i",   
-        
-        inline: true,       
-        minTime: "07:30",
-        maxTime: "18:00",
-        defaultDate: "08:00",
-        time_24hr: true      
-    });
-</script>

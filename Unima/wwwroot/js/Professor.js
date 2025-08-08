@@ -14,7 +14,8 @@ function loadProfessorData(officeNo) {
             document.getElementById('Email').textContent = data.email;
             document.getElementById('Address').textContent = data.address;
             document.getElementById('Description').textContent = data.description;
-            const modal = new bootstrap.Modal(document.getElementById('InformationProfessor'));
+            const modalElement = document.getElementById('InformationProfessor');
+            const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
             modal.show();
         });
 }
@@ -341,4 +342,69 @@ document.addEventListener('DOMContentLoaded', function () {
         uploadContainer.classList.add('feature-disabled');
     }
 
+    const submitBtn = document.getElementById('submitReservationBtn');
+    const infoModalElement = document.getElementById('InformationProfessor');
+    let reservationSubmitted = false;
+
+    if (submitBtn && infoModalElement) {
+        const infoModal = bootstrap.Modal.getOrCreateInstance(infoModalElement);
+
+        infoModalElement.addEventListener('hidden.bs.modal', function () {
+            
+            if (reservationSubmitted) {
+                showFailModal();
+                reservationSubmitted = false;
+            }
+            resetInformationProfessorModal(); 
+        });
+
+        submitBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            reservationSubmitted = true; 
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'در حال پردازش...';
+
+            setTimeout(() => {
+                infoModal.hide();
+
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = 'ثبت نهایی رزرو';
+                }, 500);
+            }, 3000);
+        });
+    }
 });
+
+    flatpickr("#my-inline-timepicker", {
+        enableTime: true,  
+        noCalendar: true,   
+        dateFormat: "H:i",   
+        
+        inline: true,       
+        minTime: "07:30",
+        maxTime: "18:00",
+        defaultDate: "08:00",
+        time_24hr: true      
+    });
+
+    function showSuccessModal(){
+        Swal.fire({
+            title:'انجام شد!',
+            text: 'رزرو شما با موفقیت ثبت شد.',
+            icon: 'success',
+            confirmButtonText: 'تایید',
+            confirmButtonColor: '#dda853' 
+
+        });
+    }
+        function showFailModal(){
+        Swal.fire({
+            title: 'دقایقی دیگر امتحان کنید',
+            text: 'رزرو شما بنا به دلایلی انجام نشد.',
+            icon: 'error',
+            confirmButtonText: 'تایید',
+            confirmButtonColor: '#dda853' 
+
+        });
+    }
