@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
 using Unima.Areas.Professor.Hubs;
 using Unima.Areas.Professor.Models.Status;
 using Unima.Areas.Professor.Models.ViewModels;
@@ -24,15 +23,6 @@ public class StatusController : Controller
 
     public async Task<IActionResult> Index()
     {
-        //var t = await _unitOfWork.RepositoryBase<ProfessorInformation>().GetAllAsync();
-        //var bytes = await System.IO.File.ReadAllBytesAsync(@"C:\Users\Amirreza\Desktop\3682281.png");
-        //t.ForEach(async p =>
-        //{
-        //    p.ProfilePhoto = bytes;
-        //    _unitOfWork.RepositoryBase<ProfessorInformation>().Update(p);
-        //});
-        //await _unitOfWork.SaveAsync();
-
         IEnumerable<OfficeModel>? leftOffices = (await _unitOfWork.RepositoryBase<ProfessorInformation>().GetAllAsync("User"))
                                                 .Where(professor => professor.Side == Side.Left)
                                                 .Select(professor => new OfficeModel()
