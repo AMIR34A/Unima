@@ -1,4 +1,5 @@
-﻿using Unima.Dal.Enums;
+﻿using Microsoft.AspNetCore.Http;
+using Unima.Dal.Enums;
 
 namespace Unima.Dal.Entities.Entities;
 
@@ -8,11 +9,13 @@ public class ProfessorInformation
 
     public required ApplicationUser User { get; set; }
 
+    public byte[]? ProfilePhoto { get; set; }
+
     public Degree Degree { get; set; }
 
     public int OfficeNo { get; set; }
 
-    public OfficeStatus RoomStatus { get; set; }
+    public OfficeStatus OfficeStatus { get; set; }
 
     public Line Line { get; set; }
 

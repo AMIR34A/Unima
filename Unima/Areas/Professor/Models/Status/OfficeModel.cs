@@ -6,6 +6,8 @@ public class OfficeModel
 {
     public required string ProfessorFullName { get; set; }
 
+    public string? ProfilePhotoUrl { get; set; }
+
     public required int No { get; set; }
 
     public string? PhoneNumber { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using Unima.Biz.RepositoriesInterface;
 
 namespace Unima.Biz.Repositories;
@@ -23,6 +24,8 @@ public class RepositoryBase<TEntity, TContext> : IRepositoryBase<TEntity> where 
     {
         _dbSet.Remove(entity);
     }
+
+    public async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate) => await _dbSet.FirstOrDefaultAsync(predicate);
 
     public async Task<List<TEntity>> GetAllAsync() => await _dbSet.ToListAsync();
 

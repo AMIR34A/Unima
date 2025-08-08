@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using Unima.Areas.Professor.Hubs;
 using Unima.Areas.Professor.Models.Status;
 using Unima.Areas.Professor.Models.ViewModels;
@@ -23,13 +24,23 @@ public class StatusController : Controller
 
     public async Task<IActionResult> Index()
     {
+        //var t = await _unitOfWork.RepositoryBase<ProfessorInformation>().GetAllAsync();
+        //var bytes = await System.IO.File.ReadAllBytesAsync(@"C:\Users\Amirreza\Desktop\3682281.png");
+        //t.ForEach(async p =>
+        //{
+        //    p.ProfilePhoto = bytes;
+        //    _unitOfWork.RepositoryBase<ProfessorInformation>().Update(p);
+        //});
+        //await _unitOfWork.SaveAsync();
+
         IEnumerable<OfficeModel>? leftOffices = (await _unitOfWork.RepositoryBase<ProfessorInformation>().GetAllAsync("User"))
                                                 .Where(professor => professor.Side == Side.Left)
                                                 .Select(professor => new OfficeModel()
                                                 {
                                                     ProfessorFullName = professor.User.FullName,
+                                                    ProfilePhotoUrl = Url.Action("GetProfilePhoto", new { officeNo = professor.OfficeNo }),
                                                     No = professor.OfficeNo,
-                                                    Status = professor.RoomStatus switch
+                                                    Status = professor.OfficeStatus switch
                                                     {
                                                         OfficeStatus.Unspecified => "در سامانه ثبت نشده است",
                                                         OfficeStatus.Available => "حاضر",
@@ -38,7 +49,7 @@ public class StatusController : Controller
                                                         OfficeStatus.Offline => "حضور ندارد",
                                                         _ => string.Empty
                                                     },
-                                                    StatusStr = professor.RoomStatus.ToString(),
+                                                    StatusStr = professor.OfficeStatus.ToString(),
                                                     PhoneNumber = professor.PublicPhoneNumber
                                                 });
 
@@ -47,8 +58,9 @@ public class StatusController : Controller
                                                  .Select(professor => new OfficeModel()
                                                  {
                                                      ProfessorFullName = professor.User.FullName,
+                                                     ProfilePhotoUrl = Url.Action("GetProfilePhoto", new { officeNo = professor.OfficeNo }),
                                                      No = professor.OfficeNo,
-                                                     Status = professor.RoomStatus switch
+                                                     Status = professor.OfficeStatus switch
                                                      {
                                                          OfficeStatus.Unspecified => "در سامانه ثبت نشده است",
                                                          OfficeStatus.Available => "حاضر",
@@ -57,7 +69,7 @@ public class StatusController : Controller
                                                          OfficeStatus.Offline => "حضور ندارد",
                                                          _ => string.Empty
                                                      },
-                                                     StatusStr = professor.RoomStatus.ToString(),
+                                                     StatusStr = professor.OfficeStatus.ToString(),
                                                      PhoneNumber = professor.PublicPhoneNumber
                                                  });
 
@@ -88,11 +100,24 @@ public class StatusController : Controller
         return Ok(new
         {
             FullName = professor.User.FullName,
+            ProfilePhotoUrl = Url.Action("GetProfilePhoto", new { officeNo = professor.OfficeNo }),
             Department = professor.Department,
             Bio = professor.Biography,
             Email = professor.User.Email,
-            Address= professor.Address,
+            Address = professor.Address,
             Description = professor.Description
         });
+    }
+
+    [HttpGet("{officeNo:int}")]
+    public async Task<IActionResult> GetProfilePhoto(int officeNo)
+    {
+        ProfessorInformation? professor = await _unitOfWork.RepositoryBase<ProfessorInformation>()
+            .FirstOrDefaultAsync(professor => professor.OfficeNo == officeNo);
+
+        if (professor is null)
+            return BadRequest();
+
+        return File(professor.ProfilePhoto, "image/png");
     }
 }

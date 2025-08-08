@@ -22,22 +22,23 @@
         <div class="room-column" id="leftColumn">
             @if (Model.LeftOffices is not null)
             {
-                foreach (var room in Model.LeftOffices)
+                foreach (var office in Model.LeftOffices)
                 {
                     <div class="room-wrapper left-room">
-                        <div id="room-@room.No" class="room status-@(room.StatusStr)" data-room-id="@room.No" data-teacher="@room.ProfessorFullName" data-status="@room.Status" tabindex="0">
+                        <div id="room-@office.No" class="room status-@(office.StatusStr)" data-room-id="@office.No" data-teacher="@office.ProfessorFullName" data-status="@office.Status" tabindex="0">
                             <div class="room-details">
                                 <div class="img-detail align-items-center d-flex justify-content-center">
-                                    <i class="fa-solid fa-user-tie text-center fs-4"></i>
+                                    @* <i class="fa-solid fa-user-tie text-center fs-4"></i> *@
+                                    <img src="@office.ProfilePhotoUrl" alt="عکس استاد">
                                 </div>
                             </div>
-                            <div class="teacher-name">@room.ProfessorFullName</div>
+                            <div class="teacher-name">@office.ProfessorFullName</div>
                             <div class="room-details">
                                 <div class="d-flex gap-2">
-                                    <a href="#" data-bs-target="" data-bs-toggle="modal" onclick="loadProfessorData(@room.No)">
+                                    <a href="#" data-bs-target="" data-bs-toggle="modal" onclick="loadProfessorData(@office.No)">
                                         <i class="fa-solid fa-info-circle text-white icon-edit"></i>
                                     </a>
-                                    <a href="tel:{@room.PhoneNumber}"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                                    <a href="tel:{@office.PhoneNumber}"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
                                     <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
                                 </div>
                             </div>
@@ -53,22 +54,22 @@
         <div class="room-column" id="rightColumn">
             @if (Model.RightOffices is not null)
             {
-                foreach (var room in Model.RightOffices)
+                foreach (var office in Model.RightOffices)
                 {
                     <div class="room-wrapper right-room">
-                        <div class="room status-@(room.StatusStr)" data-room-id="@room.No" data-teacher="@room.ProfessorFullName" data-status="@room.Status" tabindex="0">
+                        <div class="room status-@(office.StatusStr)" data-room-id="@office.No" data-teacher="@office.ProfessorFullName" data-status="@office.Status" tabindex="0">
                             <div class="room-details">
                                 <div class="img-detail align-items-center d-flex justify-content-center">
-                                    <i class="fa-solid fa-user-tie text-center fs-4"></i>
+                                    <img src="@office.ProfilePhotoUrl" alt="عکس استاد">
                                 </div>
                             </div>
-                            <div class="teacher-name">@room.ProfessorFullName</div>
+                            <div class="teacher-name">@office.ProfessorFullName</div>
                             <div class="room-details">
                                 <div class="d-flex gap-2">
-                                    <a href="#" data-bs-target="" data-bs-toggle="modal" onclick="loadProfessorData(@room.No)">
+                                    <a href="#" data-bs-target="" data-bs-toggle="modal" onclick="loadProfessorData(@office.No)">
                                         <i class="fa-solid fa-info-circle text-white icon-edit"></i>
                                     </a>
-                                    <a href="tel:{@room.PhoneNumber}"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
+                                    <a href="tel:{@office.PhoneNumber}"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
                                     <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
                                 </div>
                             </div>
@@ -147,7 +148,7 @@
                     <div class="tab-pane active" id="bio">
                         <div class="bio-header text-end d-flex gap-2">
                             <div class="img-detail align-items-center d-flex justify-content-center">
-                                <i class="fa-solid fa-user-tie text-center fs-2"></i>
+                                <img id="ProfilePhoto" src="" alt="عکس استاد">
                             </div>
                             <div class="mt-1">
                                 <div>

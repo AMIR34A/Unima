@@ -1,21 +1,22 @@
 function loadProfessorData(officeNo) {
-    fetch(`/Professor/Status/GetProfessorInformation/${officeNo}`) // Replace with your actual API URL
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        document.getElementById('FullName').textContent = data.fullName || '---';
-        document.getElementById('Department').textContent = data.department || '---';
-        document.getElementById('Bio').textContent = data.bio || '---';
-        document.getElementById('Email').textContent = data.email || '---';
-        document.getElementById('Address').textContent = data.address || '---';
-        document.getElementById('Description').textContent = data.description || '---';
-        const modal = new bootstrap.Modal(document.getElementById('InformationProfessor'));
-    modal.show();
-    });
+    fetch(`/Professor/Status/GetProfessorInformation/${officeNo}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            document.getElementById('FullName').textContent = data.fullName;
+            document.getElementById('ProfilePhoto').src = data.profilePhotoUrl;
+            document.getElementById('Department').textContent = data.department;
+            document.getElementById('Bio').textContent = data.bio;
+            document.getElementById('Email').textContent = data.email;
+            document.getElementById('Address').textContent = data.address;
+            document.getElementById('Description').textContent = data.description;
+            const modal = new bootstrap.Modal(document.getElementById('InformationProfessor'));
+            modal.show();
+        });
 }
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -28,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (room) {
             room.className = `room status-${status}`;
         }
-        
+
     });
 
     connection.start().catch(err => console.error(err.toString()));
@@ -65,11 +66,11 @@ document.addEventListener('DOMContentLoaded', function () {
     rooms.forEach(room => {
         room.addEventListener('click', (e) => {
             if (e.target.closest('a, button')) {
-    return;
+                return;
             }
 
             if (expandedRoom && expandedRoom !== room) {
-    collapseRoom(expandedRoom);
+                collapseRoom(expandedRoom);
             }
             room.classList.toggle('expanded');
             expandedRoom = room.classList.contains('expanded') ? room : null;
@@ -79,9 +80,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const directionLink = room.querySelector('.direction-link');
         if (directionLink) {
             directionLink.addEventListener('click', e => {
-    e.preventDefault();
-    e.stopPropagation();
-    drawPathToRoom(room);
+                e.preventDefault();
+                e.stopPropagation();
+                drawPathToRoom(room);
             });
         }
     });
@@ -104,16 +105,16 @@ document.addEventListener('DOMContentLoaded', function () {
             const roomRect = room.getBoundingClientRect();
 
             const start = {
-    x: entranceRect.left + entranceRect.width / 2 - mapRect.left,
-    y: entranceRect.top + entranceRect.height / 2 - mapRect.top
+                x: entranceRect.left + entranceRect.width / 2 - mapRect.left,
+                y: entranceRect.top + entranceRect.height / 2 - mapRect.top
             };
 
             const wrapper = room.closest('.room-wrapper');
             const isLeft = wrapper.classList.contains('left-room');
 
             const end = {
-    x: isLeft ? roomRect.left - mapRect.left : roomRect.right - mapRect.left,
-    y: roomRect.top + roomRect.height / 2 - mapRect.top
+                x: isLeft ? roomRect.left - mapRect.left : roomRect.right - mapRect.left,
+                y: roomRect.top + roomRect.height / 2 - mapRect.top
             };
 
             const mid = { x: start.x, y: end.y };
@@ -135,12 +136,12 @@ document.addEventListener('DOMContentLoaded', function () {
             ctx.moveTo(start.x, start.y);
 
             if (t < 0.5) {
-    const y = start.y + (mid.y - start.y) * (t / 0.5);
-    ctx.lineTo(start.x, y);
+                const y = start.y + (mid.y - start.y) * (t / 0.5);
+                ctx.lineTo(start.x, y);
             } else {
-    ctx.lineTo(start.x, mid.y);
-    const x = mid.x + (end.x - mid.x) * ((t - 0.5) / 0.5);
-    ctx.lineTo(x, mid.y);
+                ctx.lineTo(start.x, mid.y);
+                const x = mid.x + (end.x - mid.x) * ((t - 0.5) / 0.5);
+                ctx.lineTo(x, mid.y);
             }
 
             ctx.strokeStyle = '#1976d2';
@@ -149,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
             ctx.stroke();
 
             if (t < 1) {
-    requestAnimationFrame(draw);
+                requestAnimationFrame(draw);
             }
         }
         requestAnimationFrame(draw);
@@ -195,17 +196,17 @@ document.addEventListener('DOMContentLoaded', function () {
             const teacherName = room.dataset.teacher || '';
             const normalizedTeacherName = teacherName.replace(/ /g, '');
             if (normalizedTeacherName.includes(normalizedSearchTerm)) {
-    foundRoom = room;
+                foundRoom = room;
             }
         });
 
         if (foundRoom) {
             if (expandedRoom && expandedRoom !== foundRoom) {
-    collapseRoom(expandedRoom);
+                collapseRoom(expandedRoom);
             }
             if (!foundRoom.classList.contains('expanded')) {
-    foundRoom.classList.add('expanded');
-    expandedRoom = foundRoom;
+                foundRoom.classList.add('expanded');
+                expandedRoom = foundRoom;
             }
             clearPath();
             focusOnElement(foundRoom);
@@ -249,25 +250,25 @@ document.addEventListener('DOMContentLoaded', function () {
             this.classList.add('active');
 
             panes.forEach(pane => {
-    if (pane.id === tabId) {
-        pane.classList.add('active');
-    } else {
-        pane.classList.remove('active');
-    }
+                if (pane.id === tabId) {
+                    pane.classList.add('active');
+                } else {
+                    pane.classList.remove('active');
+                }
             });
 
             if (tabId === 'schedule') {
-    modalDialog.classList.add('modal-dialog-wide');
+                modalDialog.classList.add('modal-dialog-wide');
             } else {
-    modalDialog.classList.remove('modal-dialog-wide');
+                modalDialog.classList.remove('modal-dialog-wide');
             }
         });
     });
     new mds.MdsPersianDateTimePicker(
-        document.getElementById("calenderTriger"), 
+        document.getElementById("calenderTriger"),
         {
-            targetTextSelector: '#date-input', 
-            targetDateSelector: '#hidden-date', 
+            targetTextSelector: '#date-input',
+            targetDateSelector: '#hidden-date',
             isGregorian: false,
             enableTimePicker: false,
             textFormat: 'yyyy/MM/dd',
@@ -279,5 +280,5 @@ document.addEventListener('DOMContentLoaded', function () {
     if (uploadContainer) {
         uploadContainer.classList.add('feature-disabled');
     }
-    
+
 });

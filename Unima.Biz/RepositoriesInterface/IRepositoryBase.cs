@@ -1,4 +1,6 @@
-﻿namespace Unima.Biz.RepositoriesInterface;
+﻿using System.Linq.Expressions;
+
+namespace Unima.Biz.RepositoriesInterface;
 
 public interface IRepositoryBase<TEntity>
 {
@@ -11,4 +13,6 @@ public interface IRepositoryBase<TEntity>
     void Update(TEntity entity);
 
     void Delete(TEntity entity);
+
+    Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
 }
