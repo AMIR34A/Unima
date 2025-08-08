@@ -34,6 +34,66 @@ document.addEventListener('DOMContentLoaded', function () {
 
     connection.start().catch(err => console.error(err.toString()));
 
+    const infoModalEl = document.getElementById('InformationProfessor');
+    let triggerButton = null;
+
+    if (infoModalEl) {
+        infoModalEl.addEventListener('show.bs.modal', function(event){
+            triggerButton = event.relatedTarget;
+        });
+        infoModalEl.addEventListener('hide.bs.modal', function(){
+            if (triggerButton) {
+                triggerButton.focus();
+            }
+        });
+        infoModalEl.addEventListener('hidden.bs.modal', function(){
+            resetInformationProfessorModal();
+        })
+    }
+
+    function resetInformationProfessorModal(){
+
+
+        const tabs = infoModalEl.querySelectorAll('.tab');
+        const panes = infoModalEl.querySelectorAll('.tab-pane');
+    
+        tabs.forEach(tab => tab.classList.remove('active'));
+        panes.forEach(pane => pane.classList.remove('active', 'show'));
+    
+        infoModalEl.querySelector('.tab[data-tab="bio"]').classList.add('active');
+        infoModalEl.querySelector('#bio').classList.add('active', 'show');
+    
+        const fieldToClear = ['FullName', 'Department', 'Bio', 'Email', 'Address', 'Description'];
+        fieldToClear.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.textContent = '';
+            }
+        });
+    
+        const scheduleCells = infoModalEl.querySelectorAll('.scheduleTable tbody td');
+        scheduleCells.forEach(cell =>{
+            cell.innerHTML = '';
+            cell.classList.remove('busy');
+        })
+    
+        const reservationForm = document.getElementById('ReservationForm');
+        reservationForm.reset();
+    
+        const invalidInputs = reservationForm.querySelectorAll('.is-invalid');
+        invalidInputs.forEach(input =>{
+            input.classList.remove('is-invalid');
+        });
+    
+        const filePreview = document.getElementById('filePreview');
+        if(filePreview){
+            filePreview.textContent = 'فایل انتخاب نشده است.';
+        }
+
+    }
+
+
+
     const mapContainer = document.getElementById('mapContainer');
     const mapWrapper = document.getElementById('mapWrapper');
     const rooms = document.querySelectorAll('.room');
