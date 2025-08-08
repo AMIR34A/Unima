@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mds.bs.datetimepicker/dist/mds.bs.datetimepicker.min.css">
 <link rel="stylesheet" href="/lib/md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker.style.css">
 <link href="/lib/timepicker/gijgo.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
 <link rel="stylesheet" href="/css/Profile.css">
 <link rel="stylesheet" href="/css/Professor.css">
 
@@ -304,11 +306,10 @@
                                     <div class="invalid-feedback">وارد کردن تاریخ الزامی است</div>
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <label for="time" class="form-label">ساعت</label>
-                                    <input class="form-control" id="timepicker" placeholder="00:00" readonly required>
-                                    <div class="invalid-feedback">ساعت را وارد کنید</div>
+                                    <label for="my-inline-timepicker" class="form-label">ساعت</label>
+                                    <div id="my-inline-timepicker"></div>
                                 </div>
-                                <div class="col-md-3 mb-2">
+                                <div class="col-md-3 mb-3">
                                     <label for="duration" class="form-label">مدت زمان جلسه</label>
                                     <input type="number" class="form-control" id="duration" min="10" value="10" step="5" readonly required>
                                     <div class="invalid-feedback">مدت زمان را مشخص کنید.</div>
@@ -339,11 +340,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
 <script src="https://unpkg.com/@@panzoom/panzoom/dist/panzoom.min.js"></script>
 <script src="~/lib/md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker.js"></script>
-<script src="/lib/timepicker/gijgo.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="~/js/Professor.js"></script>
-    <script>
-        $('#timepicker').timepicker({
-            uiLibrary: 'bootstrap5',
-            iconsLibrary: 'fontawesome'
-        });
-    </script>
+<script>
+    flatpickr("#my-inline-timepicker", {
+        enableTime: true,    // حالت انتخاب زمان را فعال می‌کند
+        noCalendar: true,    // تقویم را غیرفعال می‌کند (فقط زمان باقی بماند)
+        dateFormat: "H:i",   // فرمت نمایش زمان (مثلا 14:30)
+        
+        inline: true,        // <<-- کلید اصلی: این گزینه آن را به صورت inline نمایش می‌دهد
+        min_time: "07:30",
+        max_time: "18:00",
+        time_24hr: true      // حالت ۲۴ ساعته
+    });
+</script>

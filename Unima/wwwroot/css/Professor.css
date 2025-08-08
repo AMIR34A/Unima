@@ -564,3 +564,18 @@ background-color: #ef5350;
 .feature-disabled:hover::after{
     opacity: 1;
 }
+
+.flatpickr-calendar.inline {
+    width: 100% !important;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.flatpickr-rContainer {
+    font-size: 90%;
+}
+
+.flatpickr-time input.flatpickr-hour,
+.flatpickr-time input.flatpickr-minute {
+    width: 38px;
+}
