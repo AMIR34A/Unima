@@ -3,10 +3,8 @@
 @{
     Layout = "/Areas/User/Views/Shared/_Layout.cshtml";
 }
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mds.bs.datetimepicker/dist/mds.bs.datetimepicker.min.css">
-<link rel="stylesheet" href="/lib/md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker.style.css">
-<link href="/lib/timepicker/gijgo.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="~/lib/md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker.style.css">
+<link href="~/lib/timepicker/flatpickr.min.css" rel="stylesheet"/>
 
 <link rel="stylesheet" href="/css/Profile.css">
 <link rel="stylesheet" href="/css/Professor.css">
@@ -297,7 +295,7 @@
                                 <div class="col-md-5 mb-2">
                                     <label for="date" class="form-label">تاریخ</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="date-input" placeholder="1400/05/10" readonly>
+                                        <input type="text" class="form-control" id="date-input" readonly>
                                         <button class="btn btn-outline-secondary btn-icon-center" type="button" id="calenderTriger">
                                             <i class="fa-solid fa-calendar-days"></i>
                                         </button>
@@ -311,7 +309,7 @@
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <label for="duration" class="form-label">مدت زمان جلسه</label>
-                                    <input type="number" class="form-control" id="duration" min="10" value="10" step="5" readonly required>
+                                    <input type="number" class="form-control" id="duration" min="10" value="10" step="5" required>
                                     <div class="invalid-feedback">مدت زمان را مشخص کنید.</div>
                                 </div>
                             </div>
@@ -335,22 +333,22 @@
         </div>
     </div>
 </div>
-<script src="/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
 <script src="https://unpkg.com/@@panzoom/panzoom/dist/panzoom.min.js"></script>
 <script src="~/lib/md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="~/lib/timepicker/flatpickr.js"></script>
 <script src="~/js/Professor.js"></script>
 <script>
     flatpickr("#my-inline-timepicker", {
-        enableTime: true,    // حالت انتخاب زمان را فعال می‌کند
-        noCalendar: true,    // تقویم را غیرفعال می‌کند (فقط زمان باقی بماند)
-        dateFormat: "H:i",   // فرمت نمایش زمان (مثلا 14:30)
+        enableTime: true,  
+        noCalendar: true,   
+        dateFormat: "H:i",   
         
-        inline: true,        // <<-- کلید اصلی: این گزینه آن را به صورت inline نمایش می‌دهد
-        min_time: "07:30",
-        max_time: "18:00",
-        time_24hr: true      // حالت ۲۴ ساعته
+        inline: true,       
+        minTime: "07:30",
+        maxTime: "18:00",
+        defaultDate: "08:00",
+        time_24hr: true      
     });
 </script>
