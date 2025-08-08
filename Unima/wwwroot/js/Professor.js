@@ -274,4 +274,10 @@ document.addEventListener('DOMContentLoaded', function () {
             disableBeforeToday: true
         }
     );
+
+    const uploadContainer = document.getElementById('upload-container');
+    if (uploadContainer) {
+        uploadContainer.classList.add('feature-disabled');
+    }
+    
 });

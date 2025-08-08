@@ -532,3 +532,35 @@ background-color: #ef5350;
     border-color: #dda85363 !important;
     box-shadow: 0 0 0 0.2rem #dda85350 !important;
 }
+
+.feature-disabled{
+    position: relative;
+    cursor: not-allowed;
+}
+
+.feature-disabled > *{
+    filter: blur(3px);
+    pointer-events: none;
+    user-select: none;
+}
+
+.feature-disabled::after{
+    content: 'این قسمت به زودی اضافه میشود.';
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: #ffffff2b;
+    color: black;
+    padding: 10px 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    align-items: center;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+}
+
+.feature-disabled:hover::after{
+    opacity: 1;
+}
