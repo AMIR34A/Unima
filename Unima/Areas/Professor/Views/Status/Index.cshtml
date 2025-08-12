@@ -165,7 +165,28 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="schedule">
+                   <div class="tab-pane" id="schedule">
+                        <div class="checkboxes">
+                            <div class="checkbox-container">
+                                    <input type="checkbox" id="evenWeekCheck" class="schedule-filter" checked>
+                                    <label for="evenWeekCheck" class="label-even">
+                                        <span class="custom-checkbox">
+                                            <i class="fa-solid fa-check"></i>
+                                        </span>
+                                        هفته زوج
+                                    </label>
+                            </div>
+    
+                            <div class="checkbox-container">
+                                    <input type="checkbox" id="oddWeekCheck" class="schedule-filter" checked>
+                                    <label for="oddWeekCheck" class="label-odd">
+                                         <span class="custom-checkbox">
+                                            <i class="fa-solid fa-check"></i>
+                                        </span>
+                                        هفته فرد
+                                    </label>
+                            </div>
+                        </div>
                         <table class="scheduleTable table-bordered">
                             <thead>
                                 <tr>
@@ -181,48 +202,69 @@
                             <tbody>
                                 <tr>
                                     <th>شنبه</th>
-                                    <td class="busy">ورزش<br><small class="text-muted">کلاس 101</small></td>
+                                    <td>
+                                        <div class="schedule-item week-fixed">ورزش<br><small class="text-muted">کلاس 201</small></div>
+                                    </td>
                                     <td></td>
                                     <td></td>
-                                    <td class="busy">تاریخ تحلیلی<br><small class="text-muted">کلاس 102</small></td>
+                                    <td>
+                                        <div class="schedule-item week-even">تاریخ تحلیلی (زوج)<br><small class="text-muted">کلاس 102</small></div>
+                                        <div class="schedule-item week-odd">اندیشه (فرد)<br><small class="text-muted">کلاس 103</small></div>
+                                    </td>
                                     <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <th>یکشنبه</th>
                                     <td></td>
-                                    <td class="busy">مهندسی نرم‌افزار<br><small class="text-muted">کلاس 201</small></td>
+                                    <td>
+                                        <div class="schedule-item week-fixed">مهندسی نرم‌افزار<br><small class="text-muted">کلاس 201</small></div>
+                                    </td>
                                     <td></td>
                                     <td></td>
-                                    <td class="busy">ریزپردازنده<br><small class="text-muted">کلاس 202</small></td>
+                                    <td>
+                                        <div class="schedule-item week-fixed">ریزپردازنده<br><small class="text-muted">کلاس 202</small></div>
+                                    </td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <th>دوشنبه</th>
                                     <td></td>
                                     <td></td>
-                                    <td class="busy">مهندسی نرم‌افزار<br><small class="text-muted">کلاس 301</small></td>
+                                    <td>
+                                        <div class="schedule-item week-even">مهندسی نرم‌افزار (زوج)<br><small class="text-muted">کلاس 301</small></div>
+                                    </td>
                                     <td></td>
                                     <td></td>
-                                    <td class="busy">ریزپردازنده<br><small class="text-muted">کلاس 302</small></td>
+                                    <td>
+                                        <div class="schedule-item week-odd">ریزپردازنده (فرد)<br><small class="text-muted">کلاس 302</small></div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>سه‌شنبه</th>
-                                    <td class="busy">طراحی الگوریتم<br><small class="text-muted">کلاس 101</small></td>
+                                    <td>
+                                        <div class="schedule-item week-fixed">طراحی الگوریتم<br><small class="text-muted">کلاس 101</small></div>
+                                    </td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td class="busy">پایگاه داده<br><small class="text-muted">کلاس 102</small></td>
+                                    <td>
+                                        <div class="schedule-item week-fixed">پایگاه داده<br><small class="text-muted">کلاس 102</small></div>
+                                    </td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <th>چهارشنبه</th>
                                     <td></td>
-                                    <td class="busy">پایگاه داده<br><small class="text-muted">کلاس 201</small></td>
+                                    <td>
+                                        <div class="schedule-item week-even">پایگاه داده (زوج)<br><small class="text-muted">کلاس 201</small></div>
+                                    </td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td class="busy">طراحی الگوریتم<br><small class="text-muted">کلاس 202</small></td>
+                                    <td>
+                                        <div class="schedule-item week-odd">طراحی الگوریتم (فرد)<br><small class="text-muted">کلاس 202</small></div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>پنجشنبه</th>
@@ -335,9 +377,54 @@
     </div>
 </div>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
 <script src="https://unpkg.com/@@panzoom/panzoom/dist/panzoom.min.js"></script>
 <script src="~/lib/md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker.js"></script>
 <script src="~/lib/timepicker/flatpickr.js"></script>
 <script src="~/js/Professor.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+    // Function to filter the schedule based on checkbox status
+    function filterSchedule() {
+        const showEven = $('#evenWeekCheck').is(':checked');
+        const showOdd = $('#oddWeekCheck').is(':checked');
+        const scheduleItems = $('.schedule-item');
+
+        if (showEven && showOdd) {
+            scheduleItems.show();
+            return;
+        }
+        if (!showEven && !showOdd) {
+            scheduleItems.hide();
+            $('.week-fixed').show();
+            return;
+        }
+
+        scheduleItems.hide();
+
+        if (showEven) {
+            $('.week-even, .week-fixed').show();
+        }
+        if (showOdd) {
+            $('.week-odd, .week-fixed').show();
+        }
+    }
+
+    $('.schedule-filter').on('change', function () {
+        filterSchedule();
+    });
+
+
+    $('#InformationProfessor').on('shown.bs.modal', function () {
+        $('#evenWeekCheck').prop('checked', true);
+        $('#oddWeekCheck').prop('checked', true);
+        filterSchedule();
+    });
+
+});
+</script>
