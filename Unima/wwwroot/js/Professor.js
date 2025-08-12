@@ -342,11 +342,56 @@ document.addEventListener('DOMContentLoaded', function () {
         uploadContainer.classList.add('feature-disabled');
     }
 
+    function validateReservationForm(){
+        const form = document.getElementById('ReservationForm');
+        const subject = document.getElementById('subject');
+        const location = document.getElementById('location');
+        const description = document.getElementById('description');
+        const dateInput = document.getElementById('date-input');
+        const hiddenDate =  document. getElementById('hidden-date');
+        const timepickerContainer = document.getElementById('my-inline-timepicker');
+        const timepickerInstance = timepickerContainer._flatpickr;
+        const duration = document.getElementById('duration');
+
+        let isvalid = true;
+
+        form.querySelectorAll('.is-invalid'). forEach(el => el.classList.remove('is-invalid'));
+
+        if (subject.value.trim().length < 4)
+        {
+            subject.classList.add('is-invalid');
+            isvalid = false;
+        }
+        if (location.value === "") {
+            location.classList.add("is-invalid");
+            isvalid = false;
+        }
+        if (description.value.trim().length < 10) {
+            description.classList.add('is-invalid');
+            isvalid = false;
+        }
+        if (!hiddenDate.value) {
+            dateInput.classList.add('is-invalid');
+            isvalid = false;
+        }
+        if (timepickerInstance.selectedDates.length === 0) {
+            timepickerContainer.classList.add('is-invalid');
+            isvalid = false;
+        }
+        if (!duration.checkValidity()) {
+            duration.classList.add('is-invalid');
+            isvalid = false;
+        }
+
+        return isvalid;
+
+    }
+
     const submitBtn = document.getElementById('submitReservationBtn');
     const infoModalElement = document.getElementById('InformationProfessor');
-    let reservationSubmitted = false;
-
+    
     if (submitBtn && infoModalElement) {
+        let reservationSubmitted = false;
         const infoModal = bootstrap.Modal.getOrCreateInstance(infoModalElement);
 
         infoModalElement.addEventListener('hidden.bs.modal', function () {
@@ -360,6 +405,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         submitBtn.addEventListener('click', function (event) {
             event.preventDefault();
+
+            if (!validateReservationForm()) {
+                return;
+            }
             reservationSubmitted = true; 
             submitBtn.disabled = true;
             submitBtn.innerText = 'در حال پردازش...';
