@@ -21,6 +21,10 @@ public class UnimaIdentityDbContext : IdentityDbContext<ApplicationUser, Applica
 
     public DbSet<ProfessorInformation> ProfessorsInformation { get; set; }
 
+    public DbSet<Lesson> Lessons { get; set; }
+
+    public DbSet<Schedule> Schedules { get; set; }
+
     public UnimaIdentityDbContext()
     {
 
@@ -82,6 +86,24 @@ public class UnimaIdentityDbContext : IdentityDbContext<ApplicationUser, Applica
                     .HasOne(entity => entity.User)
                     .WithOne(entity => entity.ProfessorInformation)
                     .HasForeignKey<ProfessorInformation>();
+
+        modelBuilder.Entity<Lesson>()
+                    .HasKey(lesson => new { lesson.ProfessorId, lesson.No, lesson.GroupNo });
+
+        modelBuilder.Entity<Lesson>()
+                    .HasOne(entity => entity.Professor)
+                    .WithMany(entity => entity.Lessons)
+                    .HasForeignKey(entity => entity.ProfessorId)
+                    .IsRequired(true);
+
+        modelBuilder.Entity<Schedule>()
+                    .HasKey(schedule => new { schedule.LessonProfessorId, schedule.WeekStatus, schedule.DayOfWeek, schedule.Period });
+
+        modelBuilder.Entity<Schedule>()
+                    .HasOne(entity => entity.Lesson)
+                    .WithMany(entity => entity.Schedules)
+                    .HasForeignKey(entity => new { entity.LessonProfessorId, entity.LessonNo, entity.LessonGroupNo })
+                    .IsRequired(true);
 
         base.OnModelCreating(modelBuilder);
     }

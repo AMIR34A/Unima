@@ -14,6 +14,55 @@ function loadProfessorData(officeNo) {
             document.getElementById('Email').textContent = data.email;
             document.getElementById('Address').textContent = data.address;
             document.getElementById('Description').textContent = data.description;
+            const tbody = document.getElementById("schedule-body");
+            tbody.innerHTML = '';
+            for (i = 0; i < 7; i++) {
+                var tr = document.createElement("tr");
+                var th = document.createElement("th");
+
+                var dayTitle = '';
+                switch (i) {
+                    case 0:
+                        dayTitle = 'شنبه';
+                        break;
+                    case 1:
+                        dayTitle = 'یکشبه';
+                        break;
+                    case 2:
+                        dayTitle = 'دوشنبه';
+                        break;
+                    case 3:
+                        dayTitle = 'سه‌شنبه';
+                        break;
+                    case 4:
+                        dayTitle = 'چهارشنبه';
+                        break;
+                    case 5:
+                        dayTitle = 'پنجشنبه';
+                        break;
+                    case 6:
+                        dayTitle = 'جمعه';
+                        break;
+                }
+                th.textContent = dayTitle;
+                tr.appendChild(th);
+                var cells = Array.from({ length: 6 }, () => {
+                    var td = document.createElement("td");
+                    tr.appendChild(td);
+                    return td;
+                });
+                if (data.schedules.length > i) {
+                    data.schedules[i].forEach((schedule) => {
+
+                        var div = document.createElement("div");
+                        var weekType = schedule.weekStatus == 0 ? 'week-fixed' : schedule.weekStatus == 1 ? 'week-even' : 'week-odd';
+                        div.className = `schedule-item ${weekType}`;
+                        div.innerHTML = `${schedule.lessonTitle}${schedule.weekStatus === 1 ? ' (زوج)' : schedule.weekStatus === 2 ? ' (فرد)' : ''}<br><small class="text-muted">کلاس ${schedule.roomNo}</small>`;
+                        cells[schedule.period].appendChild(div);
+                    });
+                }
+                tbody.appendChild(tr);
+            }
             const modalElement = document.getElementById('InformationProfessor');
             const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
             modal.show();
@@ -39,31 +88,31 @@ document.addEventListener('DOMContentLoaded', function () {
     let triggerButton = null;
 
     if (infoModalEl) {
-        infoModalEl.addEventListener('show.bs.modal', function(event){
+        infoModalEl.addEventListener('show.bs.modal', function (event) {
             triggerButton = event.relatedTarget;
         });
-        infoModalEl.addEventListener('hide.bs.modal', function(){
+        infoModalEl.addEventListener('hide.bs.modal', function () {
             if (triggerButton) {
                 triggerButton.focus();
             }
         });
-        infoModalEl.addEventListener('hidden.bs.modal', function(){
+        infoModalEl.addEventListener('hidden.bs.modal', function () {
             resetInformationProfessorModal();
         })
     }
 
-    function resetInformationProfessorModal(){
+    function resetInformationProfessorModal() {
 
 
         const tabs = infoModalEl.querySelectorAll('.tab');
         const panes = infoModalEl.querySelectorAll('.tab-pane');
-    
+
         tabs.forEach(tab => tab.classList.remove('active'));
         panes.forEach(pane => pane.classList.remove('active', 'show'));
-    
+
         infoModalEl.querySelector('.tab[data-tab="bio"]').classList.add('active');
         infoModalEl.querySelector('#bio').classList.add('active', 'show');
-    
+
         const fieldToClear = ['FullName', 'Department', 'Bio', 'Email', 'Address', 'Description'];
         fieldToClear.forEach(id => {
             const element = document.getElementById(id);
@@ -71,23 +120,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 element.textContent = '';
             }
         });
-    
+
         const scheduleCells = infoModalEl.querySelectorAll('.scheduleTable tbody td');
-        scheduleCells.forEach(cell =>{
+        scheduleCells.forEach(cell => {
             cell.innerHTML = '';
             cell.classList.remove('busy');
         })
-    
+
         const reservationForm = document.getElementById('ReservationForm');
         reservationForm.reset();
-    
+
         const invalidInputs = reservationForm.querySelectorAll('.is-invalid');
-        invalidInputs.forEach(input =>{
+        invalidInputs.forEach(input => {
             input.classList.remove('is-invalid');
         });
-    
+
         const filePreview = document.getElementById('filePreview');
-        if(filePreview){
+        if (filePreview) {
             filePreview.textContent = 'فایل انتخاب نشده است.';
         }
 
@@ -342,23 +391,22 @@ document.addEventListener('DOMContentLoaded', function () {
         uploadContainer.classList.add('feature-disabled');
     }
 
-    function validateReservationForm(){
+    function validateReservationForm() {
         const form = document.getElementById('ReservationForm');
         const subject = document.getElementById('subject');
         const location = document.getElementById('location');
         const description = document.getElementById('description');
         const dateInput = document.getElementById('date-input');
-        const hiddenDate =  document. getElementById('hidden-date');
+        const hiddenDate = document.getElementById('hidden-date');
         const timepickerContainer = document.getElementById('my-inline-timepicker');
         const timepickerInstance = timepickerContainer._flatpickr;
         const duration = document.getElementById('duration');
 
         let isvalid = true;
 
-        form.querySelectorAll('.is-invalid'). forEach(el => el.classList.remove('is-invalid'));
+        form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
 
-        if (subject.value.trim().length < 4)
-        {
+        if (subject.value.trim().length < 4) {
             subject.classList.add('is-invalid');
             isvalid = false;
         }
@@ -389,18 +437,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const submitBtn = document.getElementById('submitReservationBtn');
     const infoModalElement = document.getElementById('InformationProfessor');
-    
+
     if (submitBtn && infoModalElement) {
         let reservationSubmitted = false;
         const infoModal = bootstrap.Modal.getOrCreateInstance(infoModalElement);
 
         infoModalElement.addEventListener('hidden.bs.modal', function () {
-            
+
             if (reservationSubmitted) {
                 showFailModal();
                 reservationSubmitted = false;
             }
-            resetInformationProfessorModal(); 
+            resetInformationProfessorModal();
         });
 
         submitBtn.addEventListener('click', function (event) {
@@ -409,7 +457,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!validateReservationForm()) {
                 return;
             }
-            reservationSubmitted = true; 
+            reservationSubmitted = true;
             submitBtn.disabled = true;
             submitBtn.innerText = 'در حال پردازش...';
 
@@ -425,35 +473,35 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-    flatpickr("#my-inline-timepicker", {
-        enableTime: true,  
-        noCalendar: true,   
-        dateFormat: "H:i",   
-        
-        inline: true,       
-        minTime: "07:30",
-        maxTime: "18:00",
-        defaultDate: "08:00",
-        time_24hr: true      
+flatpickr("#my-inline-timepicker", {
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i",
+
+    inline: true,
+    minTime: "07:30",
+    maxTime: "18:00",
+    defaultDate: "08:00",
+    time_24hr: true
+});
+
+function showSuccessModal() {
+    Swal.fire({
+        title: 'انجام شد!',
+        text: 'رزرو شما با موفقیت ثبت شد.',
+        icon: 'success',
+        confirmButtonText: 'تایید',
+        confirmButtonColor: '#dda853'
+
     });
+}
+function showFailModal() {
+    Swal.fire({
+        title: 'دقایقی دیگر امتحان کنید',
+        text: 'رزرو شما بنا به دلایلی انجام نشد.',
+        icon: 'error',
+        confirmButtonText: 'تایید',
+        confirmButtonColor: '#dda853'
 
-    function showSuccessModal(){
-        Swal.fire({
-            title:'انجام شد!',
-            text: 'رزرو شما با موفقیت ثبت شد.',
-            icon: 'success',
-            confirmButtonText: 'تایید',
-            confirmButtonColor: '#dda853' 
-
-        });
-    }
-        function showFailModal(){
-        Swal.fire({
-            title: 'دقایقی دیگر امتحان کنید',
-            text: 'رزرو شما بنا به دلایلی انجام نشد.',
-            icon: 'error',
-            confirmButtonText: 'تایید',
-            confirmButtonColor: '#dda853' 
-
-        });
-    }
+    });
+}

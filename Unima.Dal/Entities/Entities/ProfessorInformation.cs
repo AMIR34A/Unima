@@ -34,4 +34,6 @@ public class ProfessorInformation
     public required string Department { get; set; }
 
     public required string Role { get; set; }
+
+    public ICollection<Lesson> Lessons { get; set; }
 }

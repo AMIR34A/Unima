@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using Unima.Areas.Professor.Hubs;
+using Unima.Areas.Professor.Models;
 using Unima.Areas.Professor.Models.Status;
 using Unima.Areas.Professor.Models.ViewModels;
 using Unima.Biz.UoW;
@@ -82,10 +84,36 @@ public class StatusController : Controller
     [Route("Professor/Status/GetProfessorInformation/{officeNo:int}")]
     public async Task<IActionResult> GetProfessorInformationAsync(int officeNo)
     {
-        ProfessorInformation? professor = (await _unitOfWork.RepositoryBase<ProfessorInformation>().GetAllAsync("User"))
-                                          .FirstOrDefault(professor => professor.OfficeNo == officeNo);
+        ProfessorInformation? professor = (await _unitOfWork.RepositoryBase<ProfessorInformation>()
+                                          .Include(professor => professor.User)
+                                          .Include(professor => professor.Lessons)
+                                          .ThenInclude(lesson => lesson.Schedules)
+                                          .FirstOrDefaultAsync(professor => professor.OfficeNo == officeNo));
+
         if (professor is null)
             return BadRequest();
+
+        var schedules = professor.Lessons.SelectMany(lesson => lesson.Schedules)
+                                                               .Select(schedule => new ScheduleModel()
+                                                               {
+                                                                   LessonTitle = schedule.Lesson.Title,
+                                                                   GroupNo = schedule.LessonGroupNo,
+                                                                   RoomNo = schedule.RoomNo,
+                                                                   DayOfWeek = schedule.DayOfWeek,
+                                                                   DayTitle = schedule.DayOfWeek switch
+                                                                   {
+                                                                       WeekDay.Saturday => "شنبه",
+                                                                       WeekDay.Sunday => "یکشنبه",
+                                                                       WeekDay.Monday => "دوشنبه",
+                                                                       WeekDay.Thursday => "سه‌شنبه",
+                                                                       WeekDay.Wednesday => "چهارشنبه",
+                                                                       WeekDay.Tuesday => "پنجشنبه",
+                                                                       WeekDay.Friday => "جمعه",
+                                                                       _ => string.Empty
+                                                                   },
+                                                                   WeekStatus = schedule.WeekStatus,
+                                                                   Period = schedule.Period
+                                                               }).GroupBy(schedule => schedule.DayOfWeek);
 
         return Ok(new
         {
@@ -95,7 +123,8 @@ public class StatusController : Controller
             Bio = professor.Biography,
             Email = professor.User.Email,
             Address = professor.Address,
-            Description = professor.Description
+            Description = professor.Description,
+            Schedules = schedules
         });
     }
 

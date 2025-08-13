@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 using Unima.Biz.RepositoriesInterface;
 
@@ -30,6 +31,11 @@ public class RepositoryBase<TEntity, TContext> : IRepositoryBase<TEntity> where 
     public async Task<List<TEntity>> GetAllAsync() => await _dbSet.ToListAsync();
 
     public async Task<List<TEntity>> GetAllAsync(string navigateProperty) => await _dbSet.Include(navigateProperty).ToListAsync();
+
+    public IIncludableQueryable<TEntity,TProperty> Include<TProperty>(Expression<Func<TEntity, TProperty>> navigateProperty)
+    {
+        return _dbSet.Include(navigateProperty);
+    }
 
     public void Update(TEntity entity)
     {
