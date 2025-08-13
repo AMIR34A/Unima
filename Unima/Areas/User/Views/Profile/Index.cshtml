@@ -125,6 +125,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                    <label class="fs-5 d-inline-block text-secondary mb-2">ویرایش برنامه کلاسی</label>
+                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                        <div>
+                            <span id="DefaultSelfLocationSpan"
+                                  class="fs-6">ثبت نشده</span>
+                        </div>
+                        <div class="icon-edit">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#scheduleModal">
+                                <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -415,7 +429,222 @@
             </div>
         </div>
     </div>
+        <div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="scheduleModalLabel">برنامه کلاسی هفتگی</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>روز / زمان</th>
+                                    <th>08:00 - 10:00</th>
+                                    <th>10:00 - 12:00</th>
+                                    <th>12:00 - 14:00</th>
+                                    <th>14:00 - 16:00</th>
+                                    <th>16:00 - 18:00</th>
+                                    <th>18:00 - 20:00</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>شنبه</td>
+                                    <td data-day="شنبه" data-time="08:00 - 10:00" class="form-modal-trigger"></td>
+                                    <td data-day="شنبه" data-time="10:00 - 12:00" class="form-modal-trigger"></td>
+                                    <td data-day="شنبه" data-time="12:00 - 14:00" class="form-modal-trigger"></td>
+                                    <td data-day="شنبه" data-time="14:00 - 16:00" class="form-modal-trigger"></td>
+                                    <td data-day="شنبه" data-time="16:00 - 18:00" class="form-modal-trigger"></td>
+                                    <td data-day="شنبه" data-time="18:00 - 20:00" class="form-modal-trigger"></td>
+                                </tr>
+                                <tr>
+                                    <td>یکشنبه</td>
+                                    <td data-day="یکشنبه" data-time="08:00 - 10:00" class="form-modal-trigger"></td>
+                                    <td data-day="یکشنبه" data-time="10:00 - 12:00" class="form-modal-trigger"></td>
+                                    <td data-day="یکشنبه" data-time="12:00 - 14:00" class="form-modal-trigger"></td>
+                                    <td data-day="یکشنبه" data-time="14:00 - 16:00" class="form-modal-trigger"></td>
+                                    <td data-day="یکشنبه" data-time="16:00 - 18:00" class="form-modal-trigger"></td>
+                                    <td data-day="یکشنبه" data-time="18:00 - 20:00" class="form-modal-trigger"></td>
+                                </tr>
+                                <tr>
+                                    <td>دوشنبه</td>
+                                    <td data-day="دوشنبه" data-time="08:00 - 10:00" class="form-modal-trigger"></td>
+                                    <td data-day="دوشنبه" data-time="10:00 - 12:00" class="form-modal-trigger"></td>
+                                    <td data-day="دوشنبه" data-time="12:00 - 14:00" class="form-modal-trigger"></td>
+                                    <td data-day="دوشنبه" data-time="14:00 - 16:00" class="form-modal-trigger"></td>
+                                    <td data-day="دوشنبه" data-time="16:00 - 18:00" class="form-modal-trigger"></td>
+                                    <td data-day="دوشنبه" data-time="18:00 - 20:00" class="form-modal-trigger"></td>
+                                </tr>
+                                <tr>
+                                    <td>سه‌شنبه</td>
+                                    <td data-day="سه‌شنبه" data-time="08:00 - 10:00" class="form-modal-trigger"></td>
+                                    <td data-day="سه‌شنبه" data-time="10:00 - 12:00" class="form-modal-trigger"></td>
+                                    <td data-day="سه‌شنبه" data-time="12:00 - 14:00" class="form-modal-trigger"></td>
+                                    <td data-day="سه‌شنبه" data-time="14:00 - 16:00" class="form-modal-trigger"></td>
+                                    <td data-day="سه‌شنبه" data-time="16:00 - 18:00" class="form-modal-trigger"></td>
+                                    <td data-day="سه‌شنبه" data-time="18:00 - 20:00" class="form-modal-trigger"></td>
+                                </tr>
+                                <tr>
+                                    <td>چهارشنبه</td>
+                                    <td data-day="چهارشنبه" data-time="08:00 - 10:00" class="form-modal-trigger"></td>
+                                    <td data-day="چهارشنبه" data-time="10:00 - 12:00" class="form-modal-trigger"></td>
+                                    <td data-day="چهارشنبه" data-time="12:00 - 14:00" class="form-modal-trigger"></td>
+                                    <td data-day="چهارشنبه" data-time="14:00 - 16:00" class="form-modal-trigger"></td>
+                                    <td data-day="چهارشنبه" data-time="16:00 - 18:00" class="form-modal-trigger"></td>
+                                    <td data-day="چهارشنبه" data-time="18:00 - 20:00" class="form-modal-trigger"></td>
+                                </tr>
+                                <tr>
+                                    <td>پنج‌شنبه</td>
+                                    <td data-day="پنج‌شنبه" data-time="08:00 - 10:00" class="form-modal-trigger"></td>
+                                    <td data-day="پنج‌شنبه" data-time="10:00 - 12:00" class="form-modal-trigger"></td>
+                                    <td data-day="پنج‌شنبه" data-time="12:00 - 14:00" class="form-modal-trigger"></td>
+                                    <td data-day="پنج‌شنبه" data-time="14:00 - 16:00" class="form-modal-trigger"></td>
+                                    <td data-day="پنج‌شنبه" data-time="16:00 - 18:00" class="form-modal-trigger"></td>
+                                    <td data-day="پنج‌شنبه" data-time="18:00 - 20:00" class="form-modal-trigger"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="modal fade" id="classFormModal" tabindex="-1" aria-labelledby="classFormModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="height: 70px;">
+                    <h6 class="modal-title" id="classFormModalLabel">افزودن/ویرایش کلاس</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="classForm">
+                        <div class="mb-3">
+                            <label for="course-name" class="form-label">نام درس</label>
+                            <select class="form-select" id="course-name" required>
+                                <option value="">انتخاب کنید...</option>
+                                <option value="ریاضی عمومی ۱">ریاضی عمومی ۱</option>
+                                <option value="برنامه نویسی پیشرفته">برنامه نویسی پیشرفته</option>
+                                <option value="ساختمان داده">ساختمان داده</option>
+                                <option value="سیستم عامل">سیستم عامل</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="group-number" class="form-label">شماره گروه</label>
+                            <select class="form-select" id="group-number" required>
+                                <option value="">انتخاب کنید...</option>
+                                <option value="۱">۱</option>
+                                <option value="۲">۲</option>
+                                <option value="۳">۳</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="faculty" class="form-label">دانشکده</label>
+                            <select class="form-select" id="faculty" required>
+                                <option value="">انتخاب کنید...</option>
+                                <option value="فنی و مهندسی">فنی و مهندسی</option>
+                                <option value="علوم پایه">علوم پایه</option>
+                                <option value="علوم انسانی">علوم انسانی</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="class-number" class="form-label">شماره کلاس</label>
+                            <select class="form-select" id="class-number" required>
+                                <option value="">انتخاب کنید...</option>
+                                <option value="10۱">10۱</option>
+                                <option value="۲۰۲">۲۰۲</option>
+                                <option value="۳۰۳">۳۰۳</option>
+                                <option value="۴۰۴">۴۰۴</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="week-type" class="form-label">نوع هفته</label>
+                            <select class="form-select" id="week-type" required>
+                                <option value="ثابت">ثابت</option>
+                                <option value="زوج">زوج</option>
+                                <option value="فرد">فرد</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 submitCode">ثبت</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <section>
     @await Html.PartialAsync("_SupportWidgetPartial", Model.QuestionAndAnswers)
 </section>
+
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const scheduleModal = new bootstrap.Modal(document.getElementById('scheduleModal'));
+            const classFormModal = new bootstrap.Modal(document.getElementById('classFormModal'));
+            const classForm = document.getElementById('classForm');
+            const classFormModalTitle = document.getElementById('classFormModalLabel');
+            let currentCell = null;
+
+            function initializeSelect2() {
+                $('#classFormModal select').select2({
+                    theme: "bootstrap-5",
+                    dropdownParent: $('#classFormModal'),
+                    language: "fa",
+                    placeholder: "انتخاب کنید...",
+                    allowClear: true
+                });
+            }
+            document.getElementById('scheduleModal').addEventListener('click', function(e) {
+                const clickedElement = e.target.closest('td[data-day]');
+                if (clickedElement) {
+                    currentCell = clickedElement;
+                    const day = currentCell.getAttribute('data-day');
+                    const time = currentCell.getAttribute('data-time');
+                    
+                    classFormModalTitle.innerHTML = `افزودن/ویرایش کلاس<br><small class="text-muted"> (${day}، ${time})</small>`;
+                    
+                    classFormModal.show();
+                    
+                    resetForm();
+                }
+            });
+
+            document.getElementById('classFormModal').addEventListener('shown.bs.modal', function() {
+                initializeSelect2();
+            });
+
+            classForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                
+                const courseName = $('#course-name').val();
+                const groupNumber = $('#group-number').val();
+                const faculty = $('#faculty').val();
+                const classNumber = $('#class-number').val();
+                const weekType = $('#week-type').val();
+
+                if (currentCell) {
+                    currentCell.innerHTML = `
+                        <div class="class-info">
+                            <strong>${courseName}</strong><br>
+                            گروه: ${groupNumber}  
+                            دانشکده: ${faculty}<br>
+                            کلاس: ${classNumber}  
+                            هفته: ${weekType}
+                        </div>
+                    `;
+                }
+
+                classFormModal.hide();
+            });
+
+            function resetForm() {
+                $('#course-name').val(null).trigger('change');
+                $('#group-number').val(null).trigger('change');
+                $('#faculty').val(null).trigger('change');
+                $('#class-number').val(null).trigger('change');
+                $('#week-type').val('ثابت').trigger('change');
+            }
+        });
+    </script>
