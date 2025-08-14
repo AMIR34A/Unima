@@ -378,18 +378,18 @@
         .gender-icon{
             font-size: 2rem;
         }
-        .container {
-            margin-top: 50px;
-        }
+        .container { margin-top: 50px; }
         .table-bordered {
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
             border: none;
+            table-layout: fixed;
+            width: 100%;
         }
         .table-bordered th, .table-bordered td {
             text-align: center;
-            vertical-align: middle;
+            vertical-align: top;
             cursor: pointer;
             border-color: #e9ecef;
         }
@@ -401,60 +401,90 @@
         }
         .table-bordered td {
             height: 90px;
-            min-width: 140px;
             position: relative;
             background-color: #ffffff;
-            transition: background-color 0.3s, transform 0.2s;
-            padding: 2px;
-        }
-        .table-bordered td:hover {
-            background-color: #eef1f5;
-            transform: scale(1.01);
-        }
-        .class-info {
-            font-size: 13px;
-            line-height: 1.5;
-            white-space: pre-wrap;
+            transition: background-color 0.2s;
+            padding: 8px;
             text-align: right;
-            color: #555;
+            overflow-y: auto;
         }
-        .modal-content {
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        .modal-header {
-            background-color: #4a90e2;
-            color: #fff;
-            border-bottom: none;
-        }
-        .modal-title {
+        .table-bordered td:hover { background-color: #eef1f5; }
+        .table-bordered tbody th {
+            background-color: #f1f3f5;
             font-weight: 500;
-            color: black !important;
+            color: #333;
+            vertical-align: middle;
         }
-        .btn-primary {
+        .modal-content { border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .modal-header { background-color: #4a90e2; color: #fff; border-bottom: none; }
+        .btn-primary { background-color: #4a90e2; border-color: #4a90e2; }
+        .btn-primary:hover { background-color: #357bd8; border-color: #357bd8; }
+        .schedule-item-container { display: flex; flex-direction: column; gap: 4px; }
+        .schedule-item {
+            position: relative;
+            border-radius: 4px;
+            padding: 5px;
+            padding-bottom: 25px; 
+            font-size: 0.8rem;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+        .schedule-item.week-even { background-color: #e9f7ef; border-color: #a9d6b8; }
+        .schedule-item.week-odd { background-color: #eaf1fa; border-color: #a4c4e9; }
+        .schedule-item.week-fixed { background-color: #fff9e6; border-color: #ffe69c; }
+        
+        .schedule-item .action-buttons {
+            position: absolute;
+            bottom: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            display: flex;
+            gap: 5px;
+            padding: 3px 6px;
+            border-radius: 12px;
+        }
+        .schedule-item:hover .action-buttons { opacity: 1; }
+        .schedule-item .action-buttons button {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: none;
+            background-color: #fff;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .schedule-item .action-buttons .delete-btn { color: #dc3545; }
+        .schedule-item .action-buttons .edit-btn { color: #28a745; }
+        .schedule-item .action-buttons .add-other-week-btn { color: #0dcaf0; }
+
+        .cell-actions {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        td:hover > .cell-actions { opacity: 1; }
+        .add-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
             background-color: #4a90e2;
-            border-color: #4a90e2;
-            font-weight: 500;
-            border-radius: 8px;
-            transition: background-color 0.3s;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
         }
-        .btn-primary:hover {
-            background-color: #357bd8;
-            border-color: #357bd8;
-        }
-        .select2-container--bootstrap-5 {
-            width: 100% !important;
-            margin-bottom: 12px;
-        }
-        .select2-container .select2-selection--single {
-            height: calc(2.5rem + 2px);
-        }
-        .select2-container .select2-selection--single .select2-selection__rendered {
-            line-height: 2.5rem;
-        }
-        .select2-container .select2-selection--single .select2-selection__arrow {
-            height: 2.5rem;
-        }
+        .add-btn:hover { transform: scale(1.1); }
 
         tbody tr td{
             text-align: center;

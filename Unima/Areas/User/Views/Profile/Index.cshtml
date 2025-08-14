@@ -429,7 +429,7 @@
             </div>
         </div>
     </div>
-        <div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -438,93 +438,37 @@
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover">
+                        <table class="scheduleTable table-bordered">
                             <thead>
                                 <tr>
-                                    <th>روز / زمان</th>
+                                    <th>زمان / روز</th>
                                     <th>08:00 - 10:00</th>
                                     <th>10:00 - 12:00</th>
                                     <th>12:00 - 14:00</th>
                                     <th>14:00 - 16:00</th>
                                     <th>16:00 - 18:00</th>
-                                    <th>18:00 - 20:00</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>شنبه</td>
-                                    <td data-day="شنبه" data-time="08:00 - 10:00" class="form-modal-trigger"></td>
-                                    <td data-day="شنبه" data-time="10:00 - 12:00" class="form-modal-trigger"></td>
-                                    <td data-day="شنبه" data-time="12:00 - 14:00" class="form-modal-trigger"></td>
-                                    <td data-day="شنبه" data-time="14:00 - 16:00" class="form-modal-trigger"></td>
-                                    <td data-day="شنبه" data-time="16:00 - 18:00" class="form-modal-trigger"></td>
-                                    <td data-day="شنبه" data-time="18:00 - 20:00" class="form-modal-trigger"></td>
-                                </tr>
-                                <tr>
-                                    <td>یکشنبه</td>
-                                    <td data-day="یکشنبه" data-time="08:00 - 10:00" class="form-modal-trigger"></td>
-                                    <td data-day="یکشنبه" data-time="10:00 - 12:00" class="form-modal-trigger"></td>
-                                    <td data-day="یکشنبه" data-time="12:00 - 14:00" class="form-modal-trigger"></td>
-                                    <td data-day="یکشنبه" data-time="14:00 - 16:00" class="form-modal-trigger"></td>
-                                    <td data-day="یکشنبه" data-time="16:00 - 18:00" class="form-modal-trigger"></td>
-                                    <td data-day="یکشنبه" data-time="18:00 - 20:00" class="form-modal-trigger"></td>
-                                </tr>
-                                <tr>
-                                    <td>دوشنبه</td>
-                                    <td data-day="دوشنبه" data-time="08:00 - 10:00" class="form-modal-trigger"></td>
-                                    <td data-day="دوشنبه" data-time="10:00 - 12:00" class="form-modal-trigger"></td>
-                                    <td data-day="دوشنبه" data-time="12:00 - 14:00" class="form-modal-trigger"></td>
-                                    <td data-day="دوشنبه" data-time="14:00 - 16:00" class="form-modal-trigger"></td>
-                                    <td data-day="دوشنبه" data-time="16:00 - 18:00" class="form-modal-trigger"></td>
-                                    <td data-day="دوشنبه" data-time="18:00 - 20:00" class="form-modal-trigger"></td>
-                                </tr>
-                                <tr>
-                                    <td>سه‌شنبه</td>
-                                    <td data-day="سه‌شنبه" data-time="08:00 - 10:00" class="form-modal-trigger"></td>
-                                    <td data-day="سه‌شنبه" data-time="10:00 - 12:00" class="form-modal-trigger"></td>
-                                    <td data-day="سه‌شنبه" data-time="12:00 - 14:00" class="form-modal-trigger"></td>
-                                    <td data-day="سه‌شنبه" data-time="14:00 - 16:00" class="form-modal-trigger"></td>
-                                    <td data-day="سه‌شنبه" data-time="16:00 - 18:00" class="form-modal-trigger"></td>
-                                    <td data-day="سه‌شنبه" data-time="18:00 - 20:00" class="form-modal-trigger"></td>
-                                </tr>
-                                <tr>
-                                    <td>چهارشنبه</td>
-                                    <td data-day="چهارشنبه" data-time="08:00 - 10:00" class="form-modal-trigger"></td>
-                                    <td data-day="چهارشنبه" data-time="10:00 - 12:00" class="form-modal-trigger"></td>
-                                    <td data-day="چهارشنبه" data-time="12:00 - 14:00" class="form-modal-trigger"></td>
-                                    <td data-day="چهارشنبه" data-time="14:00 - 16:00" class="form-modal-trigger"></td>
-                                    <td data-day="چهارشنبه" data-time="16:00 - 18:00" class="form-modal-trigger"></td>
-                                    <td data-day="چهارشنبه" data-time="18:00 - 20:00" class="form-modal-trigger"></td>
-                                </tr>
-                                <tr>
-                                    <td>پنج‌شنبه</td>
-                                    <td data-day="پنج‌شنبه" data-time="08:00 - 10:00" class="form-modal-trigger"></td>
-                                    <td data-day="پنج‌شنبه" data-time="10:00 - 12:00" class="form-modal-trigger"></td>
-                                    <td data-day="پنج‌شنبه" data-time="12:00 - 14:00" class="form-modal-trigger"></td>
-                                    <td data-day="پنج‌شنبه" data-time="14:00 - 16:00" class="form-modal-trigger"></td>
-                                    <td data-day="پنج‌شنبه" data-time="16:00 - 18:00" class="form-modal-trigger"></td>
-                                    <td data-day="پنج‌شنبه" data-time="18:00 - 20:00" class="form-modal-trigger"></td>
-                                </tr>
-                            </tbody>
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-        <div class="modal fade" id="classFormModal" tabindex="-1" aria-labelledby="classFormModalLabel" aria-hidden="true">
+    <div class="modal fade" id="classFormModal" tabindex="-1" aria-labelledby="classFormModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header" style="height: 70px;">
-                    <h6 class="modal-title" id="classFormModalLabel">افزودن/ویرایش کلاس</h6>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="classFormModalLabel">افزودن/ویرایش کلاس</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="classForm">
-                        <div class="mb-3">
+                    <form id="classForm" novalidate>
+                         <div class="mb-3">
                             <label for="course-name" class="form-label">نام درس</label>
                             <select class="form-select" id="course-name" required>
-                                <option value="">انتخاب کنید...</option>
+                                <option value="" disabled selected>انتخاب کنید...</option>
                                 <option value="ریاضی عمومی ۱">ریاضی عمومی ۱</option>
                                 <option value="برنامه نویسی پیشرفته">برنامه نویسی پیشرفته</option>
                                 <option value="ساختمان داده">ساختمان داده</option>
@@ -534,16 +478,16 @@
                         <div class="mb-3">
                             <label for="group-number" class="form-label">شماره گروه</label>
                             <select class="form-select" id="group-number" required>
-                                <option value="">انتخاب کنید...</option>
-                                <option value="۱">۱</option>
-                                <option value="۲">۲</option>
-                                <option value="۳">۳</option>
+                                <option value="" disabled selected>انتخاب کنید...</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="faculty" class="form-label">دانشکده</label>
                             <select class="form-select" id="faculty" required>
-                                <option value="">انتخاب کنید...</option>
+                                <option value="" disabled selected>انتخاب کنید...</option>
                                 <option value="فنی و مهندسی">فنی و مهندسی</option>
                                 <option value="علوم پایه">علوم پایه</option>
                                 <option value="علوم انسانی">علوم انسانی</option>
@@ -552,11 +496,11 @@
                         <div class="mb-3">
                             <label for="class-number" class="form-label">شماره کلاس</label>
                             <select class="form-select" id="class-number" required>
-                                <option value="">انتخاب کنید...</option>
-                                <option value="10۱">10۱</option>
-                                <option value="۲۰۲">۲۰۲</option>
-                                <option value="۳۰۳">۳۰۳</option>
-                                <option value="۴۰۴">۴۰۴</option>
+                                <option value="" disabled selected>انتخاب کنید...</option>
+                                <option value="101">101</option>
+                                <option value="202">202</option>
+                                <option value="303">303</option>
+                                <option value="404">404</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -568,6 +512,7 @@
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary w-100 submitCode">ثبت</button>
+                        <button type="button" class="btn btn-danger w-100 mt-2 submitCode" id="deleteClassBtn" style="display:none; background-color:#d9534f !important; color:white !important; ">حذف</button>
                     </form>
                 </div>
             </div>
@@ -580,71 +525,244 @@
 
     
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const scheduleModal = new bootstrap.Modal(document.getElementById('scheduleModal'));
-            const classFormModal = new bootstrap.Modal(document.getElementById('classFormModal'));
-            const classForm = document.getElementById('classForm');
-            const classFormModalTitle = document.getElementById('classFormModalLabel');
-            let currentCell = null;
+    document.addEventListener('DOMContentLoaded', function () {
+        const scheduleModalEl = document.getElementById('scheduleModal');
+        const classFormModalEl = document.getElementById('classFormModal');
+        const classForm = document.getElementById('classForm');
+        const classFormModalTitle = document.getElementById('classFormModalLabel');
+        const deleteClassBtn = document.getElementById('deleteClassBtn');
+        const scheduleTableBody = scheduleModalEl.querySelector('tbody');
+        
+        const scheduleModal = new bootstrap.Modal(scheduleModalEl);
+        const classFormModal = new bootstrap.Modal(classFormModalEl);
 
-            function initializeSelect2() {
-                $('#classFormModal select').select2({
-                    theme: "bootstrap-5",
-                    dropdownParent: $('#classFormModal'),
-                    language: "fa",
-                    placeholder: "انتخاب کنید...",
-                    allowClear: true
-                });
+        let currentCell = null;
+        let currentScheduleItem = null;
+        
+        const days = ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنج‌شنبه"];
+        const times = ["08:00 - 10:00", "10:00 - 12:00", "12:00 - 14:00", "14:00 - 16:00", "16:00 - 18:00"];
+
+        const facultyMap = {
+            'ریاضی عمومی ۱': 'علوم پایه',
+            'برنامه نویسی پیشرفته': 'فنی و مهندسی',
+            'ساختمان داده': 'فنی و مهندسی',
+            'سیستم عامل': 'فنی و مهندسی',
+        };
+        const weekTypeClasses = { 'ثابت': 'week-fixed', 'زوج': 'week-even', 'فرد': 'week-odd' };
+
+        function initializeSelect2() {
+            $('#classFormModal select').select2({
+                theme: "bootstrap-5",
+                dropdownParent: $('#classFormModal'),
+                language: "fa",
+                placeholder: "انتخاب کنید...",
+                allowClear: true
+            });
+        }
+        
+        function hasConflict(data) {
+            const allItemsInCell = Array.from(currentCell.querySelectorAll('.schedule-item'));
+            const otherItems = allItemsInCell.filter(item => item !== currentScheduleItem);
+            const otherWeekTypes = otherItems.map(item => item.dataset.weekType);
+
+            if (otherWeekTypes.includes('ثابت') || (data.weekType === 'ثابت' && otherItems.length > 0) || otherWeekTypes.includes(data.weekType)) {
+                return true;
             }
-            document.getElementById('scheduleModal').addEventListener('click', function(e) {
-                const clickedElement = e.target.closest('td[data-day]');
-                if (clickedElement) {
-                    currentCell = clickedElement;
-                    const day = currentCell.getAttribute('data-day');
-                    const time = currentCell.getAttribute('data-time');
-                    
-                    classFormModalTitle.innerHTML = `افزودن/ویرایش کلاس<br><small class="text-muted"> (${day}، ${time})</small>`;
-                    
-                    classFormModal.show();
-                    
-                    resetForm();
-                }
-            });
+            return false;
+        }
 
-            document.getElementById('classFormModal').addEventListener('shown.bs.modal', function() {
-                initializeSelect2();
-            });
+        function createScheduleItemElement(data) {
+            const item = document.createElement('div');
+            item.className = `schedule-item ${weekTypeClasses[data.weekType]}`;
+            item.dataset.weekType = data.weekType;
+            item.innerHTML = `
+                <p class="mb-0" data-course-name="${data.courseName}"><strong>${data.courseName}</strong></p>
+                <p class="mb-0 small text-muted">گروه: ${data.groupNumber} | کلاس: ${data.classNumber}</p>
+            `;
+            const actionButtons = document.createElement('div');
+            actionButtons.className = 'action-buttons';
+            
+            const editBtn = document.createElement('button');
+            editBtn.className = 'edit-btn';
+            editBtn.title = 'ویرایش';
+            editBtn.innerHTML = `<i class="fa-solid fa-pencil"></i>`;
+            editBtn.onclick = (e) => handleEditClick(e, item);
 
-            classForm.addEventListener('submit', function (e) {
-                e.preventDefault();
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.title = 'حذف';
+            deleteBtn.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
+            deleteBtn.onclick = (e) => handleDeleteClick(e, item);
+            
+            actionButtons.append(editBtn, deleteBtn);
+            item.appendChild(actionButtons);
+            return item;
+        }
+
+        function updateActionButtonsInCell(cell) {
+            if (!cell) return;
+            const items = Array.from(cell.querySelectorAll('.schedule-item'));
+            const weekTypes = items.map(item => item.dataset.weekType);
+            const hasOdd = weekTypes.includes('فرد');
+            const hasEven = weekTypes.includes('زوج');
+
+            items.forEach(item => {
+                const actionButtons = item.querySelector('.action-buttons');
+                let addBtn = item.querySelector('.add-other-week-btn');
+                const itemWeekType = item.dataset.weekType;
                 
-                const courseName = $('#course-name').val();
-                const groupNumber = $('#group-number').val();
-                const faculty = $('#faculty').val();
-                const classNumber = $('#class-number').val();
-                const weekType = $('#week-type').val();
+                // Remove existing button first to avoid duplicates
+                if(addBtn) addBtn.remove();
 
-                if (currentCell) {
-                    currentCell.innerHTML = `
-                        <div class="class-info">
-                            <strong>${courseName}</strong><br>
-                            گروه: ${groupNumber}  
-                            دانشکده: ${faculty}<br>
-                            کلاس: ${classNumber}  
-                            هفته: ${weekType}
-                        </div>
-                    `;
+                if ((itemWeekType === 'فرد' && !hasEven) || (itemWeekType === 'زوج' && !hasOdd)) {
+                    const otherWeekType = itemWeekType === 'فرد' ? 'زوج' : 'فرد';
+                    addBtn = document.createElement('button');
+                    addBtn.className = 'add-other-week-btn';
+                    addBtn.title = `افزودن هفته ${otherWeekType}`;
+                    addBtn.innerHTML = '<i class="fa-solid fa-plus"></i>';
+                    addBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        currentCell = cell;
+                        currentScheduleItem = null;
+                        openFormModal(null, otherWeekType);
+                    };
+                    actionButtons.appendChild(addBtn);
                 }
-
-                classFormModal.hide();
             });
-
-            function resetForm() {
-                $('#course-name').val(null).trigger('change');
-                $('#group-number').val(null).trigger('change');
-                $('#faculty').val(null).trigger('change');
-                $('#class-number').val(null).trigger('change');
-                $('#week-type').val('ثابت').trigger('change');
+        }
+        
+        function updateCellPlaceholder(cell) {
+            if (!cell) return;
+            const container = cell.querySelector('.schedule-item-container');
+            if (!container || container.children.length === 0) {
+                cell.innerHTML = '<div class="cell-actions"><button class="add-btn"><i class="fa-solid fa-plus"></i></button></div>';
             }
-        });
+        }
+        
+        // --- Event Handlers ---
+        
+        function handleAddClick(cell) {
+            currentCell = cell;
+            currentScheduleItem = null;
+            openFormModal();
+        }
+
+        function handleEditClick(e, item) {
+            e.stopPropagation();
+            currentCell = item.closest('td');
+            currentScheduleItem = item;
+            openFormModal(item);
+        }
+
+        function handleDeleteClick(e, item) {
+            e.stopPropagation();
+            const cell = item.closest('td');
+            item.remove();
+            updateCellPlaceholder(cell);
+            updateActionButtonsInCell(cell);
+        }
+        
+        function onFormSubmit(e) {
+            e.preventDefault();
+            const formData = {
+                courseName: $('#course-name').val(),
+                groupNumber: $('#group-number').val(),
+                classNumber: $('#class-number').val(),
+                weekType: $('#week-type').val()
+            };
+
+            if (!formData.courseName || !formData.groupNumber || !formData.classNumber) {
+                alert('لطفاً تمام فیلدها را پر کنید.');
+                return;
+            }
+            if (hasConflict(formData)) {
+                alert('تداخل زمانی وجود دارد. امکان ثبت این کلاس وجود ندارد.');
+                return;
+            }
+            const newItem = createScheduleItemElement(formData);
+            if (currentScheduleItem) {
+                currentScheduleItem.replaceWith(newItem);
+            } else {
+                let container = currentCell.querySelector('.schedule-item-container');
+                if (!container) {
+                    currentCell.innerHTML = '';
+                    container = document.createElement('div');
+                    container.className = 'schedule-item-container';
+                    currentCell.appendChild(container);
+                }
+                container.appendChild(newItem);
+            }
+            updateActionButtonsInCell(currentCell);
+            classFormModal.hide();
+        }
+        
+        function openFormModal(itemToEdit = null, preselectedWeekType = null) {
+            classForm.reset();
+            $('#classFormModal select').val(null).trigger('change');
+            
+            const day = currentCell.dataset.day;
+            const time = currentCell.dataset.time;
+            classFormModalTitle.innerHTML = `کلاس برای: <small class="text-white-50">${day}، ${time}</small>`;
+            
+            if (itemToEdit) {
+                const textContent = itemToEdit.querySelector('.small.text-muted').innerText;
+                const data = {
+                    courseName: itemToEdit.querySelector('[data-course-name]').dataset.courseName,
+                    groupNumber: textContent.match(/گروه: (\d+)/)[1],
+                    classNumber: textContent.match(/کلاس: (\d+)/)[1],
+                    weekType: itemToEdit.dataset.weekType,
+                };
+                
+                $('#course-name').val(data.courseName).trigger('change');
+                $('#group-number').val(data.groupNumber).trigger('change');
+                $('#faculty').val(facultyMap[data.courseName] || '').trigger('change');
+                $('#class-number').val(data.classNumber).trigger('change');
+                $('#week-type').val(data.weekType).trigger('change');
+                $('#week-type').prop('disabled', false);
+                deleteClassBtn.style.display = 'block';
+
+            } else {
+                $('#week-type').val(preselectedWeekType || 'ثابت').trigger('change');
+                $('#week-type').prop('disabled', !!preselectedWeekType);
+                deleteClassBtn.style.display = 'none';
+            }
+            classFormModal.show();
+        }
+        
+        // --- Initialization ---
+        
+        function initializeTable() {
+            scheduleTableBody.innerHTML = '';
+            days.forEach(day => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<th>${day}</th>` + times.map(time => 
+                    `<td data-day="${day}" data-time="${time}">
+                        <div class="cell-actions"><button class="add-btn"><i class="fa-solid fa-plus"></i></button></div>
+                    </td>`
+                ).join('');
+                scheduleTableBody.appendChild(row);
+            });
+        }
+        
+        function initializeApp() {
+            initializeTable();
+            scheduleTableBody.addEventListener('click', (e) => {
+                const target = e.target;
+                const cell = target.closest('td[data-day]');
+                if (cell && target.closest('.add-btn')) {
+                    handleAddClick(cell);
+                }
+            });
+            classForm.addEventListener('submit', onFormSubmit);
+            deleteClassBtn.addEventListener('click', () => {
+                if (currentScheduleItem) {
+                    handleDeleteClick(new Event('click'), currentScheduleItem);
+                    classFormModal.hide();
+                }
+            });
+            classFormModalEl.addEventListener('shown.bs.modal', initializeSelect2);
+        }
+        
+        initializeApp();
+    });
     </script>
