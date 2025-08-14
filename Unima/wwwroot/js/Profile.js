@@ -842,4 +842,227 @@ document.addEventListener('DOMContentLoaded', function() {
             classFormModalEl.addEventListener('shown.bs.modal', initializeSelect2);
         }      
         initializeApp();
+
+        
+    const addCourseBtn = document.getElementById('addCourseBtn');
+    const courseForm = document.getElementById('courseForm');
+    const saveCourseBtn = document.getElementById('saveCourseBtn');
+    const coursesTableBody = document.getElementById('coursesTableBody');
+    const courseModalTitle = document.getElementById('courseModalTitle');
+    const courseIdInput = document.getElementById('courseId');
+    const courseNameInput = document.getElementById('courseName');
+    const courseCodeInput = document.getElementById('courseCode');
+    const courseGroupInput = document.getElementById('courseGroup');
+    const courseFormModal = new bootstrap.Modal(document.getElementById('courseFormModal'));
+    const coursesListModal = new bootstrap.Modal(document.getElementById('coursesListModal'));
+
+    if (addCourseBtn) {
+        addCourseBtn.addEventListener('click', () => {
+            courseForm.reset();
+            courseIdInput.value = '';
+            courseCodeInput.disabled = false;
+            courseForm.classList.remove('was-validated');
+
+            courseModalTitle.textContent = 'افزودن درس جدید';
+            saveCourseBtn.textContent = 'ذخیره';
+            saveCourseBtn.className = 'btn btn-danger'; 
+
+            coursesListModal.hide();
+            courseFormModal.show();
+        });
+    }
+
+    if (saveCourseBtn) {
+        saveCourseBtn.addEventListener('click', function() {
+            if (!courseForm.checkValidity()) {
+                courseForm.classList.add('was-validated');
+                return;
+            }
+            const courseId = courseIdInput.value;
+            if (courseId) {
+                updateCourse(courseId); 
+            } else {
+                addNewCourse();
+            }
+            courseFormModal.hide();
+            coursesListModal.show();
+        });
+    }
+
+    if (coursesTableBody) {
+        coursesTableBody.addEventListener('click', function(event) {
+            const target = event.target;
+            const link = target.closest('a');
+            if (!link) return;
+
+            const row = target.closest('tr');
+            const courseId = row.dataset.courseId;
+
+            if (link.classList.contains('delete-btn')) {
+                if (confirm(`آیا از حذف درس با کد "${courseId}" مطمئن هستید؟`)) {
+                    row.remove();
+                }
+            } else if (link.classList.contains('edit-btn')) {
+                prepareCourseEditForm(row); 
+            }
+        });
+    }
+
+    function addNewCourse() {
+        const newRow = document.createElement('tr');
+        const courseCode = courseCodeInput.value;
+        newRow.dataset.courseId = courseCode;
+        newRow.innerHTML = `
+            <td>${courseNameInput.value}</td>
+            <td>${courseCode}</td>
+            <td>${courseGroupInput.value}</td>
+            <td class="text-center">
+                <a href="#" class="text-primary mx-2 edit-btn" title="ویرایش"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="#" class="text-danger mx-2 delete-btn" title="حذف"><i class="fa-solid fa-trash-can"></i></a>
+            </td>`;
+        coursesTableBody.appendChild(newRow);
+    }
+
+    function updateCourse(courseId) {
+        const rowToUpdate = coursesTableBody.querySelector(`tr[data-course-id="${courseId}"]`);
+        if (rowToUpdate) {
+            rowToUpdate.children[0].textContent = courseNameInput.value;
+            rowToUpdate.children[1].textContent = courseCodeInput.value;
+            rowToUpdate.children[2].textContent = courseGroupInput.value;
+        }
+    }
+
+    function prepareCourseEditForm(row) {
+        const courseId = row.dataset.courseId;
+        const courseName = row.children[0].textContent;
+        const courseGroup = row.children[2].textContent;
+
+        courseForm.reset();
+        courseForm.classList.remove('was-validated');
+        courseIdInput.value = courseId;
+        courseNameInput.value = courseName;
+        courseCodeInput.value = courseId;
+        courseCodeInput.disabled = true;
+        courseGroupInput.value = courseGroup;
+
+        courseModalTitle.textContent = 'ویرایش درس';
+        saveCourseBtn.textContent = 'بروزرسانی';
+        saveCourseBtn.className = 'btn btn-danger'; 
+
+        coursesListModal.hide();
+        courseFormModal.show();
+    }
+    const addLocationBtn = document.getElementById('addLocationBtn');
+    const locationForm = document.getElementById('locationForm');
+    const saveLocationBtn = document.getElementById('saveLocationBtn');
+    const locationsTableBody = document.getElementById('locationsTableBody');
+    const locationModalTitle = document.getElementById('locationModalTitle');
+    const locationIdInput = document.getElementById('locationId');
+    const locationNameInput = document.getElementById('locationName');
+    const locationAddressInput = document.getElementById('locationAddress');
+    const locationMapInput = document.getElementById('locationMap');
+    const locationFormModal = new bootstrap.Modal(document.getElementById('locationFormModal'));
+    const locationsListModal = new bootstrap.Modal(document.getElementById('locationsListModal'));
+
+    if (addLocationBtn) {
+        addLocationBtn.addEventListener('click', () => {
+            locationForm.reset();
+            locationIdInput.value = '';
+            locationNameInput.disabled = false;
+            locationForm.classList.remove('was-validated');
+
+            locationModalTitle.textContent = 'افزودن مکان جدید';
+            saveLocationBtn.textContent = 'ذخیره';
+            saveLocationBtn.className = 'btn btn-danger';
+
+            locationsListModal.hide();
+            locationFormModal.show();
+        });
+    }
+
+    if (saveLocationBtn) {
+        saveLocationBtn.addEventListener('click', function() {
+            if (!locationForm.checkValidity()) {
+                locationForm.classList.add('was-validated');
+                return;
+            }
+            const locationId = locationIdInput.value;
+            if (locationId) {
+                updateLocation(locationId); 
+            } else {
+                addNewLocation();
+            }
+            locationFormModal.hide();
+            locationsListModal.show();
+        });
+    }
+
+    if (locationsTableBody) {
+        locationsTableBody.addEventListener('click', function(event) {
+            const target = event.target;
+            const link = target.closest('a');
+            if (!link) return;
+
+            const row = target.closest('tr');
+            const locationId = row.dataset.locationId;
+
+            if (link.classList.contains('delete-btn')) {
+                if (confirm(`آیا از حذف مکان "${locationId}" مطمئن هستید؟`)) {
+                    row.remove();
+                }
+            } else if (link.classList.contains('edit-btn')) {
+                prepareLocationEditForm(row); 
+            }
+        });
+    }
+
+    function createLocationTableRow(name, address, mapLink) {
+        const mapIcon = mapLink ?
+            `<a href="${mapLink}" target="_blank" class="text-success mx-2" title="نمایش در نقشه"><i class="fa-solid fa-map-marked-alt"></i></a>` : '';
+        return `
+            <td>${name}</td>
+            <td>${address}</td>
+            <td class="text-center">
+                ${mapIcon}
+                <a href="#" class="text-primary mx-2 edit-btn" title="ویرایش"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="#" class="text-danger mx-2 delete-btn" title="حذف"><i class="fa-solid fa-trash-can"></i></a>
+            </td>`;
+    }
+
+    function addNewLocation() {
+        const newRow = document.createElement('tr');
+        const locationName = locationNameInput.value;
+        newRow.dataset.locationId = locationName;
+        newRow.innerHTML = createLocationTableRow(locationName, locationAddressInput.value, locationMapInput.value);
+        locationsTableBody.appendChild(newRow);
+    }
+
+    function updateLocation(locationId) {
+        const rowToUpdate = locationsTableBody.querySelector(`tr[data-location-id="${locationId}"]`);
+        if (rowToUpdate) {
+            rowToUpdate.innerHTML = createLocationTableRow(locationNameInput.value, locationAddressInput.value, locationMapInput.value);
+        }
+    }
+
+    function prepareLocationEditForm(row) {
+        const locationId = row.dataset.locationId;
+        const locationAddress = row.children[1].textContent;
+        const mapLinkElement = row.querySelector('a[href*="google.com"], a[href*="maps"]');
+        const locationMap = mapLinkElement ? mapLinkElement.href : '';
+
+        locationForm.reset();
+        locationForm.classList.remove('was-validated');
+        locationIdInput.value = locationId;
+        locationNameInput.value = locationId;
+        locationNameInput.disabled = true;
+        locationAddressInput.value = locationAddress;
+        locationMapInput.value = locationMap;
+
+        locationModalTitle.textContent = 'ویرایش مکان';
+        saveLocationBtn.textContent = 'بروزرسانی';
+        saveLocationBtn.className = 'btn btn-danger';
+
+        locationsListModal.hide();
+        locationFormModal.show();
+    }
 });
