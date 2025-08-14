@@ -297,7 +297,7 @@ background-color: #ef5350;
 
 .tab-content {
     margin-top: 25px;
-    padding: 20px;
+    padding: 12px;
     background-color: #ffffff;
     border-radius: 8px;
     border: 1px solid #dee2e6;
@@ -649,6 +649,7 @@ background-color: #ef5350;
     border: 1px solid #a9d6b8;
     border-radius: 4px;
     padding: 5px;
+    padding-bottom: 3px !important;
     margin-bottom: 4px;
     font-size: 0.85rem;
     text-align: center;
