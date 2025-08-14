@@ -441,16 +441,25 @@
                         <table class="scheduleTable table-bordered">
                             <thead>
                                 <tr>
-                                    <th>زمان / روز</th>
+                                    <th>روز / زمان</th>
                                     <th>08:00 - 10:00</th>
                                     <th>10:00 - 12:00</th>
                                     <th>12:00 - 14:00</th>
                                     <th>14:00 - 16:00</th>
                                     <th>16:00 - 18:00</th>
+                                    <th>18:00 - 20:00</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
                         </table>
+                    </div>
+                    <div class="text-start mt-4 border-top pt-4">
+                        <button id="exportPngBtn" class="btn btn-export mx-1">
+                            <i class="fa-solid fa-image me-2"></i>خروجی PNG
+                        </button>
+                        <button id="exportPdfBtn" class="btn btn-export mx-1">
+                            <i class="fa-solid fa-file-pdf me-2"></i>خروجی PDF
+                        </button>
                     </div>
                 </div>
             </div>
@@ -540,7 +549,7 @@
         let currentScheduleItem = null;
         
         const days = ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنج‌شنبه"];
-        const times = ["08:00 - 10:00", "10:00 - 12:00", "12:00 - 14:00", "14:00 - 16:00", "16:00 - 18:00"];
+        const times = ["08:00 - 10:00", "10:00 - 12:00", "12:00 - 14:00", "14:00 - 16:00", "16:00 - 18:00" , "18:00 - 20:00"];
 
         const facultyMap = {
             'ریاضی عمومی ۱': 'علوم پایه',

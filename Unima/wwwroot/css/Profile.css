@@ -490,3 +490,20 @@
             text-align: center;
             color: black !important;
         }
+
+        .btn-export {
+            background-color: #ffffff;
+            color: #5a6a7b;
+            border: 1px solid #d1d9e2;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+        .btn-export:hover {
+            background-color: #f8f9fa;
+            color: #3d4a58;
+            border-color: #b9c3d0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
