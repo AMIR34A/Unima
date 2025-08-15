@@ -32,7 +32,7 @@ public class RepositoryBase<TEntity, TContext> : IRepositoryBase<TEntity> where 
 
     public async Task<List<TEntity>> GetAllAsync(string navigateProperty) => await _dbSet.Include(navigateProperty).ToListAsync();
 
-    public IIncludableQueryable<TEntity,TProperty> Include<TProperty>(Expression<Func<TEntity, TProperty>> navigateProperty)
+    public IIncludableQueryable<TEntity, TProperty> Include<TProperty>(Expression<Func<TEntity, TProperty>> navigateProperty)
     {
         return _dbSet.Include(navigateProperty);
     }
@@ -41,4 +41,6 @@ public class RepositoryBase<TEntity, TContext> : IRepositoryBase<TEntity> where 
     {
         _dbSet.Update(entity);
     }
+
+    public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate) => await _dbSet.AnyAsync(predicate);
 }

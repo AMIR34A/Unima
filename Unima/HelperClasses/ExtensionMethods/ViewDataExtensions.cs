@@ -14,4 +14,13 @@ public static class ViewDataExtensions
 
         viewData[key] = firstError;
     }
+
+    public static string FirstError(this ModelStateDictionary modelState)
+    {
+        string? errorMessage =  modelState.Values.SelectMany(v => v.Errors)
+                        .Select(e => e.ErrorMessage)
+                        .FirstOrDefault();
+
+        return string.IsNullOrEmpty(errorMessage) ? "خطایی رخ داد؛ با پشتیبان سامانه ارتباط برقرار کنید." : errorMessage; 
+    }
 }

@@ -558,8 +558,7 @@ async function submitModalData(modalId, isSetTextValue = false, updateTheSpan = 
         return;
     }
 
-    if (modalId == 'Password')
-    {
+    if (modalId == 'Password') {
         window.location.replace('/Account/Index');
     }
 
@@ -586,15 +585,15 @@ function extractFirstModelError(errorObj) {
     return Array.isArray(firstArray) && firstArray.length > 0 ? firstArray[0] : null;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var fillInputLink = document.getElementById('FillInput');
     var studentCodeSpan = document.querySelector('.StudentCodeNumber');
     var usernameInput = document.getElementById('Username');
-    
+
     const updateInformationModal = document.getElementById('UpdateInformation');
 
     if (fillInputLink && studentCodeSpan && usernameInput) {
-        fillInputLink.addEventListener('click', function() {
+        fillInputLink.addEventListener('click', function () {
             var username = studentCodeSpan.textContent;
             usernameInput.value = username;
         });
@@ -610,240 +609,282 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-        const scheduleModalEl = document.getElementById('scheduleModal');
-        const classFormModalEl = document.getElementById('classFormModal');
-        const classForm = document.getElementById('classForm');
-        const classFormModalTitle = document.getElementById('classFormModalLabel');
-        const deleteClassBtn = document.getElementById('deleteClassBtn');
-        const scheduleTableBody = scheduleModalEl.querySelector('tbody');
-        
-        const scheduleModal = new bootstrap.Modal(scheduleModalEl);
-        const classFormModal = new bootstrap.Modal(classFormModalEl);
+    const scheduleModalEl = document.getElementById('scheduleModal');
+    const classFormModalEl = document.getElementById('classFormModal');
+    const classForm = document.getElementById('classForm');
+    const classFormModalTitle = document.getElementById('classFormModalLabel');
+    const deleteClassBtn = document.getElementById('deleteClassBtn');
+    const scheduleTableBody = scheduleModalEl.querySelector('tbody');
 
-        let currentCell = null;
-        let currentScheduleItem = null;
-        
-        const days = ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنج‌شنبه"];
-        const times = ["08:00 - 10:00", "10:00 - 12:00", "12:00 - 14:00", "14:00 - 16:00", "16:00 - 18:00" , "18:00 - 20:00"];
+    const scheduleModal = new bootstrap.Modal(scheduleModalEl);
+    const classFormModal = new bootstrap.Modal(classFormModalEl);
 
-        const facultyMap = {
-            'ریاضی عمومی ۱': 'علوم پایه',
-            'برنامه نویسی پیشرفته': 'فنی و مهندسی',
-            'ساختمان داده': 'فنی و مهندسی',
-            'سیستم عامل': 'فنی و مهندسی',
-        };
-        const weekTypeClasses = { 'ثابت': 'week-fixed', 'زوج': 'week-even', 'فرد': 'week-odd' };
+    let currentCell = null;
+    let currentScheduleItem = null;
 
-        function initializeSelect2() {
-            $('#classFormModal select').select2({
-                theme: "bootstrap-5",
-                dropdownParent: $('#classFormModal'),
-                language: "fa",
-                placeholder: "انتخاب کنید...",
-                allowClear: true
-            });
+    const days = ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنج‌شنبه"];
+    const times = ["08:00 - 10:00", "10:00 - 12:00", "12:00 - 14:00", "14:00 - 16:00", "16:00 - 18:00", "18:00 - 20:00"];
+
+    const facultyMap = {
+        'ریاضی عمومی ۱': 'علوم پایه',
+        'برنامه نویسی پیشرفته': 'فنی و مهندسی',
+        'ساختمان داده': 'فنی و مهندسی',
+        'سیستم عامل': 'فنی و مهندسی',
+    };
+    const weekTypeClasses = { 'ثابت': 'week-fixed', 'زوج': 'week-even', 'فرد': 'week-odd' };
+
+    function initializeSelect2() {
+        $('#classFormModal select').select2({
+            theme: "bootstrap-5",
+            dropdownParent: $('#classFormModal'),
+            language: "fa",
+            placeholder: "انتخاب کنید...",
+            allowClear: true
+        });
+    }
+
+    function hasConflict(data) {
+        const allItemsInCell = Array.from(currentCell.querySelectorAll('.schedule-item'));
+        const otherItems = allItemsInCell.filter(item => item !== currentScheduleItem);
+        const otherWeekTypes = otherItems.map(item => item.dataset.weekType);
+
+        if (otherWeekTypes.includes('ثابت') || (data.weekType === 'ثابت' && otherItems.length > 0) || otherWeekTypes.includes(data.weekType)) {
+            return true;
         }
-        
-        function hasConflict(data) {
-            const allItemsInCell = Array.from(currentCell.querySelectorAll('.schedule-item'));
-            const otherItems = allItemsInCell.filter(item => item !== currentScheduleItem);
-            const otherWeekTypes = otherItems.map(item => item.dataset.weekType);
+        return false;
+    }
 
-            if (otherWeekTypes.includes('ثابت') || (data.weekType === 'ثابت' && otherItems.length > 0) || otherWeekTypes.includes(data.weekType)) {
-                return true;
-            }
-            return false;
-        }
-
-        function createScheduleItemElement(data) {
-            const item = document.createElement('div');
-            item.className = `schedule-item ${weekTypeClasses[data.weekType]}`;
-            item.dataset.weekType = data.weekType;
-            item.innerHTML = `
+    function createScheduleItemElement(data) {
+        const item = document.createElement('div');
+        item.className = `schedule-item ${weekTypeClasses[data.weekType]}`;
+        item.dataset.weekType = data.weekType;
+        item.innerHTML = `
                 <p class="mb-0" data-course-name="${data.courseName}"><strong>${data.courseName}</strong></p>
                 <p class="mb-0 small text-muted">گروه: ${data.groupNumber} | کلاس: ${data.classNumber}</p>
             `;
-            const actionButtons = document.createElement('div');
-            actionButtons.className = 'action-buttons';
-            
-            const editBtn = document.createElement('button');
-            editBtn.className = 'edit-btn';
-            editBtn.title = 'ویرایش';
-            editBtn.innerHTML = `<i class="fa-solid fa-pencil"></i>`;
-            editBtn.onclick = (e) => handleEditClick(e, item);
+        const actionButtons = document.createElement('div');
+        actionButtons.className = 'action-buttons';
 
-            const deleteBtn = document.createElement('button');
-            deleteBtn.className = 'delete-btn';
-            deleteBtn.title = 'حذف';
-            deleteBtn.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
-            deleteBtn.onclick = (e) => handleDeleteClick(e, item);
-            
-            actionButtons.append(editBtn, deleteBtn);
-            item.appendChild(actionButtons);
-            return item;
-        }
+        const editBtn = document.createElement('button');
+        editBtn.className = 'edit-btn';
+        editBtn.title = 'ویرایش';
+        editBtn.innerHTML = `<i class="fa-solid fa-pencil"></i>`;
+        editBtn.onclick = (e) => handleEditClick(e, item);
 
-        function updateActionButtonsInCell(cell) {
-            if (!cell) return;
-            const items = Array.from(cell.querySelectorAll('.schedule-item'));
-            const weekTypes = items.map(item => item.dataset.weekType);
-            const hasOdd = weekTypes.includes('فرد');
-            const hasEven = weekTypes.includes('زوج');
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.title = 'حذف';
+        deleteBtn.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
+        deleteBtn.onclick = (e) => handleDeleteClick(e, item);
 
-            items.forEach(item => {
-                const actionButtons = item.querySelector('.action-buttons');
-                let addBtn = item.querySelector('.add-other-week-btn');
-                const itemWeekType = item.dataset.weekType;
-                
-                if(addBtn) addBtn.remove();
+        actionButtons.append(editBtn, deleteBtn);
+        item.appendChild(actionButtons);
+        return item;
+    }
 
-                if ((itemWeekType === 'فرد' && !hasEven) || (itemWeekType === 'زوج' && !hasOdd)) {
-                    const otherWeekType = itemWeekType === 'فرد' ? 'زوج' : 'فرد';
-                    addBtn = document.createElement('button');
-                    addBtn.className = 'add-other-week-btn';
-                    addBtn.title = `افزودن هفته ${otherWeekType}`;
-                    addBtn.innerHTML = '<i class="fa-solid fa-plus"></i>';
-                    addBtn.onclick = (e) => {
-                        e.stopPropagation();
-                        currentCell = cell;
-                        currentScheduleItem = null;
-                        openFormModal(null, otherWeekType);
-                    };
-                    actionButtons.appendChild(addBtn);
-                }
-            });
-        }
-        
-        function updateCellPlaceholder(cell) {
-            if (!cell) return;
-            const container = cell.querySelector('.schedule-item-container');
-            if (!container || container.children.length === 0) {
-                cell.innerHTML = '<div class="cell-actions"><button class="add-btn"><i class="fa-solid fa-plus"></i></button></div>';
+    function updateActionButtonsInCell(cell) {
+        if (!cell) return;
+        const items = Array.from(cell.querySelectorAll('.schedule-item'));
+        const weekTypes = items.map(item => item.dataset.weekType);
+        const hasOdd = weekTypes.includes('فرد');
+        const hasEven = weekTypes.includes('زوج');
+
+        items.forEach(item => {
+            const actionButtons = item.querySelector('.action-buttons');
+            let addBtn = item.querySelector('.add-other-week-btn');
+            const itemWeekType = item.dataset.weekType;
+
+            if (addBtn) addBtn.remove();
+
+            if ((itemWeekType === 'فرد' && !hasEven) || (itemWeekType === 'زوج' && !hasOdd)) {
+                const otherWeekType = itemWeekType === 'فرد' ? 'زوج' : 'فرد';
+                addBtn = document.createElement('button');
+                addBtn.className = 'add-other-week-btn';
+                addBtn.title = `افزودن هفته ${otherWeekType}`;
+                addBtn.innerHTML = '<i class="fa-solid fa-plus"></i>';
+                addBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    currentCell = cell;
+                    currentScheduleItem = null;
+                    openFormModal(null, otherWeekType);
+                };
+                actionButtons.appendChild(addBtn);
             }
+        });
+    }
+
+    function updateCellPlaceholder(cell) {
+        if (!cell) return;
+        const container = cell.querySelector('.schedule-item-container');
+        if (!container || container.children.length === 0) {
+            cell.innerHTML = '<div class="cell-actions"><button class="add-btn"><i class="fa-solid fa-plus"></i></button></div>';
         }
-                
-        function handleAddClick(cell) {
-            currentCell = cell;
-            currentScheduleItem = null;
-            openFormModal();
+    }
+
+    function handleAddClick(cell) {
+        currentCell = cell;
+        currentScheduleItem = null;
+        openFormModal();
+    }
+
+    function handleEditClick(e, item) {
+        e.stopPropagation();
+        currentCell = item.closest('td');
+        currentScheduleItem = item;
+        openFormModal(item);
+    }
+
+    function handleDeleteClick(e, item) {
+        e.stopPropagation();
+        const cell = item.closest('td');
+        item.remove();
+        updateCellPlaceholder(cell);
+        updateActionButtonsInCell(cell);
+    }
+
+    async function onFormSubmit(e) {
+        e.preventDefault();
+        const select = document.getElementById('course-name');
+        const selectedValue = select.value;
+        const selectedText = select.options[select.selectedIndex].text;
+        const selectedNo = select.options[select.selectedIndex].dataset.no;
+        const formData = {
+            courseName: selectedText,
+            groupNumber: selectedNo,
+            classNumber: $('#class-number').val(),
+            weekType: $('#week-type').val()
+        };
+
+        if (!formData.courseName || !formData.classNumber) {
+            alert('لطفاً تمام فیلدها را پر کنید.');
+            return;
+        }
+        if (hasConflict(formData)) {
+            alert('تداخل زمانی وجود دارد. امکان ثبت این کلاس وجود ندارد.');
+            return;
         }
 
-        function handleEditClick(e, item) {
-            e.stopPropagation();
-            currentCell = item.closest('td');
-            currentScheduleItem = item;
-            openFormModal(item);
-        }
+        url = `/User/Profile/AddSchedule/${selectedValue}`;
 
-        function handleDeleteClick(e, item) {
-            e.stopPropagation();
-            const cell = item.closest('td');
-            item.remove();
-            updateCellPlaceholder(cell);
-            updateActionButtonsInCell(cell);
+        var scheduleModel = {
+            RoomNo: 1,
+            DayOfWeek: currentCell.dataset.dayindex,
+            WeekStatus: $('#week-type').val() == "ثابت" ? 0 : $('#week-type').val() == "زوج" ? 1 : 2,
+            Period: currentCell.dataset.period,
         }
-        
-        function onFormSubmit(e) {
-            e.preventDefault();
-            const formData = {
-                courseName: $('#course-name').val(),
-                groupNumber: $('#group-number').val(),
-                classNumber: $('#class-number').val(),
-                weekType: $('#week-type').val()
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(scheduleModel)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            const errorMessage = extractFirstModelError(errorData);
+            errorDiv.textContent = errorMessage || "خطا در ارسال اطلاعات";
+            errorDiv.style.display = "block";
+            return;
+        }
+        const newItem = createScheduleItemElement(formData);
+        if (currentScheduleItem) {
+            currentScheduleItem.replaceWith(newItem);
+        } else {
+            let container = currentCell.querySelector('.schedule-item-container');
+            if (!container) {
+                currentCell.innerHTML = '';
+                container = document.createElement('div');
+                container.className = 'schedule-item-container';
+                currentCell.appendChild(container);
+            }
+            container.appendChild(newItem);
+        }
+        updateActionButtonsInCell(currentCell);
+        classFormModal.hide();
+    }
+
+    function openFormModal(itemToEdit = null, preselectedWeekType = null) {
+        classForm.reset();
+        $('#classFormModal select').val(null).trigger('change');
+
+        const day = currentCell.dataset.day;
+        const time = currentCell.dataset.time;
+        classFormModalTitle.innerHTML = `کلاس برای: <small class="text-black-50">${day}، ${time}</small>`;
+
+        fetch(`/User/Profile/GetLessons`)
+            .then(res => res.json())
+            .then(data => {
+                const select = document.getElementById('course-name');
+                select.innerHTML = ''; 
+
+                data.forEach(lesson => {
+                    const option = document.createElement('option');
+                    option.value = lesson.id;
+                    option.textContent = lesson.value;
+                    option.dataset.no = lesson.no;
+                    select.appendChild(option);
+                });
+            });
+        if (itemToEdit) {
+            const textContent = itemToEdit.querySelector('.small.text-muted').innerText;
+            const data = {
+                courseName: itemToEdit.querySelector('[data-course-name]').dataset.courseName,
+                groupNumber: textContent.match(/گروه: (\d+)/)[1],
+                classNumber: textContent.match(/کلاس: (\d+)/)[1],
+                weekType: itemToEdit.dataset.weekType,
             };
 
-            if (!formData.courseName || !formData.groupNumber || !formData.classNumber) {
-                alert('لطفاً تمام فیلدها را پر کنید.');
-                return;
-            }
-            if (hasConflict(formData)) {
-                alert('تداخل زمانی وجود دارد. امکان ثبت این کلاس وجود ندارد.');
-                return;
-            }
-            const newItem = createScheduleItemElement(formData);
-            if (currentScheduleItem) {
-                currentScheduleItem.replaceWith(newItem);
-            } else {
-                let container = currentCell.querySelector('.schedule-item-container');
-                if (!container) {
-                    currentCell.innerHTML = '';
-                    container = document.createElement('div');
-                    container.className = 'schedule-item-container';
-                    currentCell.appendChild(container);
-                }
-                container.appendChild(newItem);
-            }
-            updateActionButtonsInCell(currentCell);
-            classFormModal.hide();
-        }
-        
-        function openFormModal(itemToEdit = null, preselectedWeekType = null) {
-            classForm.reset();
-            $('#classFormModal select').val(null).trigger('change');
-            
-            const day = currentCell.dataset.day;
-            const time = currentCell.dataset.time;
-            classFormModalTitle.innerHTML = `کلاس برای: <small class="text-black-50">${day}، ${time}</small>`;
-            
-            if (itemToEdit) {
-                const textContent = itemToEdit.querySelector('.small.text-muted').innerText;
-                const data = {
-                    courseName: itemToEdit.querySelector('[data-course-name]').dataset.courseName,
-                    groupNumber: textContent.match(/گروه: (\d+)/)[1],
-                    classNumber: textContent.match(/کلاس: (\d+)/)[1],
-                    weekType: itemToEdit.dataset.weekType,
-                };
-                
-                $('#course-name').val(data.courseName).trigger('change');
-                $('#group-number').val(data.groupNumber).trigger('change');
-                $('#faculty').val(facultyMap[data.courseName] || '').trigger('change');
-                $('#class-number').val(data.classNumber).trigger('change');
-                $('#week-type').val(data.weekType).trigger('change');
-                $('#week-type').prop('disabled', false);
-                deleteClassBtn.style.display = 'block';
+            $('#course-name').val(data.courseName).trigger('change');
+            $('#group-number').val(data.groupNumber).trigger('change');
+            $('#faculty').val(facultyMap[data.courseName] || '').trigger('change');
+            $('#class-number').val(data.classNumber).trigger('change');
+            $('#week-type').val(data.weekType).trigger('change');
+            $('#week-type').prop('disabled', false);
+            deleteClassBtn.style.display = 'block';
 
-            } else {
-                $('#week-type').val(preselectedWeekType || 'ثابت').trigger('change');
-                $('#week-type').prop('disabled', !!preselectedWeekType);
-                deleteClassBtn.style.display = 'none';
-            }
-            classFormModal.show();
+        } else {
+            $('#week-type').val(preselectedWeekType || 'ثابت').trigger('change');
+            $('#week-type').prop('disabled', !!preselectedWeekType);
+            deleteClassBtn.style.display = 'none';
         }
-                
-        function initializeTable() {
-            scheduleTableBody.innerHTML = '';
-            days.forEach(day => {
-                const row = document.createElement('tr');
-                row.innerHTML = `<th>${day}</th>` + times.map(time => 
-                    `<td data-day="${day}" data-time="${time}">
+        classFormModal.show();
+    }
+
+    function initializeTable() {
+        scheduleTableBody.innerHTML = '';
+        days.forEach(day => {
+            const row = document.createElement('tr');
+            row.innerHTML = `<th>${day}</th>` + times.map(time =>
+                `<td data-day="${day}" data-time="${time}">
                         <div class="cell-actions"><button class="add-btn"><i class="fa-solid fa-plus"></i></button></div>
                     </td>`
-                ).join('');
-                scheduleTableBody.appendChild(row);
-            });
-        }
-        
-        function initializeApp() {
-            initializeTable();
-            scheduleTableBody.addEventListener('click', (e) => {
-                const target = e.target;
-                const cell = target.closest('td[data-day]');
-                if (cell && target.closest('.add-btn')) {
-                    handleAddClick(cell);
-                }
-            });
-            classForm.addEventListener('submit', onFormSubmit);
-            deleteClassBtn.addEventListener('click', () => {
-                if (currentScheduleItem) {
-                    handleDeleteClick(new Event('click'), currentScheduleItem);
-                    classFormModal.hide();
-                }
-            });
-            classFormModalEl.addEventListener('shown.bs.modal', initializeSelect2);
-        }      
-        initializeApp();
+            ).join('');
+            scheduleTableBody.appendChild(row);
+        });
+    }
 
-        
+    function initializeApp() {
+        //initializeTable();
+        scheduleTableBody.addEventListener('click', (e) => {
+            const target = e.target;
+            const cell = target.closest('td[data-day]');
+            if (cell && target.closest('.add-btn')) {
+                handleAddClick(cell);
+            }
+        });
+        classForm.addEventListener('submit', onFormSubmit);
+        deleteClassBtn.addEventListener('click', () => {
+            if (currentScheduleItem) {
+                handleDeleteClick(new Event('click'), currentScheduleItem);
+                classFormModal.hide();
+            }
+        });
+        classFormModalEl.addEventListener('shown.bs.modal', initializeSelect2);
+    }
+    initializeApp();
+
+
     const addCourseBtn = document.getElementById('addCourseBtn');
     const courseForm = document.getElementById('courseForm');
     const saveCourseBtn = document.getElementById('saveCourseBtn');
@@ -861,11 +902,12 @@ document.addEventListener('DOMContentLoaded', function() {
             courseForm.reset();
             courseIdInput.value = '';
             courseCodeInput.disabled = false;
+            courseGroupInput.disabled = false;
             courseForm.classList.remove('was-validated');
 
             courseModalTitle.textContent = 'افزودن درس جدید';
             saveCourseBtn.textContent = 'ذخیره';
-            saveCourseBtn.className = 'btn btn-danger'; 
+            saveCourseBtn.className = 'btn btn-danger';
 
             coursesListModal.hide();
             courseFormModal.show();
@@ -873,15 +915,61 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (saveCourseBtn) {
-        saveCourseBtn.addEventListener('click', function() {
+        saveCourseBtn.addEventListener('click', async function () {
             if (!courseForm.checkValidity()) {
                 courseForm.classList.add('was-validated');
                 return;
             }
             const courseId = courseIdInput.value;
+            var url = '';
+
+            var lessonModel =
+            {
+                Title: courseNameInput.value,
+                No: courseCodeInput.value,
+                GroupNo: courseGroupInput.value
+            };
+
+
             if (courseId) {
-                updateCourse(courseId); 
+                url = `/User/Profile/UpdateLesson/${courseId}`;
+
+                const response = await fetch(url, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(lessonModel)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    const errorMessage = extractFirstModelError(errorData);
+                    errorDiv.textContent = errorMessage || "خطا در ارسال اطلاعات";
+                    errorDiv.style.display = "block";
+                    return;
+                }
+
+                updateCourse(courseId);
             } else {
+                url = '/User/Profile/AddLesson';
+
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(lessonModel)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    const errorMessage = extractFirstModelError(errorData);
+                    errorDiv.textContent = errorMessage || "خطا در ارسال اطلاعات";
+                    errorDiv.style.display = "block";
+                    return;
+                }
+
                 addNewCourse();
             }
             courseFormModal.hide();
@@ -890,7 +978,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (coursesTableBody) {
-        coursesTableBody.addEventListener('click', function(event) {
+        coursesTableBody.addEventListener('click', async function (event) {
             const target = event.target;
             const link = target.closest('a');
             if (!link) return;
@@ -899,11 +987,22 @@ document.addEventListener('DOMContentLoaded', function() {
             const courseId = row.dataset.courseId;
 
             if (link.classList.contains('delete-btn')) {
-                if (confirm(`آیا از حذف درس با کد "${courseId}" مطمئن هستید؟`)) {
-                    row.remove();
+                url = `/User/Profile/DeleteLesson/${courseId}`;
+
+                const response = await fetch(url, {
+                    method: "DELETE",
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    const errorMessage = extractFirstModelError(errorData);
+                    errorDiv.textContent = errorMessage || "خطا در ارسال اطلاعات";
+                    errorDiv.style.display = "block";
+                    return;
                 }
+                row.remove();
             } else if (link.classList.contains('edit-btn')) {
-                prepareCourseEditForm(row); 
+                prepareCourseEditForm(row);
             }
         });
     }
@@ -911,7 +1010,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function addNewCourse() {
         const newRow = document.createElement('tr');
         const courseCode = courseCodeInput.value;
-        newRow.dataset.courseId = courseCode;
+        newRow.dataset.courseId = courseCode + courseGroupInput.value;
         newRow.innerHTML = `
             <td>${courseNameInput.value}</td>
             <td>${courseCode}</td>
@@ -923,31 +1022,32 @@ document.addEventListener('DOMContentLoaded', function() {
         coursesTableBody.appendChild(newRow);
     }
 
-    function updateCourse(courseId) {
+    async function updateCourse(courseId) {
         const rowToUpdate = coursesTableBody.querySelector(`tr[data-course-id="${courseId}"]`);
         if (rowToUpdate) {
             rowToUpdate.children[0].textContent = courseNameInput.value;
-            rowToUpdate.children[1].textContent = courseCodeInput.value;
-            rowToUpdate.children[2].textContent = courseGroupInput.value;
+            //rowToUpdate.children[1].textContent = courseCodeInput.value;
+            //rowToUpdate.children[2].textContent = courseGroupInput.value;
         }
     }
 
     function prepareCourseEditForm(row) {
         const courseId = row.dataset.courseId;
         const courseName = row.children[0].textContent;
+        const courseCode = row.children[1].textContent;
         const courseGroup = row.children[2].textContent;
 
         courseForm.reset();
         courseForm.classList.remove('was-validated');
         courseIdInput.value = courseId;
         courseNameInput.value = courseName;
-        courseCodeInput.value = courseId;
-        courseCodeInput.disabled = true;
+        courseCodeInput.value = courseCode;
         courseGroupInput.value = courseGroup;
-
+        courseCodeInput.disabled = true;
+        courseGroupInput.disabled = true;
         courseModalTitle.textContent = 'ویرایش درس';
         saveCourseBtn.textContent = 'بروزرسانی';
-        saveCourseBtn.className = 'btn btn-danger'; 
+        saveCourseBtn.className = 'btn btn-danger';
 
         coursesListModal.hide();
         courseFormModal.show();
@@ -981,14 +1081,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (saveLocationBtn) {
-        saveLocationBtn.addEventListener('click', function() {
+        saveLocationBtn.addEventListener('click', function () {
             if (!locationForm.checkValidity()) {
                 locationForm.classList.add('was-validated');
                 return;
             }
             const locationId = locationIdInput.value;
             if (locationId) {
-                updateLocation(locationId); 
+                updateLocation(locationId);
             } else {
                 addNewLocation();
             }
@@ -998,7 +1098,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (locationsTableBody) {
-        locationsTableBody.addEventListener('click', function(event) {
+        locationsTableBody.addEventListener('click', function (event) {
             const target = event.target;
             const link = target.closest('a');
             if (!link) return;
@@ -1011,7 +1111,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     row.remove();
                 }
             } else if (link.classList.contains('edit-btn')) {
-                prepareLocationEditForm(row); 
+                prepareLocationEditForm(row);
             }
         });
     }

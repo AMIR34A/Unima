@@ -1,8 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using NuGet.Common;
 using System.Text.RegularExpressions;
+using Unima.Areas.Professor.Models;
 using Unima.Areas.User.Models.Profile;
 using Unima.Areas.User.Models.Q_A;
 using Unima.Areas.User.Models.ViewModels;
@@ -11,6 +16,7 @@ using Unima.Dal.Entities;
 using Unima.Dal.Entities.Entities;
 using Unima.Dal.Entities.Models;
 using Unima.Dal.Enums;
+using Unima.HelperClasses.ExtensionMethods;
 
 namespace Unima.Areas.User.Controllers
 {
@@ -68,6 +74,23 @@ namespace Unima.Areas.User.Controllers
             });
         }
 
+        [Route("User/Profile/GetLessons")]
+        public async Task<IActionResult> GetLessons()
+        {
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            var lessons = (await _unitOfWork.RepositoryBase<Lesson>().GetAllAsync())
+                                   .Where(lesson => lesson.ProfessorId == currentUser?.Id)
+                                   .Select(lesson => new
+                                   {
+                                       Id = $"{lesson.No}{lesson.GroupNo}",
+                                       Value = lesson.Title,
+                                       No = lesson.No
+                                   });
+
+            return Ok(lessons);
+        }
+
         public async Task<IActionResult> Index()
         {
             ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
@@ -98,11 +121,33 @@ namespace Unima.Areas.User.Controllers
                                                                               Answer = qa.Answer,
                                                                               Priority = qa.Priority
                                                                           });
+            var lessonAndSchedules = _unitOfWork.RepositoryBase<Lesson>().Include(lesson => lesson.Schedules)
+                                                                .Where(lesson => lesson.ProfessorId == currentUser.Id);
 
+            IEnumerable<LessonModel> lessons = lessonAndSchedules.Select(lesson => new LessonModel
+            {
+                Title = lesson.Title,
+                No = lesson.No,
+                GroupNo = lesson.GroupNo
+            });
+
+            IEnumerable<Professor.Models.ScheduleModel> schedules = lessonAndSchedules.SelectMany(lesson => lesson.Schedules)
+                                                                   .Select(schedule => new Professor.Models.ScheduleModel()
+                                                                   {
+                                                                       LessonTitle = schedule.Lesson.Title,
+                                                                       GroupNo = schedule.LessonGroupNo,
+                                                                       RoomNo = schedule.RoomNo,
+                                                                       DayOfWeek = schedule.DayOfWeek,
+                                                                       DayTitle = string.Empty,
+                                                                       WeekStatus = schedule.WeekStatus,
+                                                                       Period = schedule.Period
+                                                                   }).AsEnumerable();
             ProfileViewModel viewModel = new ProfileViewModel
             {
                 ProfileModel = profileModel,
-                QuestionAndAnswers = questionAndAnswerModels
+                QuestionAndAnswers = questionAndAnswerModels,
+                Lessons = lessons,
+                Schedules = schedules
             };
 
             return View(viewModel);
@@ -310,6 +355,167 @@ namespace Unima.Areas.User.Controllers
             }
 
             return Ok(); ;
+        }
+
+        [HttpPost]
+        [Route("User/Profile/AddLesson")]
+        public async Task<IActionResult> AddLesson([FromBody] LessonModel lessonModel)
+        {
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return NotFound();
+
+            ProfessorInformation? professor = await _unitOfWork.RepositoryBase<ProfessorInformation>()
+                                                               .FirstOrDefaultAsync(professor => professor.Id == currentUser.Id);
+
+            if (professor is null)
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.FirstError());
+
+            bool isExsist = await _unitOfWork.RepositoryBase<Lesson>().AnyAsync(lesson => lesson.ProfessorId == professor.Id && lesson.No == lessonModel.No && lesson.GroupNo == lessonModel.GroupNo);
+            if (isExsist)
+            {
+                ModelState.AddModelError("DuplicateLesson", "درس تکراری می‌باشد");
+                return BadRequest(ModelState);
+            }
+
+            await _unitOfWork.RepositoryBase<Lesson>().AddAsync(new()
+            {
+                Title = lessonModel.Title,
+                No = lessonModel.No,
+                GroupNo = lessonModel.GroupNo,
+                Professor = professor,
+                ProfessorId = professor.Id
+            });
+            await _unitOfWork.SaveAsync();
+
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("User/Profile/UpdateLesson/{lessonId:int?}")]
+        public async Task<IActionResult> UpdateLesson(int? lessonId, [FromBody] LessonModel lessonModel)
+        {
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return NotFound();
+
+            ProfessorInformation? professor = await _unitOfWork.RepositoryBase<ProfessorInformation>()
+                                                               .FirstOrDefaultAsync(professor => professor.Id == currentUser.Id);
+
+            if (professor is null)
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.FirstError());
+
+
+            string concatedNoAndGroupNo = lessonId.HasValue ? lessonId.ToString() : string.Empty;
+
+            Lesson? lesson = (await _unitOfWork.RepositoryBase<Lesson>()
+                                               .GetAllAsync())
+                                              .FirstOrDefault(lesson => lesson.ProfessorId == professor.Id && string.Equals($"{lesson.No}{lesson.GroupNo}", concatedNoAndGroupNo));
+
+            if (lesson is null)
+            {
+                ModelState.AddModelError("LessonNotFound", "درسی برای آپدیت کردن یافت نشد");
+                return BadRequest(ModelState);
+            }
+
+            lesson.Title = lessonModel.Title;
+
+            _unitOfWork.RepositoryBase<Lesson>().Update(lesson);
+            await _unitOfWork.SaveAsync();
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("User/Profile/DeleteLesson/{lessonId:int?}")]
+        public async Task<IActionResult> DeleteLesson(int? lessonId)
+        {
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return NotFound();
+
+            ProfessorInformation? professor = await _unitOfWork.RepositoryBase<ProfessorInformation>()
+                                                               .FirstOrDefaultAsync(professor => professor.Id == currentUser.Id);
+
+            if (professor is null)
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.FirstError());
+
+
+            string concatedNoAndGroupNo = lessonId.HasValue ? lessonId.ToString() : string.Empty;
+
+            Lesson? lesson = (await _unitOfWork.RepositoryBase<Lesson>()
+                                               .GetAllAsync())
+                                              .FirstOrDefault(lesson => lesson.ProfessorId == professor.Id && string.Equals($"{lesson.No}{lesson.GroupNo}", concatedNoAndGroupNo));
+
+            if (lesson is null)
+            {
+                ModelState.AddModelError("LessonNotFound", "درسی برای آپدیت کردن یافت نشد");
+                return BadRequest(ModelState);
+            }
+
+            _unitOfWork.RepositoryBase<Lesson>().Delete(lesson);
+            await _unitOfWork.SaveAsync();
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("User/Profile/AddSchedule/{lessonId:int}")]
+        public async Task<IActionResult> AddSchedule(int lessonId, [FromBody] Models.Profile.ScheduleModel scheduleModel)
+        {
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return NotFound();
+
+            ProfessorInformation? professor = await _unitOfWork.RepositoryBase<ProfessorInformation>()
+                                                               .FirstOrDefaultAsync(professor => professor.Id == currentUser.Id);
+            if (professor is null)
+                return NotFound();
+
+            Lesson? lesson = (await _unitOfWork.RepositoryBase<Lesson>()
+                                              .GetAllAsync())
+                                              .FirstOrDefault(lesson => lesson.ProfessorId == professor.Id && string.Equals($"{lesson.No}{lesson.GroupNo}", lessonId.ToString()));
+
+            if (lesson is null)
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.FirstError());
+
+            bool isExsist = await _unitOfWork.RepositoryBase<Schedule>().AnyAsync(schedule => schedule.LessonProfessorId == professor.Id && schedule.Period == (TimePeriod)scheduleModel.Period && schedule.DayOfWeek == (WeekDay)scheduleModel.DayOfWeek && (schedule.WeekStatus == (WeekStatus)scheduleModel.WeekStatus || schedule.WeekStatus == WeekStatus.Fixed));
+            if (isExsist)
+            {
+                ModelState.AddModelError("Conflict", "تداخل وجود دارد");
+                return BadRequest(ModelState);
+            }
+
+            await _unitOfWork.RepositoryBase<Schedule>().AddAsync(new()
+            {
+                DayOfWeek = (WeekDay)scheduleModel.DayOfWeek,
+                WeekStatus = (WeekStatus)scheduleModel.WeekStatus,
+                RoomNo = scheduleModel.RoomNo,
+                Period = (TimePeriod)scheduleModel.Period,
+                LessonProfessorId = professor.Id,
+                LessonNo = lesson.No,
+                LessonGroupNo = lesson.GroupNo,
+                Lesson = lesson
+            });
+            await _unitOfWork.SaveAsync();
+
+            return Ok();
         }
     }
 }

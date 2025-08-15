@@ -18,4 +18,6 @@ public interface IRepositoryBase<TEntity>
     void Delete(TEntity entity);
 
     Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
+
+    Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate);
 }
