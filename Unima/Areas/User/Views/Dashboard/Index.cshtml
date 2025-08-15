@@ -113,7 +113,6 @@
             int dayOfWeek = (int)Model.DayOfWeek;
             for (int i = 0; i < 7; i++)
             {
-                var foods = Model.ReservedFoods?.Where(food => food.Day == (WeekDay)i).ToList();
                 string day = i switch
                 {
                     0 => "sat",
@@ -126,53 +125,80 @@
                     _ => string.Empty
                 };
 
-                string? breakfast = foods is not null && foods.Count > 0 ? @foods?[0]?.Title : "تعریف نشده";
-                string? lunch = foods is not null && foods.Count > 1 ? @foods?[1]?.Title : "تعریف نشده";
-                string? dinner = foods is not null && foods.Count > 2 ? @foods?[2]?.Title : "تعریف نشده";
-
                 <div id="card-@day" class="day-cards animate__animated row mt-2 mt-sm-4 justify-content-center @(i != dayOfWeek ? "d-none" : "")">
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
-                        <div class="card  rounded-top-5 ">
-                            <div class="card-header card-color h5 text-center p-4 rounded-top-5 ">
-                                صبحانه
-                            </div>
-                            <div class="card-body bg-light">
-                                <h6>نوع غذا:</h6>
-                                <span class="fw-light">@breakfast</span>
-                                <hr>
-                                <h6>سلف:</h6>
-                                <span class="fw-light">مرکزی</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
-                        <div class="card rounded-top-5 ">
-                            <div class="card-header  card-color h5 text-center  p-4 rounded-top-5 ">
-                                ناهار
-                            </div>
-                            <div class="card-body bg-light">
-                                <h6>نوع غذا:</h6>
-                                <span class="fw-light">@lunch</span>
-                                <hr>
-                                <h6>سلف:</h6>
-                                <span class="fw-light"> مرکزی </span>
+                    @if (User.IsInRole("Student"))
+                    {
+                        var foods = Model.ReservedFoods?.Where(food => food.Day == (WeekDay)i).ToList();
+
+                        string? breakfast = foods is not null && foods.Count > 0 ? @foods?[0]?.Title : "تعریف نشده";
+                        string? lunch = foods is not null && foods.Count > 1 ? @foods?[1]?.Title : "تعریف نشده";
+                        string? dinner = foods is not null && foods.Count > 2 ? @foods?[2]?.Title : "تعریف نشده";
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                            <div class="card  rounded-top-5 ">
+                                <div class="card-header card-color h5 text-center p-4 rounded-top-5 ">
+                                    صبحانه
+                                </div>
+                                <div class="card-body bg-light">
+                                    <h6>نوع غذا:</h6>
+                                    <span class="fw-light">@breakfast</span>
+                                    <hr>
+                                    <h6>سلف:</h6>
+                                    <span class="fw-light">مرکزی</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
-                        <div class="card rounded-top-5 ">
-                            <div class="card-header card-color  h5 text-center  p-4 rounded-top-5 ">
-                                شام
-                            </div>
-                            <div class="card-body bg-light">
-                                <h6>نوع غذا:</h6>
-                                <span class="fw-light">@dinner</span>
-                                <hr>
-                                <h6>سلف:</h6>
-                                <span class="fw-light"> مرکزی </span>
+                        <div class="col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                            <div class="card rounded-top-5 ">
+                                <div class="card-header  card-color h5 text-center  p-4 rounded-top-5 ">
+                                    ناهار
+                                </div>
+                                <div class="card-body bg-light">
+                                    <h6>نوع غذا:</h6>
+                                    <span class="fw-light">@lunch</span>
+                                    <hr>
+                                    <h6>سلف:</h6>
+                                    <span class="fw-light"> مرکزی </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                            <div class="card rounded-top-5 ">
+                                <div class="card-header card-color  h5 text-center  p-4 rounded-top-5 ">
+                                    شام
+                                </div>
+                                <div class="card-body bg-light">
+                                    <h6>نوع غذا:</h6>
+                                    <span class="fw-light">@dinner</span>
+                                    <hr>
+                                    <h6>سلف:</h6>
+                                    <span class="fw-light"> مرکزی </span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if(Model.Schedules is not null)
+                    {
+                        var periods = new string[] { "08:00 - 10:00", "10:00 - 12:00", "12:00 - 14:00", "14:00 - 16:00", "16:00 - 18:00", "18:00 - 20:00" };
+                        var schedules = Model.Schedules?.Where(schedule => schedule.DayOfWeek == (WeekDay)i);
+
+                        foreach(var schedule in schedules)
+                        {
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-8 mt-5 mt-sm-5">
+                                <div class="card  rounded-top-5 ">
+                                    <div class="card-header card-color h5 text-center p-4 rounded-top-5 ">
+                                        @schedule.LessonTitle، گروه @schedule.GroupNo
+                                    </div>
+                                    <div class="card-body bg-light">
+                                        <h6>ساعت:</h6>
+                                        <span class="fw-light">@periods[(int)schedule.Period]</span>
+                                        <hr>
+                                        <h6>اتاق:</h6>
+                                        <span class="fw-light">@schedule.RoomNo</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
                 </div>
             }
         }

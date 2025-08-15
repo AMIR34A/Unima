@@ -86,12 +86,26 @@ public class DashboardController : Controller
                                                                       });
 
 
+        IEnumerable<Professor.Models.ScheduleModel> schedules = _unitOfWork.RepositoryBase<Lesson>().Include(lesson => lesson.Schedules)
+                                                                .Where(lesson => lesson.ProfessorId == currentUser.Id)
+                                                                .SelectMany(lesson => lesson.Schedules)
+                                                                .Select(schedule => new Professor.Models.ScheduleModel()
+                                                                {
+                                                                    LessonTitle = schedule.Lesson.Title,
+                                                                    GroupNo = schedule.LessonGroupNo,
+                                                                    RoomNo = schedule.RoomNo,
+                                                                    DayOfWeek = schedule.DayOfWeek,
+                                                                    DayTitle = string.Empty,
+                                                                    WeekStatus = schedule.WeekStatus,
+                                                                    Period = schedule.Period
+                                                                }).AsEnumerable();
 
         DashboardViewModel dashboardViewModel = new()
         {
             ReservedFoods = reservedFoods,
             Plans = plans,
             QuestionAndAnswers = questionAndAnswerModels,
+            Schedules = schedules,
             DayOfWeek = dayOfWeek,
             UserPlan = currentUser.Plan is not null ? currentUser.Plan.Title : "پلن خریداری نشده است",
             TodayDate = GetPersianDateTime()

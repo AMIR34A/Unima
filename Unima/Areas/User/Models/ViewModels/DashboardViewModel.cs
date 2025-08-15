@@ -1,4 +1,5 @@
-﻿using Unima.Areas.User.Models.Plan;
+﻿using Unima.Areas.Professor.Models;
+using Unima.Areas.User.Models.Plan;
 using Unima.Areas.User.Models.Q_A;
 using Unima.Areas.User.Models.User;
 using Unima.Dal.Enums;
@@ -12,6 +13,8 @@ public class DashboardViewModel
     public IEnumerable<PlanModel>? Plans { get; set; }
 
     public IEnumerable<QuestionAndAnswerModel>? QuestionAndAnswers { get; set; }
+
+    public IEnumerable<ScheduleModel>? Schedules { get; set; }
 
     public WeekDay DayOfWeek { get; set; }
 
