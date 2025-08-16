@@ -3,6 +3,7 @@
 @{
     Layout = "/Areas/User/Views/Shared/_Layout.cshtml";
 }
+<link rel="stylesheet" href="/css/Dashboard.css">
 <!-- notifications cards  -->
 <section class="mb-5">
     <div class="row pt-md-4 mt-md-2 mb-3 justify-content-around ">
@@ -205,6 +206,11 @@
         <!-- days-cards -->
     </div>
 </section>
+<section>
+        <div class="timeline-wrapper" id="timeline-wrapper">
+            <div class="timeline-container" id="timeline-container"></div>
+        </div>
+</section>
 <!-- schedule  -->
 <section>
     @await Html.PartialAsync("_PlansPartial", Model.Plans)
@@ -212,6 +218,7 @@
 <section>
     @await Html.PartialAsync("_SupportWidgetPartial", Model.QuestionAndAnswers)
 </section>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/Dashboard.js"></script>
 <script>
     fetch('/User/Dashboard/GetCredit')

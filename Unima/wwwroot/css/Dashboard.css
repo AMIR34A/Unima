@@ -1,0 +1,68 @@
+        .timeline-wrapper { 
+            position: relative; 
+            margin: 40px auto 80px auto;
+            width: 90%;
+            display: flex;
+            justify-content: center;
+        }
+        .timeline-container {
+            position: relative; width: 95%; 
+            height: 50px;
+            background: linear-gradient(90deg, #dda853 0%, #eac992 100%);
+            border-radius: 25px; display: flex; align-items: center; padding: 0 20px;
+            box-shadow: 0 5px 20px rgba(221, 168, 83, 0.4);
+        }
+        .tick {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 2px; background-color: rgba(255, 255, 255, 0.7);
+        }
+        .tick-hour { height: 100%; }
+        .tick-minute { height: 40%; opacity: 0.5; }
+        .hour-label {
+            position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+            margin-top: 5px; font-size: 0.8rem; color: #6c757d; font-weight: bold;
+        }
+        .no-line {
+            background-color: transparent !important;
+        }
+        .event-bar {
+            position: absolute; top: 7.5px; width: 8px; height: 35px;
+            border-radius: 4px; cursor: pointer; transition: all 0.2s ease;
+            border: 2px solid rgba(255,255,255,0.8);
+            z-index: 5;
+        }
+        #current-time-marker {
+            position: absolute; top: 0; height: 100%; z-index: 10;
+        }
+        #current-time-marker::after {
+            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 3px; height: 100%; background: #c0392b; border-radius: 2px;
+        }
+        .event-callout {
+            position: absolute; top: 100%;
+            transform: translateX(-50%) translateY(15px);
+            background: #343a40; color: white; padding: 10px 15px; border-radius: 8px;
+            width: 180px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 20; opacity: 0; visibility: hidden;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .event-callout.visible { opacity: 1; visibility: visible; }
+        .event-callout::after {
+            content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+            border-width: 8px; border-style: solid; border-color: transparent transparent #343a40 transparent;
+        }
+        .callout-time { font-size: 0.9rem; font-weight: bold; margin-bottom: 4px; display: block; }
+        .callout-title { font-size: 0.85rem; }
+        .event-bar:hover { transform: scale(1.1); }
+        .event-bar.past { background-color: rgba(0,0,0,0.2); }
+        .event-bar.future { background-color: #ffffff; }
+        .event-bar.next-event-marker { background-color: #c0392b; border-color: white;}
+
+        @media (max-width: 768px) {
+            .tick-minute, .hour-label {
+                display: none;
+            }
+            .timeline-wrapper { 
+                margin-bottom: 40px; 
+            }
+        }
