@@ -816,7 +816,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(res => res.json())
             .then(data => {
                 const select = document.getElementById('course-name');
-                select.innerHTML = ''; 
+                select.innerHTML = '';
 
                 data.forEach(lesson => {
                     const option = document.createElement('option');
@@ -1081,16 +1081,61 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     if (saveLocationBtn) {
-        saveLocationBtn.addEventListener('click', function () {
+        saveLocationBtn.addEventListener('click', async function () {
             if (!locationForm.checkValidity()) {
                 locationForm.classList.add('was-validated');
                 return;
             }
+
+            var locationModel =
+            {
+                Title: locationNameInput.value,
+                Address: locationAddressInput.value,
+                GoogleMapLink: locationMapInput.value
+            };
+
             const locationId = locationIdInput.value;
+            var url = '';
             if (locationId) {
+                url = '/User/Profile/UpdateLocation'
+                locationModel.Id = locationId;
+                const response = await fetch(url, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(locationModel)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    const errorMessage = extractFirstModelError(errorData);
+                    errorDiv.textContent = errorMessage || "خطا در ارسال اطلاعات";
+                    errorDiv.style.display = "block";
+                    return;
+                }
                 updateLocation(locationId);
             } else {
-                addNewLocation();
+                url = '/User/Profile/AddLocation';
+
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(locationModel)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    const errorMessage = extractFirstModelError(errorData);
+                    errorDiv.textContent = errorMessage || "خطا در ارسال اطلاعات";
+                    errorDiv.style.display = "block";
+                    return;
+                }
+                const data = await response.json();
+
+                addNewLocation(data.id);
             }
             locationFormModal.hide();
             locationsListModal.show();
@@ -1098,7 +1143,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     if (locationsTableBody) {
-        locationsTableBody.addEventListener('click', function (event) {
+        locationsTableBody.addEventListener('click',async function (event) {
             const target = event.target;
             const link = target.closest('a');
             if (!link) return;
@@ -1107,9 +1152,20 @@ document.addEventListener('DOMContentLoaded', function () {
             const locationId = row.dataset.locationId;
 
             if (link.classList.contains('delete-btn')) {
-                if (confirm(`آیا از حذف مکان "${locationId}" مطمئن هستید؟`)) {
-                    row.remove();
+                url = `/User/Profile/DeleteLocation/${locationId}`;
+
+                const response = await fetch(url, {
+                    method: "DELETE",
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    const errorMessage = extractFirstModelError(errorData);
+                    errorDiv.textContent = errorMessage || "خطا در ارسال اطلاعات";
+                    errorDiv.style.display = "block";
+                    return;
                 }
+                row.remove();
             } else if (link.classList.contains('edit-btn')) {
                 prepareLocationEditForm(row);
             }
@@ -1129,10 +1185,10 @@ document.addEventListener('DOMContentLoaded', function () {
             </td>`;
     }
 
-    function addNewLocation() {
+    function addNewLocation(locationId) {
         const newRow = document.createElement('tr');
         const locationName = locationNameInput.value;
-        newRow.dataset.locationId = locationName;
+        newRow.dataset.locationId = locationId;
         newRow.innerHTML = createLocationTableRow(locationName, locationAddressInput.value, locationMapInput.value);
         locationsTableBody.appendChild(newRow);
     }
@@ -1146,6 +1202,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function prepareLocationEditForm(row) {
         const locationId = row.dataset.locationId;
+        const locationName = row.children[0].textContent;
         const locationAddress = row.children[1].textContent;
         const mapLinkElement = row.querySelector('a[href*="google.com"], a[href*="maps"]');
         const locationMap = mapLinkElement ? mapLinkElement.href : '';
@@ -1153,8 +1210,7 @@ document.addEventListener('DOMContentLoaded', function () {
         locationForm.reset();
         locationForm.classList.remove('was-validated');
         locationIdInput.value = locationId;
-        locationNameInput.value = locationId;
-        locationNameInput.disabled = true;
+        locationNameInput.value = locationName;
         locationAddressInput.value = locationAddress;
         locationMapInput.value = locationMap;
 

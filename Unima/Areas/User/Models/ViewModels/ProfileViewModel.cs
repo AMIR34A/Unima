@@ -1,5 +1,4 @@
-﻿using Unima.Areas.Professor.Models;
-using Unima.Areas.User.Models.Profile;
+﻿using Unima.Areas.User.Models.Profile;
 using Unima.Areas.User.Models.Q_A;
 using ScheduleModel = Unima.Areas.Professor.Models.ScheduleModel;
 
@@ -12,6 +11,8 @@ public class ProfileViewModel
     public IEnumerable<QuestionAndAnswerModel>? QuestionAndAnswers { get; set; }
 
     public IEnumerable<LessonModel>? Lessons { get; set; }
+
+    public IEnumerable<LocationModel>? Locations { get; set; }
 
     public IEnumerable<ScheduleModel>? Schedules { get; set; }
 }

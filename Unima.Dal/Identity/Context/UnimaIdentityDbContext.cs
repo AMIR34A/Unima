@@ -23,6 +23,8 @@ public class UnimaIdentityDbContext : IdentityDbContext<ApplicationUser, Applica
 
     public DbSet<Lesson> Lessons { get; set; }
 
+    public DbSet<Location> Locations { get; set; }
+
     public DbSet<Schedule> Schedules { get; set; }
 
     public UnimaIdentityDbContext()

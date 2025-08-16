@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Internal;
 using Unima.Dal.Enums;
 
 namespace Unima.Dal.Entities.Entities;
@@ -36,4 +37,6 @@ public class ProfessorInformation
     public required string Role { get; set; }
 
     public ICollection<Lesson> Lessons { get; set; }
+
+    public ICollection<Location> Locations { get; set; }
 }

@@ -703,7 +703,22 @@
                                     <th scope="col" class="text-center">عملیات</th>
                                 </tr>
                             </thead>
-                            <tbody id="locationsTableBody"></tbody>
+                            <tbody id="locationsTableBody">
+                                @if (Model.Locations is not null)
+                                {
+                                    foreach (var location in Model.Locations)
+                                    {
+                                        <tr data-location-id="@location.Id">
+                                            <td>@location.Title</td>
+                                            <td>@location.Address</td>
+                                            <td class="text-center">
+                                                <a href="#" class="text-primary mx-2 edit-btn" title="ویرایش"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                <a href="#" class="text-danger mx-2 delete-btn" title="حذف"><i class="fa-solid fa-trash-can"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
                         </table>
                     </div>
                 </div>

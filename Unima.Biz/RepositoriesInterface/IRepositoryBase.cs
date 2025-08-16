@@ -9,6 +9,8 @@ public interface IRepositoryBase<TEntity>
 
     Task<List<TEntity>> GetAllAsync(string navigateProperty);
 
+    Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate);
+
     IIncludableQueryable<TEntity, TProperty> Include<TProperty>(Expression<Func<TEntity, TProperty>> navigateProperty);
 
     Task AddAsync(TEntity entity);

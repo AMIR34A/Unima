@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using NuGet.Common;
 using System.Text.RegularExpressions;
-using Unima.Areas.Professor.Models;
 using Unima.Areas.User.Models.Profile;
 using Unima.Areas.User.Models.Q_A;
 using Unima.Areas.User.Models.ViewModels;
@@ -131,6 +127,15 @@ namespace Unima.Areas.User.Controllers
                 GroupNo = lesson.GroupNo
             });
 
+            IEnumerable<LocationModel> locations = (await _unitOfWork.RepositoryBase<Dal.Entities.Entities.Location>().GetAllAsync(location => location.ProfessorId == currentUser.Id))
+                                                                      .Select(location => new LocationModel()
+                                                                      {
+                                                                          Id = location.Id,
+                                                                          Title = location.Title,
+                                                                          Address = location.Address,
+                                                                          GoogleMapLink = location.GoogleMapLink
+                                                                      }).AsEnumerable();
+
             IEnumerable<Professor.Models.ScheduleModel> schedules = lessonAndSchedules.SelectMany(lesson => lesson.Schedules)
                                                                    .Select(schedule => new Professor.Models.ScheduleModel()
                                                                    {
@@ -147,6 +152,7 @@ namespace Unima.Areas.User.Controllers
                 ProfileModel = profileModel,
                 QuestionAndAnswers = questionAndAnswerModels,
                 Lessons = lessons,
+                Locations = locations,
                 Schedules = schedules
             };
 
@@ -387,8 +393,8 @@ namespace Unima.Areas.User.Controllers
                 Title = lessonModel.Title,
                 No = lessonModel.No,
                 GroupNo = lessonModel.GroupNo,
-                Professor = professor,
-                ProfessorId = professor.Id
+                ProfessorId = professor.Id,
+                Professor = professor
             });
             await _unitOfWork.SaveAsync();
 
@@ -417,8 +423,8 @@ namespace Unima.Areas.User.Controllers
             string concatedNoAndGroupNo = lessonId.HasValue ? lessonId.ToString() : string.Empty;
 
             Lesson? lesson = (await _unitOfWork.RepositoryBase<Lesson>()
-                                               .GetAllAsync())
-                                              .FirstOrDefault(lesson => lesson.ProfessorId == professor.Id && string.Equals($"{lesson.No}{lesson.GroupNo}", concatedNoAndGroupNo));
+                                               .GetAllAsync(lesson => lesson.ProfessorId == professor.Id && string.Equals($"{lesson.No}{lesson.GroupNo}", concatedNoAndGroupNo)))
+                                               .FirstOrDefault();
 
             if (lesson is null)
             {
@@ -449,8 +455,8 @@ namespace Unima.Areas.User.Controllers
             if (professor is null)
                 return NotFound();
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState.FirstError());
+            if (!lessonId.HasValue)
+                return NotFound();
 
 
             string concatedNoAndGroupNo = lessonId.HasValue ? lessonId.ToString() : string.Empty;
@@ -461,11 +467,115 @@ namespace Unima.Areas.User.Controllers
 
             if (lesson is null)
             {
-                ModelState.AddModelError("LessonNotFound", "درسی برای آپدیت کردن یافت نشد");
+                ModelState.AddModelError("LessonNotFound", "مکانی برای حذف کردن یافت نشد");
                 return BadRequest(ModelState);
             }
 
             _unitOfWork.RepositoryBase<Lesson>().Delete(lesson);
+            await _unitOfWork.SaveAsync();
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("User/Profile/AddLocation")]
+        public async Task<IActionResult> AddLocation([FromBody] LocationModel locationModel)
+        {
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return NotFound();
+
+            ProfessorInformation? professor = await _unitOfWork.RepositoryBase<ProfessorInformation>()
+                                                               .FirstOrDefaultAsync(professor => professor.Id == currentUser.Id);
+
+            if (professor is null)
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.FirstError());
+
+            Dal.Entities.Entities.Location location = new()
+            {
+                Title = locationModel.Title,
+                Address = locationModel.Address,
+                GoogleMapLink = locationModel.GoogleMapLink,
+                ProfessorId = professor.Id,
+                Professor = professor
+            };
+
+            await _unitOfWork.RepositoryBase<Dal.Entities.Entities.Location>().AddAsync(location);
+            await _unitOfWork.SaveAsync();
+
+            return Ok(new { Id = location.Id });
+        }
+
+        [HttpPut]
+        [Route("User/Profile/UpdateLocation")]
+        public async Task<IActionResult> UpdateLocation([FromBody] LocationModel locationModel)
+        {
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return NotFound();
+
+            ProfessorInformation? professor = await _unitOfWork.RepositoryBase<ProfessorInformation>()
+                                                               .FirstOrDefaultAsync(professor => professor.Id == currentUser.Id);
+
+            if (professor is null)
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.FirstError());
+
+
+            Dal.Entities.Entities.Location? location = (await _unitOfWork.RepositoryBase<Dal.Entities.Entities.Location>()
+                                                                         .FirstOrDefaultAsync(location => location.Id == locationModel.Id));
+
+            if (location is null)
+            {
+                ModelState.AddModelError("LessonNotFound", "مکانی برای آپدیت کردن یافت نشد");
+                return BadRequest(ModelState);
+            }
+
+            location.Title = locationModel.Title;
+            location.Address = locationModel.Address;
+            location.GoogleMapLink = locationModel.GoogleMapLink;
+
+            _unitOfWork.RepositoryBase<Dal.Entities.Entities.Location>().Update(location);
+            await _unitOfWork.SaveAsync();
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("User/Profile/DeleteLocation/{locationId:int?}")]
+        public async Task<IActionResult> DeleteLocation(int? locationId)
+        {
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return NotFound();
+
+            ProfessorInformation? professor = await _unitOfWork.RepositoryBase<ProfessorInformation>()
+                                                               .FirstOrDefaultAsync(professor => professor.Id == currentUser.Id);
+
+            if (!locationId.HasValue)
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.FirstError());
+
+            Dal.Entities.Entities.Location? location = (await _unitOfWork.RepositoryBase<Dal.Entities.Entities.Location>()
+                                                                         .FirstOrDefaultAsync(location => location.Id == locationId));
+
+            if (location is null)
+            {
+                ModelState.AddModelError("LessonNotFound", "مکانی برای حذف کردن یافت نشد");
+                return BadRequest(ModelState);
+            }
+
+            _unitOfWork.RepositoryBase<Dal.Entities.Entities.Location>().Delete(location);
             await _unitOfWork.SaveAsync();
 
             return Ok();
