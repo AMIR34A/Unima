@@ -117,43 +117,30 @@ namespace Unima.Areas.User.Controllers
                                                                               Answer = qa.Answer,
                                                                               Priority = qa.Priority
                                                                           });
-            var lessonAndSchedules = _unitOfWork.RepositoryBase<Lesson>().Include(lesson => lesson.Schedules)
-                                                                .Where(lesson => lesson.ProfessorId == currentUser.Id);
 
-            IEnumerable<LessonModel> lessons = lessonAndSchedules.Select(lesson => new LessonModel
-            {
-                Title = lesson.Title,
-                No = lesson.No,
-                GroupNo = lesson.GroupNo
-            });
+            IEnumerable<LessonModel> lessons = (await _unitOfWork.RepositoryBase<Lesson>().GetAllAsync(lesson => lesson.ProfessorId == currentUser.Id))
+                                                                 .Select(lesson => new LessonModel
+                                                                 {
+                                                                     Title = lesson.Title,
+                                                                     No = lesson.No,
+                                                                     GroupNo = lesson.GroupNo
+                                                                 });
 
             IEnumerable<LocationModel> locations = (await _unitOfWork.RepositoryBase<Dal.Entities.Entities.Location>().GetAllAsync(location => location.ProfessorId == currentUser.Id))
-                                                                      .Select(location => new LocationModel()
-                                                                      {
-                                                                          Id = location.Id,
-                                                                          Title = location.Title,
-                                                                          Address = location.Address,
-                                                                          GoogleMapLink = location.GoogleMapLink
-                                                                      }).AsEnumerable();
+                                                                     .Select(location => new LocationModel()
+                                                                     {
+                                                                         Id = location.Id,
+                                                                         Title = location.Title,
+                                                                         Address = location.Address,
+                                                                         GoogleMapLink = location.GoogleMapLink
+                                                                     }).AsEnumerable();
 
-            IEnumerable<Professor.Models.ScheduleModel> schedules = lessonAndSchedules.SelectMany(lesson => lesson.Schedules)
-                                                                   .Select(schedule => new Professor.Models.ScheduleModel()
-                                                                   {
-                                                                       LessonTitle = schedule.Lesson.Title,
-                                                                       GroupNo = schedule.LessonGroupNo,
-                                                                       RoomNo = schedule.RoomNo,
-                                                                       DayOfWeek = schedule.DayOfWeek,
-                                                                       DayTitle = string.Empty,
-                                                                       WeekStatus = schedule.WeekStatus,
-                                                                       Period = schedule.Period
-                                                                   }).AsEnumerable();
             ProfileViewModel viewModel = new ProfileViewModel
             {
                 ProfileModel = profileModel,
                 QuestionAndAnswers = questionAndAnswerModels,
                 Lessons = lessons,
-                Locations = locations,
-                Schedules = schedules
+                Locations = locations
             };
 
             return View(viewModel);
@@ -579,6 +566,30 @@ namespace Unima.Areas.User.Controllers
             await _unitOfWork.SaveAsync();
 
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("/User/Profile/GetSchedule")]
+        public async Task<IActionResult> GetScheduele()
+        {
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return NotFound();
+
+            IEnumerable<Professor.Models.ScheduleModel> schedules = _unitOfWork.RepositoryBase<Lesson>().Include(lesson => lesson.Schedules)
+                                                                               .Where(lesson => lesson.ProfessorId == currentUser.Id).SelectMany(lesson => lesson.Schedules)
+                                                                               .Select(schedule => new Professor.Models.ScheduleModel()
+                                                                               {
+                                                                                   LessonTitle = schedule.Lesson.Title,
+                                                                                   GroupNo = schedule.LessonGroupNo,
+                                                                                   RoomNo = schedule.RoomNo,
+                                                                                   DayOfWeek = schedule.DayOfWeek,
+                                                                                   DayTitle = string.Empty,
+                                                                                   WeekStatus = schedule.WeekStatus,
+                                                                                   Period = schedule.Period
+                                                                               }).AsEnumerable();
+            return Ok(schedules);
         }
 
         [HttpPost]

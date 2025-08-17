@@ -134,7 +134,7 @@
                                   class="fs-6">ثبت نشده</span>
                         </div>
                         <div class="icon-edit">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#scheduleModal">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#scheduleModal" onclick="loadSchedule()">
                                 <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
                             </a>
                         </div>
@@ -482,54 +482,7 @@
                                     <th>18:00 - 20:00</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @{
-                                    var periods = new string[] { "08:00 - 10:00", "10:00 - 12:00", "12:00 - 14:00", "14:00 - 16:00", "16:00 - 18:00", "18:00 - 20:00" };
-
-
-                                    for (int i = 0; i < 7; i++)
-                                    {
-                                        string day = i switch
-                                        {
-                                            0 => "شنبه",
-                                            1 => "یکشنبه",
-                                            2 => "دوشنبه",
-                                            3 => "سه‌شنبه",
-                                            4 => "چهارشنبه",
-                                            5 => "پنجشنبه",
-                                            6 => "جمعه",
-                                            _ => string.Empty
-                                        };
-                                        <tr>
-                                            <th>@day</th>
-                                            @{
-                                                var schedules = Model.Schedules?.Where(schedule => schedule.DayOfWeek == (WeekDay)i).OrderBy(schedule => schedule.Period).ToList();
-                                                for (int j = 0; j < periods.Length; j++)
-                                                {
-                                                    var periodSchedules = schedules?.Where(schedule => schedule.Period == (TimePeriod)j);
-                                                    <td data-day="@day" data-time="@periods[j]" data-dayindex="@i" data-period="@j">
-                                                        @if (periodSchedules is null || periodSchedules.Count() == 0)
-                                                        {
-                                                            <div class="cell-actions"><button class="add-btn"><i class="fa-solid fa-plus"></i></button></div>
-                                                            continue;
-                                                        }
-                                                        <div class="schedule-item-container">
-                                                            @foreach (var periodSchedule in periodSchedules)
-                                                            {
-                                                                <div class="schedule-item week-@(periodSchedule.WeekStatus == WeekStatus.Fixed ? "fixed" : periodSchedule.WeekStatus == WeekStatus.Even ? "even" : "odd")" data-week-type="@(periodSchedule.WeekStatus == WeekStatus.Fixed ? "ثابت" : periodSchedule.WeekStatus == WeekStatus.Even ? "زوج" : "فرد")">
-                                                                    <p class="mb-0" data-course-name="@periodSchedule.LessonTitle"><strong>@periodSchedule.LessonTitle</strong></p>
-                                                                    <p class="mb-0 small text-muted">گروه: @periodSchedule.GroupNo | کلاس: @periodSchedule.RoomNo</p>
-                                                                    <div class="action-buttons"><button class="edit-btn" title="ویرایش"><i class="fa-solid fa-pencil"></i></button><button class="delete-btn" title="حذف"><i class="fa-solid fa-trash-can"></i></button></div>
-                                                                </div>
-                                                            }
-                                                        </div>
-                                                    </td>
-                                                }
-                                            }
-                                        </tr>
-                                    }
-                                }
-                            </tbody>
+                            <tbody id="scheduleTableBody"></tbody>
                         </table>
                     </div>
                     <div class="text-start mt-4 border-top pt-3">
