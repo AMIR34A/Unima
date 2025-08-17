@@ -1238,7 +1238,7 @@ function downlaodPng() {
     htmlToImage.toPng(table, { pixelRatio: 2 })
         .then(function (dataUrl) {
             const link = document.createElement("a");
-            link.download = 'table.png';
+            link.download = 'برنامه کلاسی.png';
             link.href = dataUrl;
             link.click();
         });
@@ -1272,7 +1272,7 @@ async function downloadPdf() {
         const y = (pageHeight - finalHeight) / 2;
 
         pdf.addImage(dataUrl, "PNG", x, y, finalWidth, finalHeight);
-        pdf.save("table.pdf");
+        pdf.save("برنامه کلاسی.pdf");
     };
 }
 
