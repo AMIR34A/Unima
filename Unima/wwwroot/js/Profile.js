@@ -1239,7 +1239,7 @@ async function loadSchedule() {
     const tableBody = document.getElementById('scheduleTableBody');
 
     try {
-        const response = await fetch("/User/Profile/GetSchedule"); // 🔹 adjust to your server route
+        const response = await fetch("/User/Profile/GetSchedule");
         if (!response.ok) throw new Error("خطا در دریافت داده‌ها");
 
         const schedules = await response.json();
