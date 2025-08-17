@@ -55,7 +55,7 @@ $(document).ready(function () {
   const START_HOUR = 7,
     END_HOUR = 20;
   const TOTAL_MINUTES = (END_HOUR - START_HOUR) * 60;
-  const currentTimeStr = "11:00"; // می‌توانید این را با تابع زمان حال جایگزین کنید
+  const currentTimeStr = "11:00";
 
   let events = [
     { time: "08:30", title: "قهوه و برنامه‌ریزی روز" },
@@ -75,9 +75,17 @@ $(document).ready(function () {
 
   function createCallout(event) {
     const percentage = timeToPercentage(event.time);
-    const $callout = $(
-      `<div class="event-callout"><span class="callout-time">${event.time}</span><span class="callout-title">${event.title}</span></div>`
-    );
+    const $callout = $(`
+                    <div class="event-callout">
+                        <div class="callout-header">
+                            <i class="fas fa-clock"></i>
+                            <span class="callout-time">${event.time}</span>
+                        </div>
+                        <div class="callout-body">
+                            <span class="callout-title">${event.title}</span>
+                        </div>
+                    </div>
+                `);
     $callout.css("left", `${percentage}%`);
     $timelineContainer.append($callout);
     return $callout;
@@ -85,6 +93,24 @@ $(document).ready(function () {
 
   function renderTimeline() {
     $timelineContainer.empty();
+
+    for (let hour = START_HOUR; hour <= END_HOUR; hour++) {
+      const hourStr = String(hour).padStart(2, "0");
+      const percentage = timeToPercentage(`${hourStr}:00`);
+      const $hourTick = $(`<div class="tick tick-hour"></div>`);
+      $hourTick.css("left", `${percentage}%`);
+      $timelineContainer.append($hourTick);
+      if (hour < END_HOUR) {
+        for (let minute = 30; minute < 60; minute += 30) {
+          const minPercentage = timeToPercentage(
+            `${hourStr}:${String(minute).padStart(2, "0")}`
+          );
+          const $minTick = $(`<div class="tick tick-minute"></div>`);
+          $minTick.css("left", `${minPercentage}%`);
+          $timelineContainer.append($minTick);
+        }
+      }
+    }
 
     const currentTimePercentage = timeToPercentage(currentTimeStr);
     const $currentTimeMarker = $(`<div id="current-time-marker"></div>`);
@@ -103,11 +129,11 @@ $(document).ready(function () {
       if (event === nextEvent) barClass += " next-event-marker";
 
       const $bar = $(`<div class="${barClass}"></div>`);
-      $bar.css("left", `calc(${percentage}% - 6px)`);
+      $bar.css("left", `calc(${percentage}% - 9px)`);
 
       const $callout = createCallout(event);
       if (event === nextEvent) {
-        $callout.addClass("visible");
+        $callout.addClass("visible next-event-card");
       }
       $bar.data("callout", $callout);
       $timelineContainer.append($bar);
@@ -122,9 +148,7 @@ $(document).ready(function () {
 
   $timelineContainer.on("mouseleave", ".event-bar", function () {
     const $callout = $(this).data("callout");
-    // اگر رویداد بعدی نبود، کارت را مخفی کن
-    const nextEvent = events.find((e) => e.time > currentTimeStr);
-    if ($(this).data("event") !== nextEvent) {
+    if (!$callout.hasClass("next-event-card")) {
       $callout.removeClass("visible");
     }
   });

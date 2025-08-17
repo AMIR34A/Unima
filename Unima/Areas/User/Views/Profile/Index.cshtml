@@ -521,22 +521,13 @@
                         </div>
                         <div class="mb-3">
                             <label for="faculty" class="form-label">دانشکده</label>
-                            <select class="form-select" id="faculty" required>
-                                <option value="" disabled selected>انتخاب کنید...</option>
-                                <option value="فنی و مهندسی">فنی و مهندسی</option>
-                                <option value="علوم پایه">علوم پایه</option>
-                                <option value="علوم انسانی">علوم انسانی</option>
-                            </select>
+                            <input type="text" class="form-control" id="faculty" required>
+                            <div class="invalid-feedback"> نام مکان را وارد کنید.</div>
                         </div>
                         <div class="mb-3">
                             <label for="class-number" class="form-label">شماره کلاس</label>
-                            <select class="form-select" id="class-number" required>
-                                <option value="" disabled selected>انتخاب کنید...</option>
-                                <option value="101">101</option>
-                                <option value="202">202</option>
-                                <option value="303">303</option>
-                                <option value="404">404</option>
-                            </select>
+                            <input type="number" class="form-control" id="class-number" required>
+                            <div class="invalid-feedback"> نام مکان را وارد کنید.</div>
                         </div>
                         <div class="mb-3">
                             <label for="week-type" class="form-label">نوع هفته</label>
@@ -618,12 +609,12 @@
                         </div>
                         <div class="mb-3">
                             <label for="courseCode" class="form-label">کد درس</label>
-                            <input type="text" class="form-control" id="courseCode" required>
+                            <input type="number" class="form-control" id="courseCode" required>
                             <div class="invalid-feedback">لطفاً کد درس را وارد کنید.</div>
                         </div>
                         <div class="mb-3">
                             <label for="courseGroup" class="form-label">گروه</label>
-                            <input type="text" class="form-control" id="courseGroup" required>
+                            <input type="number" class="form-control" id="courseGroup" required>
                             <div class="invalid-feedback">لطفاً گروه را وارد کنید.</div>
                         </div>
                     </form>
