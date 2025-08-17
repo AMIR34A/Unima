@@ -1,68 +1,130 @@
-        .timeline-wrapper { 
-            position: relative; 
-            margin: 40px auto 80px auto;
-            width: 90%;
-            display: flex;
-            justify-content: center;
-        }
-        .timeline-container {
-            position: relative; width: 95%; 
-            height: 50px;
-            background: linear-gradient(90deg, #dda853 0%, #eac992 100%);
-            border-radius: 25px; display: flex; align-items: center; padding: 0 20px;
-            box-shadow: 0 5px 20px rgba(221, 168, 83, 0.4);
-        }
-        .tick {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            width: 2px; background-color: rgba(255, 255, 255, 0.7);
-        }
-        .tick-hour { height: 100%; }
-        .tick-minute { height: 40%; opacity: 0.5; }
-        .hour-label {
-            position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-            margin-top: 5px; font-size: 0.8rem; color: #6c757d; font-weight: bold;
-        }
-        .no-line {
-            background-color: transparent !important;
-        }
-        .event-bar {
-            position: absolute; top: 7.5px; width: 8px; height: 35px;
-            border-radius: 4px; cursor: pointer; transition: all 0.2s ease;
-            border: 2px solid rgba(255,255,255,0.8);
-            z-index: 5;
-        }
-        #current-time-marker {
-            position: absolute; top: 0; height: 100%; z-index: 10;
-        }
-        #current-time-marker::after {
-            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 3px; height: 100%; background: #c0392b; border-radius: 2px;
-        }
-        .event-callout {
-            position: absolute; top: 100%;
-            transform: translateX(-50%) translateY(15px);
-            background: #343a40; color: white; padding: 10px 15px; border-radius: 8px;
-            width: 180px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            z-index: 20; opacity: 0; visibility: hidden;
-            transition: opacity 0.2s ease, transform 0.2s ease;
-        }
-        .event-callout.visible { opacity: 1; visibility: visible; }
-        .event-callout::after {
-            content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
-            border-width: 8px; border-style: solid; border-color: transparent transparent #343a40 transparent;
-        }
-        .callout-time { font-size: 0.9rem; font-weight: bold; margin-bottom: 4px; display: block; }
-        .callout-title { font-size: 0.85rem; }
-        .event-bar:hover { transform: scale(1.1); }
-        .event-bar.past { background-color: rgba(0,0,0,0.2); }
-        .event-bar.future { background-color: #ffffff; }
-        .event-bar.next-event-marker { background-color: #c0392b; border-color: white;}
+.timeline-wrapper {
+  position: relative;
+  margin: 80px auto;
+  width: 90%;
+  padding-bottom: 120px; 
+}
+.timeline-container {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background: #18181b; 
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+}
+.tick,
+.hour-label {
+  display: none;
+}
 
-        @media (max-width: 768px) {
-            .tick-minute, .hour-label {
-                display: none;
-            }
-            .timeline-wrapper { 
-                margin-bottom: 40px; 
-            }
-        }
+.event-bar {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #18181b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 5;
+  border: 2px solid #fff;
+}
+#current-time-marker {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 24px;
+  z-index: 10;
+}
+#current-time-marker::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: #dda853; 
+}
+
+.event-callout {
+  position: absolute;
+  top: 30px; 
+  transform: translateX(-50%) translateY(10px);
+  background: #ffffff;
+  color: #18181b;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 200px;
+  text-align: right;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07),
+    0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  z-index: 20;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #e4e4e7;
+}
+.event-callout.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.event-callout::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 26px;
+  width: 2px;
+  background-color: #d4d4d8;
+}
+.event-callout::after {
+  display: none;
+}
+
+.callout-time {
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: #dda853; 
+}
+.callout-title {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #18181b;
+}
+
+.event-bar:hover {
+  background: #dda853;
+}
+.event-bar.past {
+  background: #a1a1aa;
+}
+.event-bar.future {
+  background: #18181b;
+}
+.event-bar.next-event-marker {
+  background: #dda853;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 #dda85363;
+  }
+  70% {
+    box-shadow: 0 0 0 10px #dda85363;
+  }
+  100% {
+    box-shadow: 0 0 0 0 #dda85363;
+  }
+}

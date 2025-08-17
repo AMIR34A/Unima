@@ -55,6 +55,7 @@ $(document).ready(function () {
   const START_HOUR = 7,
     END_HOUR = 20;
   const TOTAL_MINUTES = (END_HOUR - START_HOUR) * 60;
+  const currentTimeStr = "11:00"; // می‌توانید این را با تابع زمان حال جایگزین کنید
 
   let events = [
     { time: "08:30", title: "قهوه و برنامه‌ریزی روز" },
@@ -64,16 +65,8 @@ $(document).ready(function () {
     { time: "18:00", title: "ورزش" },
   ];
 
-  const $timelineWrapper = $("#timeline-wrapper");
   const $timelineContainer = $("#timeline-container");
   const $eventForm = $("#event-form");
-
-  function getCurrentTime() {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, "0");
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    return `${hours}:${minutes}`;
-  }
 
   const timeToPercentage = (timeStr) => {
     const [h, m] = timeStr.split(":").map(Number);
@@ -82,54 +75,20 @@ $(document).ready(function () {
 
   function createCallout(event) {
     const percentage = timeToPercentage(event.time);
-    const $callout = $(`
-    <div class="event-callout">
-    <span class="callout-time">${event.time}</span>
-    <span class="callout-title">${event.title}</span>
-    </div>
-    `);
+    const $callout = $(
+      `<div class="event-callout"><span class="callout-time">${event.time}</span><span class="callout-title">${event.title}</span></div>`
+    );
     $callout.css("left", `${percentage}%`);
     $timelineContainer.append($callout);
     return $callout;
   }
 
   function renderTimeline() {
-    const currentTimeStr = getCurrentTime();
-
     $timelineContainer.empty();
 
-    for (let hour = START_HOUR; hour <= END_HOUR; hour++) {
-      const hourStr = String(hour).padStart(2, "0");
-      const percentage = timeToPercentage(`${hourStr}:00`);
-      const $hourTick = $(
-        `<div class="tick tick-hour"><div class="hour-label">${hourStr}:00</div></div>`
-      );
-
-      if (hour === START_HOUR || hour === END_HOUR) {
-        $hourTick.addClass("no-line");
-      }
-
-      $hourTick.css("left", `${percentage}%`);
-      $timelineContainer.append($hourTick);
-
-      if (hour < END_HOUR) {
-        for (let minute = 10; minute < 60; minute += 10) {
-          const minPercentage = timeToPercentage(
-            `${hourStr}:${String(minute).padStart(2, "0")}`
-          );
-          const $minTick = $(`<div class="tick tick-minute"></div>`);
-          $minTick.css("left", `${minPercentage}%`);
-          $timelineContainer.append($minTick);
-        }
-      }
-    }
-
     const currentTimePercentage = timeToPercentage(currentTimeStr);
-    if (currentTimePercentage >= 0 && currentTimePercentage <= 100) {
-      const $currentTimeMarker = $(`<div id="current-time-marker"></div>`);
-      $currentTimeMarker.css("left", `calc(${currentTimePercentage}% - 1.5px)`);
-      $timelineContainer.append($currentTimeMarker);
-    }
+    const $currentTimeMarker = $(`<div id="current-time-marker"></div>`);
+    $currentTimeMarker.css("left", `calc(${currentTimePercentage}% - 1px)`);
 
     events.sort((a, b) => a.time.localeCompare(b.time));
     const nextEvent = events.find((event) => event.time > currentTimeStr);
@@ -144,32 +103,29 @@ $(document).ready(function () {
       if (event === nextEvent) barClass += " next-event-marker";
 
       const $bar = $(`<div class="${barClass}"></div>`);
-      $bar.css("left", `calc(${percentage}% - 4px)`);
-      $bar.data("event", event);
-      $timelineContainer.append($bar);
+      $bar.css("left", `calc(${percentage}% - 6px)`);
 
+      const $callout = createCallout(event);
       if (event === nextEvent) {
-        const $callout = createCallout(event);
         $callout.addClass("visible");
       }
+      $bar.data("callout", $callout);
+      $timelineContainer.append($bar);
     });
+
+    $timelineContainer.append($currentTimeMarker);
   }
 
   $timelineContainer.on("mouseenter", ".event-bar", function () {
-    const event = $(this).data("event");
-    const currentTimeStr = getCurrentTime();
-    const nextEvent = events.find((e) => e.time > currentTimeStr);
-    if (event !== nextEvent) {
-      const $callout = createCallout(event);
-      $(this).data("callout", $callout);
-      setTimeout(() => $callout.addClass("visible"), 10);
-    }
+    $(this).data("callout").addClass("visible");
   });
 
   $timelineContainer.on("mouseleave", ".event-bar", function () {
     const $callout = $(this).data("callout");
-    if ($callout) {
-      $callout.remove();
+    // اگر رویداد بعدی نبود، کارت را مخفی کن
+    const nextEvent = events.find((e) => e.time > currentTimeStr);
+    if ($(this).data("event") !== nextEvent) {
+      $callout.removeClass("visible");
     }
   });
 
@@ -181,9 +137,7 @@ $(document).ready(function () {
     if (time && title) {
       const hour = parseInt(time.split(":")[0]);
       if (hour < START_HOUR || hour > END_HOUR) {
-        alert(
-          `زمان وارد شده خارج از محدوده است.\nلطفا زمانی بین ${START_HOUR}:00 صبح تا ${END_HOUR}:00 شب انتخاب کنید.`
-        );
+        alert(`زمان وارد شده خارج از محدوده است.`);
         return;
       }
       events.push({ time, title });
@@ -196,6 +150,4 @@ $(document).ready(function () {
   });
 
   renderTimeline();
-
-  setInterval(renderTimeline, 60000);
 });
