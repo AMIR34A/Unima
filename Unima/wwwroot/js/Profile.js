@@ -1221,19 +1221,60 @@ document.addEventListener('DOMContentLoaded', function () {
         locationsListModal.hide();
         locationFormModal.show();
     }
+
+    //document.getElementById("exportPngBtn").addEventListener("click", function () {
+    //    const table = document.getElementById("scheduleTable");
+    //    html2canvas(table, { scale: 2}).then(canvas => {
+    //        const link = document.createElement("a");
+    //        link.download = "table.png";
+    //        link.href = canvas.toDataURL("image/png");
+    //        link.click();
+    //    });
+    //});
 });
 
+function downlaodPng() {
+    const table = document.getElementById("scheduleTable");
+    htmlToImage.toPng(table, { pixelRatio: 2 })
+        .then(function (dataUrl) {
+            const link = document.createElement("a");
+            link.download = 'table.png';
+            link.href = dataUrl;
+            link.click();
+        });
+}
 
-const periods = [
-    "08:00 - 10:00",
-    "10:00 - 12:00",
-    "12:00 - 14:00",
-    "14:00 - 16:00",
-    "16:00 - 18:00",
-    "18:00 - 20:00"
-];
+async function downloadPdf() {
+    const table = document.getElementById("scheduleTable");
+    const dataUrl = await htmlToImage.toPng(table, { pixelRatio: 2 });
 
-const days = ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنجشنبه", "جمعه"];
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF("p", "mm", "a4");
+
+    // A4 size in mm
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+
+    // Convert image size to fit A4 (keeping aspect ratio)
+    const img = new Image();
+    img.src = dataUrl;
+    img.onload = function () {
+        const imgWidth = img.width;
+        const imgHeight = img.height;
+
+        // Scale to fit A4 width (max 180mm with margins)
+        const scale = Math.min(180 / imgWidth, 260 / imgHeight);
+        const finalWidth = imgWidth * scale;
+        const finalHeight = imgHeight * scale;
+
+        // Center positions
+        const x = (pageWidth - finalWidth) / 2;
+        const y = (pageHeight - finalHeight) / 2;
+
+        pdf.addImage(dataUrl, "PNG", x, y, finalWidth, finalHeight);
+        pdf.save("table.pdf");
+    };
+}
 
 async function loadSchedule() {
     const tableBody = document.getElementById('scheduleTableBody');
@@ -1250,6 +1291,17 @@ async function loadSchedule() {
 }
 
 function renderSchedule(schedules, tableBody) {
+    const periods = [
+        "08:00 - 10:00",
+        "10:00 - 12:00",
+        "12:00 - 14:00",
+        "14:00 - 16:00",
+        "16:00 - 18:00",
+        "18:00 - 20:00"
+    ];
+
+    const days = ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنجشنبه", "جمعه"];
+
     tableBody.innerHTML = ""; // clear old
 
     for (let i = 0; i < days.length; i++) {

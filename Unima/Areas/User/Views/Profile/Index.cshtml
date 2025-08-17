@@ -470,7 +470,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive">
-                        <table class="scheduleTable table-bordered">
+                        <table id="scheduleTable" class="scheduleTable table-bordered">
                             <thead>
                                 <tr>
                                     <th>روز / زمان</th>
@@ -486,10 +486,10 @@
                         </table>
                     </div>
                     <div class="text-start mt-4 border-top pt-3">
-                        <button id="exportPngBtn" class="btn btn-export mx-1">
+                        <button id="exportPngBtn" class="btn btn-export mx-1" onclick="downlaodPng()">
                             <i class="fa-solid fa-image ms-2"></i>خروجی PNG
                         </button>
-                        <button id="exportPdfBtn" class="btn btn-export mx-1">
+                        <button id="exportPdfBtn" class="btn btn-export mx-1" onclick="downloadPdf()">
                             <i class="fa-solid fa-file-pdf ms-2"></i>خروجی PDF
                         </button>
                     </div>
@@ -719,3 +719,5 @@
 <section>
     @await Html.PartialAsync("_SupportWidgetPartial", Model.QuestionAndAnswers)
 </section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js"></script>
