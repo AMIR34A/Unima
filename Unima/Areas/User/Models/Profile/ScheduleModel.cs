@@ -14,4 +14,6 @@ public class ScheduleModel
     public required int WeekStatus { get; set; }
 
     public int Period { get; set; }
+
+    public string? Faculty { get; set; }
 }

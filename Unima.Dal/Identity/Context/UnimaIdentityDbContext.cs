@@ -27,6 +27,10 @@ public class UnimaIdentityDbContext : IdentityDbContext<ApplicationUser, Applica
 
     public DbSet<Schedule> Schedules { get; set; }
 
+    public DbSet<Faculty> Faculties { get; set; }
+
+    public DbSet<Department> Departments { get; set; }
+
     public UnimaIdentityDbContext()
     {
 

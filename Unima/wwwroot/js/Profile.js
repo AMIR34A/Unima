@@ -767,10 +767,11 @@ document.addEventListener('DOMContentLoaded', function () {
         url = `/User/Profile/AddSchedule/${selectedValue}`;
 
         var scheduleModel = {
-            RoomNo: 1,
+            RoomNo: formData.classNumber,
             DayOfWeek: currentCell.dataset.dayindex,
             WeekStatus: $('#week-type').val() == "ثابت" ? 0 : $('#week-type').val() == "زوج" ? 1 : 2,
             Period: currentCell.dataset.period,
+            Faculty: document.getElementById('faculty').value
         }
         const response = await fetch(url, {
             method: "POST",
@@ -923,11 +924,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const courseId = courseIdInput.value;
             var url = '';
 
+            const department = document.getElementById('department');
+
             var lessonModel =
             {
                 Title: courseNameInput.value,
                 No: courseCodeInput.value,
-                GroupNo: courseGroupInput.value
+                GroupNo: courseGroupInput.value,
+                DepartmentId: department.value
             };
 
 
@@ -1011,6 +1015,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const newRow = document.createElement('tr');
         const courseCode = courseCodeInput.value;
         newRow.dataset.courseId = courseCode + courseGroupInput.value;
+        const department = document.getElementById('department');
+        newRow.dataset.departmentId = department.value;
         newRow.innerHTML = `
             <td>${courseNameInput.value}</td>
             <td>${courseCode}</td>
@@ -1026,6 +1032,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const rowToUpdate = coursesTableBody.querySelector(`tr[data-course-id="${courseId}"]`);
         if (rowToUpdate) {
             rowToUpdate.children[0].textContent = courseNameInput.value;
+            const department = document.getElementById('department');
+            rowToUpdate.dataset.departmentId = department.value;
             //rowToUpdate.children[1].textContent = courseCodeInput.value;
             //rowToUpdate.children[2].textContent = courseGroupInput.value;
         }
@@ -1049,6 +1057,8 @@ document.addEventListener('DOMContentLoaded', function () {
         saveCourseBtn.textContent = 'بروزرسانی';
         saveCourseBtn.className = 'btn btn-danger';
 
+        const department = document.getElementById('department');
+        department.value = row.dataset.departmentId;
         coursesListModal.hide();
         courseFormModal.show();
     }

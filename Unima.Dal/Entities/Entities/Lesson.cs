@@ -11,5 +11,8 @@ public class Lesson
     public int ProfessorId { get; set; }
     public required ProfessorInformation Professor { get; set; }
 
+    public int DepartmentId { get; set; }
+    public required Department Department { get; set; }
+
     public ICollection<Schedule> Schedules { get; set; }
 }

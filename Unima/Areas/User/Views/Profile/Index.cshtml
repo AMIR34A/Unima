@@ -521,7 +521,16 @@
                         </div>
                         <div class="mb-3">
                             <label for="faculty" class="form-label">دانشکده</label>
-                            <input type="text" class="form-control" id="faculty" required>
+                            <select class="form-select" id="faculty" required>
+                                <option value="" disabled selected>انتخاب کنید...</option>
+                                @if (Model.Faculties is not null)
+                                {
+                                    foreach (var faculty in Model.Faculties)
+                                    {
+                                        <option value="@faculty">@faculty</option>
+                                    }
+                                }
+                            </select>
                             <div class="invalid-feedback"> نام مکان را وارد کنید.</div>
                         </div>
                         <div class="mb-3">
@@ -571,7 +580,7 @@
                                 {
                                     foreach (var lesson in Model.Lessons)
                                     {
-                                        <tr data-course-Id="@lesson.No@lesson.GroupNo">
+                                        <tr data-course-Id="@lesson.No@lesson.GroupNo" data-department-Id="@lesson.DepartmentId">
                                             <td>@lesson.Title</td>
                                             <td>@lesson.No</td>
                                             <td>@lesson.GroupNo</td>
@@ -615,6 +624,20 @@
                         <div class="mb-3">
                             <label for="courseGroup" class="form-label">گروه</label>
                             <input type="number" class="form-control" id="courseGroup" required>
+                            <div class="invalid-feedback">لطفاً گروه را وارد کنید.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="courseGroup" class="form-label">گروه</label>
+                            <select class="form-select" id="department" required>
+                                <option value="" disabled selected>انتخاب کنید...</option>
+                                @if (Model.Departments is not null)
+                                {
+                                    foreach (var depatment in Model.Departments)
+                                    {
+                                        <option value="@depatment.Id">@depatment.Title</option>
+                                    }
+                                }
+                            </select>
                             <div class="invalid-feedback">لطفاً گروه را وارد کنید.</div>
                         </div>
                     </form>

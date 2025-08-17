@@ -16,4 +16,8 @@ public class LessonModel
     [Required(AllowEmptyStrings = false, ErrorMessage = "وارد نمودن {0} الزامی است")]
     [Range(1,100,ErrorMessage ="عدد وارد شده باید بین {0} تا {1} باشد")]
     public byte GroupNo { get; set; }
+
+    [Display(Name = "گروه تحصیلی")]
+    [Required(AllowEmptyStrings = false, ErrorMessage = "وارد نمودن {0} الزامی است")]
+    public int DepartmentId { get; set; }
 }

@@ -12,6 +12,8 @@ public class Schedule
 
     public int RoomNo { get; set; }
 
+    public string? Address { get; set; }
+
     public int LessonProfessorId { get; set; }
     public int LessonNo { get; set; }
     public byte LessonGroupNo { get; set; }

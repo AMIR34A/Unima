@@ -13,4 +13,8 @@ public class ProfileViewModel
     public IEnumerable<LessonModel>? Lessons { get; set; }
 
     public IEnumerable<LocationModel>? Locations { get; set; }
+
+    public IEnumerable<string>? Faculties { get; set; }
+
+    public IEnumerable<DepartmentModel>? Departments { get; set; }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
+using Unima.Areas.Professor.Models;
 using Unima.Areas.User.Models.Profile;
 using Unima.Areas.User.Models.Q_A;
 using Unima.Areas.User.Models.ViewModels;
@@ -123,7 +124,8 @@ namespace Unima.Areas.User.Controllers
                                                                  {
                                                                      Title = lesson.Title,
                                                                      No = lesson.No,
-                                                                     GroupNo = lesson.GroupNo
+                                                                     GroupNo = lesson.GroupNo,
+                                                                     DepartmentId = lesson.DepartmentId
                                                                  });
 
             IEnumerable<LocationModel> locations = (await _unitOfWork.RepositoryBase<Dal.Entities.Entities.Location>().GetAllAsync(location => location.ProfessorId == currentUser.Id))
@@ -135,12 +137,23 @@ namespace Unima.Areas.User.Controllers
                                                                          GoogleMapLink = location.GoogleMapLink
                                                                      }).AsEnumerable();
 
+            IEnumerable<string> faculties = (await _unitOfWork.RepositoryBase<Faculty>().GetAllAsync())
+                                                               .Select(facility => facility.Title);
+
+            IEnumerable<DepartmentModel> departments = (await _unitOfWork.RepositoryBase<Department>().GetAllAsync())
+                                                                         .Select(department => new DepartmentModel()
+                                                                         {
+                                                                             Id = department.Id,
+                                                                             Title = department.Title
+                                                                         });
             ProfileViewModel viewModel = new ProfileViewModel
             {
                 ProfileModel = profileModel,
                 QuestionAndAnswers = questionAndAnswerModels,
                 Lessons = lessons,
-                Locations = locations
+                Locations = locations,
+                Faculties = faculties,
+                Departments = departments
             };
 
             return View(viewModel);
@@ -362,7 +375,9 @@ namespace Unima.Areas.User.Controllers
             ProfessorInformation? professor = await _unitOfWork.RepositoryBase<ProfessorInformation>()
                                                                .FirstOrDefaultAsync(professor => professor.Id == currentUser.Id);
 
-            if (professor is null)
+            Department? department = await _unitOfWork.RepositoryBase<Department>().FirstOrDefaultAsync(department => department.Id == lessonModel.DepartmentId);
+
+            if (professor is null || department is null)
                 return NotFound();
 
             if (!ModelState.IsValid)
@@ -381,7 +396,9 @@ namespace Unima.Areas.User.Controllers
                 No = lessonModel.No,
                 GroupNo = lessonModel.GroupNo,
                 ProfessorId = professor.Id,
-                Professor = professor
+                Professor = professor,
+                DepartmentId = lessonModel.DepartmentId,
+                Department = department
             });
             await _unitOfWork.SaveAsync();
 
@@ -421,6 +438,7 @@ namespace Unima.Areas.User.Controllers
             }
 
             lesson.Title = lessonModel.Title;
+            lesson.DepartmentId = lessonModel.DepartmentId;
 
             _unitOfWork.RepositoryBase<Lesson>().Update(lesson);
             await _unitOfWork.SaveAsync();
@@ -608,8 +626,8 @@ namespace Unima.Areas.User.Controllers
                 return NotFound();
 
             Lesson? lesson = (await _unitOfWork.RepositoryBase<Lesson>()
-                                              .GetAllAsync())
-                                              .FirstOrDefault(lesson => lesson.ProfessorId == professor.Id && string.Equals($"{lesson.No}{lesson.GroupNo}", lessonId.ToString()));
+                                               .GetAllAsync())
+                                               .FirstOrDefault(lesson => lesson.ProfessorId == professor.Id && string.Equals($"{lesson.No}{lesson.GroupNo}", lessonId.ToString()));
 
             if (lesson is null)
                 return NotFound();
@@ -630,6 +648,7 @@ namespace Unima.Areas.User.Controllers
                 WeekStatus = (WeekStatus)scheduleModel.WeekStatus,
                 RoomNo = scheduleModel.RoomNo,
                 Period = (TimePeriod)scheduleModel.Period,
+                Address = scheduleModel.Faculty,
                 LessonProfessorId = professor.Id,
                 LessonNo = lesson.No,
                 LessonGroupNo = lesson.GroupNo,
