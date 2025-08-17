@@ -410,7 +410,8 @@ namespace Unima.Areas.User.Controllers
             string concatedNoAndGroupNo = lessonId.HasValue ? lessonId.ToString() : string.Empty;
 
             Lesson? lesson = (await _unitOfWork.RepositoryBase<Lesson>()
-                                               .GetAllAsync(lesson => lesson.ProfessorId == professor.Id && string.Equals($"{lesson.No}{lesson.GroupNo}", concatedNoAndGroupNo)))
+                                               .GetAllAsync(lesson => lesson.ProfessorId == professor.Id))
+                                               .Where(lesson => string.Equals($"{lesson.No}{lesson.GroupNo}", concatedNoAndGroupNo))
                                                .FirstOrDefault();
 
             if (lesson is null)
