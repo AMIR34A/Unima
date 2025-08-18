@@ -76,14 +76,18 @@ namespace Unima.Areas.User.Controllers
         {
             ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
 
-            var lessons = (await _unitOfWork.RepositoryBase<Lesson>().GetAllAsync())
-                                   .Where(lesson => lesson.ProfessorId == currentUser?.Id)
-                                   .Select(lesson => new
-                                   {
-                                       Id = $"{lesson.No}{lesson.GroupNo}",
-                                       Value = lesson.Title,
-                                       No = lesson.No
-                                   });
+            if (currentUser is null)
+                return NotFound();
+
+            var lessons = _unitOfWork.RepositoryBase<Lesson>().Include(lesson => lesson.Department)
+                                                                                               .Where(lesson => lesson.ProfessorId == currentUser.Id)
+                                                                                               .Select(lesson => new
+                                                                                               {
+                                                                                                   Id = $"{lesson.No}{lesson.GroupNo}",
+                                                                                                   Value = lesson.Title,
+                                                                                                   No = lesson.No,
+                                                                                                   DepartmentTitle = lesson.Department.Title
+                                                                                               });
 
             return Ok(lessons);
         }

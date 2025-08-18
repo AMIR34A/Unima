@@ -508,16 +508,7 @@
                     <form id="classForm" novalidate>
                         <div class="mb-3">
                             <label for="course-name" class="form-label">نام درس</label>
-                            <select class="form-select" id="course-name" required>
-                                <option value="" disabled selected>انتخاب کنید...</option>
-                                @if (Model.Lessons is not null)
-                                {
-                                    foreach (var lesson in Model.Lessons)
-                                    {
-                                        <option value="@lesson.No@lesson.GroupNo">@lesson.Title</option>
-                                    }
-                                }
-                            </select>
+                            <select class="form-select" id="course-name" required></select>
                         </div>
                         <div class="mb-3">
                             <label for="faculty" class="form-label">دانشکده</label>

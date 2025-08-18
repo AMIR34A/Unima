@@ -746,7 +746,7 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
         const select = document.getElementById('course-name');
         const selectedValue = select.value;
-        const selectedText = select.options[select.selectedIndex].text;
+        const selectedText = select.options[select.selectedIndex].text.split(' | ')[0];
         const selectedNo = select.options[select.selectedIndex].dataset.no;
         const formData = {
             courseName: selectedText,
@@ -819,10 +819,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 const select = document.getElementById('course-name');
                 select.innerHTML = '';
 
+                const defaultOption = document.createElement('option');
+                defaultOption.value = "";
+                defaultOption.textContent = 'انتخاب کنید...';
+                defaultOption.selected = true;
+                defaultOption.disabled = true;
+                select.appendChild(defaultOption);
+
                 data.forEach(lesson => {
                     const option = document.createElement('option');
                     option.value = lesson.id;
-                    option.textContent = lesson.value;
+                    option.textContent = `${lesson.value} | ${lesson.departmentTitle}`;
                     option.dataset.no = lesson.no;
                     select.appendChild(option);
                 });
