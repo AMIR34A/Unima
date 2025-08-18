@@ -137,7 +137,7 @@ $(document).ready(function () {
 
       const $callout = createCallout(event);
       if (event === nextEvent) {
-        $callout.addClass("visible next-event-card");
+        $callout.addClass("visible next-event-card z-n1");
       }
       $bar.data("callout", $callout);
       $timelineContainer.append($bar);
@@ -154,26 +154,6 @@ $(document).ready(function () {
     const $callout = $(this).data("callout");
     if (!$callout.hasClass("next-event-card")) {
       $callout.removeClass("visible");
-    }
-  });
-
-  $eventForm.on("submit", function (e) {
-    e.preventDefault();
-    const time = $("#event-time").val();
-    const title = $("#event-title").val();
-
-    if (time && title) {
-      const hour = parseInt(time.split(":")[0]);
-      if (hour < START_HOUR || hour > END_HOUR) {
-        alert(`زمان وارد شده خارج از محدوده است.`);
-        return;
-      }
-      events.push({ time, title });
-      renderTimeline();
-      $eventForm[0].reset();
-      const collapseElement = document.getElementById("collapseOne");
-      const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
-      if (bsCollapse) bsCollapse.hide();
     }
   });
 

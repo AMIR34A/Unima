@@ -589,6 +589,49 @@ document.addEventListener('DOMContentLoaded', function () {
     var fillInputLink = document.getElementById('FillInput');
     var studentCodeSpan = document.querySelector('.StudentCodeNumber');
     var usernameInput = document.getElementById('Username');
+    const pngBtn = document.getElementById('exportPngBtn');
+    const pdfBtn = document.getElementById('exportPdfBtn');
+
+    if (pngBtn) {
+        pngBtn.addEventListener('click', async function() {
+            const originalHtml = this.innerHTML;
+
+            this.disabled = true;
+            this.innerHTML = '<span class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>در حال آماده‌سازی';
+
+            setTimeout(async ()=> {
+                try{
+                    await downloadPng();
+                }catch(error){
+                    console.error("خطا در ایجاد png:", error);
+                } finally{
+                    this.disabled = false;
+                    this.innerHTML = originalHtml;
+                }
+
+            },500);
+        });
+    }
+    if (pdfBtn) {
+        pdfBtn.addEventListener('click', async function() {
+            const originalHtml = this.innerHTML;
+
+            this.disabled = true;
+            this.innerHTML = '<span class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>در حال آماده‌سازی';
+            setTimeout(async ()=>{
+                try{
+                    await downloadPdf();
+                }
+                catch(error){
+                    console.log("خطا در ایجاد Pdf:", error);
+                }
+                finally{
+                    this.innerHTML = originalHtml;
+                    this.disabled = false;
+                }
+            },500);
+        });
+    }
 
     const updateInformationModal = document.getElementById('UpdateInformation');
 
@@ -1321,7 +1364,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //});
 });
 
-function downlaodPng() {
+function downloadPng() {
     const table = document.getElementById("scheduleTable");
     htmlToImage.toPng(table, { pixelRatio: 2 })
         .then(function (dataUrl) {
