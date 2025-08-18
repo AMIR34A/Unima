@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using Unima.Areas.User.Models.Dashboard;
 using Unima.Areas.User.Models.Plan;
 using Unima.Areas.User.Models.Q_A;
 using Unima.Areas.User.Models.User;
@@ -130,6 +131,47 @@ public class DashboardController : Controller
             .BuildAsync());
 
         return selfService.IsSuccess ? await selfService.Data.GetBalance() : "خطایی در اتصال به سامانه سلف رخ داد";
+    }
+
+    [HttpGet]
+    [Route("User/Dashboard/GetTimelineData")]
+    public async Task<IActionResult> GetTimelineData()
+    {
+        ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+        if (currentUser is null)
+            return NotFound();
+
+        WeekDay dayOfWeek = DateTime.Now.DayOfWeek switch
+        {
+            DayOfWeek.Saturday => WeekDay.Saturday,
+            DayOfWeek.Sunday => WeekDay.Sunday,
+            DayOfWeek.Monday => WeekDay.Monday,
+            DayOfWeek.Tuesday => WeekDay.Tuesday,
+            DayOfWeek.Wednesday => WeekDay.Wednesday,
+            DayOfWeek.Thursday => WeekDay.Thursday,
+            _ => WeekDay.Friday
+        };
+
+        IEnumerable<TimelineModel>? timelineData = _unitOfWork.RepositoryBase<Schedule>()
+                                                                   .Include(schedule => schedule.Lesson)
+                                                                   .Where(schedule => schedule.LessonProfessorId == currentUser.Id)
+                                                                   .ToArray()
+                                                                   .Where(schedule => schedule.DayOfWeek == dayOfWeek)
+                                                                   .Select(schedule => new TimelineModel()
+                                                                   {
+                                                                       Title = schedule.Lesson.Title,
+                                                                       Time = schedule.Period switch
+                                                                       {
+                                                                           TimePeriod.EightToTen => "08:00",
+                                                                           TimePeriod.TenToTwelve => "10:00",
+                                                                           TimePeriod.TwelveToFourteen => "12:00",
+                                                                           TimePeriod.FourteenToSixteen => "14:00",
+                                                                           TimePeriod.SixteenToEighteen => "16:00",
+                                                                           TimePeriod.EightTeenToTwenty => "18:00",
+                                                                           _ => "00:00"
+                                                                       }
+                                                                   });
+        return Ok(timelineData);
     }
 
     private string GetPersianDateTime()
