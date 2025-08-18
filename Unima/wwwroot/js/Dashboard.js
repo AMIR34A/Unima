@@ -55,7 +55,11 @@ $(document).ready(function () {
   const START_HOUR = 7,
     END_HOUR = 20;
   const TOTAL_MINUTES = (END_HOUR - START_HOUR) * 60;
-  const currentTimeStr = "11:00";
+
+  const now = new Date();
+  const currentHour = String(now.getHours()).padStart(2, '0');
+  const currentMinute = String(now.getMinutes()).padStart(2, '0');
+  const currentTimeStr = `${currentHour}:${currentMinute}`;
 
   let events = [
     { time: "08:30", title: "قهوه و برنامه‌ریزی روز" },
