@@ -7,6 +7,9 @@
     Layout = "/Areas/User/Views/Shared/_Layout.cshtml";
     <link rel="stylesheet" href="/css/Profile.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/i18n/fa.js"></script>
+
     <script src="/js/Profile.js"></script>
 }
 
@@ -134,7 +137,7 @@
                                   class="fs-6">ثبت نشده</span>
                         </div>
                         <div class="icon-edit">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#scheduleModal" onclick="loadSchedule()">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#scheduleModal" id="openScheduleBtn">
                                 <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
                             </a>
                         </div>
