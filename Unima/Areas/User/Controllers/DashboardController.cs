@@ -141,25 +141,13 @@ public class DashboardController : Controller
         if (currentUser is null)
             return NotFound();
 
-        WeekDay dayOfWeek = DateTime.Now.DayOfWeek switch
-        {
-            DayOfWeek.Saturday => WeekDay.Saturday,
-            DayOfWeek.Sunday => WeekDay.Sunday,
-            DayOfWeek.Monday => WeekDay.Monday,
-            DayOfWeek.Tuesday => WeekDay.Tuesday,
-            DayOfWeek.Wednesday => WeekDay.Wednesday,
-            DayOfWeek.Thursday => WeekDay.Thursday,
-            _ => WeekDay.Friday
-        };
-
-        IEnumerable<TimelineModel>? timelineData = _unitOfWork.RepositoryBase<Schedule>()
+        var timelineData = _unitOfWork.RepositoryBase<Schedule>()
                                                                    .Include(schedule => schedule.Lesson)
-                                                                   .Where(schedule => schedule.LessonProfessorId == currentUser.Id)
-                                                                   .ToArray()
-                                                                   .Where(schedule => schedule.DayOfWeek == dayOfWeek)
+                                                                   .Where(schedule => schedule.LessonProfessorId == currentUser.Id).AsEnumerable()
                                                                    .Select(schedule => new TimelineModel()
                                                                    {
                                                                        Title = schedule.Lesson.Title,
+                                                                       DayOfWeek = schedule.DayOfWeek,
                                                                        Time = schedule.Period switch
                                                                        {
                                                                            TimePeriod.EightToTen => "08:00",
