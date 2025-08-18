@@ -51,8 +51,10 @@ function loadProfessorData(officeNo) {
                     tr.appendChild(td);
                     return td;
                 });
-                if (data.schedules.length > i) {
-                    data.schedules[i].forEach((schedule) => {
+
+                const periodSchedules = data.schedules.filter(s => s.dayOfWeek === i);
+                if (periodSchedules.length > 0) {
+                    periodSchedules.forEach((schedule) => {
 
                         var div = document.createElement("div");
                         var weekType = schedule.weekStatus == 0 ? 'week-fixed' : schedule.weekStatus == 1 ? 'week-even' : 'week-odd';

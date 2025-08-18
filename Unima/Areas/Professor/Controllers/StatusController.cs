@@ -113,7 +113,7 @@ public class StatusController : Controller
                                                                    },
                                                                    WeekStatus = schedule.WeekStatus,
                                                                    Period = schedule.Period
-                                                               }).GroupBy(schedule => schedule.DayOfWeek);
+                                                               }).OrderBy(schedule => schedule.DayOfWeek);
 
         return Ok(new
         {
