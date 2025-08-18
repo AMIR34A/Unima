@@ -593,43 +593,43 @@ document.addEventListener('DOMContentLoaded', function () {
     const pdfBtn = document.getElementById('exportPdfBtn');
 
     if (pngBtn) {
-        pngBtn.addEventListener('click', async function() {
+        pngBtn.addEventListener('click', async function () {
             const originalHtml = this.innerHTML;
 
             this.disabled = true;
             this.innerHTML = '<span class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>در حال آماده‌سازی';
 
-            setTimeout(async ()=> {
-                try{
+            setTimeout(async () => {
+                try {
                     await downloadPng();
-                }catch(error){
+                } catch (error) {
                     console.error("خطا در ایجاد png:", error);
-                } finally{
+                } finally {
                     this.disabled = false;
                     this.innerHTML = originalHtml;
                 }
 
-            },500);
+            }, 500);
         });
     }
     if (pdfBtn) {
-        pdfBtn.addEventListener('click', async function() {
+        pdfBtn.addEventListener('click', async function () {
             const originalHtml = this.innerHTML;
 
             this.disabled = true;
             this.innerHTML = '<span class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>در حال آماده‌سازی';
-            setTimeout(async ()=>{
-                try{
+            setTimeout(async () => {
+                try {
                     await downloadPdf();
                 }
-                catch(error){
+                catch (error) {
                     console.log("خطا در ایجاد Pdf:", error);
                 }
-                finally{
+                finally {
                     this.innerHTML = originalHtml;
                     this.disabled = false;
                 }
-            },500);
+            }, 500);
         });
     }
 
@@ -682,13 +682,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     periodSchedules.forEach(schedule => {
                         const weekType = schedule.weekStatus === 0 ? "ثابت" :
-                                         schedule.weekStatus === 1 ? "زوج" : "فرد";
+                            schedule.weekStatus === 1 ? "زوج" : "فرد";
 
                         const data = {
                             courseName: schedule.lessonTitle,
                             groupNumber: schedule.groupNo,
                             classNumber: schedule.roomNo,
-                            weekType: weekType
+                            weekType: weekType,
+                            lessonId: schedule.lessonId,
+                            faculty: schedule.faculty
                         };
 
                         const div = createScheduleItemElement(data);
@@ -696,7 +698,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
 
                     td.appendChild(container);
-                    updateActionButtonsInCell(td); 
+                    updateActionButtonsInCell(td);
                 }
                 tr.appendChild(td);
             }
@@ -704,7 +706,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    
+
     if (fillInputLink && studentCodeSpan && usernameInput) {
         fillInputLink.addEventListener('click', function () {
             var username = studentCodeSpan.textContent;
@@ -772,7 +774,7 @@ document.addEventListener('DOMContentLoaded', function () {
         item.className = `schedule-item ${weekTypeClasses[data.weekType]}`;
         item.dataset.weekType = data.weekType;
         item.innerHTML = `
-                <p class="mb-0" data-course-name="${data.courseName}"><strong>${data.courseName}</strong></p>
+                <p class="mb-0" data-course-name="${data.courseName}" data-lesson-Id="${data.lessonId}" data-faculty="${data.faculty}"><strong>${data.courseName}</strong></p>
                 <p class="mb-0 small text-muted">گروه: ${data.groupNumber} | کلاس: ${data.classNumber}</p>
             `;
         const actionButtons = document.createElement('div');
@@ -872,13 +874,12 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('لطفاً تمام فیلدها را پر کنید.');
             return;
         }
-        if (hasConflict(formData)) {
-            alert('تداخل زمانی وجود دارد. امکان ثبت این کلاس وجود ندارد.');
-            return;
-        }
+        //if (hasConflict(formData)) {
+        //    alert('تداخل زمانی وجود دارد. امکان ثبت این کلاس وجود ندارد.');
+        //    return;
+        //}
 
-        url = `/User/Profile/AddSchedule/${selectedValue}`;
-
+        var url = '';
         var scheduleModel = {
             RoomNo: formData.classNumber,
             DayOfWeek: currentCell.dataset.dayindex,
@@ -886,25 +887,45 @@ document.addEventListener('DOMContentLoaded', function () {
             Period: currentCell.dataset.period,
             Faculty: document.getElementById('faculty').value
         }
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(scheduleModel)
-        });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            const errorMessage = extractFirstModelError(errorData);
-            errorDiv.textContent = errorMessage || "خطا در ارسال اطلاعات";
-            errorDiv.style.display = "block";
-            return;
-        }
         const newItem = createScheduleItemElement(formData);
         if (currentScheduleItem) {
+            url = `/User/Profile/UpdateSchedule/${selectedValue}`;
+            scheduleModel.OldWeekStatus = currentScheduleItem.dataset.weekType == "ثابت" ? 0 : currentScheduleItem.dataset.weekType == "زوج" ? 1 : 2
+            const response = await fetch(url, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(scheduleModel)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                const errorMessage = extractFirstModelError(errorData);
+                errorDiv.textContent = errorMessage || "خطا در ارسال اطلاعات";
+                errorDiv.style.display = "block";
+                return;
+            }
             currentScheduleItem.replaceWith(newItem);
         } else {
+            url = `/User/Profile/AddSchedule/${selectedValue}`;
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(scheduleModel)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                const errorMessage = extractFirstModelError(errorData);
+                errorDiv.textContent = errorMessage || "خطا در ارسال اطلاعات";
+                errorDiv.style.display = "block";
+                return;
+            }
+
             let container = currentCell.querySelector('.schedule-item-container');
             if (!container) {
                 currentCell.innerHTML = '';
@@ -944,6 +965,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     option.value = lesson.id;
                     option.textContent = `${lesson.value} | ${lesson.departmentTitle}`;
                     option.dataset.no = lesson.no;
+                    if (itemToEdit != null && lesson.id == itemToEdit.querySelector('[data-course-name]').dataset.lessonId) {
+                        option.selected = true;
+                        defaultOption.selected = false;
+                    }
                     select.appendChild(option);
                 });
             });
@@ -954,11 +979,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 groupNumber: textContent.match(/گروه: (\d+)/)[1],
                 classNumber: textContent.match(/کلاس: (\d+)/)[1],
                 weekType: itemToEdit.dataset.weekType,
+                lessonId: itemToEdit.querySelector('[data-course-name]').dataset.lessonId,
+                faculty: itemToEdit.querySelector('[data-course-name]').dataset.faculty,
             };
 
-            $('#course-name').val(data.courseName).trigger('change');
+            //$('#course-name').val(data.lessonId).trigger('change');
             $('#group-number').val(data.groupNumber).trigger('change');
-            $('#faculty').val(facultyMap[data.courseName] || '').trigger('change');
+            $('#faculty').val(data.faculty).trigger('change');
             $('#class-number').val(data.classNumber).trigger('change');
             $('#week-type').val(data.weekType).trigger('change');
             $('#week-type').prop('disabled', false);
@@ -987,7 +1014,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function initializeApp() {
         //initializeTable();
-                document.getElementById('openScheduleBtn').addEventListener('click', loadSchedule);
+        document.getElementById('openScheduleBtn').addEventListener('click', loadSchedule);
         scheduleTableBody.addEventListener('click', (e) => {
             const target = e.target;
             const cell = target.closest('td[data-day]');

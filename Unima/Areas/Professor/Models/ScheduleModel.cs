@@ -20,4 +20,8 @@ public class ScheduleModel
     public required WeekStatus WeekStatus { get; set; }
 
     public TimePeriod Period { get; set; }
+
+    public string? LessonId { get; set; }
+
+    public string? Faculty { get; set; }
 }

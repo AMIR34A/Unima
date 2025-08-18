@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using Mono.TextTemplating;
 using System.Text.RegularExpressions;
 using Unima.Areas.Professor.Models;
 using Unima.Areas.User.Models.Profile;
@@ -610,7 +611,9 @@ namespace Unima.Areas.User.Controllers
                                                                                    DayOfWeek = schedule.DayOfWeek,
                                                                                    DayTitle = string.Empty,
                                                                                    WeekStatus = schedule.WeekStatus,
-                                                                                   Period = schedule.Period
+                                                                                   Period = schedule.Period,
+                                                                                   LessonId = $"{schedule.LessonNo}{schedule.LessonGroupNo}",
+                                                                                   Faculty = schedule.Address
                                                                                }).AsEnumerable();
             return Ok(schedules);
         }
@@ -630,8 +633,8 @@ namespace Unima.Areas.User.Controllers
                 return NotFound();
 
             Lesson? lesson = (await _unitOfWork.RepositoryBase<Lesson>()
-                                               .GetAllAsync())
-                                               .FirstOrDefault(lesson => lesson.ProfessorId == professor.Id && string.Equals($"{lesson.No}{lesson.GroupNo}", lessonId.ToString()));
+                                               .GetAllAsync(lesson => lesson.ProfessorId == professor.Id))
+                                               .FirstOrDefault(lesson => string.Equals($"{lesson.No}{lesson.GroupNo}", lessonId.ToString()));
 
             if (lesson is null)
                 return NotFound();
@@ -661,6 +664,66 @@ namespace Unima.Areas.User.Controllers
             await _unitOfWork.SaveAsync();
 
             return Ok();
+        }
+
+        [HttpPut]
+        [Route("User/Profile/UpdateSchedule/{lessonId:int}")]
+        public async Task<IActionResult> UpdateSchedule(int lessonId, [FromBody] Models.Profile.ScheduleModel scheduleModel)
+        {
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return NotFound();
+
+            ProfessorInformation? professor = await _unitOfWork.RepositoryBase<ProfessorInformation>()
+                                                               .FirstOrDefaultAsync(professor => professor.Id == currentUser.Id);
+            if (professor is null)
+                return NotFound();
+
+            Lesson? lesson = (await _unitOfWork.RepositoryBase<Lesson>()
+                                   .GetAllAsync(lesson => lesson.ProfessorId == professor.Id))
+                                   .FirstOrDefault(lesson => string.Equals($"{lesson.No}{lesson.GroupNo}", lessonId.ToString()));
+
+            if (lesson is null)
+                return NotFound();
+
+            Schedule? selectedSchedule = await _unitOfWork.RepositoryBase<Schedule>()
+                                                          .FirstOrDefaultAsync(schedule => schedule.LessonProfessorId == professor.Id && schedule.LessonNo == lesson.No && schedule.LessonGroupNo == lesson.GroupNo && schedule.DayOfWeek == (WeekDay)scheduleModel.DayOfWeek && schedule.Period == (TimePeriod)scheduleModel.Period && schedule.WeekStatus == (WeekStatus)scheduleModel.OldWeekStatus);
+
+            if (selectedSchedule is null)
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.FirstError());
+
+            _unitOfWork.RepositoryBase<Schedule>().Delete(selectedSchedule);
+
+            await _unitOfWork.SaveAsync();
+
+            Schedule schedule = new()
+            {
+                DayOfWeek = (WeekDay)scheduleModel.DayOfWeek,
+                WeekStatus = (WeekStatus)scheduleModel.WeekStatus,
+                RoomNo = scheduleModel.RoomNo,
+                Period = (TimePeriod)scheduleModel.Period,
+                Address = scheduleModel.Faculty,
+                LessonProfessorId = professor.Id,
+                LessonNo = lesson.No,
+                LessonGroupNo = lesson.GroupNo,
+                Lesson = lesson
+            };
+
+            bool isExsist = await _unitOfWork.RepositoryBase<Schedule>().AnyAsync(schedule => schedule.LessonProfessorId == professor.Id && schedule.Period == (TimePeriod)scheduleModel.Period && schedule.DayOfWeek == (WeekDay)scheduleModel.DayOfWeek && (schedule.WeekStatus == (WeekStatus)scheduleModel.WeekStatus || schedule.WeekStatus == WeekStatus.Fixed));
+            if (isExsist)
+            {
+                schedule.WeekStatus = (WeekStatus)scheduleModel.OldWeekStatus;
+                ModelState.AddModelError("Conflict", "تداخل وجود دارد");
+            }
+
+            await _unitOfWork.RepositoryBase<Schedule>().AddAsync(schedule);
+            await _unitOfWork.SaveAsync();
+
+            return isExsist ? BadRequest(ModelState) : Ok();
         }
     }
 }
