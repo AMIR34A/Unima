@@ -592,6 +592,76 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const updateInformationModal = document.getElementById('UpdateInformation');
 
+    async function loadSchedule() {
+        const tableBody = document.getElementById('scheduleTableBody');
+        try {
+            const response = await fetch("/User/Profile/GetSchedule");
+            if (!response.ok) throw new Error("خطا در دریافت داده‌ها");
+            const schedules = await response.json();
+            renderSchedule(schedules, tableBody);
+        } catch (err) {
+            console.error("Load failed:", err);
+        }
+    }
+
+    function renderSchedule(schedules, tableBody) {
+        const periods = [
+            "08:00 - 10:00", "10:00 - 12:00", "12:00 - 14:00",
+            "14:00 - 16:00", "16:00 - 18:00", "18:00 - 20:00"
+        ];
+        const days = ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنجشنبه", "جمعه"];
+
+        tableBody.innerHTML = "";
+
+        for (let i = 0; i < days.length; i++) {
+            const tr = document.createElement("tr");
+            const th = document.createElement("th");
+            th.textContent = days[i];
+            tr.appendChild(th);
+
+            for (let j = 0; j < periods.length; j++) {
+                const td = document.createElement("td");
+                td.dataset.day = days[i];
+                td.dataset.time = periods[j];
+                td.dataset.dayindex = i;
+                td.dataset.period = j;
+
+                const periodSchedules = schedules.filter(s => s.dayOfWeek === i && s.period === j);
+
+                if (periodSchedules.length === 0) {
+                    td.innerHTML = `
+                        <div class="cell-actions">
+                            <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                        </div>`;
+                } else {
+                    const container = document.createElement("div");
+                    container.className = "schedule-item-container";
+
+                    periodSchedules.forEach(schedule => {
+                        const weekType = schedule.weekStatus === 0 ? "ثابت" :
+                                         schedule.weekStatus === 1 ? "زوج" : "فرد";
+
+                        const data = {
+                            courseName: schedule.lessonTitle,
+                            groupNumber: schedule.groupNo,
+                            classNumber: schedule.roomNo,
+                            weekType: weekType
+                        };
+
+                        const div = createScheduleItemElement(data);
+                        container.appendChild(div);
+                    });
+
+                    td.appendChild(container);
+                    updateActionButtonsInCell(td); 
+                }
+                tr.appendChild(td);
+            }
+            tableBody.appendChild(tr);
+        }
+    }
+
+    
     if (fillInputLink && studentCodeSpan && usernameInput) {
         fillInputLink.addEventListener('click', function () {
             var username = studentCodeSpan.textContent;
@@ -867,6 +937,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function initializeApp() {
         //initializeTable();
+                document.getElementById('openScheduleBtn').addEventListener('click', loadSchedule);
         scheduleTableBody.addEventListener('click', (e) => {
             const target = e.target;
             const cell = target.closest('td[data-day]');
@@ -1286,90 +1357,3 @@ async function downloadPdf() {
     };
 }
 
-async function loadSchedule() {
-    const tableBody = document.getElementById('scheduleTableBody');
-
-    try {
-        const response = await fetch("/User/Profile/GetSchedule");
-        if (!response.ok) throw new Error("خطا در دریافت داده‌ها");
-
-        const schedules = await response.json();
-        renderSchedule(schedules, tableBody);
-    } catch (err) {
-        console.error("Load failed:", err);
-    }
-}
-
-function renderSchedule(schedules, tableBody) {
-    const periods = [
-        "08:00 - 10:00",
-        "10:00 - 12:00",
-        "12:00 - 14:00",
-        "14:00 - 16:00",
-        "16:00 - 18:00",
-        "18:00 - 20:00"
-    ];
-
-    const days = ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنجشنبه", "جمعه"];
-
-    tableBody.innerHTML = ""; // clear old
-
-    for (let i = 0; i < days.length; i++) {
-        const tr = document.createElement("tr");
-
-        const th = document.createElement("th");
-        th.textContent = days[i];
-        tr.appendChild(th);
-
-        for (let j = 0; j < periods.length; j++) {
-            const td = document.createElement("td");
-            td.dataset.day = days[i];
-            td.dataset.time = periods[j];
-            td.dataset.dayindex = i;
-            td.dataset.period = j;
-
-            const periodSchedules = schedules.filter(s => s.dayOfWeek === i && s.period === j);
-
-            if (periodSchedules.length === 0) {
-                td.innerHTML = `
-          <div class="cell-actions">
-            <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
-          </div>`;
-            } else {
-                const container = document.createElement("div");
-                container.className = "schedule-item-container";
-
-                periodSchedules.forEach(schedule => {
-                    const weekClass = schedule.weekStatus === 0 ? "fixed" :
-                        schedule.weekStatus === 1 ? "even" : "odd";
-                    const weekType = schedule.weekStatus === 0 ? "ثابت" :
-                        schedule.weekStatus === 1 ? "زوج" : "فرد";
-
-                    const div = document.createElement("div");
-                    div.className = `schedule-item week-${weekClass}`;
-                    div.dataset.weekType = weekType;
-
-                    div.innerHTML = `
-            <p class="mb-0" data-course-name="${schedule.lessonTitle}">
-              <strong>${schedule.lessonTitle}</strong>
-            </p>
-            <p class="mb-0 small text-muted">
-              گروه: ${schedule.groupNo} | کلاس: ${schedule.roomNo}
-            </p>
-            <div class="action-buttons">
-              <button class="edit-btn" title="ویرایش"><i class="fa-solid fa-pencil"></i></button>
-              <button class="delete-btn" title="حذف"><i class="fa-solid fa-trash-can"></i></button>
-            </div>
-          `;
-                    container.appendChild(div);
-                });
-
-                td.appendChild(container);
-            }
-
-            tr.appendChild(td);
-        }
-
-        tableBody.appendChild(tr);
-    }
-}
