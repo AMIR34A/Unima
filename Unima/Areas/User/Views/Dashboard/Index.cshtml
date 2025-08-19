@@ -13,8 +13,13 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="text-secondary">
-                            <h6>موجودی</h6>
-                            <span id="userCredit" class="text-danger">در حال خواندن اطلاعات از سامانه سلف</span>
+@*                             <h6>موجودی</h6>
+                            <span id="userCredit" class="text-danger">در حال خواندن اطلاعات از سامانه سلف</span> *@
+                            <select class="form-select" id="week-type" required>
+                                <option value="ثابت">ثابت</option>
+                                <option value="زوج">زوج</option>
+                                <option value="فرد">فرد</option>
+                            </select>
                         </div>
                         <i class="fa-solid fa-money-check-dollar fa-2x text-warning "></i>
                     </div>
@@ -74,6 +79,8 @@
         <!-- days-buttons -->
         <div class="row daysButtonsContainer ms-4 gap-5 gap-sm-2 mt-5 mt-sm-0 gap-md-3 gap-lg-5 justify-content-center align-items-center">
             @{
+                int dayOfWeek = (int)Model.DayOfWeek;
+
                 for (int i = 0; i < 7; i++)
                 {
                     string dayKey = i switch
@@ -100,8 +107,9 @@
                         _ => string.Empty
                     };
                     <div class="col-xl-1 col-md-1 col-sm-2">
-                        <button class="days active-day text-light-emphasis fw-bolder rounded rounded-4"
-                                onclick="showCards('@dayKey')">
+                        <button id="" class="days @(i == dayOfWeek ? "active-day" : string.Empty) text-light-emphasis fw-bolder rounded rounded-4"
+                                onclick="showCards('@dayKey')"
+                                onblur="backToTodayTimeline(@dayOfWeek)">
                             @day
                         </button>
                     </div>
@@ -111,7 +119,6 @@
         <!-- days-buttons -->
         <!-- days-cards -->
         @{
-            int dayOfWeek = (int)Model.DayOfWeek;
             for (int i = 0; i < 7; i++)
             {
                 string day = i switch

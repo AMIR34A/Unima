@@ -5,8 +5,8 @@ public enum WeekDay : byte
     Saturday,
     Sunday,
     Monday,
-    Thursday,
-    Wednesday,
     Tuesday,
+    Wednesday,
+    Thursday,
     Friday
 }
