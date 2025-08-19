@@ -72,6 +72,7 @@ namespace Unima.Areas.User.Controllers
             });
         }
 
+        [HttpGet]
         [Route("User/Profile/GetLessons")]
         public async Task<IActionResult> GetLessons()
         {
@@ -165,7 +166,7 @@ namespace Unima.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("Users/Profile/UpdateFullName")]
+        [Route("User/Profile/UpdateFullName")]
         public async Task<IActionResult> UpdateFullName([FromForm] string fullName)
         {
             if (string.IsNullOrWhiteSpace(fullName) || fullName.Length < 3 || fullName.Length > 20)
@@ -191,7 +192,7 @@ namespace Unima.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("Users/Profile/UpdateEmail")]
+        [Route("User/Profile/UpdateEmail")]
         public async Task<IActionResult> UpdateEmail([FromForm] string email)
         {
             if (string.IsNullOrWhiteSpace(email))
@@ -228,7 +229,7 @@ namespace Unima.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("Users/Profile/UpdatePhoneNumber")]
+        [Route("User/Profile/UpdatePhoneNumber")]
         public async Task<IActionResult> UpdatePhoneNumber([FromForm] string phoneNumber)
         {
             if (string.IsNullOrWhiteSpace(phoneNumber))
@@ -263,7 +264,7 @@ namespace Unima.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("Users/Profile/VerifyPhoneNumber")]
+        [Route("User/Profile/VerifyPhoneNumber")]
         public async Task<IActionResult> VerifyPhoneNumber(string phoneNumber, string token)
         {
             if (string.IsNullOrWhiteSpace(token) || string.IsNullOrWhiteSpace(phoneNumber))
@@ -289,7 +290,7 @@ namespace Unima.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("Users/Profile/UpdatePersonalInformation")]
+        [Route("User/Profile/UpdatePersonalInformation")]
         public async Task<IActionResult> UpdatePersonalInformation([FromForm] int gender, [FromForm] int defaultSelfLocation)
         {
             if (gender == 0 || defaultSelfLocation == 0)
@@ -310,7 +311,7 @@ namespace Unima.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("Users/Profile/UpdatePassword")]
+        [Route("User/Profile/UpdatePassword")]
         public async Task<IActionResult> UpdatePassword(string currentPassword, string newPassword, string confirmNewPassword)
         {
             if (string.IsNullOrWhiteSpace(currentPassword) || string.IsNullOrWhiteSpace(newPassword) || string.IsNullOrWhiteSpace(confirmNewPassword))
@@ -343,7 +344,7 @@ namespace Unima.Areas.User.Controllers
         }
 
         [HttpPost]
-        [Route("Users/Profile/UpdateStudentInformation")]
+        [Route("User/Profile/UpdateStudentInformation")]
         public async Task<IActionResult> UpdateStudentInformation(string username, string selfPassword)
         {
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(selfPassword))
@@ -368,6 +369,7 @@ namespace Unima.Areas.User.Controllers
             return Ok(); ;
         }
 
+        #region Lesson
         [HttpPost]
         [Route("User/Profile/AddLesson")]
         public async Task<IActionResult> AddLesson([FromBody] LessonModel lessonModel)
@@ -487,7 +489,9 @@ namespace Unima.Areas.User.Controllers
 
             return Ok();
         }
+        #endregion
 
+        #region Location
         [HttpPost]
         [Route("User/Profile/AddLocation")]
         public async Task<IActionResult> AddLocation([FromBody] LocationModel locationModel)
@@ -591,7 +595,9 @@ namespace Unima.Areas.User.Controllers
 
             return Ok();
         }
+        #endregion
 
+        #region Schedule
         [HttpGet]
         [Route("/User/Profile/GetSchedule")]
         public async Task<IActionResult> GetScheduele()
@@ -725,5 +731,6 @@ namespace Unima.Areas.User.Controllers
 
             return isExsist ? BadRequest(ModelState) : Ok();
         }
+        #endregion
     }
 }

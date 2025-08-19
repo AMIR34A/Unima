@@ -5,12 +5,10 @@ namespace Unima.Areas.Professor.Models;
 
 public class ScheduleModel
 {
-    [Display(Name = "نام درس")]
     public required string LessonTitle { get; set; }
 
     public required byte GroupNo { get; set; }
 
-    [Display(Name = "شماره اتاق")]
     public required int RoomNo { get; set; }
 
     public required WeekDay DayOfWeek { get; set; }

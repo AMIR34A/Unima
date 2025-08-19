@@ -185,7 +185,7 @@ $(document).ready(function () {
             const formData = new FormData();
             formData.append('PhoneNumber', phoneNumber);
 
-            var url = '/Users/Profile/UpdatePhoneNumber';
+            var url = '/User/Profile/UpdatePhoneNumber';
 
             const response = await fetch(url, {
                 method: "POST",
@@ -220,7 +220,7 @@ $(document).ready(function () {
             formData.append('PhoneNumber', phoneNumber);
             formData.append('Token', verificationCode);
 
-            var url = '/Users/Profile/VerifyPhoneNumber';
+            var url = '/User/Profile/VerifyPhoneNumber';
 
             const response = await fetch(url, {
                 method: "POST",
@@ -543,7 +543,7 @@ async function submitModalData(modalId, isSetTextValue = false, updateTheSpan = 
         }
     });
 
-    var url = `/Users/Profile/Update${modalId}`;
+    var url = `/User/Profile/Update${modalId}`;
 
     const response = await fetch(url, {
         method: "POST",
