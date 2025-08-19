@@ -867,7 +867,9 @@ document.addEventListener('DOMContentLoaded', function () {
             courseName: selectedText,
             groupNumber: selectedNo,
             classNumber: $('#class-number').val(),
-            weekType: $('#week-type').val()
+            weekType: $('#week-type').val(),
+            lessonId: selectedValue,
+            faculty: document.getElementById('faculty').value
         };
 
         if (!formData.courseName || !formData.classNumber) {
@@ -885,7 +887,7 @@ document.addEventListener('DOMContentLoaded', function () {
             DayOfWeek: currentCell.dataset.dayindex,
             WeekStatus: $('#week-type').val() == "ثابت" ? 0 : $('#week-type').val() == "زوج" ? 1 : 2,
             Period: currentCell.dataset.period,
-            Faculty: document.getElementById('faculty').value
+            Faculty: formData.faculty
         }
 
         const newItem = createScheduleItemElement(formData);
