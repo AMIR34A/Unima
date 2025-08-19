@@ -4,7 +4,7 @@
     Layout = "/Areas/User/Views/Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" href="~/lib/md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker.style.css">
-<link href="~/lib/timepicker/flatpickr.min.css" rel="stylesheet"/>
+<link href="~/lib/timepicker/flatpickr.min.css" rel="stylesheet" />
 
 <link rel="stylesheet" href="/css/Professor.css">
 <link rel="stylesheet" href="/css/Profile.css">
@@ -165,38 +165,40 @@
                         </div>
                     </div>
 
-                   <div class="tab-pane" id="schedule">
+                    <div class="tab-pane" id="schedule">
                         <div class="checkboxes">
                             <div class="checkbox-container">
-                                    <input type="checkbox" id="evenWeekCheck" class="schedule-filter" checked>
-                                    <label for="evenWeekCheck" class="label-even">
-                                        <span class="custom-checkbox">
-                                            <i class="fa-solid fa-check"></i>
-                                        </span>
-                                        هفته زوج
-                                    </label>
+                                <input type="checkbox" id="evenWeekCheck" class="schedule-filter" checked>
+                                <label for="evenWeekCheck" class="label-even">
+                                    <span class="custom-checkbox">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    هفته زوج
+                                </label>
                             </div>
-    
+
                             <div class="checkbox-container">
-                                    <input type="checkbox" id="oddWeekCheck" class="schedule-filter" checked>
-                                    <label for="oddWeekCheck" class="label-odd">
-                                         <span class="custom-checkbox">
-                                            <i class="fa-solid fa-check"></i>
-                                        </span>
-                                        هفته فرد
-                                    </label>
+                                <input type="checkbox" id="oddWeekCheck" class="schedule-filter" checked>
+                                <label for="oddWeekCheck" class="label-odd">
+                                    <span class="custom-checkbox">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    هفته فرد
+                                </label>
                             </div>
                         </div>
                         <table class="scheduleTable table-bordered">
                             <thead>
                                 <tr>
-                                    <th>روز/ساعت</th>
-                                    <th>10:00 - 08:00</th>
-                                    <th>12:00 - 10:00</th>
-                                    <th>14:00 - 12:00</th>
-                                    <th>16:00 - 14:00</th>
-                                    <th>18:00 - 16:00</th>
-                                    <th>20:00 - 18:00</th>
+                                    <th>روز / ساعت</th>
+                                    <th>06:00 - 08:00</th>
+                                    <th>08:00 - 10:00</th>
+                                    <th>10:00 - 12:00</th>
+                                    <th>12:00 - 14:00</th>
+                                    <th>14:00 - 16:00</th>
+                                    <th>16:00 - 18:00</th>
+                                    <th>18:00 - 20:00</th>
+                                    <th>20:00 - 22:00</th>
                                 </tr>
                             </thead>
                             <tbody id="schedule-body"></tbody>
@@ -301,7 +303,7 @@
     </div>
 </div>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
@@ -311,44 +313,44 @@
 <script src="~/js/Professor.js"></script>
 
 <script>
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-    // Function to filter the schedule based on checkbox status
-    function filterSchedule() {
-        const showEven = $('#evenWeekCheck').is(':checked');
-        const showOdd = $('#oddWeekCheck').is(':checked');
-        const scheduleItems = $('.schedule-item');
+        // Function to filter the schedule based on checkbox status
+        function filterSchedule() {
+            const showEven = $('#evenWeekCheck').is(':checked');
+            const showOdd = $('#oddWeekCheck').is(':checked');
+            const scheduleItems = $('.schedule-item');
 
-        if (showEven && showOdd) {
-            scheduleItems.show();
-            return;
-        }
-        if (!showEven && !showOdd) {
+            if (showEven && showOdd) {
+                scheduleItems.show();
+                return;
+            }
+            if (!showEven && !showOdd) {
+                scheduleItems.hide();
+                $('.week-fixed').show();
+                return;
+            }
+
             scheduleItems.hide();
-            $('.week-fixed').show();
-            return;
+
+            if (showEven) {
+                $('.week-even, .week-fixed').show();
+            }
+            if (showOdd) {
+                $('.week-odd, .week-fixed').show();
+            }
         }
 
-        scheduleItems.hide();
+        $('.schedule-filter').on('change', function () {
+            filterSchedule();
+        });
 
-        if (showEven) {
-            $('.week-even, .week-fixed').show();
-        }
-        if (showOdd) {
-            $('.week-odd, .week-fixed').show();
-        }
-    }
 
-    $('.schedule-filter').on('change', function () {
-        filterSchedule();
+        $('#InformationProfessor').on('shown.bs.modal', function () {
+            $('#evenWeekCheck').prop('checked', true);
+            $('#oddWeekCheck').prop('checked', true);
+            filterSchedule();
+        });
+
     });
-
-
-    $('#InformationProfessor').on('shown.bs.modal', function () {
-        $('#evenWeekCheck').prop('checked', true);
-        $('#oddWeekCheck').prop('checked', true);
-        filterSchedule();
-    });
-
-});
 </script>

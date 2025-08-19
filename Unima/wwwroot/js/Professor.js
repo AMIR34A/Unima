@@ -46,7 +46,7 @@ function loadProfessorData(officeNo) {
                 }
                 th.textContent = dayTitle;
                 tr.appendChild(th);
-                var cells = Array.from({ length: 6 }, () => {
+                var cells = Array.from({ length: 8 }, () => {
                     var td = document.createElement("td");
                     tr.appendChild(td);
                     return td;

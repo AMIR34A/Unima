@@ -2,10 +2,12 @@
 
 public enum TimePeriod : byte
 {
+    SixToEight,
     EightToTen,
     TenToTwelve,
     TwelveToFourteen,
     FourteenToSixteen,
     SixteenToEighteen,
-    EightTeenToTwenty
+    EightTeenToTwenty,
+    TwentyToTwentyTwo
 }

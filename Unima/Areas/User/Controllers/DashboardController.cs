@@ -150,12 +150,14 @@ public class DashboardController : Controller
                                                                        DayOfWeek = schedule.DayOfWeek,
                                                                        Time = schedule.Period switch
                                                                        {
+                                                                           TimePeriod.SixToEight => "06:00",
                                                                            TimePeriod.EightToTen => "08:00",
                                                                            TimePeriod.TenToTwelve => "10:00",
                                                                            TimePeriod.TwelveToFourteen => "12:00",
                                                                            TimePeriod.FourteenToSixteen => "14:00",
                                                                            TimePeriod.SixteenToEighteen => "16:00",
                                                                            TimePeriod.EightTeenToTwenty => "18:00",
+                                                                           TimePeriod.TwentyToTwentyTwo => "20:00",
                                                                            _ => "00:00"
                                                                        }
                                                                    });
