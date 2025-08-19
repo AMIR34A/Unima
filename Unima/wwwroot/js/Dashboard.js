@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    const START_HOUR = 7,
-        END_HOUR = 20;
+    const START_HOUR = 6,
+        END_HOUR = 22;
     const TOTAL_MINUTES = (END_HOUR - START_HOUR) * 60;
 
     const now = new Date();
