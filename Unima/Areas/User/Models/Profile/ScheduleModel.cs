@@ -13,7 +13,7 @@ public class ScheduleModel
 
     public required int WeekStatus { get; set; }
 
-    public required int OldWeekStatus { get; set; }
+    public int? OldWeekStatus { get; set; }
 
 
     public int Period { get; set; }
