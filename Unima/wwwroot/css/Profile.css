@@ -414,6 +414,7 @@
 .table-bordered th {
   background-color: #f8f9fa;
   font-weight: 500;
+  font-size: 14px;
   color: #555;
   padding: 0.9rem;
 }
