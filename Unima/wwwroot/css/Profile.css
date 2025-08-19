@@ -574,6 +574,78 @@ tbody tr td {
   margin: 0;
 }
 
-ی.form-control[type="number"] {
+.form-control[type="number"] {
   -moz-appearance: textfield;
+}
+
+.checkbox-container{
+    position: relative;
+}
+.checkbox-container input[type="checkbox"]{
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+.checkbox-container label{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: 2px solid #ddd;
+    background-color: #f8f9fa;
+    font-weight: bold;
+    color: #555;
+    transition: all .3s ease;
+    user-select: none;
+}
+
+.checkbox-container .custom-checkbox{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .3s ease;
+}
+
+.checkbox-container .custom-checkbox .fa-check{
+    font-size: 12px;
+    color: white;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all .3s ease;
+}
+.checkbox-container input[type="checkbox"]:checked + label.label-even{
+    background-color: #eaf1fa;
+    border-color: #a9d6b8;
+    color: #198754;
+}
+.checkbox-container input[type="checkbox"]:checked + label.label-even .custom-checkbox{
+    background-color: #198754;
+    border-color: #198754;
+}
+.checkbox-container input[type="checkbox"]:checked + label.label-odd{
+    background-color: #eaf1fa;
+    border-color: #a4c4e9;
+    color: #0d6efd;
+}
+.checkbox-container input[type="checkbox"]:checked + label.label-odd .custom-checkbox{
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.checkbox-container input[type="checkbox"]:checked + label .fa-check {
+    opacity: 1;
+    transform: scale(1);
+}
+.checkboxes{
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
 }

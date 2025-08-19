@@ -472,6 +472,27 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="checkboxes">
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="evenWeekCheck" class="schedule-filter" checked>
+                                <label for="evenWeekCheck" class="label-even">
+                                    <span class="custom-checkbox">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    هفته زوج
+                                </label>
+                            </div>
+
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="oddWeekCheck" class="schedule-filter" checked>
+                                <label for="oddWeekCheck" class="label-odd">
+                                    <span class="custom-checkbox">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    هفته فرد
+                                </label>
+                            </div>
+                    </div>
                     <div class="table-responsive">
                         <table id="scheduleTable" class="scheduleTable table-bordered">
                             <thead>
@@ -516,17 +537,21 @@
                             <select class="form-select" id="course-name" required></select>
                         </div>
                         <div class="mb-3">
-                            <label for="faculty" class="form-label">دانشکده</label>
-                            <select class="form-select" id="faculty" required>
-                                <option value="" disabled selected>انتخاب کنید...</option>
+                            <label for="faculty-input" class="form-label">
+                                دانشکده 
+                                <br><small>(در صورتی که درس در دانشکده دیگری بجز دانشکده های تعریف شده برگزار می‌شود، این فیلد را پر کنید.)</small>
+                            </label>
+                            <input class="form-control" list="faculty-options" id="faculty-input" placeholder="نام دانشکده را وارد یا انتخاب کنید...">
+
+                            <datalist id="faculty-options">
                                 @if (Model.Faculties is not null)
                                 {
                                     foreach (var faculty in Model.Faculties)
                                     {
-                                        <option value="@faculty">@faculty</option>
+                                        <option value="@faculty"></option>
                                     }
                                 }
-                            </select>
+                            </datalist>
                             <div class="invalid-feedback"> نام مکان را وارد کنید.</div>
                         </div>
                         <div class="mb-3">
@@ -542,6 +567,7 @@
                                 <option value="فرد">فرد</option>
                             </select>
                         </div>
+                        <div class="invalid-feedback fs-7 mb-1"></div>
                         <button type="submit" class="btn btn-primary w-100 submitCode">ثبت</button>
                         <button type="button" class="btn btn-danger w-100 mt-2 submitCode" id="deleteClassBtn" style="display:none; background-color:#d9534f !important; color:white !important; ">حذف</button>
                     </form>
@@ -638,6 +664,7 @@
                         </div>
                     </form>
                 </div>
+                <div class="invalid-feedback fs-7 mb-1"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
                     <button type="button" id="saveCourseBtn" class="btn btn-danger"></button>
@@ -718,6 +745,7 @@
                         </div>
                     </form>
                 </div>
+                <div class="invalid-feedback fs-7 mb-1"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
                     <button type="button" id="saveLocationBtn" class="btn btn-success"></button>

@@ -720,21 +720,21 @@ tbody tr td{
     transform: scale(0.5);
     transition: all .3s ease;
 }
-.checkbox-container input[type="checkbox"]:checked + label.label-odd{
+.checkbox-container input[type="checkbox"]:checked + label.label-even{
     background-color: #eaf1fa;
     border-color: #a9d6b8;
     color: #198754;
 }
-.checkbox-container input[type="checkbox"]:checked + label.label-odd .custom-checkbox{
+.checkbox-container input[type="checkbox"]:checked + label.label-even .custom-checkbox{
     background-color: #198754;
     border-color: #198754;
 }
-.checkbox-container input[type="checkbox"]:checked + label.label-even{
+.checkbox-container input[type="checkbox"]:checked + label.label-odd{
     background-color: #eaf1fa;
     border-color: #a4c4e9;
     color: #0d6efd;
 }
-.checkbox-container input[type="checkbox"]:checked + label.label-even .custom-checkbox{
+.checkbox-container input[type="checkbox"]:checked + label.label-odd .custom-checkbox{
     background-color: #0d6efd;
     border-color: #0d6efd;
 }
