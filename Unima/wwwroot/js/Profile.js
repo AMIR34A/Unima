@@ -862,10 +862,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const select = document.getElementById('course-name');
         const selectedValue = select.value;
         const selectedText = select.options[select.selectedIndex].text.split(' | ')[0];
-        const selectedNo = select.options[select.selectedIndex].dataset.no;
+        const selectedgroupNo = select.options[select.selectedIndex].dataset.groupNo;
         const formData = {
             courseName: selectedText,
-            groupNumber: selectedNo,
+            groupNumber: selectedgroupNo,
             classNumber: $('#class-number').val(),
             weekType: $('#week-type').val(),
             lessonId: selectedValue,
@@ -966,7 +966,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const option = document.createElement('option');
                     option.value = lesson.id;
                     option.textContent = `${lesson.value} | ${lesson.departmentTitle}`;
-                    option.dataset.no = lesson.no;
+                    option.dataset.groupNo = lesson.groupNo;
                     if (itemToEdit != null && lesson.id == itemToEdit.querySelector('[data-course-name]').dataset.lessonId) {
                         option.selected = true;
                         defaultOption.selected = false;

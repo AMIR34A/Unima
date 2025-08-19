@@ -87,7 +87,7 @@ namespace Unima.Areas.User.Controllers
                                                                                                {
                                                                                                    Id = $"{lesson.No}{lesson.GroupNo}",
                                                                                                    Value = lesson.Title,
-                                                                                                   No = lesson.No,
+                                                                                                   GroupNo = lesson.GroupNo,
                                                                                                    DepartmentTitle = lesson.Department.Title
                                                                                                });
 
