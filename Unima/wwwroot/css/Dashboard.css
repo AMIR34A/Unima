@@ -164,7 +164,7 @@
   box-shadow: 0 0 15px 3px rgba(246, 173, 85, 0.5);
 }
 .event-bar.next-event-marker::before {
-  content: "\f005"; 
+  content: "\f005";
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
   color: var(--highlight-color);
@@ -180,4 +180,57 @@
 .event-callout.next-event-card .callout-header,
 .event-callout.next-event-card .callout-header .fa-clock {
   color: var(--highlight-color);
+}
+.mb-z1 {
+  margin-bottom: 0px;
+}
+
+.card-common {
+  max-width: 350px;
+  width: 100%;
+
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-body .content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  align-items: center;
+  gap: 16px;
+}
+
+.text-content {
+  overflow: hidden;
+}
+
+.text-content h6 {
+  margin: 0;
+  white-space: normal;
+  word-wrap: break-word;
+  text-align: right;
+}
+
+.plan-title {
+  color: #6c757d;
+  font-size: 0.9rem;
+  font-weight: normal;
+}
+
+.plan-name {
+  font-weight: bold;
+  color: #212529;
+}
+
+.icon-wrapper {
+  margin-left: 10px;
+}
+.form-select {
+  font-weight: 500;
+  background-position: left 0.5rem center;
+  background-size: 16px 12px;
+  padding-right: 0.75rem; 
+  padding-left: 2.5rem;
 }
