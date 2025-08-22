@@ -1,4 +1,5 @@
-﻿using Unima.Areas.Professor.Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Unima.Areas.Professor.Models;
 using Unima.Areas.User.Models.Plan;
 using Unima.Areas.User.Models.Q_A;
 using Unima.Areas.User.Models.User;
@@ -21,4 +22,6 @@ public class DashboardViewModel
     public string? UserPlan { get; set; }
 
     public required string TodayDate { get; set; }
+
+    public IEnumerable<SelectListItem>? ProfessorOfficeStatuses { get; set; }
 }

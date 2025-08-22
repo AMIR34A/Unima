@@ -651,7 +651,7 @@ namespace Unima.Areas.User.Controllers
             bool isExsist = await _unitOfWork.RepositoryBase<Schedule>().AnyAsync(schedule => schedule.LessonProfessorId == professor.Id && schedule.Period == (TimePeriod)scheduleModel.Period && schedule.DayOfWeek == (WeekDay)scheduleModel.DayOfWeek && (schedule.WeekStatus == (WeekStatus)scheduleModel.WeekStatus || schedule.WeekStatus == WeekStatus.Fixed));
             if (isExsist)
             {
-                ModelState.AddModelError("Conflict", "تداخل وجود دارد");
+                ModelState.AddModelError("ScheduleError", "تداخل وجود دارد");
                 return BadRequest(ModelState);
             }
 
@@ -723,7 +723,7 @@ namespace Unima.Areas.User.Controllers
             if (isExsist)
             {
                 schedule.WeekStatus = (WeekStatus)scheduleModel.OldWeekStatus;
-                ModelState.AddModelError("Conflict", "تداخل وجود دارد");
+                ModelState.AddModelError("ScheduleError", "تداخل وجود دارد");
             }
 
             await _unitOfWork.RepositoryBase<Schedule>().AddAsync(schedule);

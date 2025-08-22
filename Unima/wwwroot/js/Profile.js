@@ -890,6 +890,8 @@ document.addEventListener('DOMContentLoaded', function () {
             Faculty: formData.faculty
         }
 
+        
+        const errorDiv = document.getElementById('ScheduleError');
         const newItem = createScheduleItemElement(formData);
         if (currentScheduleItem) {
             url = `/User/Profile/UpdateSchedule/${selectedValue}`;
@@ -1085,6 +1087,7 @@ document.addEventListener('DOMContentLoaded', function () {
             };
 
 
+            const errorDiv = document.getElementById('LessonError');
             if (courseId) {
                 url = `/User/Profile/UpdateLesson/${courseId}`;
 
@@ -1140,6 +1143,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const row = target.closest('tr');
             const courseId = row.dataset.courseId;
 
+            const errorDiv = document.getElementById('LessonError');
             if (link.classList.contains('delete-btn')) {
                 url = `/User/Profile/DeleteLesson/${courseId}`;
 
@@ -1256,6 +1260,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const locationId = locationIdInput.value;
             var url = '';
+            const errorDiv = document.getElementById('LocationnError');
             if (locationId) {
                 url = '/User/Profile/UpdateLocation'
                 locationModel.Id = locationId;
@@ -1311,6 +1316,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const row = target.closest('tr');
             const locationId = row.dataset.locationId;
 
+            const errorDiv = document.getElementById('LocationnError');
             if (link.classList.contains('delete-btn')) {
                 url = `/User/Profile/DeleteLocation/${locationId}`;
 

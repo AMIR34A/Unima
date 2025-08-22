@@ -9,40 +9,44 @@
     <div class="row pt-md-4 mt-md-2 mb-3 justify-content-around ">
         <div class="col-lg-2 col-md-5 col-sm-5 p-2">
             <!-- card -->
-        <div class="card card-common">
-            <div class="card-body">
-                <div class="content-wrapper">
-                    
-                    <div class="text-content">
-                        <h6 class="plan-title">وضعیت هفته</h6>
-                        <select class="form-select" id="week-type" required>
-                            <option value="ثابت">ثابت</option>
-                            <option value="زوج">زوج</option>
-                            <option value="فرد">فرد</option>
-                        </select>
-                    </div>
-                    <div class="icon-wrapper">
-                        <i class="fa-solid fa-calendar-week fa-2x text-warning"></i>
-                    </div>
-            </div>
-        </div>
-    </div>
-        </div>
-        <div class="col-lg-2 col-md-5 col-sm-5 p-2">
-            <!-- card -->
-                <div class="card card-common">
-                    <div class="card-body">
-                        <div class="content-wrapper">
-                            <div class="text-content">
-                                <h6 class="plan-title">طرح</h6>
-                                <h6 class="plan-name">@Model.UserPlan</h6>
-                            </div>
-                            <div class="icon-wrapper">
-                                <i class="fa-solid fa-money-check-dollar fa-2x text-success"></i>
-                            </div>
+            <div class="card card-common">
+                <div class="card-body">
+                    <div class="content-wrapper">
+
+                        <div class="text-content">
+                            <h6 class="plan-title">وضعیت هفته</h6>
+                            <select id="OfficeStatus" class="form-select" onchange="ChangeOfficeStatus()">
+                                @if (Model.ProfessorOfficeStatuses is not null)
+                                {
+                                    foreach (var status in Model.ProfessorOfficeStatuses)
+                                    {
+                                        <option value="@status.Value">@status.Text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="icon-wrapper">
+                            <i class="fa-solid fa-calendar-week fa-2x text-warning"></i>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-5 col-sm-5 p-2">
+            <!-- card -->
+            <div class="card card-common">
+                <div class="card-body">
+                    <div class="content-wrapper">
+                        <div class="text-content">
+                            <h6 class="plan-title">طرح</h6>
+                            <h6 class="plan-name">@Model.UserPlan</h6>
+                        </div>
+                        <div class="icon-wrapper">
+                            <i class="fa-solid fa-money-check-dollar fa-2x text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-lg-2 col-md-5 col-sm-5 p-2">
             <!-- card -->
@@ -189,7 +193,7 @@
                             </div>
                         </div>
                     }
-                    else if(Model.Schedules is not null)
+                    else if (Model.Schedules is not null)
                     {
                         <div class="timeline-wrapper" id="timeline-wrapper">
                             <div class="timeline-container" id="timeline-container-@day"></div>

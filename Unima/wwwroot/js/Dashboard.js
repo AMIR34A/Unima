@@ -137,3 +137,17 @@ $(document).ready(function () {
     }
     renderTimeline();
 });
+
+
+async function ChangeOfficeStatus() {
+    const select = document.getElementById('OfficeStatus');
+    const officeStatus = select.value;
+
+    const response = await fetch(`/User/Dashboard/UpdateOfficeStatus/${officeStatus}`, {
+        method: "POST"
+    });
+
+    if (!response.ok) {
+        return;
+    }
+}

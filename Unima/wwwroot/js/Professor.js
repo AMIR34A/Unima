@@ -76,12 +76,11 @@ document.addEventListener('DOMContentLoaded', function () {
         .withUrl("/StatusHub")
         .build();
 
-    connection.on("UpdateRoomStatus", (roomId, status) => {
-        const room = document.getElementById(`room-${roomId}`);
+    connection.on("UpdateOfficeStatus", (officeNo, status) => {
+        const room = document.getElementById(`room-${officeNo}`);
         if (room) {
             room.className = `room status-${status}`;
         }
-
     });
 
     connection.start().catch(err => console.error(err.toString()));

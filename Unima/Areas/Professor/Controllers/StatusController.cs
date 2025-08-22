@@ -15,12 +15,10 @@ namespace Unima.Areas.Professor.Controllers;
 public class StatusController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IHubContext<StatusHub> _hubContext;
 
-    public StatusController(IUnitOfWork unitOfWork, IHubContext<StatusHub> hubContext)
+    public StatusController(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
-        _hubContext = hubContext;
     }
 
     public async Task<IActionResult> Index()
@@ -72,12 +70,6 @@ public class StatusController : Controller
         };
 
         return View(statusViewModel);
-    }
-
-    [Route("Professor/Status/UpdateStatus/{roomId:int}/{roomStatus:int}")]
-    public async Task UpdateStatus(int roomId, OfficeStatus roomStatus)
-    {
-        await _hubContext.Clients.All.SendAsync("UpdateRoomStatus", roomId, roomStatus.ToString());
     }
 
     [HttpGet]

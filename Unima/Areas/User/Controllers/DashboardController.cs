@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using Unima.Areas.Professor.Hubs;
 using Unima.Areas.User.Models.Dashboard;
 using Unima.Areas.User.Models.Plan;
 using Unima.Areas.User.Models.Q_A;
@@ -25,12 +28,14 @@ public class DashboardController : Controller
     private readonly IUnitOfWork _unitOfWork;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly ISelfServiceBuilder _selfServiceBuilder;
+    private readonly IHubContext<StatusHub> _hubContext;
 
-    public DashboardController(UserManager<ApplicationUser> userManager, ISelfServiceBuilder selfServiceBuilder, IUnitOfWork unitOfWork)
+    public DashboardController(UserManager<ApplicationUser> userManager, ISelfServiceBuilder selfServiceBuilder, IUnitOfWork unitOfWork, IHubContext<StatusHub> hubContext)
     {
         _unitOfWork = unitOfWork;
         _userManager = userManager;
         _selfServiceBuilder = selfServiceBuilder;
+        _hubContext = hubContext;
     }
 
     public async Task<IActionResult> Index()
@@ -101,6 +106,14 @@ public class DashboardController : Controller
                                                                     Period = schedule.Period
                                                                 }).AsEnumerable();
 
+        IEnumerable<SelectListItem> professorOfficeStatuses = new List<SelectListItem>
+        {
+            new SelectListItem("در دسترس",((int)OfficeStatus.Available).ToString()),
+            new SelectListItem("مزاحم نشوید",((int)OfficeStatus.Busy).ToString()),
+            new SelectListItem("بزودی برمیگردم",((int)OfficeStatus.BeRightBack).ToString()),
+            new SelectListItem("آفلاین",((int)OfficeStatus.Offline).ToString())
+        };
+
         DashboardViewModel dashboardViewModel = new()
         {
             ReservedFoods = reservedFoods,
@@ -109,7 +122,8 @@ public class DashboardController : Controller
             Schedules = schedules,
             DayOfWeek = dayOfWeek,
             UserPlan = currentUser.Plan is not null ? currentUser.Plan.Title : "پلن خریداری نشده است",
-            TodayDate = GetPersianDateTime()
+            TodayDate = GetPersianDateTime(),
+            ProfessorOfficeStatuses = professorOfficeStatuses
         };
         return View(dashboardViewModel);
     }
@@ -162,6 +176,27 @@ public class DashboardController : Controller
                                                                        }
                                                                    });
         return Ok(timelineData);
+    }
+
+    [HttpPost]
+    [Route("User/Dashboard/UpdateOfficeStatus/{officeStatus:int}")]
+    public async Task<IActionResult> UpdateOfficeStatus(OfficeStatus officeStatus)
+    {
+        ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+        if (currentUser is null)
+            return NotFound();
+
+        ProfessorInformation? professor = await _unitOfWork.RepositoryBase<ProfessorInformation>()
+                                                           .FirstOrDefaultAsync(professor => professor.Id == currentUser.Id);
+        if (professor is null)
+            return NotFound();
+
+        professor.OfficeStatus = officeStatus;
+        await _unitOfWork.SaveAsync();
+        await _hubContext.Clients.All.SendAsync("UpdateOfficeStatus", professor.OfficeNo, Enum.GetName(officeStatus));
+
+        return Ok();
     }
 
     private string GetPersianDateTime()
