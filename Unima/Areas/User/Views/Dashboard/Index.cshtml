@@ -15,15 +15,10 @@
 
                         <div class="text-content">
                             <h6 class="plan-title">وضعیت هفته</h6>
-                            <select id="OfficeStatus" class="form-select" onchange="ChangeOfficeStatus()">
-                                @if (Model.ProfessorOfficeStatuses is not null)
-                                {
-                                    foreach (var status in Model.ProfessorOfficeStatuses)
-                                    {
-                                        <option value="@status.Value">@status.Text</option>
-                                    }
-                                }
-                            </select>
+                            <div class="value-cycler mt-1" id="value-cycler" role="button" tabindex="0" aria-live="polite">
+                                <span class="cycler-value" id="cycler-value"></span>
+                                <i class="fa-solid fa-arrows-rotate cycler-icon"></i>
+                            </div>
                         </div>
                         <div class="icon-wrapper">
                             <i class="fa-solid fa-calendar-week fa-2x text-warning"></i>

@@ -230,6 +230,70 @@
   font-weight: 500;
   background-position: left 0.5rem center;
   background-size: 16px 12px;
-  padding-right: 0.75rem; 
+  padding-right: 0.75rem;
   padding-left: 2.5rem;
+}
+
+.value-cycler {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px; 
+  border-radius: 99px;
+  padding: 6px 12px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease, box-shadow 0.2s ease,
+    transform 0.1s ease-in-out, border-color 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.value-cycler:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.value-cycler:active {
+  transform: scale(0.96);
+}
+
+.cycler-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: opacity 0.15s ease-in-out, color 0.3s ease;
+}
+
+.cycler-icon {
+  font-size: 0.75rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.value-cycler:hover .cycler-icon {
+  transform: rotate(90deg);
+}
+
+.cycler-value.fade-out {
+  opacity: 0;
+}
+
+
+.value-cycler.status-Unspecified {
+  background-color: #bdbdbd;
+  color: #ffffff;
+}
+.value-cycler.status-Available {
+  background-color: #4caf50;
+  color: #ffffff;
+}
+.value-cycler.status-Busy {
+  background-color: #f44336;
+  color: #ffffff;
+}
+.value-cycler.status-BeRightBack {
+  background-color: #ffeb3b;
+  color: #424242;
+}
+.value-cycler.status-Offline {
+  background-color: #86a4ae;
+  color: #ffffff;
 }
