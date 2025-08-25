@@ -14,10 +14,20 @@
                     <div class="content-wrapper">
 
                         <div class="text-content">
-                            <h6 class="plan-title">وضعیت هفته</h6>
-                            <div class="value-cycler mt-1" id="value-cycler" role="button" tabindex="0" aria-live="polite">
-                                <span class="cycler-value" id="cycler-value"></span>
-                                <i class="fa-solid fa-arrows-rotate cycler-icon"></i>
+                            <h6 class="plan-title">وضعیت حضور</h6>
+                            <div class="value-cycler @(Model.CurrentOfficeStatus.HasValue ? $"status-{Model.CurrentOfficeStatus.Value}" : string.Empty) mt-1" id="value-cycler" role="button" tabindex="0" aria-live="polite">
+                                @{
+                                    var status = Model.CurrentOfficeStatus switch
+                                    {
+                                        OfficeStatus.Available => "در دسترس",
+                                        OfficeStatus.Busy => "مشغول",
+                                        OfficeStatus.BeRightBack => "بزودی برمیگردم",
+                                        OfficeStatus.Offline => "آفلاین",
+                                        _ => string.Empty
+                                    };
+                                    <span class="cycler-value" id="cycler-value" data-current-Status=@(Model.CurrentOfficeStatus.HasValue ? (int)Model.CurrentOfficeStatus.Value : 0)>@status</span>
+                                    <i class="fa-solid fa-arrows-rotate cycler-icon"></i>
+                                }
                             </div>
                         </div>
                         <div class="icon-wrapper">

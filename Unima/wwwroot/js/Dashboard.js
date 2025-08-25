@@ -158,11 +158,10 @@ async function ChangeOfficeStatus() {
 
 document.addEventListener("DOMContentLoaded", function () {
     const options = [
-        { text: "در دسترس", class: "status-Available" },
-        { text: "مشغول", class: "status-Busy" },
-        { text: "موقت", class: "status-BeRightBack" },
-        { text: "آفلاین", class: "status-Offline" },
-        { text: "نامشخص", class: "status-Unspecified" },
+        { text: "در دسترس", class: "status-Available", value: 1 },
+        { text: "مشغول", class: "status-Busy", value: 2 },
+        { text: "موقت", class: "status-BeRightBack", value: 4 },
+        { text: "آفلاین", class: "status-Offline", value: 5 }
     ];
     let currentIndex = 0;
 
@@ -178,27 +177,39 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateValue() {
         valueElement.classList.add("fade-out");
 
-        setTimeout(() => {
-            currentIndex = (currentIndex + 1) % options.length;
-            const newStatus = options[currentIndex];
+        const currentStatus = valueElement.dataset.currentStatus;
+        const currentIndex = (options.findIndex(option => option.value == currentStatus) + 1) % options.length;
+        const newStatus = options[currentIndex];
 
-            valueElement.textContent = newStatus.text;
+        if (newStatus) {
+            fetch(`/User/Dashboard/UpdateOfficeStatus/${newStatus.value}`, {
+                method: 'POST'
+            })
+                .then(data => {
+                    setTimeout(() => {
 
-            clearStatusClasses();
-            cyclerElement.classList.add(newStatus.class);
+                        valueElement.textContent = newStatus.text;
 
-            valueElement.classList.remove("fade-out");
-        }, 150);
+                        clearStatusClasses();
+                        cyclerElement.classList.add(newStatus.class);
+                        valueElement.dataset.currentStatus = newStatus.value;
+
+                        valueElement.classList.remove("fade-out");
+                    }, 150);
+                })
+                .catch(error => console.error("Error:", error));
+        }
     }
 
     cyclerElement.addEventListener("click", updateValue);
     cyclerElement.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
+
             updateValue();
         }
     });
 
-    const initialStatus = options[currentIndex];
-    valueElement.textContent = initialStatus.text;
-    cyclerElement.classList.add(initialStatus.class);
+    //const initialStatus = options[currentIndex];
+    //valueElement.textContent = initialStatus.text;
+    //cyclerElement.classList.add(initialStatus.class);
 });

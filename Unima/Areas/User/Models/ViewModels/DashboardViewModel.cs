@@ -24,4 +24,6 @@ public class DashboardViewModel
     public required string TodayDate { get; set; }
 
     public IEnumerable<SelectListItem>? ProfessorOfficeStatuses { get; set; }
+
+    public OfficeStatus? CurrentOfficeStatus { get; set; }
 }

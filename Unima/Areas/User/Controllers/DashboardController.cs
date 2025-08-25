@@ -114,6 +114,9 @@ public class DashboardController : Controller
             new SelectListItem("آفلاین",((int)OfficeStatus.Offline).ToString())
         };
 
+        ProfessorInformation? professor = await _unitOfWork.RepositoryBase<ProfessorInformation>()
+                                                           .FirstOrDefaultAsync(professor => professor.Id == currentUser.Id);
+
         DashboardViewModel dashboardViewModel = new()
         {
             ReservedFoods = reservedFoods,
@@ -123,8 +126,10 @@ public class DashboardController : Controller
             DayOfWeek = dayOfWeek,
             UserPlan = currentUser.Plan is not null ? currentUser.Plan.Title : "پلن خریداری نشده است",
             TodayDate = GetPersianDateTime(),
-            ProfessorOfficeStatuses = professorOfficeStatuses
+            ProfessorOfficeStatuses = professorOfficeStatuses,
+            CurrentOfficeStatus = professor is not null ? professor.OfficeStatus : null
         };
+
         return View(dashboardViewModel);
     }
 
