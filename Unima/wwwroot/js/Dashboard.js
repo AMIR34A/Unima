@@ -4,8 +4,8 @@ $(document).ready(function () {
     const TOTAL_MINUTES = (END_HOUR - START_HOUR) * 60;
 
     const now = new Date();
-    const currentHour = String(now.getHours()).padStart(2, '0');
-    const currentMinute = String(now.getMinutes()).padStart(2, '0');
+    const currentHour = String(now.getHours()).padStart(2, "0");
+    const currentMinute = String(now.getMinutes()).padStart(2, "0");
     const currentTimeStr = `${currentHour}:${currentMinute}`;
 
     //let events = [
@@ -46,28 +46,28 @@ $(document).ready(function () {
         const events = await response.json();
 
         for (i = 0; i < 7; i++) {
-            var day = '';
+            var day = "";
             switch (i) {
                 case 0:
-                    day = 'sat';
+                    day = "sat";
                     break;
                 case 1:
-                    day = 'sun';
+                    day = "sun";
                     break;
                 case 2:
-                    day = 'mon';
+                    day = "mon";
                     break;
                 case 3:
-                    day = 'tue';
+                    day = "tue";
                     break;
                 case 4:
-                    day = 'wed';
+                    day = "wed";
                     break;
                 case 5:
-                    day = 'thu';
+                    day = "thu";
                     break;
                 case 6:
-                    day = 'fri';
+                    day = "fri";
                     break;
             }
 
@@ -96,10 +96,12 @@ $(document).ready(function () {
             const $currentTimeMarker = $(`<div id="current-time-marker"></div>`);
             $currentTimeMarker.css("left", `calc(${currentTimePercentage}% - 1px)`);
 
-            const todayEvents = events.filter(s => s.dayOfWeek === i);
+            const todayEvents = events.filter((s) => s.dayOfWeek === i);
 
             todayEvents.sort((a, b) => a.time.localeCompare(b.time));
-            const nextEvent = todayEvents.find((event) => event.time > currentTimeStr);
+            const nextEvent = todayEvents.find(
+                (event) => event.time > currentTimeStr
+            );
 
             todayEvents.forEach((event) => {
                 const percentage = timeToPercentage(event.time);
@@ -138,16 +140,65 @@ $(document).ready(function () {
     renderTimeline();
 });
 
-
 async function ChangeOfficeStatus() {
-    const select = document.getElementById('OfficeStatus');
+    const select = document.getElementById("OfficeStatus");
     const officeStatus = select.value;
 
-    const response = await fetch(`/User/Dashboard/UpdateOfficeStatus/${officeStatus}`, {
-        method: "POST"
-    });
+    const response = await fetch(
+        `/User/Dashboard/UpdateOfficeStatus/${officeStatus}`,
+        {
+            method: "POST",
+        }
+    );
 
     if (!response.ok) {
         return;
     }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const options = [
+        { text: "در دسترس", class: "status-Available" },
+        { text: "مشغول", class: "status-Busy" },
+        { text: "موقت", class: "status-BeRightBack" },
+        { text: "آفلاین", class: "status-Offline" },
+        { text: "نامشخص", class: "status-Unspecified" },
+    ];
+    let currentIndex = 0;
+
+    const cyclerElement = document.getElementById("value-cycler");
+    const valueElement = document.getElementById("cycler-value");
+
+    function clearStatusClasses() {
+        options.forEach((option) => {
+            cyclerElement.classList.remove(option.class);
+        });
+    }
+
+    function updateValue() {
+        valueElement.classList.add("fade-out");
+
+        setTimeout(() => {
+            currentIndex = (currentIndex + 1) % options.length;
+            const newStatus = options[currentIndex];
+
+            valueElement.textContent = newStatus.text;
+
+            clearStatusClasses();
+            cyclerElement.classList.add(newStatus.class);
+
+            valueElement.classList.remove("fade-out");
+        }, 150);
+    }
+
+    cyclerElement.addEventListener("click", updateValue);
+    cyclerElement.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            updateValue();
+        }
+    });
+
+    const initialStatus = options[currentIndex];
+    valueElement.textContent = initialStatus.text;
+    cyclerElement.classList.add(initialStatus.class);
+});
