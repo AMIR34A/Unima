@@ -398,57 +398,43 @@ $(document).ready(function () {
         const filter = currentTab.data("filter");
         let visibleItemsCount = 0;
 
-        const animationPromises = [];
-
-        $('.accordion-item').each(function () {
-            const item = $(this);
-            let show = false;
-            
-            const deferred = $.Deferred();
-            animationPromises.push(deferred.promise());
-
-            if (filter === "all") {
-                show = true;
-            } else if (filter === "starred") {
-                if (item.hasClass("starred")) show = true;
-            } else {
-                if (item.data("status") === filter) show = true;
-            }
-
-            if (show) {
-                item.slideDown(function() {
-                    deferred.resolve();
-                });
-                visibleItemsCount++;
-            } else {
-                item.slideUp(function() {
-                    deferred.resolve();
-                });
-            }
-        });
+        $('.accordion-item').hide();
         
-        $.when.apply($, animationPromises).done(function() {
-            const emptyMessageDiv = $('#filter-no-results-message');
-            if (visibleItemsCount === 0 && $('.accordion-item').length > 0) {
-                let message = "";
-                switch(filter) {
-                    case 'starred':
-                        message = "هیچ پیام ستاره‌داری وجود ندارد.";
-                        break;
-                    case 'accepted':
-                        message = "هیچ پیام تایید شده‌ای وجود ندارد.";
-                        break;
-                    case 'rejected':
-                        message = "هیچ پیام رد شده‌ای وجود ندارد.";
-                        break;
-                }
-                emptyMessageDiv.find('h5').text(message);
-                emptyMessageDiv.show();
-            } else {
-                emptyMessageDiv.hide();
+        let itemsToShow;
+        
+        if (filter === 'all') {
+            itemsToShow = $('.accordion-item');
+        } else if (filter === 'starred') {
+            itemsToShow = $('.accordion-item.starred');
+        } else {
+            itemsToShow = $(`.accordion-item[data-status="${filter}"]`);
+        }
+
+        visibleItemsCount = itemsToShow.length;
+        
+        itemsToShow.slideDown();
+
+        const emptyMessageDiv = $('#filter-no-results-message');
+        if (visibleItemsCount === 0 && $('.accordion-item').length > 0) {
+            let message = "";
+            switch(filter) {
+                case 'starred':
+                    message = "هیچ پیام ستاره‌داری وجود ندارد.";
+                    break;
+                case 'accepted':
+                    message = "هیچ پیام تایید شده‌ای وجود ندارد.";
+                    break;
+                case 'rejected':
+                    message = "هیچ پیام رد شده‌ای وجود ندارد.";
+                    break;
             }
-        });
+            emptyMessageDiv.find('h5').text(message);
+            emptyMessageDiv.show();
+        } else {
+            emptyMessageDiv.hide();
+        }
     });
+
 
     $(".btn-accept").on("click", function () {
         const item = $(this).closest(".accordion-item");
