@@ -22,155 +22,164 @@
         </div>
         <div class="Section-Card p-5 m-1 bg-white rounded col-xl-11 col-md-12 d-flex justify-content-center flex-wrap m-auto">
             <div class="row">
-                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                    <label asp-for="ProfileModel.FullName" class="fs-5 d-inline-block text-secondary mb-2"></label>
-                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
-                        <div>
-                            <span id="FullNameSpan" class="fs-6">@Model.ProfileModel.FullName</span>
-                        </div>
-                        <div class="icon-edit">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateFullName">
-                                <i class="fa-solid fa-pen-to-square fs-6 text-black "></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                    <label asp-for="ProfileModel.Email" class="fs-5 d-inline-block text-secondary mb-2"></label>
-                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
-                        <div>
-                            <span id="EmailSpan" class="fs-6">@Model.ProfileModel.Email</span>
-                        </div>
-                        <div class="icon-edit">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateEmail">
-                                <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
-                            </a>
+                @{
+                    bool isStudent = User.IsInRole("Student");
+                    <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                        <label asp-for="ProfileModel.FullName" class="fs-5 d-inline-block text-secondary mb-2"></label>
+                        <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                            <div>
+                                <span id="FullNameSpan" class="fs-6">@Model.ProfileModel.FullName</span>
+                            </div>
+                            <div class="icon-edit">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateFullName">
+                                    <i class="fa-solid fa-pen-to-square fs-6 text-black "></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                    <label asp-for="ProfileModel.PhoneNumber" class="fs-5 d-inline-block text-secondary mb-2"></label>
-                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
-                        <div>
-                            <span id="PhoneNumberSpan" class="fs-6">@Model.ProfileModel.PhoneNumber</span>
-                        </div>
-                        <div class="icon-edit">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#UpdatePhoneNumber">
-                                <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                    <label asp-for="ProfileModel.Username" class="fs-5 d-inline-block text-secondary mb-2"></label>
-                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
-                        <div>
-                            <span id="UsernameSpan" class="fs-6 StudentCodeNumber">@Model.ProfileModel.Username</span>
-                        </div>
-                        <div class="icon-edit">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateStudentInformation">
-                                <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
-                            </a>
+                    <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                        <label asp-for="ProfileModel.Email" class="fs-5 d-inline-block text-secondary mb-2"></label>
+                        <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                            <div>
+                                <span id="EmailSpan" class="fs-6">@Model.ProfileModel.Email</span>
+                            </div>
+                            <div class="icon-edit">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateEmail">
+                                    <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                    <label for="name" class=" fs-5 d-inline-block text-secondary mb-2">رمزعبور</label>
-                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
-                        <div>
-                            <span class="fs-6">*********</span>
-                        </div>
-                        <div class="icon-edit">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#UpdatePassword">
-                                <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div style="display: none;" class="success-password text-danger"></div>
-                </div>
-                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                    <label asp-for="ProfileModel.SelfServicePassword" class="fs-5 d-inline-block text-secondary mb-2"></label>
-                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
-                        <div>
-                            <span id="SelfPasswordSpan" class="fs-6">@Model.ProfileModel.SelfServicePassword</span>
-                        </div>
-                        <div class="icon-edit">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateStudentInformation" id="FillInput" data-value="@Model.ProfileModel.Username">
-                                <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
-                            </a>
+                    <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                        <label asp-for="ProfileModel.PhoneNumber" class="fs-5 d-inline-block text-secondary mb-2"></label>
+                        <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                            <div>
+                                <span id="PhoneNumberSpan" class="fs-6">@Model.ProfileModel.PhoneNumber</span>
+                            </div>
+                            <div class="icon-edit">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#UpdatePhoneNumber">
+                                    <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                    <label class="fs-5 d-inline-block text-secondary mb-2">جنسیت</label>
-                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
-                        <div>
-                            <span id="GenderSpan" class="fs-6">@Model.ProfileModel.Gender</span>
-                        </div>
-                        <div class="icon-edit">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#UpdatePersonalInformation"
-                               onclick="getGenderData()">
-                                <i class="fa-solid fa-pen-to-square fs-6 text-black" onclick="getGenderData()"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                    <label class="fs-5 d-inline-block text-secondary mb-2">سلف پیش‌فرض</label>
-                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
-                        <div>
-                            <span id="DefaultSelfLocationSpan"
-                                  class="fs-6">@Model.ProfileModel.DefaultSelfService</span>
-                        </div>
-                        <div class="icon-edit">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#UpdatePersonalInformation">
-                                <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
-                            </a>
+                    <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                        <label class="fs-5 d-inline-block text-secondary mb-2">@(isStudent ? "شماره دانشجویی" : "نام کاربری")</label>
+                        <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                            <div>
+                                <span id="UsernameSpan" class="fs-6 StudentCodeNumber">@Model.ProfileModel.Username</span>
+                            </div>
+                            <div class="icon-edit">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateStudentInformation">
+                                    <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                    <label class="fs-5 d-inline-block text-secondary mb-2">تنظیم برنامه کلاسی</label>
-                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
-                        <div>
-                            <span id="DefaultSelfLocationSpan"
-                                  class="fs-6">ثبت نشده</span>
+                    <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                        <label for="name" class=" fs-5 d-inline-block text-secondary mb-2">رمزعبور</label>
+                        <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                            <div>
+                                <span class="fs-6">*********</span>
+                            </div>
+                            <div class="icon-edit">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#UpdatePassword">
+                                    <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
+                                </a>
+                            </div>
                         </div>
-                        <div class="icon-edit">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#scheduleModal" id="openScheduleBtn">
-                                <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
-                            </a>
-                        </div>
+                        <div style="display: none;" class="success-password text-danger"></div>
                     </div>
-                </div>
-                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                    <label class="fs-5 d-inline-block text-secondary mb-2">مدیریت مکان ها</label>
-                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
-                        <div>
-                            <span id="DefaultSelfLocationSpan"
-                                  class="fs-6">ثبت نشده</span>
+                    @if (isStudent)
+                    {
+                        <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                            <label asp-for="ProfileModel.SelfServicePassword" class="fs-5 d-inline-block text-secondary mb-2"></label>
+                            <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                                <div>
+                                    <span id="SelfPasswordSpan" class="fs-6">@Model.ProfileModel.SelfServicePassword</span>
+                                </div>
+                                <div class="icon-edit">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#UpdateStudentInformation" id="FillInput" data-value="@Model.ProfileModel.Username">
+                                        <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="icon-edit">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#locationsListModal">
-                                <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
-                            </a>
+                        <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                            <label class="fs-5 d-inline-block text-secondary mb-2">جنسیت</label>
+                            <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                                <div>
+                                    <span id="GenderSpan" class="fs-6">@Model.ProfileModel.Gender</span>
+                                </div>
+                                <div class="icon-edit">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#UpdatePersonalInformation"
+                                       onclick="getGenderData()">
+                                        <i class="fa-solid fa-pen-to-square fs-6 text-black" onclick="getGenderData()"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
-                    <label class="fs-5 d-inline-block text-secondary mb-2">مدیریت لیست دروس</label>
-                    <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
-                        <div>
-                            <span id="DefaultSelfLocationSpan"
-                                  class="fs-6">ثبت نشده</span>
+                        <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                            <label class="fs-5 d-inline-block text-secondary mb-2">سلف پیش‌فرض</label>
+                            <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                                <div>
+                                    <span id="DefaultSelfLocationSpan"
+                                          class="fs-6">@Model.ProfileModel.DefaultSelfService</span>
+                                </div>
+                                <div class="icon-edit">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#UpdatePersonalInformation">
+                                        <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="icon-edit">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#coursesListModal">
-                                <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
-                            </a>
+                    }
+                    else
+                    {
+                        <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                            <label class="fs-5 d-inline-block text-secondary mb-2">تنظیم برنامه کلاسی</label>
+                            <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                                <div>
+                                    <span id="DefaultSelfLocationSpan"
+                                          class="fs-6">ثبت نشده</span>
+                                </div>
+                                <div class="icon-edit">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#scheduleModal" id="openScheduleBtn">
+                                        <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                        <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                            <label class="fs-5 d-inline-block text-secondary mb-2">مدیریت مکان ها</label>
+                            <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                                <div>
+                                    <span id="DefaultSelfLocationSpan"
+                                          class="fs-6">ثبت نشده</span>
+                                </div>
+                                <div class="icon-edit">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#locationsListModal">
+                                        <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
+                            <label class="fs-5 d-inline-block text-secondary mb-2">مدیریت لیست دروس</label>
+                            <div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
+                                <div>
+                                    <span id="DefaultSelfLocationSpan"
+                                          class="fs-6">ثبت نشده</span>
+                                </div>
+                                <div class="icon-edit">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#coursesListModal">
+                                        <i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
             </div>
         </div>
     </div>
@@ -354,26 +363,25 @@
                         سامانه یونیما هیچ مسئولیتی در قبال اطلاعات نادرست نمیپذیرد.
                     </p>
                     <div id="StudentForm my-2" class="d-flex flex-nowrap justify-content-between">
-                        <div class="m-2 w-50">
-                            @* <label for="StudentCode" class="fs-6 mb-2">شماره‌ دانشجویی</label>
-                            <input type="text" id="StudentCode"
-                                class="form-control bg-light w-100 border border-1 border-dark" maxlength="10"
-                                inputmode="numeric" required> *@
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" inputmode="numeric" id="Username" placeholder="شماره دانشجویی" maxlength="10" dir="rtl" required>
-                                <label for="StudentCode">شماره دانشجویی</label>
-                                <div id="StudentInformationError" class="text-danger mt-1" style="display: none;"></div>
+                        @{
+                            string username = isStudent ? "شماره دانشجویی" : "نام کاربری";
+                            <div class="m-2 w-50">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" inputmode="numeric" id="Username" placeholder="@username" maxlength="10" dir="rtl" required>
+                                    <label for="StudentCode">@username</label>
+                                    <div id="StudentInformationError" class="text-danger mt-1" style="display: none;"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="m-2 w-50">
-                            @* <label for="SelfPassword" class="mb-2 fs-6">رمز سلف دانشجویی</label>
-                            <input type="text" id="SelfPassword"
-                                class="form-control bg-light w-100 border border-1 border-dark" required> *@
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="SelfPassword" placeholder="رمز سلف دانشجویی" dir="rtl" required>
-                                <label for="SelfPassword">رمز سلف دانشجویی</label>
-                            </div>
-                        </div>
+                            if (isStudent)
+                            {
+                                <div class="m-2 w-50">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="SelfPassword" placeholder="رمز سلف دانشجویی" dir="rtl" required>
+                                        <label for="SelfPassword">رمز سلف دانشجویی</label>
+                                    </div>
+                                </div>
+                            }
+                        }
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -473,25 +481,25 @@
                 </div>
                 <div class="modal-body">
                     <div class="checkboxes">
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="evenWeekCheck" class="schedule-filter" checked>
-                                <label for="evenWeekCheck" class="label-even">
-                                    <span class="custom-checkbox">
-                                        <i class="fa-solid fa-check"></i>
-                                    </span>
-                                    هفته زوج
-                                </label>
-                            </div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="evenWeekCheck" class="schedule-filter" checked>
+                            <label for="evenWeekCheck" class="label-even">
+                                <span class="custom-checkbox">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+                                هفته زوج
+                            </label>
+                        </div>
 
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="oddWeekCheck" class="schedule-filter" checked>
-                                <label for="oddWeekCheck" class="label-odd">
-                                    <span class="custom-checkbox">
-                                        <i class="fa-solid fa-check"></i>
-                                    </span>
-                                    هفته فرد
-                                </label>
-                            </div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="oddWeekCheck" class="schedule-filter" checked>
+                            <label for="oddWeekCheck" class="label-odd">
+                                <span class="custom-checkbox">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+                                هفته فرد
+                            </label>
+                        </div>
                     </div>
                     <div class="table-responsive">
                         <table id="scheduleTable" class="scheduleTable table-bordered">
@@ -538,7 +546,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="faculty-input" class="form-label">
-                                دانشکده 
+                                دانشکده
                                 <br><small>(در صورتی که درس در دانشکده دیگری بجز دانشکده های تعریف شده برگزار می‌شود، این فیلد را پر کنید.)</small>
                             </label>
                             <input class="form-control" list="faculty-options" id="faculty" placeholder="نام دانشکده را وارد یا انتخاب کنید...">
