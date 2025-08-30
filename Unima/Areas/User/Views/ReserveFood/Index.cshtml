@@ -1,5 +1,248 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{ Layout = "/Areas/User/Views/Shared/_Layout.cshtml";
+    <link rel="stylesheet" href="/css/ReserveFood.css">
+    <script src="/js/ReserveFood.js"></script>
 }
+
+
+<div class="container my-3">
+  <ul
+    class="nav nav-pills justify-content-center mb-4 weekday-nav"
+    id="pills-tab"
+    role="tablist"
+  >
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active"
+        data-bs-toggle="pill"
+        data-bs-target="#day-saturday"
+        type="button"
+      >
+        شنبه
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        data-bs-toggle="pill"
+        data-bs-target="#day-sunday"
+        type="button"
+      >
+        یکشنبه
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        data-bs-toggle="pill"
+        data-bs-target="#day-monday"
+        type="button"
+      >
+        دوشنبه
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        data-bs-toggle="pill"
+        data-bs-target="#day-tuesday"
+        type="button"
+      >
+        سه‌شنبه
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        data-bs-toggle="pill"
+        data-bs-target="#day-wednesday"
+        type="button"
+      >
+        چهارشنبه
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        data-bs-toggle="pill"
+        data-bs-target="#day-thursday"
+        type="button"
+      >
+        پنجشنبه
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        data-bs-toggle="pill"
+        data-bs-target="#day-friday"
+        type="button"
+      >
+        جمعه
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="pills-tabContent">
+    <template id="day-template">
+      <div class="timeline-container">
+        <div class="meal-slot" data-meal="breakfast" data-cafeteria="main">
+          <div class="meal-header">
+            <div class="meal-icon">🍳</div>
+            <div class="meal-info">
+              <div class="meal-title">صبحانه</div>
+              <div class="selected-meal">انتخاب کنید</div>
+              <div class="selected-cafeteria"></div>
+            </div>
+            <div class="meal-actions">
+              <i
+                class="fa-solid fa-utensils cafeteria-btn"
+                title="انتخاب سلف"
+                data-bs-toggle="modal"
+                data-bs-target="#cafeteriaModal"
+              ></i>
+              <i class="fa-solid fa-lock lock-btn" title="قفل کردن"></i>
+            </div>
+          </div>
+          <div class="meal-options-panel">
+            <button class="meal-option-btn" data-value="املت">املت ویژه</button>
+            <button class="meal-option-btn" data-value="کره و عسل">
+              کره و عسل
+            </button>
+          </div>
+        </div>
+        <div class="meal-slot" data-meal="lunch" data-cafeteria="main">
+          <div class="meal-header">
+            <div class="meal-icon">🍔</div>
+            <div class="meal-info">
+              <div class="meal-title">نهار</div>
+              <div class="selected-meal">انتخاب کنید</div>
+              <div class="selected-cafeteria"></div>
+            </div>
+            <div class="meal-actions">
+              <i
+                class="fa-solid fa-utensils cafeteria-btn"
+                title="انتخاب سلف"
+                data-bs-toggle="modal"
+                data-bs-target="#cafeteriaModal"
+              ></i>
+              <i class="fa-solid fa-lock lock-btn" title="قفل کردن"></i>
+            </div>
+          </div>
+          <div class="meal-options-panel">
+            <button class="meal-option-btn" data-value="کباب">کباب</button>
+            <button class="meal-option-btn" data-value="جوجه">جوجه</button>
+          </div>
+        </div>
+        <div class="meal-slot" data-meal="dinner" data-cafeteria="main">
+          <div class="meal-header">
+            <div class="meal-icon">🍕</div>
+            <div class="meal-info">
+              <div class="meal-title">شام</div>
+              <div class="selected-meal">انتخاب کنید</div>
+              <div class="selected-cafeteria"></div>
+            </div>
+            <div class="meal-actions">
+              <i
+                class="fa-solid fa-utensils cafeteria-btn"
+                title="انتخاب سلف"
+                data-bs-toggle="modal"
+                data-bs-target="#cafeteriaModal"
+              ></i>
+              <i class="fa-solid fa-lock lock-btn" title="قفل کردن"></i>
+            </div>
+          </div>
+          <div class="meal-options-panel">
+            <button class="meal-option-btn" data-value="پیتزا">پیتزا</button>
+            <button class="meal-option-btn" data-value="ماکارونی">
+              ماکارونی
+            </button>
+          </div>
+        </div>
+        <div class="meal-slot">
+          <div class="meal-header">
+            <div class="meal-icon">🗝️</div>
+            <div class="meal-info">
+              <div class="meal-title">راهنمایی</div>
+              <div class="info-meal">
+                برای رزرو خودکار تیک گزینه روبه‌رو را فعال کنید.
+              </div>
+            </div>
+            <div class="meal-actions">
+              <div class="checkboxes">
+                <div class="checkbox-container">
+                  <input
+                    type="checkbox"
+                    id="evenWeekCheck"
+                    class="schedule-filter"
+                    checked
+                  />
+                  <label for="evenWeekCheck" class="label-info">
+                    <span class="custom-checkbox">
+                      <i class="fa-solid fa-check"></i>
+                    </span>
+                    رزرو خودکار
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+</div>
+
+<div class="modal fade" id="cafeteriaModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">تنظیمات سلف</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>لطفا سلف مورد نظر خود را برای این وعده انتخاب کنید:</p>
+        <div class="d-grid gap-2">
+          <input
+            type="radio"
+            class="btn-check"
+            name="cafeteria-option"
+            id="cafeteria-main"
+            value="main"
+          /><label class="btn btn-outline-primary" for="cafeteria-main"
+            >سلف اصلی</label
+          >
+          <input
+            type="radio"
+            class="btn-check"
+            name="cafeteria-option"
+            id="cafeteria-2"
+            value="2"
+          /><label class="btn btn-outline-primary" for="cafeteria-2"
+            >سلف شماره ۲</label
+          >
+          <input
+            type="radio"
+            class="btn-check"
+            name="cafeteria-option"
+            id="cafeteria-restaurant"
+            value="restaurant"
+          /><label class="btn btn-outline-primary" for="cafeteria-restaurant"
+            >رستوران آزاد</label
+          >
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          انصراف
+        </button>
+        <button type="button" class="btn btn-primary" id="saveCafeteria">
+          ذخیره تغییرات
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

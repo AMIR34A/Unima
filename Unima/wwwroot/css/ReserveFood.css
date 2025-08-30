@@ -1,0 +1,314 @@
+:root {
+  --primary-color: #dda853;
+  --primary-color-light: #e6c89c;
+  --primary-color-dark: #c89441;
+  --primary-bg: linear-gradient(
+    135deg,
+    var(--primary-color-light) 0%,
+    var(--primary-color) 100%
+  );
+
+  --font-family: "Vazirmatn", sans-serif;
+  --bg-color: #f4f7f6;
+}
+
+.weekday-nav {
+  gap: 0.5rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.weekday-nav .nav-item {
+  flex: 1;
+}
+.weekday-nav .nav-link {
+  width: 100%;
+  font-weight: 500;
+  color: #6c757d;
+  border-radius: 50rem !important;
+  padding: 0.5rem 0.75rem;
+}
+.weekday-nav .nav-link.active {
+  background-color: #fff;
+  color: var(--primary-color);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.timeline-container {
+  max-width: 600px;
+  margin: auto;
+  position: relative;
+  padding: 2rem 0;
+}
+.timeline-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 38px;
+  height: 97%;
+  width: 4px;
+  background-color: #dbe2ea;
+  border-radius: 2px;
+}
+
+.meal-slot {
+  margin-bottom: 1rem;
+  position: relative;
+  --accent-color: var(--primary-color);
+}
+.meal-header {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(44, 62, 80, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+.meal-header:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(44, 62, 80, 0.08);
+}
+.meal-slot.locked::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: -30px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(3px);
+  border-radius: 12px;
+  transition: opacity 0.3s ease;
+  pointer-events: auto;
+  z-index: 3;
+}
+
+.meal-icon {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  margin-left: 1.5rem;
+  position: absolute;
+  right: -25px;
+  border: 4px solid var(--bg-color);
+  background: var(--primary-bg);
+  transition: transform 0.2s ease-out;
+}
+
+.meal-info {
+  margin-right: 50px;
+}
+.meal-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.selected-meal {
+  color: #95a5a6;
+  font-size: 0.9rem;
+  font-style: italic;
+  transition: color 0.3s ease, font-style 0.3s ease, font-weight 0.3s ease;
+}
+.selected-meal.is-selected {
+  color: #34495e;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.selected-cafeteria {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(-5px);
+}
+.selected-cafeteria.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.meal-actions {
+  margin-right: auto;
+  display: flex;
+  gap: 1rem;
+  color: #a0aec0;
+}
+.meal-actions i {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.meal-actions .cafeteria-btn.active,
+.meal-actions i:hover {
+  color: var(--primary-color);
+}
+.meal-actions .lock-btn.active {
+  color: #e53e3e;
+}
+.meal-slot.active .meal-icon {
+  transform: scale(1.1);
+}
+.meal-options-panel {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    opacity 0.4s ease;
+  margin-top: -10px;
+  padding: 10px;
+  padding-top: 20px;
+  background: #fdfdfd;
+  border-radius: 0 0 12px 12px;
+}
+.meal-slot.active .meal-options-panel {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.meal-option-btn {
+  display: block;
+  width: 100%;
+  text-align: right;
+  padding: 0.8rem 1.2rem;
+  margin-bottom: 0.5rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background-color: #f0f2f5;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+.meal-option-btn:hover {
+  transform: translateX(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border-color: var(--primary-color-light);
+}
+.meal-option-btn.selected {
+  border-color: var(--accent-color);
+  background-color: #fff;
+  color: var(--accent-color);
+  font-weight: 700;
+}
+
+.meal-slot.locked::after {
+  content: "\f023";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  font-size: 3rem;
+  color: var(--primary-color-dark);
+  opacity: 0;
+  z-index: 5;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+.meal-slot.locked.show-lock-icon::after {
+  opacity: 0.8;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+@@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.pulse-animation {
+  animation: pulse 0.4s ease-out;
+}
+
+.modal-body .btn-check:checked + .btn-outline-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #fff;
+}
+.modal-footer .btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.modal-footer .btn-primary:hover {
+  background-color: var(--primary-color-dark);
+  border-color: var(--primary-color-dark);
+}
+.checkbox-container {
+  position: relative;
+}
+.checkbox-container input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+.checkbox-container label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  background-color: #f8f9fa;
+  font-weight: bold;
+  color: #555;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.checkbox-container .custom-checkbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.checkbox-container .custom-checkbox .fa-check {
+  font-size: 12px;
+  color: white;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.3s ease;
+}
+.checkbox-container input[type="checkbox"]:checked + label.label-info {
+  background-color: #eaf1fa;
+  border-color: var(--primary-color-light);
+  color: var(--primary-color);
+}
+.checkbox-container
+  input[type="checkbox"]:checked
+  + label.label-info
+  .custom-checkbox {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.checkbox-container input[type="checkbox"]:checked + label .fa-check {
+  opacity: 1;
+  transform: scale(1);
+}
+.info-meal {
+  color: #95a5a6;
+  font-size: 0.8rem;
+  font-style: italic;
+  transition: color 0.3s ease, font-style 0.3s ease, font-weight 0.3s ease;
+}

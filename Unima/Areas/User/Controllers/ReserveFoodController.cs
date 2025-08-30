@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Unima.Areas.User.Controllers;
+[Area("User")]
 
 public class ReserveFoodController : Controller
 {
