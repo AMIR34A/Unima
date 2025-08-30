@@ -297,3 +297,25 @@
   background-color: #86a4ae;
   color: #ffffff;
 }
+
+.weekday-nav {
+  gap: 0.5rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.weekday-nav .nav-item {
+  flex: 1;
+}
+.weekday-nav .nav-link {
+  width: 100%;
+  font-weight: 500;
+  color: #6c757d;
+  border-radius: 50rem !important;
+  padding: 0.5rem 0.75rem;
+}
+.weekday-nav .nav-link.active {
+  background-color: #fff;
+  color: #dda853;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}

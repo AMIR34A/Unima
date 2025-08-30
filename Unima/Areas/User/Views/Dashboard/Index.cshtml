@@ -91,7 +91,7 @@
 <section class="mb-sm-5">
     <div class="d-flex justif y-content-between justify-content-md-center align-items-center flex-row flex-wrap d-sm-block gap-2">
         <!-- days-buttons -->
-        <div class="row daysButtonsContainer ms-4 gap-5 gap-sm-2 mt-5 mt-sm-0 gap-md-3 gap-lg-5 justify-content-center align-items-center">
+        <ul class="nav nav-pills justify-content-center mb-4 weekday-nav" id="pills-tab" role="tablist">
             @{
                 int dayOfWeek = (int)Model.DayOfWeek;
 
@@ -99,37 +99,29 @@
                 {
                     string dayKey = i switch
                     {
-                        0 => "sat",
-                        1 => "sun",
-                        2 => "mon",
-                        3 => "tue",
-                        4 => "wed",
-                        5 => "thu",
-                        6 => "fri",
-                        _ => string.Empty
+                        0 => "sat", 1 => "sun", 2 => "mon", 3 => "tue", 4 => "wed", 5 => "thu", 6 => "fri", _ => string.Empty
                     };
 
                     string day = i switch
                     {
-                        0 => "شنبه",
-                        1 => "یکشنبه",
-                        2 => "دوشنبه",
-                        3 => "سه‌شنبه",
-                        4 => "چهارشنبه",
-                        5 => "پنجشنبه",
-                        6 => "جمعه",
-                        _ => string.Empty
+                        0 => "شنبه", 1 => "یکشنبه", 2 => "دوشنبه", 3 => "سه‌شنبه", 4 => "چهارشنبه", 5 => "پنجشنبه", 6 => "جمعه", _ => string.Empty
                     };
-                    <div class="col-xl-1 col-md-1 col-sm-2">
-                        <button id="" class="days @(i == dayOfWeek ? "active-day" : string.Empty) text-light-emphasis fw-bolder rounded rounded-4"
-                                onclick="showCards('@dayKey')"
-                                onblur="backToTodayTimeline(@dayOfWeek)">
+                    
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link @(i == dayOfWeek ? "active" : "")" 
+                                id="tab-@dayKey" 
+                                data-bs-toggle="pill" 
+                                data-bs-target="#card-@dayKey" 
+                                type="button" 
+                                role="tab" 
+                                aria-controls="card-@dayKey" 
+                                aria-selected="@(i == dayOfWeek ? "true" : "false")">
                             @day
                         </button>
-                    </div>
+                    </li>
                 }
             }
-        </div>
+        </ul>
         <!-- days-buttons -->
         <!-- days-cards -->
         @{
