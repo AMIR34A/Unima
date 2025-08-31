@@ -85,27 +85,41 @@ public class StatusController : Controller
         if (professor is null)
             return BadRequest();
 
-        var schedules = professor.Lessons.SelectMany(lesson => lesson.Schedules)
-                                                               .Select(schedule => new ScheduleModel()
-                                                               {
-                                                                   LessonTitle = schedule.Lesson.Title,
-                                                                   GroupNo = schedule.LessonGroupNo,
-                                                                   RoomNo = schedule.RoomNo,
-                                                                   DayOfWeek = schedule.DayOfWeek,
-                                                                   DayTitle = schedule.DayOfWeek switch
-                                                                   {
-                                                                       WeekDay.Saturday => "شنبه",
-                                                                       WeekDay.Sunday => "یکشنبه",
-                                                                       WeekDay.Monday => "دوشنبه",
-                                                                       WeekDay.Thursday => "سه‌شنبه",
-                                                                       WeekDay.Wednesday => "چهارشنبه",
-                                                                       WeekDay.Tuesday => "پنجشنبه",
-                                                                       WeekDay.Friday => "جمعه",
-                                                                       _ => string.Empty
-                                                                   },
-                                                                   WeekStatus = schedule.WeekStatus,
-                                                                   Period = schedule.Period
-                                                               }).OrderBy(schedule => schedule.DayOfWeek);
+        WeekDay dayOfWeek = DateTime.Now.DayOfWeek switch
+        {
+            DayOfWeek.Saturday => WeekDay.Saturday,
+            DayOfWeek.Sunday => WeekDay.Sunday,
+            DayOfWeek.Monday => WeekDay.Monday,
+            DayOfWeek.Tuesday => WeekDay.Tuesday,
+            DayOfWeek.Wednesday => WeekDay.Wednesday,
+            DayOfWeek.Thursday => WeekDay.Thursday,
+            _ => WeekDay.Friday
+        };
+
+        bool isLoginned = User is not null && User.Identity is not null && User.Identity.IsAuthenticated;
+
+        IOrderedEnumerable<ScheduleModel>? schedules = professor.Lessons.SelectMany(lesson => lesson.Schedules)
+                                                                    .Where(schedule => isLoginned || schedule.DayOfWeek == dayOfWeek)
+                                                                    .Select(schedule => new ScheduleModel()
+                                                                    {
+                                                                        LessonTitle = schedule.Lesson.Title,
+                                                                        GroupNo = schedule.LessonGroupNo,
+                                                                        RoomNo = schedule.RoomNo,
+                                                                        DayOfWeek = schedule.DayOfWeek,
+                                                                        DayTitle = schedule.DayOfWeek switch
+                                                                        {
+                                                                            WeekDay.Saturday => "شنبه",
+                                                                            WeekDay.Sunday => "یکشنبه",
+                                                                            WeekDay.Monday => "دوشنبه",
+                                                                            WeekDay.Thursday => "سه‌شنبه",
+                                                                            WeekDay.Wednesday => "چهارشنبه",
+                                                                            WeekDay.Tuesday => "پنجشنبه",
+                                                                            WeekDay.Friday => "جمعه",
+                                                                            _ => string.Empty
+                                                                        },
+                                                                        WeekStatus = schedule.WeekStatus,
+                                                                        Period = schedule.Period
+                                                                    }).OrderBy(schedule => schedule.DayOfWeek);
 
         return Ok(new
         {
