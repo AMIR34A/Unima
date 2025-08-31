@@ -219,40 +219,6 @@ const closeBtn = document.getElementById("closePanel");
 const supportContent = document.querySelector(".support-content");
 const accordionButtons = document.querySelectorAll(".accordion-button::after");
 
-function showCards(dayId) {
-    document.querySelectorAll(".day-cards").forEach((el) => {
-        el.classList.add("d-none");
-        el.classList.remove("animate__fadeIn");
-    });
-    const target = document.getElementById(`card-${dayId}`);
-    target.classList.remove("d-none");
-    target.classList.add("animate__fadeIn");
-}
-
-function backToTodayTimeline(dayOfWeek) {
-    const map = {
-        0: "sat",  // Saturday
-        1: "sun",  // Sunday
-        2: "mon",
-        3: "tue",
-        4: "wed",
-        5: "thu",
-        6: "fri"
-    };
-    document.querySelectorAll(".day-cards").forEach((el) => {
-        el.classList.add("d-none");
-        el.classList.remove("animate__fadeIn");
-    });
-
-    var todayKey = map[dayOfWeek];
-
-    const todayCard = document.getElementById(`card-${todayKey}`);
-    if (todayCard) {
-        todayCard.classList.remove("d-none");
-        todayCard.classList.add("animate__fadeIn");
-    }
-}
-
 chatBtn.addEventListener("click", () => {
     panel.classList.add("open");
     chatBtn.classList.add("d-none");

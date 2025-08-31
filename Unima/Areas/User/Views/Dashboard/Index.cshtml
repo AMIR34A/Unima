@@ -99,23 +99,37 @@
                 {
                     string dayKey = i switch
                     {
-                        0 => "sat", 1 => "sun", 2 => "mon", 3 => "tue", 4 => "wed", 5 => "thu", 6 => "fri", _ => string.Empty
+                        0 => "sat",
+                        1 => "sun",
+                        2 => "mon",
+                        3 => "tue",
+                        4 => "wed",
+                        5 => "thu",
+                        6 => "fri",
+                        _ => string.Empty
                     };
 
                     string day = i switch
                     {
-                        0 => "شنبه", 1 => "یکشنبه", 2 => "دوشنبه", 3 => "سه‌شنبه", 4 => "چهارشنبه", 5 => "پنجشنبه", 6 => "جمعه", _ => string.Empty
+                        0 => "شنبه",
+                        1 => "یکشنبه",
+                        2 => "دوشنبه",
+                        3 => "سه‌شنبه",
+                        4 => "چهارشنبه",
+                        5 => "پنجشنبه",
+                        6 => "جمعه",
+                        _ => string.Empty
                     };
-                    
+
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link @(i == dayOfWeek ? "active" : "")" 
-                                id="tab-@dayKey" 
-                                data-bs-toggle="pill" 
-                                data-bs-target="#card-@dayKey" 
-                                type="button" 
-                                role="tab" 
-                                aria-controls="card-@dayKey" 
-                                aria-selected="@(i == dayOfWeek ? "true" : "false")">
+                        <button class="nav-link @(i == dayOfWeek ? "active" : "")"
+                                id="tab-@dayKey"
+                                data-bs-toggle="pill"
+                                data-bs-target="#card-@dayKey"
+                                type="button"
+                                role="tab"
+                                aria-controls="card-@dayKey"
+                                aria-selected="@(i == dayOfWeek ? "true" : "false")" onclick="showCards('@dayKey')" onblur="backToTodayTimeline('@dayOfWeek')">
                             @day
                         </button>
                     </li>

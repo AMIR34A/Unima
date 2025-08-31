@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const options = [
         { text: "در دسترس", class: "status-Available", value: 1 },
         { text: "مشغول", class: "status-Busy", value: 2 },
-        { text: "موقت", class: "status-BeRightBack", value: 4 },
+        { text: "بزودی بر میگردم", class: "status-BeRightBack", value: 4 },
         { text: "آفلاین", class: "status-Offline", value: 5 }
     ];
     let currentIndex = 0;
@@ -213,3 +213,42 @@ document.addEventListener("DOMContentLoaded", function () {
     //valueElement.textContent = initialStatus.text;
     //cyclerElement.classList.add(initialStatus.class);
 });
+
+function showCards(dayId) {
+    document.querySelectorAll(".day-cards").forEach((el) => {
+        el.classList.add("d-none");
+        el.classList.remove("animate__fadeIn");
+    });
+    const target = document.getElementById(`card-${dayId}`);
+    target.classList.remove("d-none");
+    target.classList.add("animate__fadeIn");
+}
+
+function backToTodayTimeline(dayOfWeek) {
+    const map = {
+        0: "sat",
+        1: "sun",
+        2: "mon",
+        3: "tue",
+        4: "wed",
+        5: "thu",
+        6: "fri"
+    };
+
+    document.querySelectorAll(".nav-link").forEach((el) => {
+        el.classList.remove("active");
+    });
+
+    var todayKey = map[dayOfWeek];
+
+    var tab = document.getElementById(`tab-${todayKey}`);
+    if (tab) {
+        tab.classList.add("active");
+    }
+
+    const todayCard = document.getElementById(`card-${todayKey}`);
+    if (todayCard) {
+        todayCard.classList.remove("d-none");
+        todayCard.classList.add("animate__fadeIn");
+    }
+}
