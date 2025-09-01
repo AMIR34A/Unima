@@ -506,3 +506,17 @@ function showFailModal() {
 
     });
 }
+    const loginSection = document.getElementById('loginRequiredSection');
+    if (loginSection) {
+        const overlayWrapper = loginSection.querySelector('.overlay-wrapper');
+
+        function isMobile() {
+            return window.innerWidth <= 767;
+        }
+
+        if (isMobile()) {
+            overlayWrapper.addEventListener('click', function() {
+                loginSection.classList.toggle('active');
+            });
+        }
+    }
