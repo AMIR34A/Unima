@@ -773,6 +773,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const item = document.createElement('div');
         item.className = `schedule-item ${weekTypeClasses[data.weekType]}`;
         item.dataset.weekType = data.weekType;
+        item.dataset.lessonId = data.lessonId;
+
         item.innerHTML = `
                 <p class="mb-0" data-course-name="${data.courseName}" data-lesson-Id="${data.lessonId}" data-faculty="${data.faculty}"><strong>${data.courseName}</strong></p>
                 <p class="mb-0 small text-muted">گروه: ${data.groupNumber} | کلاس: ${data.classNumber}</p>
@@ -849,9 +851,40 @@ document.addEventListener('DOMContentLoaded', function () {
         openFormModal(item);
     }
 
-    function handleDeleteClick(e, item) {
+    async function handleDeleteClick(e, item) {
         e.stopPropagation();
         const cell = item.closest('td');
+        debugger
+
+        var scheduleModel = {
+            RoomNo: 0,
+            DayOfWeek: cell.dataset.dayindex,
+            WeekStatus: item.dataset.weekType == "ثابت" ? 0 : item.dataset.weekType == "زوج" ? 1 : 2,
+            Period: cell.dataset.period
+        }
+
+        const errorDiv = document.getElementById('LessonError');
+
+        const lessonId = item.dataset.lessonId;
+
+        url = `/User/Profile/DeleteSchedule/${lessonId}`;
+
+        const response = await fetch(url, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(scheduleModel)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            const errorMessage = extractFirstModelError(errorData);
+            errorDiv.textContent = errorMessage || "خطا در ارسال اطلاعات";
+            errorDiv.style.display = "block";
+            return;
+        }
+
         item.remove();
         updateCellPlaceholder(cell);
         updateActionButtonsInCell(cell);
@@ -890,7 +923,7 @@ document.addEventListener('DOMContentLoaded', function () {
             Faculty: formData.faculty
         }
 
-        
+
         const errorDiv = document.getElementById('ScheduleError');
         const newItem = createScheduleItemElement(formData);
         if (currentScheduleItem) {

@@ -731,6 +731,43 @@ namespace Unima.Areas.User.Controllers
 
             return isExsist ? BadRequest(ModelState) : Ok();
         }
+
+        [HttpDelete]
+        [Route("User/Profile/DeleteSchedule/{lessonId:int}")]
+        public async Task<IActionResult> DeleteSchedule(int lessonId, [FromBody] Models.Profile.ScheduleModel scheduleModel)
+        {
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return NotFound();
+
+            ProfessorInformation? professor = await _unitOfWork.RepositoryBase<ProfessorInformation>()
+                                                               .FirstOrDefaultAsync(professor => professor.Id == currentUser.Id);
+            if (professor is null)
+                return NotFound();
+
+            Lesson? lesson = (await _unitOfWork.RepositoryBase<Lesson>()
+                                   .GetAllAsync(lesson => lesson.ProfessorId == professor.Id))
+                                   .FirstOrDefault(lesson => string.Equals($"{lesson.No}{lesson.GroupNo}", lessonId.ToString()));
+
+            if (lesson is null)
+                return NotFound();
+
+            Schedule? selectedSchedule = await _unitOfWork.RepositoryBase<Schedule>()
+                                                          .FirstOrDefaultAsync(schedule => schedule.LessonProfessorId == professor.Id && schedule.LessonNo == lesson.No && schedule.LessonGroupNo == lesson.GroupNo && schedule.DayOfWeek == (WeekDay)scheduleModel.DayOfWeek && schedule.Period == (TimePeriod)scheduleModel.Period);
+
+            if (selectedSchedule is null)
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.FirstError());
+
+            _unitOfWork.RepositoryBase<Schedule>().Delete(selectedSchedule);
+
+            await _unitOfWork.SaveAsync();
+
+            return Ok();
+        }
         #endregion
     }
 }
