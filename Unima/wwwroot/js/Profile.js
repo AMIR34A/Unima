@@ -854,7 +854,6 @@ document.addEventListener('DOMContentLoaded', function () {
     async function handleDeleteClick(e, item) {
         e.stopPropagation();
         const cell = item.closest('td');
-        debugger
 
         var scheduleModel = {
             RoomNo: 0,
@@ -928,7 +927,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const newItem = createScheduleItemElement(formData);
         if (currentScheduleItem) {
             url = `/User/Profile/UpdateSchedule/${selectedValue}`;
-            scheduleModel.OldWeekStatus = currentScheduleItem.dataset.weekType == "ثابت" ? 0 : currentScheduleItem.dataset.weekType == "زوج" ? 1 : 2
+            scheduleModel.OldWeekStatus = currentScheduleItem.dataset.weekType == "ثابت" ? 0 : currentScheduleItem.dataset.weekType == "زوج" ? 1 : 2;
+            scheduleModel.OldLessonId = selectedValue == currentScheduleItem.dataset.lessonId ? null : currentScheduleItem.dataset.lessonId;
+
             const response = await fetch(url, {
                 method: "PUT",
                 headers: {

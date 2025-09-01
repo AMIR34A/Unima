@@ -686,6 +686,19 @@ namespace Unima.Areas.User.Controllers
             if (professor is null)
                 return NotFound();
 
+
+            Lesson? oldLesson = null;
+
+            if (scheduleModel.OldLessonId.HasValue)
+            {
+                oldLesson = (await _unitOfWork.RepositoryBase<Lesson>()
+                                   .GetAllAsync(lesson => lesson.ProfessorId == professor.Id))
+                                   .FirstOrDefault(lesson => string.Equals($"{lesson.No}{lesson.GroupNo}", scheduleModel.OldLessonId.ToString()));
+
+                if (oldLesson is null)
+                    return BadRequest();
+            }
+
             Lesson? lesson = (await _unitOfWork.RepositoryBase<Lesson>()
                                    .GetAllAsync(lesson => lesson.ProfessorId == professor.Id))
                                    .FirstOrDefault(lesson => string.Equals($"{lesson.No}{lesson.GroupNo}", lessonId.ToString()));
@@ -693,8 +706,11 @@ namespace Unima.Areas.User.Controllers
             if (lesson is null)
                 return NotFound();
 
+            int lessonNo = oldLesson is null ? lesson.No : oldLesson.No;
+            byte lessonGroupNo = oldLesson is null ? lesson.GroupNo : oldLesson.GroupNo;
+
             Schedule? selectedSchedule = await _unitOfWork.RepositoryBase<Schedule>()
-                                                          .FirstOrDefaultAsync(schedule => schedule.LessonProfessorId == professor.Id && schedule.LessonNo == lesson.No && schedule.LessonGroupNo == lesson.GroupNo && schedule.DayOfWeek == (WeekDay)scheduleModel.DayOfWeek && schedule.Period == (TimePeriod)scheduleModel.Period && schedule.WeekStatus == (WeekStatus)scheduleModel.OldWeekStatus);
+                                                          .FirstOrDefaultAsync(schedule => schedule.LessonProfessorId == professor.Id && schedule.LessonNo == lessonNo && schedule.LessonGroupNo == lessonGroupNo && schedule.DayOfWeek == (WeekDay)scheduleModel.DayOfWeek && schedule.Period == (TimePeriod)scheduleModel.Period && schedule.WeekStatus == (WeekStatus)scheduleModel.OldWeekStatus);
 
             if (selectedSchedule is null)
                 return NotFound();
@@ -714,9 +730,9 @@ namespace Unima.Areas.User.Controllers
                 Period = (TimePeriod)scheduleModel.Period,
                 Address = scheduleModel.Faculty,
                 LessonProfessorId = professor.Id,
-                LessonNo = lesson.No,
-                LessonGroupNo = lesson.GroupNo,
-                Lesson = lesson
+                LessonNo = lessonNo,
+                LessonGroupNo = lessonGroupNo,
+                Lesson = oldLesson is null ? lesson : oldLesson
             };
 
             bool isExsist = await _unitOfWork.RepositoryBase<Schedule>().AnyAsync(schedule => schedule.LessonProfessorId == professor.Id && schedule.Period == (TimePeriod)scheduleModel.Period && schedule.DayOfWeek == (WeekDay)scheduleModel.DayOfWeek && (schedule.WeekStatus == (WeekStatus)scheduleModel.WeekStatus || schedule.WeekStatus == WeekStatus.Fixed));

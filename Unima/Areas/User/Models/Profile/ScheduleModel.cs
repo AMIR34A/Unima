@@ -21,6 +21,8 @@ public class ScheduleModel
     [Required(AllowEmptyStrings = false, ErrorMessage = "وارد نمودن {0} الزامی است")]
     public required int Period { get; set; }
 
+    public int? OldLessonId { get; set; }
+
     public int? OldWeekStatus { get; set; }
 
     public string? Faculty { get; set; }
