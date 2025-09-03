@@ -17,7 +17,7 @@
         </button>
     </div>
 </div>
-<div id="mapContainer">
+<div id="mapContainer" class="login-required-section">
     <div id="mapWrapper">
         <div class="room-column" id="leftColumn">
             @if (Model.LeftOffices is not null)
@@ -28,7 +28,6 @@
                         <div id="room-@office.No" class="room status-@(office.StatusStr)" data-room-id="@office.No" data-teacher="@office.ProfessorFullName" data-status="@office.Status" tabindex="0">
                             <div class="room-details">
                                 <div class="img-detail align-items-center d-flex justify-content-center">
-                                    @* <i class="fa-solid fa-user-tie text-center fs-4"></i> *@
                                     <img src="@office.ProfilePhotoUrl" class="img-detail" alt="عکس استاد">
                                 </div>
                             </div>
@@ -44,7 +43,6 @@
                             </div>
                         </div>
                     </div>
-
                 }
             }
         </div>
@@ -81,10 +79,12 @@
 
         <div id="entrance"></div>
     </div>
+    
     <div id="zoomControls">
         <button id="zoomIn" class="zoom-btn" title="بزرگنمایی">+</button>
         <button id="zoomOut" class="zoom-btn" title="کوچک نمایی">−</button>
     </div>
+    
     <div class="status-guide">
         <div class="guide-item">
             <span class="status-dot status-Available"></span> در دسترس
@@ -103,6 +103,13 @@
         </div>
     </div>
 
+    <div class="overlay-wrapper">
+        <i class="fas fa-lock toggle-icon"></i>
+        <div class="overlay-content">
+            <p>برای استفاده از این بخش لاگین کنید</p>
+            <a href="/" class="btn-login">رفتن به لاگین</a>
+        </div>
+    </div>
 </div>
 
 

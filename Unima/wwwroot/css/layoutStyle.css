@@ -509,3 +509,110 @@ tbody tr td {
     display: inline-block;
     animation: shake 1.5s infinite;
 }
+.login-required-section {
+  position: relative;
+  cursor: not-allowed;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  padding: 25px;
+  border-radius: 12px;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.login-required-section > *:not(.overlay-wrapper) {
+  filter: blur(4px);
+  pointer-events: none;
+  user-select: none;
+  transition: filter 0.3s ease-in-out;
+}
+
+.overlay-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0);
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.login-required-section .overlay-content {
+  padding: 20px 30px;
+  border-radius: 10px;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+.overlay-wrapper .toggle-icon {
+  font-size: 3em;
+  color: rgba(0, 0, 0, 0.4);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .login-required-section:hover .overlay-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .login-required-section:hover .toggle-icon {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .login-required-section.active .overlay-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .login-required-section.active .toggle-icon {
+    opacity: 0;
+  }
+  .overlay-wrapper {
+    cursor: pointer;
+  }
+}
+
+.overlay-content p {
+  margin: 0 0 15px 0;
+  font-size: 17px;
+  color: #333;
+  font-weight: 600;
+}
+
+.overlay-content .btn-login {
+  display: inline-block;
+  padding: 12px 28px;
+  background-color: #dda853;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.overlay-content .btn-login:hover {
+  background-color: #dda853;
+  transform: translateY(-2px);
+}

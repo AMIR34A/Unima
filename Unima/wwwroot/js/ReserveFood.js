@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     sunday: 458,
     monday: 547,
     tuesday: 634,
-    wednesday: 721,
+    wednesday: 723,
     thursday: 811,
     friday: 899,
   };
