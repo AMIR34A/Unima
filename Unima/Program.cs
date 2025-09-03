@@ -1,5 +1,9 @@
+using Amazon.Runtime;
+using Amazon.S3;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using Unima.Areas.Professor.Hubs;
 using Unima.Biz.UoW;
@@ -7,6 +11,7 @@ using Unima.Dal.Entities;
 using Unima.Dal.Entities.Identity.User;
 using Unima.Dal.Identity.Context;
 using Unima.HelperClasses;
+using Unima.HelperClasses.Configurations;
 using Unima.HelperClasses.ExtensionMethods;
 using Unima.HelperClasses.SelfService;
 
@@ -72,9 +77,26 @@ builder.Services.AddHttpClient<ISelfServiceBuilder, SelfServiceBuilder>()
         return clientHandler;
     });
 builder.Services.AddTransient<ISelfServiceBuilder, SelfServiceBuilder>();
+builder.Services.AddSingleton<IAmazonS3>(options =>
+{
+    var config = new AmazonS3Config
+    {
+        ServiceURL = builder.Configuration["LIARA_ENDPOINT_URL"],
+        ForcePathStyle = true
+    };
 
-//builder.Services.AddSingleton<UserManager<ApplicationUser>>();
-//builder.Services.AddSingleton<SignInManager<ApplicationUser>, SignInManager<ApplicationUser>>();
+    var credentials = new BasicAWSCredentials(
+        builder.Configuration["LIARA_ACCESS_KEY"],
+        builder.Configuration["LIARA_SECRET_KEY"]
+    );
+
+    return new AmazonS3Client(credentials, config);
+});
+
+builder.Services.Configure<AmazonS3Options>(options =>
+{
+    options.Bucket = builder.Configuration["BUCKET_NAME"]!;
+});
 
 builder.Services.ConfigSmsNotification();
 builder.Services.AddSignalR();

@@ -10,7 +10,7 @@ public class ProfessorInformation
 
     public required ApplicationUser User { get; set; }
 
-    public byte[]? ProfilePhoto { get; set; }
+    public Guid? ProfileImageId { get; set; }
 
     public Degree Degree { get; set; }
 

@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
+﻿using Amazon.S3;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
-using Unima.Areas.Professor.Hubs;
+using Microsoft.Extensions.Options;
 using Unima.Areas.Professor.Models;
 using Unima.Areas.Professor.Models.Status;
 using Unima.Areas.Professor.Models.ViewModels;
 using Unima.Biz.UoW;
 using Unima.Dal.Entities.Entities;
 using Unima.Dal.Enums;
+using Unima.HelperClasses.Configurations;
 
 namespace Unima.Areas.Professor.Controllers;
 
@@ -15,10 +17,14 @@ namespace Unima.Areas.Professor.Controllers;
 public class StatusController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IAmazonS3 _s3Client;
+    private readonly AmazonS3Options _option;
 
-    public StatusController(IUnitOfWork unitOfWork)
+    public StatusController(IUnitOfWork unitOfWork, IAmazonS3 s3Client, IOptions<AmazonS3Options> option)
     {
         _unitOfWork = unitOfWork;
+        _s3Client = s3Client;
+        _option = option.Value;
     }
 
     public async Task<IActionResult> Index()
@@ -28,7 +34,7 @@ public class StatusController : Controller
                                                 .Select(professor => new OfficeModel()
                                                 {
                                                     ProfessorFullName = professor.User.FullName,
-                                                    ProfilePhotoUrl = Url.Action("GetProfilePhoto", new { officeNo = professor.OfficeNo }),
+                                                    ProfilePhotoUrl = $"https://{_option.Bucket}.{new Uri(_s3Client.Config.ServiceURL).Host}/user.png",
                                                     No = professor.OfficeNo,
                                                     Status = professor.OfficeStatus switch
                                                     {
@@ -48,7 +54,7 @@ public class StatusController : Controller
                                                  .Select(professor => new OfficeModel()
                                                  {
                                                      ProfessorFullName = professor.User.FullName,
-                                                     ProfilePhotoUrl = Url.Action("GetProfilePhoto", new { officeNo = professor.OfficeNo }),
+                                                     ProfilePhotoUrl = $"https://{_option.Bucket}.{new Uri(_s3Client.Config.ServiceURL).Host}/user.png",
                                                      No = professor.OfficeNo,
                                                      Status = professor.OfficeStatus switch
                                                      {
@@ -124,7 +130,7 @@ public class StatusController : Controller
         return Ok(new
         {
             FullName = professor.User.FullName,
-            ProfilePhotoUrl = Url.Action("GetProfilePhoto", new { officeNo = professor.OfficeNo }),
+            ProfilePhotoUrl = $"https://{_option.Bucket}.{new Uri(_s3Client.Config.ServiceURL).Host}/user.png",
             Department = professor.Department,
             Bio = professor.Biography,
             Email = professor.User.Email,
@@ -132,17 +138,5 @@ public class StatusController : Controller
             Description = professor.Description,
             Schedules = schedules
         });
-    }
-
-    [HttpGet("{officeNo:int}")]
-    public async Task<IActionResult> GetProfilePhoto(int officeNo)
-    {
-        ProfessorInformation? professor = await _unitOfWork.RepositoryBase<ProfessorInformation>()
-            .FirstOrDefaultAsync(professor => professor.OfficeNo == officeNo);
-
-        if (professor is null)
-            return BadRequest();
-
-        return File(professor.ProfilePhoto, "image/png");
     }
 }
