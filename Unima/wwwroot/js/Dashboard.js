@@ -235,6 +235,11 @@ function backToTodayTimeline(dayOfWeek) {
         6: "fri"
     };
 
+    document.querySelectorAll(".day-cards").forEach((el) => {
+        el.classList.add("d-none");
+        el.classList.remove("animate__fadeIn");
+    });
+
     document.querySelectorAll(".nav-link").forEach((el) => {
         el.classList.remove("active");
     });

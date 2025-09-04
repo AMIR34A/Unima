@@ -28,27 +28,31 @@
                         <ul class="nav-bar list-unstyled  mt-sm-5 mb-md-0 options">
                             <li class="nav-item current text-center">
                                 <a href=@(isLoginned ? "/User/Dashboard" : "/") class="nav-link p-3 mb-2">
-                                    <i class="fas fa-home ml-3 fa-lg"></i>@(isLoginned ? "داشبورد " : "ورود ")
+                                    <i class="fas fa-home ml-3 fa-lg"></i>@(isLoginned ? " داشبورد" : "ورود")
                                 </a>
                             </li>
                             @if (isLoginned)
                             {
                                 <li class="nav-item linksidebar mx-1">
-                                    <a href=""
-                                       class="nav-link d-flex justify-content-start  align-items-center gap-2 p-3 mb-2">
+                                    <a href="" class="nav-link d-flex justify-content-start  align-items-center gap-2 p-3">
                                         <i class="fa-solid fa-utensils ml-3 fa-lg"></i> رزرو غذا
+                                    </a>
+                                </li>
+                                <li class="nav-item linksidebar mx-1">
+                                    <a href="/Professor/Status" class="nav-link d-flex justify-content-start align-items-center gap-2 p-3">
+                                        <i class="fas fa-chalkboard-teacher fa-lg"></i>اساتید
+                                    </a>
+                                </li>
+                                <li class="nav-item linksidebar mx-1">
+                                    <a href="/User/Appointment" class="nav-link d-flex justify-content-start align-items-center gap-2 p-3">
+                                        <i class="fa-regular fa-calendar fa-lg"></i>قرارها
                                     </a>
                                 </li>
                                 <hr>
                                 <li class="nav-item linksidebar mx-1">
                                     <a href="/User/Profile"
-                                       class="nav-link d-flex justify-content-start align-items-center gap-2  p-3 mb-2">
+                                       class="nav-link d-flex justify-content-start align-items-center gap-2 p-3 mb-2">
                                         <i class="fas fa-user fa-lg"></i> پروفایل
-                                    </a>
-                                </li>
-                                <li class="nav-item linksidebar mx-1 ">
-                                    <a href="/Professor/Status" class="nav-link d-flex justify-content-start align-items-center gap-2  p-3 ">
-                                        <i class="fas fa-chalkboard-teacher fa-lg"></i>اساتید
                                     </a>
                                 </li>
                             }

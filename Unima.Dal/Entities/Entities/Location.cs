@@ -12,4 +12,6 @@ public class Location
 
     public int ProfessorId { get; set; }
     public required ProfessorInformation Professor { get; set; }
+
+    public ICollection<Appointment> Appointments { get; set; }
 }

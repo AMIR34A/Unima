@@ -39,4 +39,6 @@ public class ProfessorInformation
     public ICollection<Lesson> Lessons { get; set; }
 
     public ICollection<Location> Locations { get; set; }
+
+    public ICollection<Appointment> Appointments { get; set; }
 }

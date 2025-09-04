@@ -31,6 +31,8 @@ public class UnimaIdentityDbContext : IdentityDbContext<ApplicationUser, Applica
 
     public DbSet<Department> Departments { get; set; }
 
+    public DbSet<Appointment> Appointments { get; set; }
+
     public UnimaIdentityDbContext()
     {
 
@@ -110,6 +112,18 @@ public class UnimaIdentityDbContext : IdentityDbContext<ApplicationUser, Applica
                     .WithMany(entity => entity.Schedules)
                     .HasForeignKey(entity => new { entity.LessonProfessorId, entity.LessonNo, entity.LessonGroupNo })
                     .IsRequired(true);
+
+        modelBuilder.Entity<Appointment>()
+                    .HasOne(entity => entity.Location)
+                    .WithMany(entity => entity.Appointments)
+                    .HasForeignKey(entity => entity.LocationId)
+                    .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<Appointment>()
+                    .HasOne(entity => entity.Professor)
+                    .WithMany(entity => entity.Appointments)
+                    .HasForeignKey(entity => entity.ProfessorId)
+                    .OnDelete(DeleteBehavior.NoAction);
 
         base.OnModelCreating(modelBuilder);
     }

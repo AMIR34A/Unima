@@ -30,5 +30,7 @@ public class ApplicationUser : IdentityUser<int>
 
     public ICollection<UserFood> UserFoods { get; set; }
 
+    public ICollection<Appointment> Appointment { get; set; }
+
     public ProfessorInformation? ProfessorInformation { get; set; }
 }
