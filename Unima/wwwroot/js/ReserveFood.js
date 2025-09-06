@@ -1,158 +1,169 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const manualDayPositions = {
-    saturday: 371,
-    sunday: 458,
-    monday: 547,
-    tuesday: 634,
-    wednesday: 723,
-    thursday: 811,
-    friday: 899,
-  };
+    const tabContent = document.getElementById("pills-tabContent");
+    const dayTemplate = document.getElementById("day-template");
+    const days = [
+        "saturday", "sunday", "monday", "tuesday", "wednesday", "thursday", "friday",
+    ];
+    const cafeteriaModalEl = document.getElementById("cafeteriaModal");
+    const saveCafeteriaBtn = document.getElementById("saveCafeteria");
 
-  const tabContent = document.getElementById("pills-tabContent");
-  const dayTemplate = document.getElementById("day-template");
-  const days = [
-    "saturday", "sunday", "monday", "tuesday", "wednesday", "thursday", "friday",
-  ];
-  const cafeteriaModalEl = document.getElementById("cafeteriaModal");
-  const saveCafeteriaBtn = document.getElementById("saveCafeteria");
+    days.forEach((day, index) => {
+        const dayDiv = document.createElement("div");
+        dayDiv.className = `tab-pane fade ${index === 0 ? "show active" : ""}`;
+        dayDiv.id = `day-${day}`;
+        dayDiv.role = "tabpanel";
+        
+        dayDiv.innerHTML = dayTemplate.innerHTML.replace(/{{day}}/g, day);
+        
+        tabContent.appendChild(dayDiv);
+    });
 
-  days.forEach((day, index) => {
-    const dayDiv = document.createElement("div");
-    dayDiv.className = `tab-pane fade ${index === 0 ? "show active" : ""}`;
-    dayDiv.id = `day-${day}`;
-    dayDiv.role = "tabpanel";
-    dayDiv.innerHTML = dayTemplate.innerHTML;
-    tabContent.appendChild(dayDiv);
-  });
-
-  function updateCafeteriaDisplay(mealSlot) {
-    const cafeteriaValue = mealSlot.dataset.cafeteria;
-    const cafeteriaDisplay = mealSlot.querySelector(".selected-cafeteria");
-    const cafeteriaRadio = document.querySelector(
-      `input[name="cafeteria-option"][value="${cafeteriaValue}"]`
-    );
-
-    if (cafeteriaRadio) {
-      const cafeteriaName = document.querySelector(
-        `label[for="${cafeteriaRadio.id}"]`
-      ).textContent;
-      cafeteriaDisplay.innerHTML = `<i class="fa-solid fa-utensils fa-xs"></i> ${cafeteriaName}`;
-      cafeteriaDisplay.classList.add("visible");
+    function syncCheckboxes(event) {
+        const allCheckboxes = document.querySelectorAll(".schedule-filter");
+        const isChecked = event.target.checked;
+        allCheckboxes.forEach(checkbox => {
+            if (checkbox !== event.target) {
+                checkbox.checked = isChecked;
+            }
+        });
     }
-  }
 
-  cafeteriaModalEl.addEventListener("show.bs.modal", function (event) {
-    const triggerButton = event.relatedTarget;
-    const mealSlot = triggerButton.closest(".meal-slot");
-    const mealTitle = mealSlot.querySelector(".meal-title").textContent.trim();
-    const currentCafeteria = mealSlot.dataset.cafeteria || "main";
-
-    cafeteriaModalEl.querySelector(".modal-title").textContent = `تنظیمات سلف برای ${mealTitle}`;
-    cafeteriaModalEl.dataset.currentMeal = `${mealSlot.closest(".tab-pane").id}-${mealSlot.dataset.meal}`;
-
-    const radioToCheck = cafeteriaModalEl.querySelector(`input[value="${currentCafeteria}"]`);
-    if (radioToCheck) radioToCheck.checked = true;
-  });
-
-  saveCafeteriaBtn.addEventListener("click", function () {
-    const mealIdentifier = cafeteriaModalEl.dataset.currentMeal;
-    const selectedRadio = cafeteriaModalEl.querySelector('input[name="cafeteria-option"]:checked');
-
-    if (mealIdentifier && selectedRadio) {
-      const [tabId, mealType] = mealIdentifier.split("-");
-      const mealSlotToUpdate = document.querySelector(`#${tabId} .meal-slot[data-meal="${mealType}"]`);
-      mealSlotToUpdate.dataset.cafeteria = selectedRadio.value;
-      updateCafeteriaDisplay(mealSlotToUpdate);
-      mealSlotToUpdate.querySelector(".cafeteria-btn").classList.add("active");
-      bootstrap.Modal.getInstance(cafeteriaModalEl).hide();
-    }
-  });
-
-  document.querySelectorAll(".meal-slot").forEach((slot) => {
-    const header = slot.querySelector(".meal-header");
-    const selectedMealText = slot.querySelector(".selected-meal");
-    const lockBtn = slot.querySelector(".lock-btn");
-    updateCafeteriaDisplay(slot);
-
-    header.addEventListener("click", (e) => {
-      if (slot.classList.contains("locked") || e.target.closest(".meal-actions")) return;
-      const isActive = slot.classList.contains("active");
-      const currentTab = slot.closest(".tab-pane");
-      currentTab.querySelectorAll(".meal-slot").forEach((s) => s.classList.remove("active"));
-      if (!isActive) slot.classList.add("active");
+    document.querySelectorAll(".schedule-filter").forEach(checkbox => {
+        checkbox.addEventListener('change', syncCheckboxes);
     });
 
-    slot.addEventListener("click", (e) => {
-      if (slot.classList.contains("locked") && !e.target.closest(".meal-header")) {
-        lockBtn.click();
-      }
-    });
+    function updateCafeteriaDisplay(mealSlot) {
+        const cafeteriaValue = mealSlot.dataset.cafeteria;
+        const cafeteriaDisplay = mealSlot.querySelector(".selected-cafeteria");
+        const cafeteriaRadio = document.querySelector(
+            `input[name="cafeteria-option"][value="${cafeteriaValue}"]`
+        );
 
-    slot.querySelectorAll(".meal-option-btn").forEach((button) => {
-      button.addEventListener("click", () => {
-        selectedMealText.textContent = button.dataset.value;
-        selectedMealText.classList.add("is-selected");
-        selectedMealText.classList.remove("pulse-animation");
-        void selectedMealText.offsetWidth;
-        selectedMealText.classList.add("pulse-animation");
-        slot.querySelectorAll(".meal-option-btn").forEach((btn) => btn.classList.remove("selected"));
-        button.classList.add("selected");
-        slot.classList.remove("active");
-      });
-    });
-
-    if (lockBtn) {
-      lockBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const isLocking = !slot.classList.contains("locked");
-        if (isLocking) {
-          slot.classList.add("locked");
-          setTimeout(() => slot.classList.add("show-lock-icon"), 10);
-        } else {
-          slot.classList.remove("show-lock-icon");
-          setTimeout(() => slot.classList.remove("locked"), 300);
+        if (cafeteriaRadio) {
+            const cafeteriaName = document.querySelector(
+                `label[for="${cafeteriaRadio.id}"]`
+            ).textContent;
+            cafeteriaDisplay.innerHTML = `<i class="fa-solid fa-utensils fa-xs"></i> ${cafeteriaName}`;
+            cafeteriaDisplay.classList.add("visible");
         }
-        e.currentTarget.classList.toggle("active");
-      });
     }
-  });
 
-  document.addEventListener("click", function (e) {
-    if (!e.target.closest(".meal-slot")) {
-      document.querySelectorAll(".meal-slot.active").forEach((slot) => {
-        slot.classList.remove("active");
-      });
-    }
-  });
+    cafeteriaModalEl.addEventListener("show.bs.modal", function (event) {
+        const triggerButton = event.relatedTarget;
+        const mealSlot = triggerButton.closest(".meal-slot");
+        const mealTitle = mealSlot.querySelector(".meal-title").textContent.trim();
+        const currentCafeteria = mealSlot.dataset.cafeteria || "main";
 
+        cafeteriaModalEl.querySelector(".modal-title").textContent = `تنظیمات سلف برای ${mealTitle}`;
+        cafeteriaModalEl.dataset.currentMeal = `${mealSlot.closest(".tab-pane").id}-${mealSlot.dataset.meal}`;
 
-  const navLinks = document.querySelectorAll(".weekday-nav .nav-link");
-
-  function updateTimelineIndicator(activeButton) {
-    const targetId = activeButton.getAttribute("data-bs-target");
-    const dayId = targetId.replace("#day-", "");
-    const finalPosition = manualDayPositions[dayId] || 103;
-
-    tabContent.style.setProperty(
-      "--timeline-indicator-right",
-      `${finalPosition}px`
-    );
-  }
-
-  navLinks.forEach((link) => {
-    link.addEventListener("shown.bs.tab", (event) => {
-      updateTimelineIndicator(event.target);
+        const radioToCheck = cafeteriaModalEl.querySelector(`input[value="${currentCafeteria}"]`);
+        if (radioToCheck) radioToCheck.checked = true;
     });
-  });
 
-  function initializeIndicator() {
-    const initialActiveTab = document.querySelector(".weekday-nav .nav-link.active");
-    if (initialActiveTab) {
-      updateTimelineIndicator(initialActiveTab);
+    saveCafeteriaBtn.addEventListener("click", function () {
+        const mealIdentifier = cafeteriaModalEl.dataset.currentMeal;
+        const selectedRadio = cafeteriaModalEl.querySelector('input[name="cafeteria-option"]:checked');
+
+        if (mealIdentifier && selectedRadio) {
+            const [tabId, mealType] = mealIdentifier.split("-");
+            const mealSlotToUpdate = document.querySelector(`#${tabId} .meal-slot[data-meal="${mealType}"]`);
+            mealSlotToUpdate.dataset.cafeteria = selectedRadio.value;
+            updateCafeteriaDisplay(mealSlotToUpdate);
+            mealSlotToUpdate.querySelector(".cafeteria-btn").classList.add("active");
+            bootstrap.Modal.getInstance(cafeteriaModalEl).hide();
+        }
+    });
+
+    document.querySelectorAll(".meal-slot").forEach((slot) => {
+        const header = slot.querySelector(".meal-header");
+        const selectedMealText = slot.querySelector(".selected-meal");
+        const lockBtn = slot.querySelector(".lock-btn");
+        updateCafeteriaDisplay(slot);
+
+        header.addEventListener("click", (e) => {
+            if (slot.classList.contains("locked") || e.target.closest(".meal-actions")) return;
+            const isActive = slot.classList.contains("active");
+            const currentTab = slot.closest(".tab-pane");
+            currentTab.querySelectorAll(".meal-slot").forEach((s) => s.classList.remove("active"));
+            if (!isActive) slot.classList.add("active");
+        });
+
+        slot.addEventListener("click", (e) => {
+            if (slot.classList.contains("locked") && !e.target.closest(".meal-header")) {
+                lockBtn.click();
+            }
+        });
+
+        slot.querySelectorAll(".meal-option-btn").forEach((button) => {
+            button.addEventListener("click", () => {
+                selectedMealText.textContent = button.dataset.value;
+                selectedMealText.classList.add("is-selected");
+                selectedMealText.classList.remove("pulse-animation");
+                void selectedMealText.offsetWidth;
+                selectedMealText.classList.add("pulse-animation");
+                slot.querySelectorAll(".meal-option-btn").forEach((btn) => btn.classList.remove("selected"));
+                button.classList.add("selected");
+                slot.classList.remove("active");
+            });
+        });
+
+        if (lockBtn) {
+            lockBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const isLocking = !slot.classList.contains("locked");
+                if (isLocking) {
+                    slot.classList.add("locked");
+                    setTimeout(() => slot.classList.add("show-lock-icon"), 10);
+                } else {
+                    slot.classList.remove("show-lock-icon");
+                    setTimeout(() => slot.classList.remove("locked"), 300);
+                }
+                e.currentTarget.classList.toggle("active");
+            });
+        }
+    });
+
+    document.addEventListener("click", function (e) {
+        if (!e.target.closest(".meal-slot")) {
+            document.querySelectorAll(".meal-slot.active").forEach((slot) => {
+                slot.classList.remove("active");
+            });
+        }
+    });
+
+    const navLinks = document.querySelectorAll(".weekday-nav .nav-link");
+
+    function updateTimelineIndicator(activeButton) {
+      
+        const navContainer = activeButton.closest('.weekday-nav');
+        if (!navContainer) return;
+        const offset = 290;
+
+
+        const buttonCenter = activeButton.offsetLeft + activeButton.offsetWidth / 2;
+        
+        const finalPosition = (navContainer.offsetWidth - buttonCenter) + offset;
+
+        tabContent.style.setProperty(
+            "--timeline-indicator-right",
+            `${finalPosition}px`
+        );
     }
-  }
 
-  setTimeout(initializeIndicator, 150);
-  window.addEventListener("resize", initializeIndicator);
+    navLinks.forEach((link) => {
+        link.addEventListener("shown.bs.tab", (event) => {
+            updateTimelineIndicator(event.target);
+        });
+    });
+
+    function initializeIndicator() {
+        const initialActiveTab = document.querySelector(".weekday-nav .nav-link.active");
+        if (initialActiveTab) {
+            updateTimelineIndicator(initialActiveTab);
+        }
+    }
+
+    setTimeout(initializeIndicator, 150);
+    window.addEventListener("resize", initializeIndicator);
 });

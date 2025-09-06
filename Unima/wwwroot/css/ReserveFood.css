@@ -334,6 +334,13 @@
 #pills-tabContent {
   position: relative;
 }
+.weekday-nav{
+  position: relative;
+}
+
+.tab-content{
+  position: relative;
+}
 
 .timeline-indicator {
   content: "";
@@ -341,6 +348,7 @@
   top: -24px;
   z-index: -1;
   right: var(--timeline-indicator-right, 371px);
+  left: unset;
   height: 100%;
   width: 4px;
   background-color: #dbe2ea;
