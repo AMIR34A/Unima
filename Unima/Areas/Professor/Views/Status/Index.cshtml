@@ -3,361 +3,130 @@
 @{
     Layout = "/Areas/User/Views/Shared/_Layout.cshtml";
 }
-<link rel="stylesheet" href="~/lib/md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker.style.css">
-<link href="~/lib/timepicker/flatpickr.min.css" rel="stylesheet" />
+    <style>
+        .search-wrapper { max-width: 700px; margin: 40px auto; }
+        #searchInput { border: none; border-bottom: 2px solid #ccc; border-radius: 0; background-color: transparent; padding: 15px 5px; font-size: 1.2rem; transition: border-color 0.3s ease; }
+        #searchInput:focus { box-shadow: none; border-color: #0d6efd; }
+        .professor-card-wrapper { margin-bottom: 2rem; }
+        .professor-card { border-radius: 20px; border: none; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); transition: transform 0.3s ease, box-shadow 0.3s ease; text-align: center; }
+        .professor-card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12); }
+        .card-header-color { background-color: #e9ecef; height: 100px; border-radius: 20px 20px 0 0; position: relative; }
+        .professor-card .profile-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 5px solid #fff; position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%); }
+        .professor-card .card-body { padding-top: 75px; }
+        .professor-card .card-title { font-weight: 700; font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .specialty-tag { display: inline-block; background-color: #d1e7dd; color: #0f5132; padding: 0.3rem 1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 500; margin-top: 0.5rem; }
+        .office-location { color: #6c757d; margin: 1rem 0; }
+        .social-links a { color: #6c757d; font-size: 1.2rem; margin: 0 10px; transition: color 0.3s ease; }
+        .social-links a:hover { color: #0d6efd; }
+    </style>
 
-<link rel="stylesheet" href="/css/Professor.css">
-<link rel="stylesheet" href="/css/Profile.css">
+    <div class="container my-5">
+        <div class="search-wrapper">
+            <input type="text" id="searchInput" class="form-control text-center" placeholder="جستجوی استاد...">
+        </div>
 
-<div class="container" style="max-width: 600px; margin-top: 20px;">
-    <div class="input-group">
-        <input type="text" id="teacherSearchInput" class="form-control" placeholder="نام استاد را جستجو کنید...">
-        <button class="btn btn-dark" type="button" id="searchButton">
-            <i class="fa-solid fa-search"></i> جستجو
-        </button>
-    </div>
-</div>
-<div id="mapContainer" class="login-required-section">
-    <div id="mapWrapper">
-        <div class="room-column" id="leftColumn">
-            @if (Model.LeftOffices is not null)
-            {
-                foreach (var office in Model.LeftOffices)
-                {
-                    <div class="room-wrapper left-room">
-                        <div id="room-@office.No" class="room status-@(office.StatusStr)" data-room-id="@office.No" data-teacher="@office.ProfessorFullName" data-status="@office.Status" tabindex="0">
-                            <div class="room-details">
-                                <div class="img-detail align-items-center d-flex justify-content-center">
-                                    <img src="@office.ProfilePhotoUrl" class="img-detail" alt="عکس استاد">
-                                </div>
-                            </div>
-                            <div class="teacher-name">@office.ProfessorFullName</div>
-                            <div class="room-details">
-                                <div class="d-flex gap-2">
-                                    <a href="#" data-bs-target="" data-bs-toggle="modal" onclick="loadProfessorData(@office.No)">
-                                        <i class="fa-solid fa-info-circle text-white icon-edit"></i>
-                                    </a>
-                                    <a href="tel:{@office.PhoneNumber}"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
-                                    <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
-                                </div>
-                            </div>
+        <div class="row" id="professors-list">
+            
+            <div class="col-lg-3 col-md-6 professor-card-wrapper">
+                <div class="card professor-card">
+                    <div class="card-header-color">
+                        <img src="images/ali-mohammadi.jpg" class="profile-img" alt="تصویر استاد علی محمدی">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">دکتر علی محمدی</h5>
+                        <p class="text-muted">استاد تمام</p>
+                        <span class="specialty-tag">هوش مصنوعی</span>
+                        <p class="office-location mt-3"><i class="fas fa-map-marker-alt me-2"></i>دفتر: ساختمان ۲، اتاق ۱۰۱</p>
+                        <div class="social-links pb-2">
+                            <a href="#" title="مشاهده رزومه"><i class="fas fa-file-alt"></i></a>
+                            <a href="#" title="ارسال ایمیل"><i class="fas fa-envelope"></i></a>
+                            <a href="#" title="صفحه شخصی"><i class="fas fa-globe"></i></a>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 professor-card-wrapper">
+                <div class="card professor-card">
+                    <div class="card-header-color">
+                         <img src="images/sara-rezaei.jpg" class="profile-img" alt="تصویر استاد سارا رضایی">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">دکتر سارا رضایی</h5>
+                        <p class="text-muted">دانشیار</p>
+                        <span class="specialty-tag" style="background-color: #f8d7da; color: #842029;">شبکه‌های کامپیوتری</span>
+                        <p class="office-location mt-3"><i class="fas fa-map-marker-alt me-2"></i>دفتر: ساختمان ۱، اتاق ۲۰۵</p>
+                        <div class="social-links pb-2">
+                            <a href="#" title="مشاهده رزومه"><i class="fas fa-file-alt"></i></a>
+                            <a href="#" title="ارسال ایمیل"><i class="fas fa-envelope"></i></a>
+                            <a href="#" title="صفحه شخصی"><i class="fas fa-globe"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 professor-card-wrapper">
+                <div class="card professor-card">
+                    <div class="card-header-color">
+                         <img src="images/reza-hosseini.jpg" class="profile-img" alt="تصویر استاد رضا حسینی">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">دکتر رضا حسینی</h5>
+                        <p class="text-muted">استادیار</p>
+                        <span class="specialty-tag" style="background-color: #cff4fc; color: #055160;">یادگیری ماشین</span>
+                        <p class="office-location mt-3"><i class="fas fa-map-marker-alt me-2"></i>دفتر: ساختمان ۳، اتاق ۳۱۰</p>
+                        <div class="social-links pb-2">
+                            <a href="#" title="مشاهده رزومه"><i class="fas fa-file-alt"></i></a>
+                            <a href="#" title="ارسال ایمیل"><i class="fas fa-envelope"></i></a>
+                            <a href="#" title="صفحه شخصی"><i class="fas fa-globe"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 professor-card-wrapper">
+                <div class="card professor-card">
+                    <div class="card-header-color">
+                        <img src="/Images/1566112971-hosseinpic1.jpg" class="profile-img" alt="تصویر استاد مریم احمدی">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">دکتر مریم احمدی</h5>
+                        <p class="text-muted">دانشیار</p>
+                        <span class="specialty-tag" style="background-color: #fff3cd; color: #664d03;">امنیت داده</span>
+                        <p class="office-location mt-3"><i class="fas fa-map-marker-alt me-2"></i>دفتر: ساختمان ۲، اتاق ۱۰۵</p>
+                        <div class="social-links pb-2">
+                            <a href="#" title="مشاهده رزومه"><i class="fas fa-file-alt"></i></a>
+                            <a href="#" title="ارسال ایمیل"><i class="fas fa-envelope"></i></a>
+                            <a href="#" title="صفحه شخصی"><i class="fas fa-globe"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div id="no-result" class="text-center mt-4" style="display: none;">
+            <h4 class="fw-light">استادی با این مشخصات یافت نشد.</h4>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        // اسکریپت جستجو بدون تغییر باقی می‌ماند
+        $(document).ready(function(){
+            $("#searchInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                var found = false;
+                $("#professors-list .professor-card-wrapper").filter(function() {
+                    var isVisible = $(this).text().toLowerCase().indexOf(value) > -1;
+                    $(this).toggle(isVisible);
+                    if (isVisible) found = true;
+                });
+                if (found) {
+                    $("#no-result").hide();
+                } else {
+                    $("#no-result").show();
                 }
-            }
-        </div>
-
-        <div id="hallway"></div>
-
-        <div class="room-column" id="rightColumn">
-            @if (Model.RightOffices is not null)
-            {
-                foreach (var office in Model.RightOffices)
-                {
-                    <div class="room-wrapper right-room">
-                        <div class="room status-@(office.StatusStr)" data-room-id="@office.No" data-teacher="@office.ProfessorFullName" data-status="@office.Status" tabindex="0">
-                            <div class="room-details">
-                                <div class="img-detail align-items-center d-flex justify-content-center">
-                                    <img src="@office.ProfilePhotoUrl" class="img-detail" alt="عکس استاد">
-                                </div>
-                            </div>
-                            <div class="teacher-name">@office.ProfessorFullName</div>
-                            <div class="room-details">
-                                <div class="d-flex gap-2">
-                                    <a href="#" data-bs-target="" data-bs-toggle="modal" onclick="loadProfessorData(@office.No)">
-                                        <i class="fa-solid fa-info-circle text-white icon-edit"></i>
-                                    </a>
-                                    <a href="tel:{@office.PhoneNumber}"><i class="fa-solid fa-phone-flip icon-edit"></i></a>
-                                    <a href="#" class="direction-link"><i class="fa-solid fa-directions text-black icon-edit"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-            }
-        </div>
-
-        <div id="entrance"></div>
-    </div>
-    
-    <div id="zoomControls">
-        <button id="zoomIn" class="zoom-btn" title="بزرگنمایی">+</button>
-        <button id="zoomOut" class="zoom-btn" title="کوچک نمایی">−</button>
-    </div>
-    
-    <div class="status-guide">
-        <div class="guide-item">
-            <span class="status-dot status-Available"></span> در دسترس
-        </div>
-        <div class="guide-item">
-            <span class="status-dot status-Busy"></span> مزاحم نشوید
-        </div>
-        <div class="guide-item">
-            <span class="status-dot status-BeRightBack"></span> بزودی برمیگردم
-        </div>
-        <div class="guide-item">
-            <span class="status-dot status-Offline"></span> آفلاین
-        </div>
-        <div class="guide-item">
-            <span class="status-dot status-Unspecified"></span> نامشخص
-        </div>
-    </div>
-
-    <div class="overlay-wrapper">
-        <i class="fas fa-lock toggle-icon"></i>
-        <div class="overlay-content">
-            <p>برای استفاده از این بخش لاگین کنید</p>
-            <a href="/" class="btn-login">رفتن به لاگین</a>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="InformationProfessor" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-light">
-            <div class="modal-header">
-                <div class="modal-header-content d-flex align-items-center">
-                    <i class="fa-solid fa-chalkboard-teacher m-1 fs-5"></i>
-                    <span class="fs-6 m-1 w-100">اطلاعات‌ استاد</span>
-                </div>
-                <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="close-tab"></button>
-            </div>
-            <div class="modal-body text-center">
-                <div class="row tabs mb-4">
-                    <div class="col-3 tab active" data-tab="bio">
-                        <div class="Professor-option border rounded p-2">
-                            <i class="fa-solid fa-user-tie d-block fs-4 mb-1"></i>
-                            <span class="fw-bold d-block">بیوگرافی</span>
-                        </div>
-                    </div>
-                    <div class="col-3 tab" data-tab="schedule">
-                        <div class="Professor-option border rounded p-2">
-                            <i class="fa-solid fa-calendar-week d-block fs-4 mb-1"></i>
-                            <span class="fw-bold d-block">برنامه کلاسی</span>
-                        </div>
-                    </div>
-                    <div class="col-3 tab" data-tab="contact">
-                        <div class="Professor-option border rounded p-2">
-                            <i class="fa-solid fa-address-card d-block fs-4 mb-1"></i>
-                            <span class="fw-bold d-block">راه ارتباطی</span>
-                        </div>
-                    </div>
-                    <div class="col-3 tab" data-tab="Reservation">
-                        <div class="Professor-option border rounded p-2">
-                            <i class="fa-solid fa-calendar-plus d-block fs-4 mb-1"></i>
-                            <span class="fw-bold d-block">رزرو وقت</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-content">
-                    <div class="tab-pane active" id="bio">
-                        <div class="bio-header text-end d-flex gap-2">
-                            <div class="img-detail align-items-center d-flex justify-content-center">
-                                <img id="ProfilePhoto" src="" class="img-detail" alt="عکس استاد">
-                            </div>
-                            <div class="mt-1">
-                                <div>
-                                    <span>اسم استاد: </span>
-                                    <span id="FullName" class="fw-bold"></span>
-                                </div>
-                                <span>گروه آموزشی: </span>
-                                <span id="Department" class="fw-bold"></span>
-                            </div>
-                        </div>
-                        <div class="infoProfessor mt-4 text-end">
-                            <h5 class="border-bottom pb-2">بیوگرافی</h5>
-                            <p id="Bio" class="text-muted" style="text-align: justify;"></p>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane" id="schedule">
-                        <div class="checkboxes">
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="evenWeekCheck" class="schedule-filter" checked>
-                                <label for="evenWeekCheck" class="label-even">
-                                    <span class="custom-checkbox">
-                                        <i class="fa-solid fa-check"></i>
-                                    </span>
-                                    هفته زوج
-                                </label>
-                            </div>
-
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="oddWeekCheck" class="schedule-filter" checked>
-                                <label for="oddWeekCheck" class="label-odd">
-                                    <span class="custom-checkbox">
-                                        <i class="fa-solid fa-check"></i>
-                                    </span>
-                                    هفته فرد
-                                </label>
-                            </div>
-                        </div>
-                        <table class="scheduleTable table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>روز / ساعت</th>
-                                    <th>06:00 - 08:00</th>
-                                    <th>08:00 - 10:00</th>
-                                    <th>10:00 - 12:00</th>
-                                    <th>12:00 - 14:00</th>
-                                    <th>14:00 - 16:00</th>
-                                    <th>16:00 - 18:00</th>
-                                    <th>18:00 - 20:00</th>
-                                    <th>20:00 - 22:00</th>
-                                </tr>
-                            </thead>
-                            <tbody id="schedule-body"></tbody>
-                        </table>
-                    </div>
-
-                    <div class="tab-pane" id="contact">
-                        <div class="contact-info text-start">
-                            <h5 class="border-bottom pb-2 mb-3 text-end">راه‌های ارتباطی</h5>
-                            <div class="contact-item">
-                                <i class="fa-solid fa-envelope fs-5"></i>
-                                <div class="text-end">
-                                    <span class="d-block fw-bold text-end">ایمیل</span>
-                                    <span id="Email" class="text-muted text-end"></span>
-                                </div>
-                            </div>
-                            <div class="contact-item">
-                                <i class="fa-solid fa-location-dot fs-5"></i>
-                                <div class="text-end">
-                                    <span class="d-block fw-bold text-end">دفتر استاد</span>
-                                    <span id="Address" class="text-muted"></span>
-                                </div>
-                            </div>
-                            <div class="contact-item">
-                                <i class="fa-solid fa-clock fs-5"></i>
-                                <div class="text-end">
-                                    <span class="d-block fw-bold text-end">ساعات مراجعه حضوری</span>
-                                    <span id="Description" class="text-muted"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane" id="Reservation">
-                        <form class="text-end" id="ReservationForm" novalidate>
-                            <h5 class="border-bottom pb-1 mb-2">فرم رزرو وقت</h5>
-
-                            <div class="row">
-                                <div class="col-md-6 mb-2">
-                                    <label for="subject" class="form-label">موضوع</label>
-                                    <input type="text" id="subject" class="form-control" required>
-                                    <div class="invalid-feedback">وارد کردن موضوع الزامی است</div>
-                                </div>
-                                <div class="col-md-6 mb-2">
-                                    <label for="location" class="form-label">مکان</label>
-                                    <select class="form-select" id="location" required>
-                                        <option value="">انتخاب کنید</option>
-                                        <option value="daftar">دفتر استاد</option>
-                                        <option value="class">کلاس</option>
-                                    </select>
-                                    <div class="invalid-feedback">وارد کردن مکان رزرو الزامی است</div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="mb-1">
-                                    <label for="description" class="form-label">توضیحات</label>
-                                    <textarea class="form-control" id="description" rows="2" required></textarea>
-                                    <div class="invalid-feedback">وارد کردن توضیحات الزامی است</div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-5 mb-2">
-                                    <label for="date" class="form-label">تاریخ</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="date-input" readonly>
-                                        <button class="btn btn-outline-secondary btn-icon-center" type="button" id="calenderTriger">
-                                            <i class="fa-solid fa-calendar-days"></i>
-                                        </button>
-                                    </div>
-                                    <input type="hidden" id="hidden-date">
-                                    <div class="invalid-feedback">وارد کردن تاریخ الزامی است</div>
-                                </div>
-                                <div class="col-md-4 mb-2">
-                                    <label for="my-inline-timepicker" class="form-label">ساعت</label>
-                                    <div id="my-inline-timepicker"></div>
-                                </div>
-                                <div class="col-md-3 mb-3">
-                                    <label for="duration" class="form-label">مدت زمان جلسه</label>
-                                    <input type="number" class="form-control" id="duration" min="10" value="10" step="5" max="60" required>
-                                    <div class="invalid-feedback">مدت زمان را مشخص کنید.</div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label for="fileUpload" class="form-label">آپلود فایل</label>
-                                <div class="col-md-12 mb-2 feature-disabled" id="upload-container">
-                                    <input type="file" class="form-control" id="fildUpload" accept=".pdf,.doc,.docx,.png,.jpg">
-                                    <div id="filePreview" class="form-text text-muted">فایل انتخاب نشده است.</div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <button type="submit" class="btn btn-primary submitCode" id="submitReservationBtn">رزرو</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
-<script src="https://unpkg.com/@@panzoom/panzoom/dist/panzoom.min.js"></script>
-<script src="~/lib/md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker.js"></script>
-<script src="~/lib/timepicker/flatpickr.js"></script>
-<script src="~/js/Professor.js"></script>
-
-<script>
-        $(document).ready(function () {
-
-        // Function to filter the schedule based on checkbox status
-        function filterSchedule() {
-            const showEven = $('#evenWeekCheck').is(':checked');
-            const showOdd = $('#oddWeekCheck').is(':checked');
-            const scheduleItems = $('.schedule-item');
-
-            if (showEven && showOdd) {
-                scheduleItems.show();
-                return;
-            }
-            if (!showEven && !showOdd) {
-                scheduleItems.hide();
-                $('.week-fixed').show();
-                return;
-            }
-
-            scheduleItems.hide();
-
-            if (showEven) {
-                $('.week-even, .week-fixed').show();
-            }
-            if (showOdd) {
-                $('.week-odd, .week-fixed').show();
-            }
-        }
-
-        $('.schedule-filter').on('change', function () {
-            filterSchedule();
+            });
         });
-
-
-        $('#InformationProfessor').on('shown.bs.modal', function () {
-            $('#evenWeekCheck').prop('checked', true);
-            $('#oddWeekCheck').prop('checked', true);
-            filterSchedule();
-        });
-
-    });
-</script>
+    </script>
