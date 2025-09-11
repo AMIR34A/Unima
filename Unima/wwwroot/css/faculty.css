@@ -42,6 +42,7 @@
 }
 
 .professor-card-wrapper {
+  transition: opacity 0.6s ease-in-out;
   cursor: pointer;
 }
 
@@ -315,7 +316,7 @@
 
 .close-btn {
   position: absolute;
-  top: 0;
+  top: 3px;
   left: 20px;
   font-size: 2.3rem;
   color: #888;
@@ -354,16 +355,16 @@
 .is-open .courses-section {
   opacity: 0;
   animation-name: staggeredFadeInUp;
-  animation-duration: 1s;
+  animation-duration: 1.5s;
   animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
   animation-fill-mode: forwards;
 }
 
 .is-open .profile-img {
-  animation-delay: 0.2s;
+  animation-delay: 0.35s;
 }
 .is-open .close-btn {
-  animation-delay: 0.2s;
+  animation-delay: 0.35s;
 }
 
 .is-open .expanded-social-links,
@@ -377,4 +378,30 @@
 
 .is-open .courses-section {
   animation-delay: 0.65s;
+}
+
+.fading-out{
+  opacity: 0;
+  display: none;
+  pointer-events: none;
+}
+
+.Professor-option {
+    background-color: #fff;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    transition: all 0.6s ease;
+}
+
+.tab.active .Professor-option {
+    border-color: #dda853 !important; 
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+.tab:not(.active) .Professor-option:hover {
+    background-color: #f8f9fa; 
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
