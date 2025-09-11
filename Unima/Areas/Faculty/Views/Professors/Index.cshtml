@@ -1,206 +1,7 @@
 ﻿@* For more information on enabling MVC for empty projects, visit
 https://go.microsoft.com/fwlink/?LinkID=397860 *@ @{ } @{ Layout =
 "/Areas/User/Views/Shared/_Layout.cshtml"; }
-<link
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-  rel="stylesheet"
-/>
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-/>
-
-<style>
-  #searchInput {
-    border: none;
-    border-bottom: 2px solid #ccc;
-    border-radius: 0;
-    background-color: transparent;
-    padding: 15px 5px;
-    font-size: 1.2rem;
-    transition: border-color 0.3s ease;
-  }
-  #searchInput:focus {
-    box-shadow: none;
-    border-color: #0d6efd;
-  }
-
-  .professor-card-wrapper {
-    /* انیمیشن اصلی برای تغییر عرض ستون */
-    transition: all 0.5s cubic-bezier(0.65, 0, 0.35, 1);
-    cursor: pointer;
-    
-  }
-
-  .professor-card {
-    border-radius: 20px;
-    border: none;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-    text-align: center;
-    position: relative;
-    overflow: hidden; /* مهم برای انیمیشن ارتفاع */
-    transition: box-shadow 0.3s ease;
-    
-  }
-  .professor-card:hover {
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-  }
-
-  /* حالت اولیه المان‌ها */
-  .card-header-color {
-    /* background-color: #e9ecef; */
-    height: 100px;
-    border-radius: 20px 20px 0 0;
-    position: relative;
-    transition: all 0.5s ease;
-  }
-  .profile-img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 5px solid #fff;
-    position: absolute;
-    bottom: -55px;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: all 0.5s cubic-bezier(0.65, 0, 0.35, 1);
-  }
-  .card-body {
-    padding: 75px 1rem 1rem 1rem;
-    transition: all 0.5s ease;
-  }
-  .card-title {
-    font-weight: 700;
-    font-size: 1.4rem;
-    transition: all 0.5s ease;
-  }
-  .text-muted,
-  .specialty-tag,
-  .office-location,
-  .social-links {
-    transition: all 0.5s ease;
-  }
-  .modal-actions {
-    position: absolute;
-    opacity: 0;
-    visibility: hidden;
-  }
-
-  /* ========= استایل‌های حالت باز شده (Open) ========= */
-  .is-open .professor-card {
-    display: flex;
-    position: relative;
-    flex-direction: row; /* چیدمان افقی */
-    text-align: right; /* متن‌ها راست‌چین */
-    /* align-items: center; حذف شد تا ستون‌ها هم‌قد شوند */
-    
-  }
-
-  .is-open .card-header-color {
-    /* background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 1) 29%,
-      rgba(222, 222, 222, 1) 56%
-    ); */
-    background-color: transparent;
-    height: 330px;
-    flex-basis: 300px; /* عرض ثابت برای بخش عکس */
-    flex-shrink: 0; /* جلوگیری از کوچک شدن این بخش */
-    border-radius: 20px 0 0 20px;
-    /* این سه خط برای وسط‌چین کردن عکس اضافه شده است */
-    display: flex;
-    justify-content: center;
-  }
-
-  .is-open .profile-img {
-    width: 150px;
-    height: 150px;
-    position: relative; /* از absolute به relative تغییر کرد */
-    bottom: auto; /* ریست کردن استایل‌های حالت بسته */
-    left: auto;
-    top: 10px;
-    align-items: center;
-    transform: none; /* ریست کردن استایل‌های حالت بسته */
-  }
-
-.is-open .card-body {
-  padding: 2rem;
-  flex-grow: 1;
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  justify-content: center;
-}
-.is-open .professor-card::before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-  background: /*linear-gradient(to right, #c0c0c0 45%, rgba(192, 192, 192, 0) 80%) ,*/ linear-gradient(to left,  #c0c0c0 5%, rgba(192, 192, 192, 0) 65%);
-  -webkit-mask-image: radial-gradient(circle, black 1px, transparent 2px) !important;
-  -webkit-mask-size: 15px 15px !important;
-  /* mask-image: radial-gradient(circle, black 0%, transparent 14%) !important; */
-  mask-size: 30px 30px !important;
-}
-.professor-card::before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-  background: /*linear-gradient(to right, #c0c0c0 45%, rgba(192, 192, 192, 0) 80%) ,*/ linear-gradient(to bottom,  #c0c0c0 5%, rgba(192, 192, 192, 0) 65%);
-  -webkit-mask-image: radial-gradient(circle, black 1px, transparent 2px) !important;
-  -webkit-mask-size: 15px 15px !important;
-  /* mask-image: radial-gradient(circle, black 0%, transparent 14%) !important; */
-  mask-size: 30px 30px !important;
-}
-
-  .is-open .card-title {
-    font-size: 2rem;
-  }
-  .is-open .office-location {
-    margin-top: 1rem !important;
-  }
-
-  /* نمایش دکمه‌های مودال در حالت باز */
-  .is-open .modal-actions {
-    position: relative;
-    opacity: 1;
-    visibility: visible;
-    margin-top: 1.5rem;
-    transition: opacity 0.4s 0.3s ease;
-  }
-
-  /* دکمه بستن (ضربدر) */
-  .close-btn {
-    position: absolute;
-    top: 0;
-    left: 20px;
-    font-size: 2.3rem;
-    color: #888;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 10;
-  }
-  .close-btn:hover {
-    transform: scale(1.2);
-    color: #333;
-  }
-  .is-open .close-btn {
-    opacity: 1;
-    visibility: visible;
-  }
-</style>
+<link rel="stylesheet" href="/css/faculty.css">
 
 <div class="container my-5">
   <div class="row justify-content-center mb-4">
@@ -214,42 +15,93 @@ https://go.microsoft.com/fwlink/?LinkID=397860 *@ @{ } @{ Layout =
     </div>
   </div>
 
-  <div class="row gap-3" id="professors-list">
+  <div class="row gy-4" id="professors-list">
     <div class="col-lg-3 col-md-6 professor-card-wrapper">
       <div class="card professor-card">
         <div class="close-btn">&times;</div>
+
         <div class="card-header-color">
           <img
             src="/Images/1566112971-hosseinpic1.jpg"
             class="profile-img"
             alt="تصویر استاد علی محمدی"
           />
+
+          <div class="contact-details">
+            <ul class="list-unstyled">
+              <li>
+                <i class="fas fa-envelope-open-text fa-fw"></i>
+                <span>amirreza.amir34a@gmail.com</span>
+              </li>
+              <li>
+                <i class="fas fa-map-marker-alt fa-fw"></i>
+                <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
+              </li>
+              <li>
+                <i class="fas fa-clock fa-fw"></i>
+                <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
+              </li>
+            </ul>
+          </div>
+          <div class="social-links expanded-social-links">
+            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"
+              ><i class="fas fa-envelope"></i
+            ></a>
+          </div>
         </div>
+
         <div class="card-body">
           <h5 class="card-title">دکتر علی خسروی</h5>
           <p class="text-muted">استاد تمام</p>
-          <span class="specialty-tag">هوش مصنوعی</span>
-          <p class="office-location mt-3">
-            <i class="fas fa-map-marker-alt me-2"></i>دفتر: ساختمان ۲، اتاق ۱۰۱
-          </p>
-          <div class="social-links pb-2">
-            <a href="#" title="صفحه شخصی"><i class="fas fa-globe"></i></a>
+          <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
+          <div class="social-links">
+            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"
+              ><i class="fas fa-envelope"></i
+            ></a>
           </div>
-          <div class="modal-actions">
-            <button
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#scheduleModal"
-            >
-              نمایش برنامه کلاسی
-            </button>
-            <button
-              class="btn btn-outline-secondary ms-2"
-              data-bs-toggle="modal"
-              data-bs-target="#bookingModal"
-            >
-              رزرو وقت مشاوره
-            </button>
+        </div>
+
+        <div class="expanded-content-wrapper">
+          <div class="info-section">
+            <h5 class="card-title">دکتر علی خسروی</h5>
+            <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
+            <p class="biography">
+              دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص برجسته
+              در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان مقالات متعددی
+              در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
+            </p>
+            <div class="action-btn-wrapper">
+              <button
+                class="btn btn-primary reservationbtn"
+                data-bs-toggle="modal"
+                data-bs-target="#bookingModal"
+              >
+                رزرو وقت مشاوره
+              </button>
+            </div>
+          </div>
+
+          <div class="courses-section">
+            <h6 class="section-title">دروس ارائه شده:</h6>
+            <ul class="list-unstyled">
+              <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
+              <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
+              <li><i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی</li>
+              <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
+            </ul>
+            <div class="action-btn-wrapper">
+              <button
+                class="btn btn-outline-secondary coursebtn"
+                data-bs-toggle="modal"
+                data-bs-target="#scheduleModal"
+              >
+                نمایش برنامه کلاسی
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -258,42 +110,80 @@ https://go.microsoft.com/fwlink/?LinkID=397860 *@ @{ } @{ Layout =
     <div class="col-lg-3 col-md-6 professor-card-wrapper">
       <div class="card professor-card">
         <div class="close-btn">&times;</div>
+
         <div class="card-header-color">
           <img
             src="https://images.unsplash.com/photo-1580894742597-87bc8789db3d?q=80&w=400&auto=format&fit=crop"
             class="profile-img"
             alt="تصویر استاد سارا رضایی"
           />
+          <div class="social-links expanded-social-links">
+            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:sara.rezaei@example.com" title="ایمیل"
+              ><i class="fas fa-envelope"></i
+            ></a>
+          </div>
+          <div class="contact-details">
+            <p>
+              <i class="fas fa-envelope-open-text me-2"></i
+              >sara.rezaei@example.com
+            </p>
+            <p>
+              <i class="fas fa-map-marker-alt me-2"></i>طبقه اول کامپیوتر، اتاق
+              ۲۰۵
+            </p>
+            <p>
+              <i class="fas fa-clock me-2"></i>یکشنبه و سه‌شنبه، ساعت ۱۴ الی ۱۶
+            </p>
+          </div>
         </div>
+
         <div class="card-body">
           <h5 class="card-title">دکتر سارا رضایی</h5>
           <p class="text-muted">دانشیار</p>
-          <span
-            class="specialty-tag"
-            style="background-color: #f8d7da; color: #842029"
-            >شبکه‌های کامپیوتری</span
-          >
-          <p class="office-location mt-3">
-            <i class="fas fa-map-marker-alt me-2"></i>دفتر: ساختمان ۱، اتاق ۲۰۵
-          </p>
-          <div class="social-links pb-2">
-            <a href="#" title="صفحه شخصی"><i class="fas fa-globe"></i></a>
+          <span class="specialty-tag">شبکه‌های کامپیوتری</span>
+        </div>
+
+        <div class="expanded-content-wrapper">
+          <div class="info-section">
+            <h5 class="card-title">دکتر سارا رضایی</h5>
+            <p class="text-muted">دانشیار در حوزه شبکه‌های کامپیوتری</p>
+            <p class="biography">
+              دکتر سارا رضایی تمرکز اصلی تحقیقات خود را بر روی امنیت شبکه و
+              پروتکل‌های ارتباطی نسل جدید قرار داده است. او راهنمایی چندین
+              پایان‌نامه موفق در این زمینه را بر عهده داشته است.
+            </p>
+            <div class="action-btn-wrapper">
+              <button
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#bookingModal"
+              >
+                رزرو وقت مشاوره
+              </button>
+            </div>
           </div>
-          <div class="modal-actions">
-            <button
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#scheduleModal"
-            >
-              نمایش برنامه کلاسی
-            </button>
-            <button
-              class="btn btn-outline-secondary ms-2"
-              data-bs-toggle="modal"
-              data-bs-target="#bookingModal"
-            >
-              رزرو وقت مشاوره
-            </button>
+
+          <div class="courses-section">
+            <h6 class="section-title">دروس ارائه شده:</h6>
+            <ul class="list-unstyled">
+              <li>
+                <i class="fas fa-book me-2"></i>شبکه‌های کامپیوتری پیشرفته
+              </li>
+              <li><i class="fas fa-book me-2"></i>امنیت شبکه</li>
+              <li><i class="fas fa-book me-2"></i>شبکه‌های بی‌سیم</li>
+              <li><i class="fas fa-book me-2"></i>مدیریت شبکه</li>
+            </ul>
+            <div class="action-btn-wrapper">
+              <button
+                class="btn btn-outline-secondary"
+                data-bs-toggle="modal"
+                data-bs-target="#scheduleModal"
+              >
+                نمایش برنامه کلاسی
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -355,66 +245,4 @@ https://go.microsoft.com/fwlink/?LinkID=397860 *@ @{ } @{ Layout =
 </div>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-  $(document).ready(function () {
-    // --- انیمیشن باز و بسته شدن کارت ---
-    $(".professor-card-wrapper").on("click", function (e) {
-      // اگر روی لینک، دکمه یا خود دکمه بستن کلیک شد، هیچ کاری نکن
-      if ($(e.target).is("a, button, .close-btn") || $(e.target).closest("a, button").length) {
-        return;
-      }
-
-      const thisCard = $(this);
-
-      //  تغییر اصلی اینجاست
-      // اگر کارتی که روی آن کلیک شده از قبل باز است، هیچ کاری انجام نده
-      if (thisCard.hasClass("is-open")) {
-        return;
-      }
-
-      // اگر کارت دیگری باز است، اول آن را ببند
-      if ($(".professor-card-wrapper.is-open").length) {
-        closeCard($(".professor-card-wrapper.is-open"));
-      }
-
-      // کارت جدید را باز کن
-      openCard(thisCard);
-    });
-
-    // بستن فقط با دکمه ضربدر (این بخش بدون تغییر باقی می‌ماند)
-    $(".close-btn").on("click", function (e) {
-      e.stopPropagation();
-      closeCard($(this).closest(".professor-card-wrapper"));
-    });
-
-    function openCard(card) {
-      card
-        .addClass("is-open")
-        .removeClass("col-lg-3 col-md-6")
-        .addClass("col-12");
-    }
-
-    function closeCard(card) {
-      card
-        .removeClass("is-open")
-        .removeClass("col-12")
-        .addClass("col-lg-3 col-md-6");
-    }
-
-    // --- مدیریت مودال‌ها ---
-    $(".modal-actions button").on("click", function () {
-      var professorName = $(this)
-        .closest(".card-body")
-        .find(".card-title")
-        .text();
-      var modalId = $(this).data("bs-target");
-      $(modalId)
-        .find(".modal-title")
-        .text("اطلاعات مربوط به " + professorName);
-    });
-
-    // --- جستجو ---
-    // (Search function remains the same)
-  });
-</script>
+<script src="/js/faculty.js"></script>
