@@ -127,6 +127,11 @@ app.MapAreaControllerRoute(
     areaName: "Professor",
     pattern: "Professor/{controller}/{action=Index}/{id?}");
 
+app.MapAreaControllerRoute(
+    name: "FacultyArea",
+    areaName: "Faculty",
+    pattern: "Faculty/{controller}/{action=Index}/{id?}");
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=Index}/{id?}");

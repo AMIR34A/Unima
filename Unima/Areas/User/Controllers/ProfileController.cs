@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
@@ -19,11 +20,13 @@ using Unima.HelperClasses.ExtensionMethods;
 namespace Unima.Areas.User.Controllers
 {
     [Area("User")]
+    [Authorize]
     public class ProfileController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+
         public ProfileController(IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _unitOfWork = unitOfWork;
@@ -371,6 +374,7 @@ namespace Unima.Areas.User.Controllers
 
         #region Lesson
         [HttpPost]
+        [Authorize(Roles ="Professor")]
         [Route("User/Profile/AddLesson")]
         public async Task<IActionResult> AddLesson([FromBody] LessonModel lessonModel)
         {
@@ -413,6 +417,7 @@ namespace Unima.Areas.User.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Professor")]
         [Route("User/Profile/UpdateLesson/{lessonId:int?}")]
         public async Task<IActionResult> UpdateLesson(int? lessonId, [FromBody] LessonModel lessonModel)
         {
@@ -454,6 +459,7 @@ namespace Unima.Areas.User.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Professor")]
         [Route("User/Profile/DeleteLesson/{lessonId:int?}")]
         public async Task<IActionResult> DeleteLesson(int? lessonId)
         {
@@ -493,6 +499,7 @@ namespace Unima.Areas.User.Controllers
 
         #region Location
         [HttpPost]
+        [Authorize(Roles = "Professor")]
         [Route("User/Profile/AddLocation")]
         public async Task<IActionResult> AddLocation([FromBody] LocationModel locationModel)
         {
@@ -526,6 +533,7 @@ namespace Unima.Areas.User.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Professor")]
         [Route("User/Profile/UpdateLocation")]
         public async Task<IActionResult> UpdateLocation([FromBody] LocationModel locationModel)
         {
@@ -564,6 +572,7 @@ namespace Unima.Areas.User.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Professor")]
         [Route("User/Profile/DeleteLocation/{locationId:int?}")]
         public async Task<IActionResult> DeleteLocation(int? locationId)
         {
@@ -599,6 +608,7 @@ namespace Unima.Areas.User.Controllers
 
         #region Schedule
         [HttpGet]
+        [Authorize(Roles = "Professor")]
         [Route("/User/Profile/GetSchedule")]
         public async Task<IActionResult> GetScheduele()
         {
@@ -625,6 +635,7 @@ namespace Unima.Areas.User.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Professor")]
         [Route("User/Profile/AddSchedule/{lessonId:int}")]
         public async Task<IActionResult> AddSchedule(int lessonId, [FromBody] Models.Profile.ScheduleModel scheduleModel)
         {
@@ -673,6 +684,7 @@ namespace Unima.Areas.User.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Professor")]
         [Route("User/Profile/UpdateSchedule/{lessonId:int}")]
         public async Task<IActionResult> UpdateSchedule(int lessonId, [FromBody] Models.Profile.ScheduleModel scheduleModel)
         {
@@ -749,6 +761,7 @@ namespace Unima.Areas.User.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Professor")]
         [Route("User/Profile/DeleteSchedule/{lessonId:int}")]
         public async Task<IActionResult> DeleteSchedule(int lessonId, [FromBody] Models.Profile.ScheduleModel scheduleModel)
         {

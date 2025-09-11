@@ -26,6 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Faculty\Data\" />
+    <Folder Include="Areas\Faculty\Models\" />
     <Folder Include="Areas\Professor\Data\" />
     <Folder Include="Areas\User\Data\" />
   </ItemGroup>
