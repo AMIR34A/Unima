@@ -146,7 +146,7 @@ namespace Unima.Areas.User.Controllers
                                                                          GoogleMapLink = location.GoogleMapLink
                                                                      }).AsEnumerable();
 
-            IEnumerable<string> faculties = (await _unitOfWork.RepositoryBase<Faculty>().GetAllAsync())
+            IEnumerable<string> faculties = (await _unitOfWork.RepositoryBase<Dal.Entities.Entities.Faculty>().GetAllAsync())
                                                                .Select(facility => facility.Title);
 
             IEnumerable<DepartmentModel> departments = (await _unitOfWork.RepositoryBase<Department>().GetAllAsync())
@@ -374,7 +374,7 @@ namespace Unima.Areas.User.Controllers
 
         #region Lesson
         [HttpPost]
-        [Authorize(Roles ="Professor")]
+        [Authorize(Roles = "Professor")]
         [Route("User/Profile/AddLesson")]
         public async Task<IActionResult> AddLesson([FromBody] LessonModel lessonModel)
         {
