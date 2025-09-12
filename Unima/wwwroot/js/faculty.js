@@ -101,9 +101,7 @@ $(document).ready(function () {
       .addClass("fading-out");
     $(".category-title").addClass("fading-out");
     $(".faculty-category").addClass("fading-out-category");
-    card
-      .addClass("is-open")
-      .addClass("col-12");
+    card.addClass("is-open").addClass("col-12");
   }
   function closeCard(card) {
     $("#professors-list .professor-card-wrapper")
@@ -111,9 +109,7 @@ $(document).ready(function () {
       .removeClass("fading-out");
     $(".category-title").removeClass("fading-out");
     $(".faculty-category").removeClass("fading-out-category");
-    card
-      .removeClass("is-open")
-      .removeClass("col-12")
+    card.removeClass("is-open").removeClass("col-12");
   }
 
   $(".action-btn-wrapper button").on("click", function () {
@@ -147,20 +143,38 @@ $(document).ready(function () {
   });
 
   $("#searchInput").on("keyup", function () {
-    var value = $(this).val().toLowerCase();
-    var found = false;
+    const value = $(this).val().toLowerCase();
+    let anyProfFound = false;
+
     if ($(".professor-card-wrapper.is-open").length) {
       closeCard($(".professor-card-wrapper.is-open"));
     }
-    $("#professors-list .professor-card-wrapper").filter(function () {
-      var cardText = $(this).text().toLowerCase();
-      var isVisible = cardText.indexOf(value) > -1;
-      $(this).toggle(isVisible);
-      if (isVisible) {
-        found = true;
+
+    $(".faculty-category").each(function () {
+      const category = $(this);
+      let foundInCategory = false;
+
+      category.find(".professor-card-wrapper").each(function () {
+        const card = $(this);
+        const cardText = card.find(".card-title").text().toLowerCase();
+
+        if (cardText.indexOf(value) > -1) {
+          card.show();
+          foundInCategory = true;
+        } else {
+          card.hide();
+        }
+      });
+
+      if (foundInCategory) {
+        category.show();
+        anyProfFound = true;
+      } else {
+        category.hide();
       }
     });
-    if (found) {
+
+    if (anyProfFound) {
       $("#no-result").hide();
     } else {
       $("#no-result").show();
@@ -262,8 +276,8 @@ scrollWrappers.forEach((wrapper) => {
   let scrollLeft;
 
   wrapper.addEventListener("mousedown", (e) => {
-    if (e.target.closest('a, button, .close-btn')) {
-        return;
+    if (e.target.closest("a, button, .close-btn")) {
+      return;
     }
     isDown = true;
     wrapper.classList.add("active-drag");
