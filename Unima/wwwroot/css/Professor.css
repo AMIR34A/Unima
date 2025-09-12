@@ -770,3 +770,22 @@ tbody tr td {
   gap: 15px;
   margin-bottom: 10px;
 }
+.Professor-option {
+    background-color: #fff;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    transition: all 0.6s ease;
+}
+
+.tab.active .Professor-option {
+    border-color: #dda853 !important; 
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+.tab:not(.active) .Professor-option:hover {
+    background-color: #f8f9fa; 
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}

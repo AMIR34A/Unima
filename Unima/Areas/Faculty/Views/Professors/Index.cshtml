@@ -1,745 +1,960 @@
 ﻿@* For more information on enabling MVC for empty projects, visit
 https://go.microsoft.com/fwlink/?LinkID=397860 *@ @{ } @{ Layout =
 "/Areas/User/Views/Shared/_Layout.cshtml"; }
-<link rel="stylesheet" href="~/lib/md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker.style.css">
+<link rel="stylesheet" href="~/lib/md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker.style.css" />
 <link href="~/lib/timepicker/flatpickr.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="/css/faculty.css">
-<link rel="stylesheet" href="/css/Professor.css">
-
+<link rel="stylesheet" href="/css/faculty.css" />
+<link rel="stylesheet" href="/css/Professor.css" />
 
 <div class="container my-4">
   <div class="row justify-content-center mb-4">
     <div class="col-lg-7">
-      <input
-        type="text"
-        id="searchInput"
-        class="form-control text-center"
-        placeholder="جستجوی استاد..."
-      />
+      <input type="text" id="searchInput" class="form-control text-center" placeholder="جستجوی استاد..." />
     </div>
   </div>
 
   <div class="row gy-4" id="professors-list">
-    <div class="col-lg-3 col-md-6 professor-card-wrapper">
-      <div class="card professor-card">
-        <div class="close-btn">&times;</div>
+    <div class="faculty-category">
+      <h2 class="category-title">مهندسی کامپیوتر</h2>
+      <div class="horizontal-scroll-wrapper">
+        <div class="professor-card-wrapper">
+          <div class="card professor-card">
+            <div class="close-btn">&times;</div>
 
-        <div class="card-header-color">
-          <img
-            src="/Images/1566112971-hosseinpic1.jpg"
-            class="profile-img"
-            alt="تصویر استاد علی محمدی"
-          />
+            <div class="card-header-color">
+              <img src="/Images/1566112971-hosseinpic1.jpg" class="profile-img" alt="تصویر استاد علی محمدی" />
 
-          <div class="contact-details">
-            <ul class="list-unstyled">
-              <li>
-                <i class="fas fa-envelope-open-text fa-fw"></i>
-                <span>amirreza.amir34a@gmail.com</span>
-              </li>
-              <li>
-                <i class="fas fa-map-marker-alt fa-fw"></i>
-                <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
-              </li>
-              <li>
-                <i class="fas fa-clock fa-fw"></i>
-                <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
-              </li>
-            </ul>
-          </div>
-          <div class="social-links expanded-social-links">
-            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
-            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"
-              ><i class="fas fa-envelope"></i
-            ></a>
-          </div>
-        </div>
-
-        <div class="card-body">
-          <h5 class="card-title">دکتر علی خسروی</h5>
-          <p class="text-muted">استاد تمام</p>
-          <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
-          <div class="social-links">
-            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
-            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"
-              ><i class="fas fa-envelope"></i
-            ></a>
-          </div>
-        </div>
-
-        <div class="expanded-content-wrapper">
-          <div class="info-section">
-            <h5 class="card-title">دکتر علی خسروی</h5>
-            <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
-            <p class="biography">
-              دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص برجسته
-              در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان مقالات متعددی
-              در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
-            </p>
-            <div class="action-btn-wrapper">
-              <button
-                class="btn btn-primary reservationbtn"
-                data-bs-toggle="modal"
-                data-bs-target="#scheduleModal"
-                data-tab-target="Reservation"
-              >
-                رزرو وقت مشاوره
-              </button>
+              <div class="contact-details">
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-envelope-open-text fa-fw"></i>
+                    <span>amirreza.amir34a@gmail.com</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-clock fa-fw"></i>
+                    <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="social-links expanded-social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
             </div>
-          </div>
 
-          <div class="courses-section">
-            <h6 class="section-title">دروس ارائه شده:</h6>
-            <ul class="list-unstyled">
-              <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
-              <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
-              <li><i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی</li>
-              <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
-            </ul>
-            <div class="action-btn-wrapper">
-              <button
-                class="btn btn-outline-secondary coursebtn"
-                data-bs-toggle="modal"
-                data-bs-target="#scheduleModal"
-                data-tab-target="schedule"
-              >
-                نمایش برنامه کلاسی
-              </button>
+            <div class="card-body">
+              <h5 class="card-title">دکتر علی خسروی</h5>
+              <p class="text-muted">استاد تمام</p>
+              <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
+              <div class="social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+
+            <div class="expanded-content-wrapper">
+              <div class="info-section">
+                <h5 class="card-title">دکتر علی خسروی</h5>
+                <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
+                <p class="biography">
+                  دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص
+                  برجسته در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان
+                  مقالات متعددی در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
+                </p>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-primary reservationbtn" data-bs-toggle="modal" data-bs-target="#scheduleModal"
+                    data-tab-target="Reservation">
+                    رزرو وقت مشاوره
+                  </button>
+                </div>
+              </div>
+
+              <div class="courses-section">
+                <h6 class="section-title">دروس ارائه شده:</h6>
+                <ul class="list-unstyled">
+                  <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
+                  <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
+                  <li>
+                    <i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی
+                  </li>
+                  <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
+                </ul>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-outline-secondary coursebtn" data-bs-toggle="modal"
+                    data-bs-target="#scheduleModal" data-tab-target="schedule">
+                    نمایش برنامه کلاسی
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-<div class="col-lg-3 col-md-6 professor-card-wrapper">
-      <div class="card professor-card">
-        <div class="close-btn">&times;</div>
+        <div class="professor-card-wrapper">
+          <div class="card professor-card">
+            <div class="close-btn">&times;</div>
 
-        <div class="card-header-color">
-          <img
-            src="/Images/1566112971-hosseinpic1.jpg"
-            class="profile-img"
-            alt="تصویر استاد علی محمدی"
-          />
+            <div class="card-header-color">
+              <img src="/Images/1566112971-hosseinpic1.jpg" class="profile-img" alt="تصویر استاد علی محمدی" />
 
-          <div class="contact-details">
-            <ul class="list-unstyled">
-              <li>
-                <i class="fas fa-envelope-open-text fa-fw"></i>
-                <span>amirreza.amir34a@gmail.com</span>
-              </li>
-              <li>
-                <i class="fas fa-map-marker-alt fa-fw"></i>
-                <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
-              </li>
-              <li>
-                <i class="fas fa-clock fa-fw"></i>
-                <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
-              </li>
-            </ul>
-          </div>
-          <div class="social-links expanded-social-links">
-            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
-            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"
-              ><i class="fas fa-envelope"></i
-            ></a>
-          </div>
-        </div>
-
-        <div class="card-body">
-          <h5 class="card-title">دکتر علی خسروی</h5>
-          <p class="text-muted">استاد تمام</p>
-          <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
-          <div class="social-links">
-            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
-            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"
-              ><i class="fas fa-envelope"></i
-            ></a>
-          </div>
-        </div>
-
-        <div class="expanded-content-wrapper">
-          <div class="info-section">
-            <h5 class="card-title">دکتر علی خسروی</h5>
-            <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
-            <p class="biography">
-              دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص برجسته
-              در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان مقالات متعددی
-              در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
-            </p>
-            <div class="action-btn-wrapper">
-              <button
-                class="btn btn-primary reservationbtn"
-                data-bs-toggle="modal"
-                data-bs-target="#scheduleModal"
-                data-tab-target="Reservation"
-              >
-                رزرو وقت مشاوره
-              </button>
+              <div class="contact-details">
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-envelope-open-text fa-fw"></i>
+                    <span>amirreza.amir34a@gmail.com</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-clock fa-fw"></i>
+                    <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="social-links expanded-social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
             </div>
-          </div>
 
-          <div class="courses-section">
-            <h6 class="section-title">دروس ارائه شده:</h6>
-            <ul class="list-unstyled">
-              <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
-              <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
-              <li><i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی</li>
-              <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
-            </ul>
-            <div class="action-btn-wrapper">
-              <button
-                class="btn btn-outline-secondary coursebtn"
-                data-bs-toggle="modal"
-                data-bs-target="#scheduleModal"
-                data-tab-target="schedule"
-              >
-                نمایش برنامه کلاسی
-              </button>
+            <div class="card-body">
+              <h5 class="card-title">دکتر علی خسروی</h5>
+              <p class="text-muted">استاد تمام</p>
+              <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
+              <div class="social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+
+            <div class="expanded-content-wrapper">
+              <div class="info-section">
+                <h5 class="card-title">دکتر علی خسروی</h5>
+                <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
+                <p class="biography">
+                  دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص
+                  برجسته در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان
+                  مقالات متعددی در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
+                </p>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-primary reservationbtn" data-bs-toggle="modal" data-bs-target="#scheduleModal"
+                    data-tab-target="Reservation">
+                    رزرو وقت مشاوره
+                  </button>
+                </div>
+              </div>
+
+              <div class="courses-section">
+                <h6 class="section-title">دروس ارائه شده:</h6>
+                <ul class="list-unstyled">
+                  <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
+                  <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
+                  <li>
+                    <i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی
+                  </li>
+                  <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
+                </ul>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-outline-secondary coursebtn" data-bs-toggle="modal"
+                    data-bs-target="#scheduleModal" data-tab-target="schedule">
+                    نمایش برنامه کلاسی
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6 professor-card-wrapper">
-      <div class="card professor-card">
-        <div class="close-btn">&times;</div>
+        <div class="professor-card-wrapper">
+          <div class="card professor-card">
+            <div class="close-btn">&times;</div>
 
-        <div class="card-header-color">
-          <img
-            src="/Images/1566112971-hosseinpic1.jpg"
-            class="profile-img"
-            alt="تصویر استاد علی محمدی"
-          />
+            <div class="card-header-color">
+              <img src="/Images/1566112971-hosseinpic1.jpg" class="profile-img" alt="تصویر استاد علی محمدی" />
 
-          <div class="contact-details">
-            <ul class="list-unstyled">
-              <li>
-                <i class="fas fa-envelope-open-text fa-fw"></i>
-                <span>amirreza.amir34a@gmail.com</span>
-              </li>
-              <li>
-                <i class="fas fa-map-marker-alt fa-fw"></i>
-                <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
-              </li>
-              <li>
-                <i class="fas fa-clock fa-fw"></i>
-                <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
-              </li>
-            </ul>
-          </div>
-          <div class="social-links expanded-social-links">
-            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
-            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"
-              ><i class="fas fa-envelope"></i
-            ></a>
-          </div>
-        </div>
-
-        <div class="card-body">
-          <h5 class="card-title">دکتر علی خسروی</h5>
-          <p class="text-muted">استاد تمام</p>
-          <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
-          <div class="social-links">
-            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
-            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"
-              ><i class="fas fa-envelope"></i
-            ></a>
-          </div>
-        </div>
-
-        <div class="expanded-content-wrapper">
-          <div class="info-section">
-            <h5 class="card-title">دکتر علی خسروی</h5>
-            <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
-            <p class="biography">
-              دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص برجسته
-              در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان مقالات متعددی
-              در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
-            </p>
-            <div class="action-btn-wrapper">
-              <button
-                class="btn btn-primary reservationbtn"
-                data-bs-toggle="modal"
-                data-bs-target="#scheduleModal"
-                data-tab-target="Reservation"
-              >
-                رزرو وقت مشاوره
-              </button>
+              <div class="contact-details">
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-envelope-open-text fa-fw"></i>
+                    <span>amirreza.amir34a@gmail.com</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-clock fa-fw"></i>
+                    <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="social-links expanded-social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
             </div>
-          </div>
 
-          <div class="courses-section">
-            <h6 class="section-title">دروس ارائه شده:</h6>
-            <ul class="list-unstyled">
-              <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
-              <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
-              <li><i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی</li>
-              <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
-            </ul>
-            <div class="action-btn-wrapper">
-              <button
-                class="btn btn-outline-secondary coursebtn"
-                data-bs-toggle="modal"
-                data-bs-target="#scheduleModal"
-                data-tab-target="schedule"
-              >
-                نمایش برنامه کلاسی
-              </button>
+            <div class="card-body">
+              <h5 class="card-title">دکتر علی خسروی</h5>
+              <p class="text-muted">استاد تمام</p>
+              <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
+              <div class="social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+
+            <div class="expanded-content-wrapper">
+              <div class="info-section">
+                <h5 class="card-title">دکتر علی خسروی</h5>
+                <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
+                <p class="biography">
+                  دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص
+                  برجسته در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان
+                  مقالات متعددی در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
+                </p>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-primary reservationbtn" data-bs-toggle="modal" data-bs-target="#scheduleModal"
+                    data-tab-target="Reservation">
+                    رزرو وقت مشاوره
+                  </button>
+                </div>
+              </div>
+
+              <div class="courses-section">
+                <h6 class="section-title">دروس ارائه شده:</h6>
+                <ul class="list-unstyled">
+                  <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
+                  <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
+                  <li>
+                    <i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی
+                  </li>
+                  <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
+                </ul>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-outline-secondary coursebtn" data-bs-toggle="modal"
+                    data-bs-target="#scheduleModal" data-tab-target="schedule">
+                    نمایش برنامه کلاسی
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6 professor-card-wrapper">
-      <div class="card professor-card">
-        <div class="close-btn">&times;</div>
+        <div class="professor-card-wrapper">
+          <div class="card professor-card">
+            <div class="close-btn">&times;</div>
 
-        <div class="card-header-color">
-          <img
-            src="/Images/1566112971-hosseinpic1.jpg"
-            class="profile-img"
-            alt="تصویر استاد علی محمدی"
-          />
+            <div class="card-header-color">
+              <img src="/Images/1566112971-hosseinpic1.jpg" class="profile-img" alt="تصویر استاد علی محمدی" />
 
-          <div class="contact-details">
-            <ul class="list-unstyled">
-              <li>
-                <i class="fas fa-envelope-open-text fa-fw"></i>
-                <span>amirreza.amir34a@gmail.com</span>
-              </li>
-              <li>
-                <i class="fas fa-map-marker-alt fa-fw"></i>
-                <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
-              </li>
-              <li>
-                <i class="fas fa-clock fa-fw"></i>
-                <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
-              </li>
-            </ul>
-          </div>
-          <div class="social-links expanded-social-links">
-            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
-            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"
-              ><i class="fas fa-envelope"></i
-            ></a>
-          </div>
-        </div>
-
-        <div class="card-body">
-          <h5 class="card-title">دکتر علی خسروی</h5>
-          <p class="text-muted">استاد تمام</p>
-          <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
-          <div class="social-links">
-            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
-            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"
-              ><i class="fas fa-envelope"></i
-            ></a>
-          </div>
-        </div>
-
-        <div class="expanded-content-wrapper">
-          <div class="info-section">
-            <h5 class="card-title">دکتر علی خسروی</h5>
-            <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
-            <p class="biography">
-              دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص برجسته
-              در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان مقالات متعددی
-              در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
-            </p>
-            <div class="action-btn-wrapper">
-              <button
-                class="btn btn-primary reservationbtn"
-                data-bs-toggle="modal"
-                data-bs-target="#scheduleModal"
-                data-tab-target="Reservation"
-              >
-                رزرو وقت مشاوره
-              </button>
+              <div class="contact-details">
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-envelope-open-text fa-fw"></i>
+                    <span>amirreza.amir34a@gmail.com</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-clock fa-fw"></i>
+                    <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="social-links expanded-social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
             </div>
-          </div>
 
-          <div class="courses-section">
-            <h6 class="section-title">دروس ارائه شده:</h6>
-            <ul class="list-unstyled">
-              <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
-              <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
-              <li><i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی</li>
-              <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
-            </ul>
-            <div class="action-btn-wrapper">
-              <button
-                class="btn btn-outline-secondary coursebtn"
-                data-bs-toggle="modal"
-                data-bs-target="#scheduleModal"
-                data-tab-target="schedule"
-              >
-                نمایش برنامه کلاسی
-              </button>
+            <div class="card-body">
+              <h5 class="card-title">دکتر علی خسروی</h5>
+              <p class="text-muted">استاد تمام</p>
+              <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
+              <div class="social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+
+            <div class="expanded-content-wrapper">
+              <div class="info-section">
+                <h5 class="card-title">دکتر علی خسروی</h5>
+                <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
+                <p class="biography">
+                  دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص
+                  برجسته در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان
+                  مقالات متعددی در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
+                </p>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-primary reservationbtn" data-bs-toggle="modal" data-bs-target="#scheduleModal"
+                    data-tab-target="Reservation">
+                    رزرو وقت مشاوره
+                  </button>
+                </div>
+              </div>
+
+              <div class="courses-section">
+                <h6 class="section-title">دروس ارائه شده:</h6>
+                <ul class="list-unstyled">
+                  <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
+                  <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
+                  <li>
+                    <i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی
+                  </li>
+                  <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
+                </ul>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-outline-secondary coursebtn" data-bs-toggle="modal"
+                    data-bs-target="#scheduleModal" data-tab-target="schedule">
+                    نمایش برنامه کلاسی
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6 professor-card-wrapper">
-      <div class="card professor-card">
-        <div class="close-btn">&times;</div>
+        <div class="professor-card-wrapper">
+          <div class="card professor-card">
+            <div class="close-btn">&times;</div>
 
-        <div class="card-header-color">
-          <img
-            src="/Images/1566112971-hosseinpic1.jpg"
-            class="profile-img"
-            alt="تصویر استاد علی محمدی"
-          />
+            <div class="card-header-color">
+              <img src="/Images/1566112971-hosseinpic1.jpg" class="profile-img" alt="تصویر استاد علی محمدی" />
 
-          <div class="contact-details">
-            <ul class="list-unstyled">
-              <li>
-                <i class="fas fa-envelope-open-text fa-fw"></i>
-                <span>amirreza.amir34a@gmail.com</span>
-              </li>
-              <li>
-                <i class="fas fa-map-marker-alt fa-fw"></i>
-                <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
-              </li>
-              <li>
-                <i class="fas fa-clock fa-fw"></i>
-                <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
-              </li>
-            </ul>
-          </div>
-          <div class="social-links expanded-social-links">
-            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
-            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"
-              ><i class="fas fa-envelope"></i
-            ></a>
-          </div>
-        </div>
-
-        <div class="card-body">
-          <h5 class="card-title">دکتر علی خسروی</h5>
-          <p class="text-muted">استاد تمام</p>
-          <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
-          <div class="social-links">
-            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
-            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"
-              ><i class="fas fa-envelope"></i
-            ></a>
-          </div>
-        </div>
-
-        <div class="expanded-content-wrapper">
-          <div class="info-section">
-            <h5 class="card-title">دکتر علی خسروی</h5>
-            <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
-            <p class="biography">
-              دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص برجسته
-              در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان مقالات متعددی
-              در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
-            </p>
-            <div class="action-btn-wrapper">
-              <button
-                class="btn btn-primary reservationbtn"
-                data-bs-toggle="modal"
-                data-bs-target="#scheduleModal"
-                data-tab-target="Reservation"
-              >
-                رزرو وقت مشاوره
-              </button>
+              <div class="contact-details">
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-envelope-open-text fa-fw"></i>
+                    <span>amirreza.amir34a@gmail.com</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-clock fa-fw"></i>
+                    <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="social-links expanded-social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
             </div>
-          </div>
 
-          <div class="courses-section">
-            <h6 class="section-title">دروس ارائه شده:</h6>
-            <ul class="list-unstyled">
-              <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
-              <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
-              <li><i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی</li>
-              <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
-            </ul>
-            <div class="action-btn-wrapper">
-              <button
-                class="btn btn-outline-secondary coursebtn"
-                data-bs-toggle="modal"
-                data-bs-target="#scheduleModal"
-                data-tab-target="schedule"
-              >
-                نمایش برنامه کلاسی
-              </button>
+            <div class="card-body">
+              <h5 class="card-title">دکتر علی خسروی</h5>
+              <p class="text-muted">استاد تمام</p>
+              <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
+              <div class="social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+
+            <div class="expanded-content-wrapper">
+              <div class="info-section">
+                <h5 class="card-title">دکتر علی خسروی</h5>
+                <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
+                <p class="biography">
+                  دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص
+                  برجسته در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان
+                  مقالات متعددی در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
+                </p>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-primary reservationbtn" data-bs-toggle="modal" data-bs-target="#scheduleModal"
+                    data-tab-target="Reservation">
+                    رزرو وقت مشاوره
+                  </button>
+                </div>
+              </div>
+
+              <div class="courses-section">
+                <h6 class="section-title">دروس ارائه شده:</h6>
+                <ul class="list-unstyled">
+                  <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
+                  <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
+                  <li>
+                    <i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی
+                  </li>
+                  <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
+                </ul>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-outline-secondary coursebtn" data-bs-toggle="modal"
+                    data-bs-target="#scheduleModal" data-tab-target="schedule">
+                    نمایش برنامه کلاسی
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6 professor-card-wrapper">
-      <div class="card professor-card">
-        <div class="close-btn">&times;</div>
+        <div class="professor-card-wrapper">
+          <div class="card professor-card">
+            <div class="close-btn">&times;</div>
 
-        <div class="card-header-color">
-          <img
-            src="/Images/1566112971-hosseinpic1.jpg"
-            class="profile-img"
-            alt="تصویر استاد علی محمدی"
-          />
+            <div class="card-header-color">
+              <img src="/Images/1566112971-hosseinpic1.jpg" class="profile-img" alt="تصویر استاد علی محمدی" />
 
-          <div class="contact-details">
-            <ul class="list-unstyled">
-              <li>
-                <i class="fas fa-envelope-open-text fa-fw"></i>
-                <span>amirreza.amir34a@gmail.com</span>
-              </li>
-              <li>
-                <i class="fas fa-map-marker-alt fa-fw"></i>
-                <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
-              </li>
-              <li>
-                <i class="fas fa-clock fa-fw"></i>
-                <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
-              </li>
-            </ul>
-          </div>
-          <div class="social-links expanded-social-links">
-            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
-            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"
-              ><i class="fas fa-envelope"></i
-            ></a>
-          </div>
-        </div>
-
-        <div class="card-body">
-          <h5 class="card-title">دکتر علی خسروی</h5>
-          <p class="text-muted">استاد تمام</p>
-          <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
-          <div class="social-links">
-            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
-            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"
-              ><i class="fas fa-envelope"></i
-            ></a>
-          </div>
-        </div>
-
-        <div class="expanded-content-wrapper">
-          <div class="info-section">
-            <h5 class="card-title">دکتر علی خسروی</h5>
-            <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
-            <p class="biography">
-              دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص برجسته
-              در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان مقالات متعددی
-              در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
-            </p>
-            <div class="action-btn-wrapper">
-              <button
-                class="btn btn-primary reservationbtn"
-                data-bs-toggle="modal"
-                data-bs-target="#scheduleModal"
-                data-tab-target="Reservation"
-              >
-                رزرو وقت مشاوره
-              </button>
+              <div class="contact-details">
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-envelope-open-text fa-fw"></i>
+                    <span>amirreza.amir34a@gmail.com</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-clock fa-fw"></i>
+                    <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="social-links expanded-social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
             </div>
-          </div>
 
-          <div class="courses-section">
-            <h6 class="section-title">دروس ارائه شده:</h6>
-            <ul class="list-unstyled">
-              <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
-              <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
-              <li><i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی</li>
-              <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
-            </ul>
-            <div class="action-btn-wrapper">
-              <button
-                class="btn btn-outline-secondary coursebtn"
-                data-bs-toggle="modal"
-                data-bs-target="#scheduleModal"
-                data-tab-target="schedule"
-              >
-                نمایش برنامه کلاسی
-              </button>
+            <div class="card-body">
+              <h5 class="card-title">دکتر علی خسروی</h5>
+              <p class="text-muted">استاد تمام</p>
+              <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
+              <div class="social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+
+            <div class="expanded-content-wrapper">
+              <div class="info-section">
+                <h5 class="card-title">دکتر علی خسروی</h5>
+                <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
+                <p class="biography">
+                  دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص
+                  برجسته در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان
+                  مقالات متعددی در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
+                </p>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-primary reservationbtn" data-bs-toggle="modal" data-bs-target="#scheduleModal"
+                    data-tab-target="Reservation">
+                    رزرو وقت مشاوره
+                  </button>
+                </div>
+              </div>
+
+              <div class="courses-section">
+                <h6 class="section-title">دروس ارائه شده:</h6>
+                <ul class="list-unstyled">
+                  <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
+                  <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
+                  <li>
+                    <i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی
+                  </li>
+                  <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
+                </ul>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-outline-secondary coursebtn" data-bs-toggle="modal"
+                    data-bs-target="#scheduleModal" data-tab-target="schedule">
+                    نمایش برنامه کلاسی
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-lg-3 col-md-6 professor-card-wrapper">
-      <div class="card professor-card">
-        <div class="close-btn">&times;</div>
+    </div>  
+    <div class="faculty-category">
+      <h2 class="category-title">مهندسی مکانیک</h2>
+      <div class="horizontal-scroll-wrapper">
+        <div class="professor-card-wrapper">
+          <div class="card professor-card">
+            <div class="close-btn">&times;</div>
 
-        <div class="card-header-color">
-          <img
-            src="/Images/1566112971-hosseinpic1.jpg"
-            class="profile-img"
-            alt="تصویر استاد علی محمدی"
-          />
+            <div class="card-header-color">
+              <img src="/Images/1566112971-hosseinpic1.jpg" class="profile-img" alt="تصویر استاد علی محمدی" />
 
-          <div class="contact-details">
-            <ul class="list-unstyled">
-              <li>
-                <i class="fas fa-envelope-open-text fa-fw"></i>
-                <span>amirreza.amir34a@gmail.com</span>
-              </li>
-              <li>
-                <i class="fas fa-map-marker-alt fa-fw"></i>
-                <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
-              </li>
-              <li>
-                <i class="fas fa-clock fa-fw"></i>
-                <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
-              </li>
-            </ul>
-          </div>
-          <div class="social-links expanded-social-links">
-            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
-            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"
-              ><i class="fas fa-envelope"></i
-            ></a>
-          </div>
-        </div>
-
-        <div class="card-body">
-          <h5 class="card-title">دکتر علی خسروی</h5>
-          <p class="text-muted">استاد تمام</p>
-          <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
-          <div class="social-links">
-            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
-            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"
-              ><i class="fas fa-envelope"></i
-            ></a>
-          </div>
-        </div>
-
-        <div class="expanded-content-wrapper">
-          <div class="info-section">
-            <h5 class="card-title">دکتر علی خسروی</h5>
-            <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
-            <p class="biography">
-              دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص برجسته
-              در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان مقالات متعددی
-              در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
-            </p>
-            <div class="action-btn-wrapper">
-              <button
-                class="btn btn-primary reservationbtn"
-                data-bs-toggle="modal"
-                data-bs-target="#scheduleModal"
-                data-tab-target="Reservation"
-              >
-                رزرو وقت مشاوره
-              </button>
+              <div class="contact-details">
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-envelope-open-text fa-fw"></i>
+                    <span>amirreza.amir34a@gmail.com</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-clock fa-fw"></i>
+                    <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="social-links expanded-social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
             </div>
-          </div>
 
-          <div class="courses-section">
-            <h6 class="section-title">دروس ارائه شده:</h6>
-            <ul class="list-unstyled">
-              <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
-              <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
-              <li><i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی</li>
-              <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
-            </ul>
-            <div class="action-btn-wrapper">
-              <button
-                class="btn btn-outline-secondary coursebtn"
-                data-bs-toggle="modal"
-                data-bs-target="#scheduleModal"
-                data-tab-target="schedule"
-              >
-                نمایش برنامه کلاسی
-              </button>
+            <div class="card-body">
+              <h5 class="card-title">دکتر علی خسروی</h5>
+              <p class="text-muted">استاد تمام</p>
+              <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
+              <div class="social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+
+            <div class="expanded-content-wrapper">
+              <div class="info-section">
+                <h5 class="card-title">دکتر علی خسروی</h5>
+                <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
+                <p class="biography">
+                  دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص
+                  برجسته در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان
+                  مقالات متعددی در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
+                </p>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-primary reservationbtn" data-bs-toggle="modal" data-bs-target="#scheduleModal"
+                    data-tab-target="Reservation">
+                    رزرو وقت مشاوره
+                  </button>
+                </div>
+              </div>
+
+              <div class="courses-section">
+                <h6 class="section-title">دروس ارائه شده:</h6>
+                <ul class="list-unstyled">
+                  <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
+                  <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
+                  <li>
+                    <i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی
+                  </li>
+                  <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
+                </ul>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-outline-secondary coursebtn" data-bs-toggle="modal"
+                    data-bs-target="#scheduleModal" data-tab-target="schedule">
+                    نمایش برنامه کلاسی
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6 professor-card-wrapper">
-      <div class="card professor-card">
-        <div class="close-btn">&times;</div>
+        <div class="professor-card-wrapper">
+          <div class="card professor-card">
+            <div class="close-btn">&times;</div>
 
-        <div class="card-header-color">
-          <img
-            src="https://images.unsplash.com/photo-1580894742597-87bc8789db3d?q=80&w=400&auto=format&fit=crop"
-            class="profile-img"
-            alt="تصویر استاد سارا رضایی"
-          />
-          <div class="social-links expanded-social-links">
-            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
-            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:sara.rezaei@example.com" title="ایمیل"
-              ><i class="fas fa-envelope"></i
-            ></a>
-          </div>
-          <div class="contact-details">
-            <p>
-              <i class="fas fa-envelope-open-text me-2"></i
-              >sara.rezaei@example.com
-            </p>
-            <p>
-              <i class="fas fa-map-marker-alt me-2"></i>طبقه اول کامپیوتر، اتاق
-              ۲۰۵
-            </p>
-            <p>
-              <i class="fas fa-clock me-2"></i>یکشنبه و سه‌شنبه، ساعت ۱۴ الی ۱۶
-            </p>
-          </div>
-        </div>
+            <div class="card-header-color">
+              <img src="/Images/1566112971-hosseinpic1.jpg" class="profile-img" alt="تصویر استاد علی محمدی" />
 
-        <div class="card-body">
-          <h5 class="card-title">دکتر سارا رضایی</h5>
-          <p class="text-muted">دانشیار</p>
-          <span class="specialty-tag">شبکه‌های کامپیوتری</span>
-        </div>
+              <div class="contact-details">
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-envelope-open-text fa-fw"></i>
+                    <span>amirreza.amir34a@gmail.com</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-clock fa-fw"></i>
+                    <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="social-links expanded-social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
 
-        <div class="expanded-content-wrapper">
-          <div class="info-section">
-            <h5 class="card-title">دکتر سارا رضایی</h5>
-            <p class="text-muted">دانشیار در حوزه شبکه‌های کامپیوتری</p>
-            <p class="biography">
-              دکتر سارا رضایی تمرکز اصلی تحقیقات خود را بر روی امنیت شبکه و
-              پروتکل‌های ارتباطی نسل جدید قرار داده است. او راهنمایی چندین
-              پایان‌نامه موفق در این زمینه را بر عهده داشته است.
-            </p>
-            <div class="action-btn-wrapper">
-              <button
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#bookingModal"
-              >
-                رزرو وقت مشاوره
-              </button>
+            <div class="card-body">
+              <h5 class="card-title">دکتر علی خسروی</h5>
+              <p class="text-muted">استاد تمام</p>
+              <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
+              <div class="social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+
+            <div class="expanded-content-wrapper">
+              <div class="info-section">
+                <h5 class="card-title">دکتر علی خسروی</h5>
+                <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
+                <p class="biography">
+                  دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص
+                  برجسته در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان
+                  مقالات متعددی در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
+                </p>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-primary reservationbtn" data-bs-toggle="modal" data-bs-target="#scheduleModal"
+                    data-tab-target="Reservation">
+                    رزرو وقت مشاوره
+                  </button>
+                </div>
+              </div>
+
+              <div class="courses-section">
+                <h6 class="section-title">دروس ارائه شده:</h6>
+                <ul class="list-unstyled">
+                  <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
+                  <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
+                  <li>
+                    <i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی
+                  </li>
+                  <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
+                </ul>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-outline-secondary coursebtn" data-bs-toggle="modal"
+                    data-bs-target="#scheduleModal" data-tab-target="schedule">
+                    نمایش برنامه کلاسی
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+        <div class="professor-card-wrapper">
+          <div class="card professor-card">
+            <div class="close-btn">&times;</div>
 
-          <div class="courses-section">
-            <h6 class="section-title">دروس ارائه شده:</h6>
-            <ul class="list-unstyled">
-              <li>
-                <i class="fas fa-book me-2"></i>شبکه‌های کامپیوتری پیشرفته
-              </li>
-              <li><i class="fas fa-book me-2"></i>امنیت شبکه</li>
-              <li><i class="fas fa-book me-2"></i>شبکه‌های بی‌سیم</li>
-              <li><i class="fas fa-book me-2"></i>مدیریت شبکه</li>
-            </ul>
-            <div class="action-btn-wrapper">
-              <button
-                class="btn btn-outline-secondary"
-                data-bs-toggle="modal"
-                data-bs-target="#scheduleModal"
-              >
-                نمایش برنامه کلاسی
-              </button>
+            <div class="card-header-color">
+              <img src="/Images/1566112971-hosseinpic1.jpg" class="profile-img" alt="تصویر استاد علی محمدی" />
+
+              <div class="contact-details">
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-envelope-open-text fa-fw"></i>
+                    <span>amirreza.amir34a@gmail.com</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-clock fa-fw"></i>
+                    <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="social-links expanded-social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <h5 class="card-title">دکتر علی خسروی</h5>
+              <p class="text-muted">استاد تمام</p>
+              <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
+              <div class="social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+
+            <div class="expanded-content-wrapper">
+              <div class="info-section">
+                <h5 class="card-title">دکتر علی خسروی</h5>
+                <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
+                <p class="biography">
+                  دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص
+                  برجسته در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان
+                  مقالات متعددی در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
+                </p>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-primary reservationbtn" data-bs-toggle="modal" data-bs-target="#scheduleModal"
+                    data-tab-target="Reservation">
+                    رزرو وقت مشاوره
+                  </button>
+                </div>
+              </div>
+
+              <div class="courses-section">
+                <h6 class="section-title">دروس ارائه شده:</h6>
+                <ul class="list-unstyled">
+                  <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
+                  <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
+                  <li>
+                    <i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی
+                  </li>
+                  <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
+                </ul>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-outline-secondary coursebtn" data-bs-toggle="modal"
+                    data-bs-target="#scheduleModal" data-tab-target="schedule">
+                    نمایش برنامه کلاسی
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="professor-card-wrapper">
+          <div class="card professor-card">
+            <div class="close-btn">&times;</div>
+
+            <div class="card-header-color">
+              <img src="/Images/1566112971-hosseinpic1.jpg" class="profile-img" alt="تصویر استاد علی محمدی" />
+
+              <div class="contact-details">
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-envelope-open-text fa-fw"></i>
+                    <span>amirreza.amir34a@gmail.com</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-clock fa-fw"></i>
+                    <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="social-links expanded-social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <h5 class="card-title">دکتر علی خسروی</h5>
+              <p class="text-muted">استاد تمام</p>
+              <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
+              <div class="social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+
+            <div class="expanded-content-wrapper">
+              <div class="info-section">
+                <h5 class="card-title">دکتر علی خسروی</h5>
+                <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
+                <p class="biography">
+                  دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص
+                  برجسته در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان
+                  مقالات متعددی در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
+                </p>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-primary reservationbtn" data-bs-toggle="modal" data-bs-target="#scheduleModal"
+                    data-tab-target="Reservation">
+                    رزرو وقت مشاوره
+                  </button>
+                </div>
+              </div>
+
+              <div class="courses-section">
+                <h6 class="section-title">دروس ارائه شده:</h6>
+                <ul class="list-unstyled">
+                  <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
+                  <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
+                  <li>
+                    <i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی
+                  </li>
+                  <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
+                </ul>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-outline-secondary coursebtn" data-bs-toggle="modal"
+                    data-bs-target="#scheduleModal" data-tab-target="schedule">
+                    نمایش برنامه کلاسی
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="professor-card-wrapper">
+          <div class="card professor-card">
+            <div class="close-btn">&times;</div>
+
+            <div class="card-header-color">
+              <img src="/Images/1566112971-hosseinpic1.jpg" class="profile-img" alt="تصویر استاد علی محمدی" />
+
+              <div class="contact-details">
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-envelope-open-text fa-fw"></i>
+                    <span>amirreza.amir34a@gmail.com</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-clock fa-fw"></i>
+                    <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="social-links expanded-social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <h5 class="card-title">دکتر علی خسروی</h5>
+              <p class="text-muted">استاد تمام</p>
+              <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
+              <div class="social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+
+            <div class="expanded-content-wrapper">
+              <div class="info-section">
+                <h5 class="card-title">دکتر علی خسروی</h5>
+                <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
+                <p class="biography">
+                  دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص
+                  برجسته در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان
+                  مقالات متعددی در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
+                </p>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-primary reservationbtn" data-bs-toggle="modal" data-bs-target="#scheduleModal"
+                    data-tab-target="Reservation">
+                    رزرو وقت مشاوره
+                  </button>
+                </div>
+              </div>
+
+              <div class="courses-section">
+                <h6 class="section-title">دروس ارائه شده:</h6>
+                <ul class="list-unstyled">
+                  <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
+                  <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
+                  <li>
+                    <i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی
+                  </li>
+                  <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
+                </ul>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-outline-secondary coursebtn" data-bs-toggle="modal"
+                    data-bs-target="#scheduleModal" data-tab-target="schedule">
+                    نمایش برنامه کلاسی
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="professor-card-wrapper">
+          <div class="card professor-card">
+            <div class="close-btn">&times;</div>
+
+            <div class="card-header-color">
+              <img src="/Images/1566112971-hosseinpic1.jpg" class="profile-img" alt="تصویر استاد علی محمدی" />
+
+              <div class="contact-details">
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-envelope-open-text fa-fw"></i>
+                    <span>amirreza.amir34a@gmail.com</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <span>طبقه دوم مهندسی، لاین دو، انتهای راهرو، اتاق 101</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-clock fa-fw"></i>
+                    <span>شنبه و دوشنبه، ساعت ۱۰ الی ۱۲</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="social-links expanded-social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <h5 class="card-title">دکتر علی خسروی</h5>
+              <p class="text-muted">استاد تمام</p>
+              <span class="specialty-tag">مهندسی برق و کامپیوتر - کامپیوتر</span>
+              <div class="social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:amirreza.amir34a@gmail.com" title="ایمیل"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+
+            <div class="expanded-content-wrapper">
+              <div class="info-section">
+                <h5 class="card-title">دکتر علی خسروی</h5>
+                <p class="text-muted">استاد تمام در حوزه هوش مصنوعی</p>
+                <p class="biography">
+                  دکتر علی خسروی با بیش از ۱۵ سال سابقه تدریس و تحقیق، متخصص
+                  برجسته در زمینه یادگیری عمیق و پردازش زبان طبیعی است. ایشان
+                  مقالات متعددی در ژورنال‌های معتبر بین‌المللی منتشر کرده‌اند.
+                </p>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-primary reservationbtn" data-bs-toggle="modal" data-bs-target="#scheduleModal"
+                    data-tab-target="Reservation">
+                    رزرو وقت مشاوره
+                  </button>
+                </div>
+              </div>
+
+              <div class="courses-section">
+                <h6 class="section-title">دروس ارائه شده:</h6>
+                <ul class="list-unstyled">
+                  <li><i class="fas fa-book ms-2"></i>یادگیری ماشین پیشرفته</li>
+                  <li><i class="fas fa-book ms-2"></i>پردازش زبان طبیعی</li>
+                  <li>
+                    <i class="fas fa-book ms-2"></i>مقدمه‌ای بر هوش مصنوعی
+                  </li>
+                  <li><i class="fas fa-book ms-2"></i>شبکه‌های عصبی عمیق</li>
+                </ul>
+                <div class="action-btn-wrapper">
+                  <button class="btn btn-outline-secondary coursebtn" data-bs-toggle="modal"
+                    data-bs-target="#scheduleModal" data-tab-target="schedule">
+                    نمایش برنامه کلاسی
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -753,141 +968,152 @@ https://go.microsoft.com/fwlink/?LinkID=397860 *@ @{ } @{ Layout =
 </div>
 
 <div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-light">
-            <div class="modal-header">
-                <div class="modal-header-content d-flex align-items-center">
-                    <i class="fa-solid fa-chalkboard-teacher m-1 fs-5"></i>
-                    <span class="fs-6 m-1 w-100">اطلاعات‌ استاد</span>
-                </div>
-                <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="close-tab"></button>
-            </div>
-            <div class="modal-body text-center">
-                <div class="row tabs mb-4">
-                    <div class="col-6 tab" data-tab="schedule">
-                        <div class="Professor-option border rounded p-2">
-                            <i class="fa-solid fa-calendar-week d-block fs-4 mb-1"></i>
-                            <span class="fw-bold d-block">برنامه کلاسی</span>
-                        </div>
-                    </div>
-                    <div class="col-6 tab" data-tab="Reservation">
-                        <div class="Professor-option border rounded p-2">
-                            <i class="fa-solid fa-calendar-plus d-block fs-4 mb-1"></i>
-                            <span class="fw-bold d-block">رزرو وقت</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-content">
-                    <div class="tab-pane" id="schedule">
-                        <div class="checkboxes">
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="evenWeekCheck" class="schedule-filter" checked>
-                                <label for="evenWeekCheck" class="label-even">
-                                    <span class="custom-checkbox">
-                                        <i class="fa-solid fa-check"></i>
-                                    </span>
-                                    هفته زوج
-                                </label>
-                            </div>
-
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="oddWeekCheck" class="schedule-filter" checked>
-                                <label for="oddWeekCheck" class="label-odd">
-                                    <span class="custom-checkbox">
-                                        <i class="fa-solid fa-check"></i>
-                                    </span>
-                                    هفته فرد
-                                </label>
-                            </div>
-                        </div>
-                        <table class="scheduleTable table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>روز / ساعت</th>
-                                    <th>06:00 - 08:00</th>
-                                    <th>08:00 - 10:00</th>
-                                    <th>10:00 - 12:00</th>
-                                    <th>12:00 - 14:00</th>
-                                    <th>14:00 - 16:00</th>
-                                    <th>16:00 - 18:00</th>
-                                    <th>18:00 - 20:00</th>
-                                    <th>20:00 - 22:00</th>
-                                </tr>
-                            </thead>
-                            <tbody id="schedule-body"></tbody>
-                        </table>
-                    </div>
-
-                    <div class="tab-pane active" id="Reservation">
-                        <form class="text-end" id="ReservationForm" novalidate>
-                            <h5 class="border-bottom pb-1 mb-2">فرم رزرو وقت</h5>
-
-                            <div class="row">
-                                <div class="col-md-6 mb-2">
-                                    <label for="subject" class="form-label">موضوع</label>
-                                    <input type="text" id="subject" class="form-control" required>
-                                    <div class="invalid-feedback">وارد کردن موضوع الزامی است</div>
-                                </div>
-                                <div class="col-md-6 mb-2">
-                                    <label for="location" class="form-label">مکان</label>
-                                    <select class="form-select" id="location" required>
-                                        <option value="">انتخاب کنید</option>
-                                        <option value="daftar">دفتر استاد</option>
-                                        <option value="class">کلاس</option>
-                                    </select>
-                                    <div class="invalid-feedback">وارد کردن مکان رزرو الزامی است</div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="mb-1">
-                                    <label for="description" class="form-label">توضیحات</label>
-                                    <textarea class="form-control" id="description" rows="2" required></textarea>
-                                    <div class="invalid-feedback">وارد کردن توضیحات الزامی است</div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-5 mb-2">
-                                    <label for="date" class="form-label">تاریخ</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="date-input" readonly>
-                                        <button class="btn btn-outline-secondary btn-icon-center" type="button" id="calenderTriger">
-                                            <i class="fa-solid fa-calendar-days"></i>
-                                        </button>
-                                    </div>
-                                    <input type="hidden" id="hidden-date">
-                                    <div class="invalid-feedback">وارد کردن تاریخ الزامی است</div>
-                                </div>
-                                <div class="col-md-4 mb-2">
-                                    <label for="my-inline-timepicker" class="form-label">ساعت</label>
-                                    <div id="my-inline-timepicker"></div>
-                                </div>
-                                <div class="col-md-3 mb-3">
-                                    <label for="duration" class="form-label">مدت زمان جلسه</label>
-                                    <input type="number" class="form-control" id="duration" min="10" value="10" step="5" max="60" required>
-                                    <div class="invalid-feedback">مدت زمان را مشخص کنید.</div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label for="fileUpload" class="form-label">آپلود فایل</label>
-                                <div class="col-md-12 mb-2 feature-disabled" id="upload-container">
-                                    <input type="file" class="form-control" id="fildUpload" accept=".pdf,.doc,.docx,.png,.jpg">
-                                    <div id="filePreview" class="form-text text-muted">فایل انتخاب نشده است.</div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <button type="submit" class="btn btn-primary submitCode" id="submitReservationBtn">رزرو</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
-            </div>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-light">
+      <div class="modal-header">
+        <div class="modal-header-content d-flex align-items-center">
+          <i class="fa-solid fa-chalkboard-teacher m-1 fs-5"></i>
+          <span class="fs-6 m-1 w-100">اطلاعات‌ استاد</span>
         </div>
+        <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="close-tab"></button>
+      </div>
+      <div class="modal-body text-center">
+        <div class="row tabs mb-4">
+          <div class="col-6 tab" data-tab="Reservation">
+            <div class="Professor-option border rounded p-2">
+              <i class="fa-solid fa-calendar-plus d-block fs-4 mb-1"></i>
+              <span class="fw-bold d-block">رزرو وقت</span>
+            </div>
+          </div>
+          <div class="col-6 tab" data-tab="schedule">
+            <div class="Professor-option border rounded p-2">
+              <i class="fa-solid fa-calendar-week d-block fs-4 mb-1"></i>
+              <span class="fw-bold d-block">برنامه کلاسی</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content">
+          <div class="tab-pane" id="schedule">
+            <div class="checkboxes">
+              <div class="checkbox-container">
+                <input type="checkbox" id="evenWeekCheck" class="schedule-filter" checked />
+                <label for="evenWeekCheck" class="label-even">
+                  <span class="custom-checkbox">
+                    <i class="fa-solid fa-check"></i>
+                  </span>
+                  هفته زوج
+                </label>
+              </div>
+
+              <div class="checkbox-container">
+                <input type="checkbox" id="oddWeekCheck" class="schedule-filter" checked />
+                <label for="oddWeekCheck" class="label-odd">
+                  <span class="custom-checkbox">
+                    <i class="fa-solid fa-check"></i>
+                  </span>
+                  هفته فرد
+                </label>
+              </div>
+            </div>
+            <table class="scheduleTable table-bordered">
+              <thead>
+                <tr>
+                  <th>روز / ساعت</th>
+                  <th>06:00 - 08:00</th>
+                  <th>08:00 - 10:00</th>
+                  <th>10:00 - 12:00</th>
+                  <th>12:00 - 14:00</th>
+                  <th>14:00 - 16:00</th>
+                  <th>16:00 - 18:00</th>
+                  <th>18:00 - 20:00</th>
+                  <th>20:00 - 22:00</th>
+                </tr>
+              </thead>
+              <tbody id="schedule-body"></tbody>
+            </table>
+          </div>
+
+          <div class="tab-pane active" id="Reservation">
+            <form class="text-end" id="ReservationForm" novalidate>
+              <h5 class="border-bottom pb-1 mb-2">فرم رزرو وقت</h5>
+
+              <div class="row">
+                <div class="col-md-6 mb-2">
+                  <label for="subject" class="form-label">موضوع</label>
+                  <input type="text" id="subject" class="form-control" required />
+                  <div class="invalid-feedback">وارد کردن موضوع الزامی است</div>
+                </div>
+                <div class="col-md-6 mb-2">
+                  <label for="location" class="form-label">مکان</label>
+                  <select class="form-select" id="location" required>
+                    <option value="">انتخاب کنید</option>
+                    <option value="daftar">دفتر استاد</option>
+                    <option value="class">کلاس</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    وارد کردن مکان رزرو الزامی است
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="mb-1">
+                  <label for="description" class="form-label">توضیحات</label>
+                  <textarea class="form-control" id="description" rows="2" required></textarea>
+                  <div class="invalid-feedback">
+                    وارد کردن توضیحات الزامی است
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5 mb-2">
+                  <label for="date" class="form-label">تاریخ</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="date-input" readonly />
+                    <button class="btn btn-outline-secondary btn-icon-center" type="button" id="calenderTriger">
+                      <i class="fa-solid fa-calendar-days"></i>
+                    </button>
+                  </div>
+                  <input type="hidden" id="hidden-date" />
+                  <div class="invalid-feedback">وارد کردن تاریخ الزامی است</div>
+                </div>
+                <div class="col-md-4 mb-2">
+                  <label for="my-inline-timepicker" class="form-label">ساعت</label>
+                  <div id="my-inline-timepicker"></div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label for="duration" class="form-label">مدت زمان جلسه</label>
+                  <input type="number" class="form-control" id="duration" min="10" value="10" step="5" max="60"
+                    required />
+                  <div class="invalid-feedback">مدت زمان را مشخص کنید.</div>
+                </div>
+              </div>
+              <div class="row">
+                <label for="fileUpload" class="form-label">آپلود فایل</label>
+                <div class="col-md-12 mb-2 feature-disabled" id="upload-container">
+                  <input type="file" class="form-control" id="fildUpload" accept=".pdf,.doc,.docx,.png,.jpg" />
+                  <div id="filePreview" class="form-text text-muted">
+                    فایل انتخاب نشده است.
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <button type="submit" class="btn btn-primary reservationbtn" id="submitReservationBtn">
+                  رزرو
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          بستن
+        </button>
+      </div>
     </div>
+  </div>
 </div>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

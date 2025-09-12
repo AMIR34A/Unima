@@ -99,20 +99,21 @@ $(document).ready(function () {
     $("#professors-list .professor-card-wrapper")
       .not(card)
       .addClass("fading-out");
+    $(".category-title").addClass("fading-out");
+    $(".faculty-category").addClass("fading-out-category");
     card
       .addClass("is-open")
-      .removeClass("col-lg-3 col-md-6")
       .addClass("col-12");
   }
-
   function closeCard(card) {
     $("#professors-list .professor-card-wrapper")
       .not(card)
       .removeClass("fading-out");
+    $(".category-title").removeClass("fading-out");
+    $(".faculty-category").removeClass("fading-out-category");
     card
       .removeClass("is-open")
       .removeClass("col-12")
-      .addClass("col-lg-3 col-md-6");
   }
 
   $(".action-btn-wrapper button").on("click", function () {
@@ -251,5 +252,40 @@ $(document).ready(function () {
     $("#evenWeekCheck").prop("checked", true);
     $("#oddWeekCheck").prop("checked", true);
     filterSchedule();
+  });
+});
+const scrollWrappers = document.querySelectorAll(".horizontal-scroll-wrapper");
+
+scrollWrappers.forEach((wrapper) => {
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  wrapper.addEventListener("mousedown", (e) => {
+    if (e.target.closest('a, button, .close-btn')) {
+        return;
+    }
+    isDown = true;
+    wrapper.classList.add("active-drag");
+    startX = e.pageX - wrapper.offsetLeft;
+    scrollLeft = wrapper.scrollLeft;
+  });
+
+  wrapper.addEventListener("mouseleave", () => {
+    isDown = false;
+    wrapper.classList.remove("active-drag");
+  });
+
+  wrapper.addEventListener("mouseup", () => {
+    isDown = false;
+    wrapper.classList.remove("active-drag");
+  });
+
+  wrapper.addEventListener("mousemove", (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - wrapper.offsetLeft;
+    const walk = x - startX;
+    wrapper.scrollLeft = scrollLeft - walk;
   });
 });
