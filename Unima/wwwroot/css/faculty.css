@@ -58,7 +58,7 @@
 }
 
 .professor-card:hover {
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
 }
 
 .card-header-color {
@@ -437,7 +437,7 @@
   height: 55px;
 }
 .faculty-category {
-    margin-bottom: 1rem;
+    margin-top: 1rem;
     --bs-gutter-y: 0;
 }
 
