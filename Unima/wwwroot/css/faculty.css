@@ -240,6 +240,7 @@
   font-size: 0.9rem;
   color: #333;
   margin-bottom: 0.75rem;
+  user-select: text;
 }
 
 .is-open .contact-details li:last-child {
@@ -265,6 +266,8 @@
   padding-right: 5px;
   border-radius: 0 20px 20px 0;
   display: grid;
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 .is-open .info-section,
@@ -495,4 +498,8 @@
 }
 .fading-out-category{
   margin-bottom: 0;
+}
+body.is-dragging{
+  user-select: none;
+  -webkit-user-select: none !important;
 }

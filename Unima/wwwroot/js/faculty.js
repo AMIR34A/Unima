@@ -84,6 +84,7 @@ $(document).ready(function () {
       isdragging = false;
       return;
     }
+
     const thisCard = $(this);
     if (thisCard.hasClass("is-open")) {
       return;
@@ -105,12 +106,14 @@ $(document).ready(function () {
       .addClass("fading-out");
     $(".category-title").addClass("fading-out");
     $(".faculty-category").addClass("fading-out-category");
+    document.body.classList.remove("is-dragging");
     card.addClass("is-open").addClass("col-12");
   }
   function closeCard(card) {
     $("#professors-list .professor-card-wrapper")
       .not(card)
       .removeClass("fading-out");
+    document.body.classList.add("is-dragging");
     $(".category-title").removeClass("fading-out");
     $(".faculty-category").removeClass("fading-out-category");
     card.removeClass("is-open").removeClass("col-12");
@@ -279,6 +282,7 @@ scrollWrappers.forEach((wrapper) => {
   let scrollLeft;
 
   wrapper.addEventListener("mousedown", (e) => {
+    document.body.classList.add("is-dragging");
     if (e.target.closest("a, button, .close-btn")) {
       return;
     }
@@ -302,6 +306,7 @@ scrollWrappers.forEach((wrapper) => {
     wrapper.classList.remove("active-drag");
     setTimeout(() => {
       isdragging = false;
+      document.body.classList.remove("is-dragging");
     }, 50);
   });
 
