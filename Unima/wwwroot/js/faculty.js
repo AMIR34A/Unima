@@ -71,13 +71,17 @@ flatpickr("#my-inline-timepicker", {
   defaultDate: "08:00",
   time_24hr: true,
 });
-
+let isdragging = false;
 $(document).ready(function () {
   $(".professor-card-wrapper").on("click", function (e) {
     if (
       $(e.target).is("a, button, .close-btn") ||
       $(e.target).closest("a, button").length
     ) {
+      return;
+    }
+    if (isdragging) {
+      isdragging = false;
       return;
     }
     const thisCard = $(this);
@@ -269,7 +273,6 @@ $(document).ready(function () {
   });
 });
 const scrollWrappers = document.querySelectorAll(".horizontal-scroll-wrapper");
-
 scrollWrappers.forEach((wrapper) => {
   let isDown = false;
   let startX;
@@ -283,16 +286,23 @@ scrollWrappers.forEach((wrapper) => {
     wrapper.classList.add("active-drag");
     startX = e.pageX - wrapper.offsetLeft;
     scrollLeft = wrapper.scrollLeft;
+    isdragging = false;
   });
 
   wrapper.addEventListener("mouseleave", () => {
     isDown = false;
     wrapper.classList.remove("active-drag");
+        setTimeout(() => {
+      isdragging = false;
+    }, 50);
   });
 
   wrapper.addEventListener("mouseup", () => {
     isDown = false;
     wrapper.classList.remove("active-drag");
+    setTimeout(() => {
+      isdragging = false;
+    }, 50);
   });
 
   wrapper.addEventListener("mousemove", (e) => {
@@ -300,6 +310,9 @@ scrollWrappers.forEach((wrapper) => {
     e.preventDefault();
     const x = e.pageX - wrapper.offsetLeft;
     const walk = x - startX;
+    if (Math.abs(walk) > 5) {
+      isdragging = true;
+    }
     wrapper.scrollLeft = scrollLeft - walk;
   });
 });

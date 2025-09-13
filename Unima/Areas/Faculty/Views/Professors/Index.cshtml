@@ -486,7 +486,7 @@ https://go.microsoft.com/fwlink/?LinkID=397860 *@ @{ } @{ Layout =
           </div>
         </div>
       </div>
-    </div>  
+    </div>
     <div class="faculty-category">
       <h2 class="category-title">مهندسی مکانیک</h2>
       <div class="horizontal-scroll-wrapper">
@@ -1122,3 +1122,8 @@ https://go.microsoft.com/fwlink/?LinkID=397860 *@ @{ } @{ Layout =
 <script src="~/lib/md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker.js"></script>
 <script src="~/lib/timepicker/flatpickr.js"></script>
 <script src="/js/faculty.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new mds.MdsPersianDateTimePicker(document.getElementById("calenderTriger"), { targetTextSelector: '#date-input', targetDateSelector: '#hidden-date', isGregorian: false, enableTimePicker: false, textFormat: 'yyyy/MM/dd', disableBeforeToday: true });
+  });
+</script>
