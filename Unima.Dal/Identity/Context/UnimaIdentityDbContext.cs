@@ -93,7 +93,13 @@ public class UnimaIdentityDbContext : IdentityDbContext<ApplicationUser, Applica
         modelBuilder.Entity<ProfessorInformation>()
                     .HasOne(entity => entity.User)
                     .WithOne(entity => entity.ProfessorInformation)
-                    .HasForeignKey<ProfessorInformation>();
+                    .HasForeignKey<ProfessorInformation>()
+                    .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<ProfessorInformation>()
+                    .HasOne(entity => entity.Department)
+                    .WithMany(entity => entity.Professors)
+                    .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.Entity<Lesson>()
                     .HasKey(lesson => new { lesson.ProfessorId, lesson.No, lesson.GroupNo });

@@ -18,10 +18,6 @@ public class ProfessorInformation
 
     public OfficeStatus OfficeStatus { get; set; }
 
-    public Line Line { get; set; }
-
-    public Side Side { get; set; }
-
     public string? Biography { get; set; }
 
     public required string Address { get; set; }
@@ -32,9 +28,10 @@ public class ProfessorInformation
 
     public string? PublicPhoneNumber { get; set; }
 
-    public required string Department { get; set; }
-
     public required string Role { get; set; }
+
+    public int DepartmentId { get; set; }
+    public required Department Department { get; set; }
 
     public ICollection<Lesson> Lessons { get; set; }
 

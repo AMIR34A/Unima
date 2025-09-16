@@ -10,4 +10,6 @@ public class Department
     public required Faculty Faculty { get; set; }
 
     public ICollection<Lesson> Lessons { get; set; }
+
+    public ICollection<ProfessorInformation> Professors { get; set; }
 }
