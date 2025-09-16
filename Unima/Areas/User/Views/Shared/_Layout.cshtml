@@ -24,8 +24,7 @@
                         bool isLoginned = User is not null && User.Identity is not null && User.Identity.IsAuthenticated;
                     }
                     <!--sidebar-->
-                    <div class="col-xl-2 col-lg-3 col-md-4 sidebar mt-md-0 mt-5 mb-3 mb-md-0 px-3 pt-sm-5 fixed-top text-dark-emphasis ">
-                        <div class="unima-icon"></div>
+                    <div class="col-xl-2 col-lg-3 col-md-4 sidebar mt-md-2 mt-5 mb-3 mb-md-0 px-3 pt-sm-5 fixed-top text-dark-emphasis ">
                         <ul class="nav-bar list-unstyled  mt-sm-5 mb-md-0 options">
                             <li class="nav-item current text-center">
                                 <a href=@(isLoginned ? "/User/Dashboard" : "/") class="nav-link p-3 mb-2">
@@ -88,64 +87,67 @@
                     <!--topnav-->
                     @if (isLoginned)
                     {
-                        <div class="col-xl-10 col-lg-9 col-md-8 fixed-top me-auto p-3 top-nav ">
-                            <div class=" d-flex justify-content-around align-items-center ">
-                                <button class="navbar-toggler bg-secondary mb-2  mt-1 " data-bs-toggle="collapse"
-                                        data-bs-target="#sidebar">
-                                    <span class="navbar-toggler-icon fs-6"></span>
-                                </button>
-                                <div class=" d-inline-block text-white">
-                                    <h4 class="text-dark d-inline-block fw-bold me-3 ">
-                                        <span class="brand">یونیما</span>
-                                    </h4>
-                                </div>
-                                <div class="col me-auto">
-                                    <ul class="navbar-nav flex-row justify-content-end align-items-center">
-                                        <li class="nav-item mx-3  ">
-                                            <a class="nav-link" href="#">
-                                                <i class="fas fa-comments fa-lg text-muted"></i>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item mx-3">
-                                            <a class="nav-link" href="#">
-                                                <i class="fas fa-bell fa-lg text-muted"></i>
-                                            </a>
-                                        </li>
-                                        @{
-                                            var user = await _userManager.GetUserAsync(User);
-                                            <li class="nav-item mx-3 text-muted mr-md-auto dropdown ">
-                                                <button class="btn profile-icon" type="button" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                    <i class="fas fa-user fa-lg  text-muted  ms-2"></i>
-                                                </button>
-                                                <ul class="dropdown-menu position-absolute bg-secondary-subtle bg-gradient dropdown-menu-light custom-dropdown">
-                                                    <li class="text-center my-4 fw-bold ">مشخصات دانشجو</li>
-                                                    <hr>
-                                                    <li class="my-2 text-center ">
-                                                        <span class="fs-6">
-                                                            @user?.FullName
-                                                        </span>
-                                                    </li>
-                                                    <li class="text-center ">
-                                                        <span>
-                                                            @user?.UserName
-                                                        </span>
-                                                    </li>
-                                                    <hr class="dropdown-divider">
-                                                    <div class="text-center ">
-                                                        <a class=" topnavExitButton dropdown-item link-danger " href="/User/Account/LogOut">
-                                                            <i class="fa-solid fa-arrow-right-from-bracket mx-2"></i>خروج از
-                                                            حساب
-                                                            کاربری
-                                                        </a>
-                                                    </div>
-                                                </ul>
-                                            </li>
-                                        }
-                                    </ul>
-                                </div>
-                            </div>
+<div class="col-xl-12 col-lg-9 col-md-8 fixed-top p-3 glass-header">
+    <div class="row align-items-center">
+        <!-- بخش unima-icon -->
+        <div class="col-xl-2 col-lg-3 col-md-4 px-3 d-flex justify-content-center align-items-center">
+            <div class="unima-icon"></div>
+        </div>
+
+        <!-- بخش اطلاعات کاربر -->
+        <div class="col-xl-3 col-lg-4 col-md-5">
+            <div class="d-flex align-items-center">
+                <img src="/Images/1566112971-hosseinpic1.jpg"
+                     alt="پروفایل"
+                     width="50"
+                     height="50"
+                     class="rounded-circle img-profile">
+                <div class="text-end d-flex flex-column">
+                    <span class="user-fullname my-1">نام و نام خانوادگی: رضا زارع</span>
+                    <span class="user-id mt-1">کد دانشجویی: 4001226190</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- بخش آیکون‌های سمت چپ -->
+        <div class="col-xl-3 col-lg-5 col-md-3 me-auto">
+            <ul class="navbar-nav flex-row justify-content-end align-items-center">
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-comments fa-lg text-muted"></i>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-bell fa-lg text-muted"></i>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fas fa-user fa-lg text-muted"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end bg-secondary-subtle bg-gradient custom-dropdown">
+                        <li class="text-center my-4 fw-bold">مشخصات دانشجو</li>
+                        <hr>
+                        <li class="my-2 text-center">
+                            <span class="fs-6">رضا زارع</span>
+                        </li>
+                        <li class="text-center">
+                            <span>4001226190</span>
+                        </li>
+                        <hr class="dropdown-divider">
+                        <div class="text-center">
+                            <a class="dropdown-item link-danger topnavExitButton" href="/User/Account/LogOut">
+                                <i class="fa-solid fa-arrow-right-from-bracket mx-2"></i>خروج از حساب کاربری
+                            </a>
                         </div>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
                     }
                     <!--end of topnav-->
                 </div>
@@ -155,7 +157,7 @@
     <main role="main" class="pb-3">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xl-10 col-lg-9 col-md-8  mt-5 mx-auto mx-md-0 me-md-auto">
+                <div class="col-xl-10 col-lg-9 col-md-8  mt-6 mx-auto mx-md-0 me-md-auto">
                     @RenderBody()
                 </div>
             </div>

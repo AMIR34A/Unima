@@ -2,11 +2,21 @@
   font-family: Vazirmatn;
   src: url(../Fonts/Vazirmatn-Medium.ttf);
 }
-
+:root {
+  --glass-background: rgba(255, 255, 255, 0.1);
+  --glass-border-color: rgba(255, 255, 255, 0.18);
+  --glass-border-darker: rgba(0,0,0,0.1);
+  --text-primary: #f5f5f5;
+  --text-secondary: rgba(245, 245, 245, 0.75);
+  --blur-value: 12px;
+}
 body {
   font-family: Vazirmatn;
   font-size: 0.8em;
   direction: rtl;
+  color: var(--text-primary);
+  min-height: 100vh;
+  background-attachment: fixed;
 }
 
 .text-warning22 {
@@ -32,7 +42,7 @@ body {
 }
 
 .sidebar {
-  height: 100vh;
+  min-height: 100vh;
   /* border-left: 1px solid rgb(221, 219, 219); */
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
@@ -69,7 +79,9 @@ body {
 }
 
 .options {
-  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1));
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border-darker);
   border-radius: 25px;
   margin: 0px auto;
   padding: 10px;
@@ -626,14 +638,152 @@ tbody tr td {
   transform: translateY(-2px);
 }
 .unima-icon {
-  width: 176px;
-  height: 176px;
+  width: 45px;
+  height: 45px;
+  transform: scale(3.5);
+  margin-left: 35px;
   background: url("/Images/icon2.png") no-repeat center center;
   background-size: contain;
-  display: inline-block;
-  z-index: 2;
-  cursor: pointer;
-  position: absolute;
-  top: -52px;
-  left: 38px;
+  transform-origin: center center;
+  animation: fadeInScale 0.4s ease-in-out;
+}
+@media (min-width: 1200px) {
+  .col-xl-12 {
+    width: 99%;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .unima-icon {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .unima-icon {
+    width: 100px;
+    height: 100px;
+    top: 10px;
+  }
+}
+
+.glass-header {
+  background: var(--glass-background);
+  backdrop-filter: blur(var(--blur-value));
+  -webkit-backdrop-filter: blur(var(--blur-value));
+  border: 1px solid var(--glass-border-color);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  margin: .5rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1.5rem;
+}
+
+/* استایل بخش اطلاعات کاربر که همیشه مشخص است */
+.navbar-brand-container {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.navbar-brand-container:hover {
+  opacity: 0.9;
+  color: var(--text-primary);
+}
+.user-info-block .user-fullname {
+  font-weight: 500;
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+.user-info-block .user-id {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  line-height: 1.2;
+}
+
+/* استایل لینک‌های داخل منوی جمع‌شونده */
+.navbar-collapse .navbar-nav .nav-link {
+  color: var(--text-secondary);
+  padding: 0.5rem 1rem;
+  margin: 0 0.25rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+.navbar-collapse .navbar-nav .nav-link:hover,
+.navbar-collapse .navbar-nav .nav-link.active {
+  color: var(--text-primary);
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* استایل آیکون‌های سمت چپ */
+.header-actions .nav-link {
+  font-size: 1.1rem;
+}
+
+.glass-dropdown {
+  background: rgba(30, 30, 30, 0.6) !important;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border-color);
+  border-radius: 8px;
+  margin-top: 10px !important;
+}
+
+.main-content {
+  padding-top: 120px; /* ایجاد فاصله از هدر ثابت */
+  padding-bottom: 2rem;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid var(--glass-border-color);
+  padding: 2rem;
+  color: #333;
+  min-height: calc(100vh - 170px);
+}
+
+.navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.img-profile {
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  padding: 2px;
+  background-color: white;
+  margin: 0 5px;
+  object-fit: contain;
+}
+.user-fullname {
+  font-weight: 500;
+  color: black;
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+
+.user-id {
+  color: black;
+  font-size: 0.75rem;
+  opacity: 0.8;
+  line-height: 1.2;
+}
+.nav-item:hover:not(.current) i{
+  transform: scale(1.1);
+}
+
+.nav-item:hover:not(.current) a{
+  transform: translateX(-6px) scale(1.1);
+}
+.nav-item{
+  transition: all .6s ease-in-out;
+}
+.mt-6{
+  margin-top: 5rem !important;
 }
