@@ -72,6 +72,11 @@
   width: 97%;
 }
 
+.modal-dialog-wide {
+  max-width: 1100px !important;   
+  width: 100%;          
+  margin: 1.75rem auto; 
+}
 .profile-img {
   width: 120px;
   height: 120px;
@@ -503,4 +508,7 @@
 body.is-dragging{
   user-select: none;
   -webkit-user-select: none !important;
+}
+.modal.fade .modal-dialog{
+  transition: max-width .4s ease-in-out;
 }

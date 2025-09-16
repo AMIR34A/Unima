@@ -650,7 +650,9 @@ background-color: #ef5350;
   background-color: #eaf1fa;
   border-color: #a4c4e9;
 }
-.week-odd,
+.week-odd {
+  animation: fadeIn 0.4s ease-in-out forwards;
+}
 .week-even {
   animation: fadeIn 0.4s ease-in-out forwards;
 }

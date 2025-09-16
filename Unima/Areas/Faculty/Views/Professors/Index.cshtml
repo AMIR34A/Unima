@@ -1,10 +1,9 @@
-﻿@using Unima.Areas.Faculty.Models.ViewModels
-@model ProfessorViewModel
-
-@{ 
-    Layout = "/Areas/User/Views/Shared/_Layout.cshtml"; 
-}
-<link rel="stylesheet" href="~/lib/md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker.style.css" />
+﻿@using Unima.Areas.Faculty.Models.ViewModels @model ProfessorViewModel @{ Layout
+= "/Areas/User/Views/Shared/_Layout.cshtml"; }
+<link
+  rel="stylesheet"
+  href="~/lib/md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker.style.css"
+/>
 <link href="~/lib/timepicker/flatpickr.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="/css/faculty.css" />
 <link rel="stylesheet" href="/css/Professor.css" />
@@ -12,103 +11,118 @@
 <div class="container my-4">
   <div class="row justify-content-center mb-4">
     <div class="col-lg-7">
-      <input type="text" id="searchInput" class="form-control text-center" placeholder="جستجوی استاد..." />
+      <input
+        type="text"
+        id="searchInput"
+        class="form-control text-center"
+        placeholder="جستجوی استاد..."
+      />
     </div>
   </div>
 
   <div class="row gy-4" id="professors-list">
-      @if(Model is not null)
-        {
-            foreach(var faculty in Model?.Professors?.Keys)
-            {
-                <div class="faculty-category">
-                    <h2 class="category-title">@faculty</h2>
-                    <div class="horizontal-scroll-wrapper">
+    @if(Model is not null) { foreach(var faculty in Model?.Professors?.Keys) {
+    <div class="faculty-category">
+      <h2 class="category-title">@faculty</h2>
+      <div class="horizontal-scroll-wrapper">
+        @foreach (var professor in Model.Professors[faculty]) {
+        <div class="professor-card-wrapper">
+          <div class="card professor-card">
+            <div class="close-btn">&times;</div>
 
-                        @foreach (var professor in Model.Professors[faculty])
-                        {
-                            <div class="professor-card-wrapper">
-                                <div class="card professor-card">
-                                    <div class="close-btn">&times;</div>
+            <div class="card-header-color">
+              <img
+                src="@professor.ProfileImageURL"
+                class="profile-img"
+                alt="تصویر استاد علی محمدی"
+              />
 
-                                    <div class="card-header-color">
-                                        <img src="@professor.ProfileImageURL" class="profile-img" alt="تصویر استاد علی محمدی" />
+              <div class="contact-details">
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-envelope-open-text fa-fw"></i>
+                    <span>amirreza.amir34a@gmail.com</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <span>@professor.OfficeAddess</span>
+                  </li>
+                  <li>
+                    <i class="fas fa-clock fa-fw"></i>
+                    <span>@professor.Description</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="social-links expanded-social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="@professor.Email" title="ایمیل"
+                  ><i class="fas fa-envelope"></i
+                ></a>
+              </div>
+            </div>
 
-                                        <div class="contact-details">
-                                            <ul class="list-unstyled">
-                                                <li>
-                                                    <i class="fas fa-envelope-open-text fa-fw"></i>
-                                                    <span>amirreza.amir34a@gmail.com</span>
-                                                </li>
-                                                <li>
-                                                    <i class="fas fa-map-marker-alt fa-fw"></i>
-                                                    <span>@professor.OfficeAddess</span>
-                                                </li>
-                                                <li>
-                                                    <i class="fas fa-clock fa-fw"></i>
-                                                    <span>@professor.Description</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="social-links expanded-social-links">
-                                            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
-                                            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
-                                            <a href="@professor.Email" title="ایمیل"><i class="fas fa-envelope"></i></a>
-                                        </div>
-                                    </div>
+            <div class="card-body">
+              <h5 class="card-title">@professor.FullName</h5>
+              <p class="text-muted">@professor.Role</p>
+              <span class="specialty-tag"
+                >@professor.Faculty - @professor.Department</span
+              >
+              <div class="social-links">
+                <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+                <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                <a href="@professor.Email" title="ایمیل"
+                  ><i class="fas fa-envelope"></i
+                ></a>
+              </div>
+            </div>
 
-                                    <div class="card-body">
-                                        <h5 class="card-title">@professor.FullName</h5>
-                                        <p class="text-muted">@professor.Role</p>
-                                        <span class="specialty-tag">@professor.Faculty - @professor.Department</span>
-                                        <div class="social-links">
-                                            <a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
-                                            <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
-                                            <a href="@professor.Email" title="ایمیل"><i class="fas fa-envelope"></i></a>
-                                        </div>
-                                    </div>
-
-                                    <div class="expanded-content-wrapper">
-                                        <div class="info-section">
-                                            <h5 class="card-title">@professor.FullName</h5>
-                                            <p class="text-muted">@professor.Role</p>
-                                            <p class="biography">@professor.Bio</p>
-                                            <div class="action-btn-wrapper">
-                                                <button class="btn btn-primary reservationbtn" data-bs-toggle="modal" data-bs-target="#scheduleModal"
-                                                        data-tab-target="Reservation">
-                                                    رزرو وقت مشاوره
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                        <div class="courses-section">
-                                            <h6 class="section-title">دروس ارائه شده:</h6>
-                                            <ul class="list-unstyled">
-                                                @if(professor.Lessons is not null)
-                                                {    
-                                                    foreach(string lesson in @professor.Lessons)
-                                                    {
-                                                        <li><i class="fas fa-book ms-2"></i>@lesson</li>
-                                                    }
-                                                }
-                                            </ul>
-                                            <div class="action-btn-wrapper">
-                                                <button class="btn btn-outline-secondary coursebtn" data-bs-toggle="modal"
-                                                        data-bs-target="#scheduleModal" data-tab-target="schedule" onclick="loadProfessorSchedule(@professor.Id)">
-                                                    نمایش برنامه کلاسی
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        }
-                    </div>
+            <div class="expanded-content-wrapper">
+              <div class="info-section">
+                <h5 class="card-title">@professor.FullName</h5>
+                <p class="text-muted">@professor.Role</p>
+                <p class="biography">@professor.Bio</p>
+                <div class="action-btn-wrapper">
+                  <button
+                    class="btn btn-primary reservationbtn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#scheduleModal"
+                    data-tab-target="Reservation"
+                  >
+                    رزرو وقت مشاوره
+                  </button>
                 </div>
+              </div>
 
-            }
+              <div class="courses-section">
+                <h6 class="section-title">دروس ارائه شده:</h6>
+                <ul class="list-unstyled">
+                  @if(professor.Lessons is not null) { foreach(string lesson in
+                  @professor.Lessons) {
+                  <li><i class="fas fa-book ms-2"></i>@lesson</li>
+                  } }
+                </ul>
+                <div class="action-btn-wrapper">
+                  <button
+                    class="btn btn-outline-secondary coursebtn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#scheduleModal"
+                    data-tab-target="schedule"
+                    onclick="loadProfessorSchedule(@professor.Id)"
+                  >
+                    نمایش برنامه کلاسی
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         }
+      </div>
+    </div>
+
+    } }
   </div>
 
   <div id="no-result" class="text-center mt-4" style="display: none">
@@ -116,7 +130,13 @@
   </div>
 </div>
 
-<div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div
+  class="modal fade"
+  id="scheduleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content bg-light">
       <div class="modal-header">
@@ -124,7 +144,12 @@
           <i class="fa-solid fa-chalkboard-teacher m-1 fs-5"></i>
           <span class="fs-6 m-1 w-100">اطلاعات‌ استاد</span>
         </div>
-        <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="close-tab"></button>
+        <button
+          type="button"
+          class="btn-close m-0"
+          data-bs-dismiss="modal"
+          aria-label="close-tab"
+        ></button>
       </div>
       <div class="modal-body text-center">
         <div class="row tabs mb-4">
@@ -146,7 +171,12 @@
           <div class="tab-pane" id="schedule">
             <div class="checkboxes">
               <div class="checkbox-container">
-                <input type="checkbox" id="evenWeekCheck" class="schedule-filter" checked />
+                <input
+                  type="checkbox"
+                  id="evenWeekCheck"
+                  class="schedule-filter"
+                  checked
+                />
                 <label for="evenWeekCheck" class="label-even">
                   <span class="custom-checkbox">
                     <i class="fa-solid fa-check"></i>
@@ -156,7 +186,12 @@
               </div>
 
               <div class="checkbox-container">
-                <input type="checkbox" id="oddWeekCheck" class="schedule-filter" checked />
+                <input
+                  type="checkbox"
+                  id="oddWeekCheck"
+                  class="schedule-filter"
+                  checked
+                />
                 <label for="oddWeekCheck" class="label-odd">
                   <span class="custom-checkbox">
                     <i class="fa-solid fa-check"></i>
@@ -190,7 +225,12 @@
               <div class="row">
                 <div class="col-md-6 mb-2">
                   <label for="subject" class="form-label">موضوع</label>
-                  <input type="text" id="subject" class="form-control" required />
+                  <input
+                    type="text"
+                    id="subject"
+                    class="form-control"
+                    required
+                  />
                   <div class="invalid-feedback">وارد کردن موضوع الزامی است</div>
                 </div>
                 <div class="col-md-6 mb-2">
@@ -209,7 +249,12 @@
               <div class="row">
                 <div class="mb-1">
                   <label for="description" class="form-label">توضیحات</label>
-                  <textarea class="form-control" id="description" rows="2" required></textarea>
+                  <textarea
+                    class="form-control"
+                    id="description"
+                    rows="2"
+                    required
+                  ></textarea>
                   <div class="invalid-feedback">
                     وارد کردن توضیحات الزامی است
                   </div>
@@ -219,8 +264,17 @@
                 <div class="col-md-5 mb-2">
                   <label for="date" class="form-label">تاریخ</label>
                   <div class="input-group">
-                    <input type="text" class="form-control" id="date-input" readonly />
-                    <button class="btn btn-outline-secondary btn-icon-center" type="button" id="calenderTriger">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="date-input"
+                      readonly
+                    />
+                    <button
+                      class="btn btn-outline-secondary btn-icon-center"
+                      type="button"
+                      id="calenderTriger"
+                    >
                       <i class="fa-solid fa-calendar-days"></i>
                     </button>
                   </div>
@@ -228,27 +282,49 @@
                   <div class="invalid-feedback">وارد کردن تاریخ الزامی است</div>
                 </div>
                 <div class="col-md-4 mb-2">
-                  <label for="my-inline-timepicker" class="form-label">ساعت</label>
+                  <label for="my-inline-timepicker" class="form-label"
+                    >ساعت</label
+                  >
                   <div id="my-inline-timepicker"></div>
                 </div>
                 <div class="col-md-3 mb-3">
                   <label for="duration" class="form-label">مدت زمان جلسه</label>
-                  <input type="number" class="form-control" id="duration" min="10" value="10" step="5" max="60"
-                    required />
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="duration"
+                    min="10"
+                    value="10"
+                    step="5"
+                    max="60"
+                    required
+                  />
                   <div class="invalid-feedback">مدت زمان را مشخص کنید.</div>
                 </div>
               </div>
               <div class="row">
                 <label for="fileUpload" class="form-label">آپلود فایل</label>
-                <div class="col-md-12 mb-2 feature-disabled" id="upload-container">
-                  <input type="file" class="form-control" id="fildUpload" accept=".pdf,.doc,.docx,.png,.jpg" />
+                <div
+                  class="col-md-12 mb-2 feature-disabled"
+                  id="upload-container"
+                >
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="fildUpload"
+                    accept=".pdf,.doc,.docx,.png,.jpg"
+                  />
                   <div id="filePreview" class="form-text text-muted">
                     فایل انتخاب نشده است.
                   </div>
                 </div>
               </div>
               <div class="row">
-                <button type="submit" class="btn btn-primary reservationbtn" id="submitReservationBtn">
+                <button
+                  type="submit"
+                  class="btn btn-primary reservationbtn"
+                  id="submitReservationBtn"
+                >
                   رزرو
                 </button>
               </div>
@@ -272,7 +348,52 @@
 <script src="~/lib/timepicker/flatpickr.js"></script>
 <script src="/js/faculty.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    new mds.MdsPersianDateTimePicker(document.getElementById("calenderTriger"), { targetTextSelector: '#date-input', targetDateSelector: '#hidden-date', isGregorian: false, enableTimePicker: false, textFormat: 'yyyy/MM/dd', disableBeforeToday: true });
+  document.addEventListener("DOMContentLoaded", function () {
+    const modalRoot = document.querySelector("#InformationProfessor");
+    if (!modalRoot) return;
+    const dialog = modalRoot.querySelector(".modal-dialog");
+    if (!dialog) return;
+
+    function forceReflow(el) {
+      void el.offsetWidth;
+    }
+
+    function applyWide(shouldWide) {
+      dialog.classList.toggle("modal-dialog-wide", shouldWide);
+      forceReflow(dialog);
+    }
+
+    const getModalInst = () => bootstrap.Modal.getOrCreateInstance(modalRoot);
+
+    window.expandModal = function () {
+      if (!modalRoot.classList.contains("show")) {
+        getModalInst().show();
+        setTimeout(() => applyWide(true), 60);
+      } else applyWide(true);
+    };
+
+    window.shrinkModal = function () {
+      if (!modalRoot.classList.contains("show")) {
+        getModalInst().show();
+        setTimeout(() => applyWide(false), 60);
+      } else applyWide(false);
+    };
+
+    window.toggleModalSize = function () {
+      applyWide(!dialog.classList.contains("modal-dialog-wide"));
+    };
+
+    modalRoot.addEventListener("hidden.bs.modal", () => applyWide(false));
+    new mds.MdsPersianDateTimePicker(
+      document.getElementById("calenderTriger"),
+      {
+        targetTextSelector: "#date-input",
+        targetDateSelector: "#hidden-date",
+        isGregorian: false,
+        enableTimePicker: false,
+        textFormat: "yyyy/MM/dd",
+        disableBeforeToday: true,
+      }
+    );
   });
 </script>
