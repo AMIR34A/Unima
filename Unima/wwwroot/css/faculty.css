@@ -512,3 +512,7 @@ body.is-dragging{
 .modal.fade .modal-dialog{
   transition: max-width .4s ease-in-out;
 }
+.mds-dtp, .mds-dtp-root, .mds-dtp-popover, .mds-dtp-dropdown {
+  z-index: 20000 !important;
+  display: block !important; 
+}

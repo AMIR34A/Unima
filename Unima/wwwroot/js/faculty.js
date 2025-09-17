@@ -73,6 +73,17 @@ flatpickr("#my-inline-timepicker", {
 });
 let isdragging = false;
 $(document).ready(function () {
+    new mds.MdsPersianDateTimePicker(
+      $("#calenderTriger")[0],
+      {
+        targetTextSelector: "#date-input",
+        targetDateSelector: "#hidden-date",
+        isGregorian: false,
+        enableTimePicker: false,
+        textFormat: "yyyy/MM/dd",
+        disableBeforeToday: true
+      }
+    );
     $(".professor-card-wrapper").on("click", function (e) {
         if (
             $(e.target).is("a, button, .close-btn") ||

@@ -355,16 +355,5 @@
 	  };
 
 	  modalRoot.addEventListener("hidden.bs.modal", () => applyWide(false));
-	  new mds.MdsPersianDateTimePicker(
-		document.getElementById("calenderTriger"),
-		{
-		  targetTextSelector: "#date-input",
-		  targetDateSelector: "#hidden-date",
-		  isGregorian: false,
-		  enableTimePicker: false,
-		  textFormat: "yyyy/MM/dd",
-		  disableBeforeToday: true,
-		}
-	  );
 	});
 </script>
