@@ -5,6 +5,14 @@
 * {
   font-family: Byekan;
 }
+:root {
+  --glass-background: rgba(255, 255, 255, 0.1);
+  --glass-border-color: rgba(255, 255, 255, 0.18);
+  --glass-border-darker: rgba(0,0,0,0.1);
+  --text-primary: #f5f5f5;
+  --text-secondary: rgba(245, 245, 245, 0.75);
+  --blur-value: 12px;
+}
 body{
   background: linear-gradient(rgba(0,0,0,.5) , rgba(0,0,0,.7 )),
     url(../Images/background.jpg);
@@ -24,16 +32,27 @@ body{
   text-align: center;
   border-radius: 5px;
   margin: 20px 10px;
-  border: 3px solid #8f7856;
-  background:#DDA853;
+  border: 1px solid var(--glass-border-color);
+  background: transparent !important;
+  background-color: #ffffff30 !important;
   font-weight: bold;
   color: #FCE7C8;
   outline: none;
   transition: all 0.2s;
 }
+.input{
+      background: transparent !important;
+    background-color: #ffffff30 !important;
+    border: none;
+    border-color: transparent;
+    border-radius: 5px;
+    color: #243642;
+    border-bottom: 2px solid #243642;
+    transition: font-weight 0.3s;
+}
 .otp-box input:focus {
-  border: 2px solid #FCE7C8;
-  box-shadow: 0 0 2px 2px #FCE7C8;
+  border: 2px solid #ffffff70;
+  box-shadow: 0 0 2px 2px #ffffff70;
 }
 .confirm-btn {
   border: 2px solid #DDA853;
@@ -45,18 +64,18 @@ body{
   transition: all 0.3s;
 }
 .confirm-btn:hover {
-  
-  box-shadow: 0 0 1px 1px #896f44;
-  transform: translateY(3px);
+  transform: translateY(-3px);
 }
 .box {
-  border: 2px solid #869489;
   color: #243642;
   padding: 15px;
   padding-top: 50px;
-  background-color: #243642;
-  background: linear-gradient(190deg,rgba(0,0,0,.1),rgba(0,0,0,.3)) ,#889E73;
   border-radius:50px;
+    background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid var(--glass-border-color);
 }
 .resend-btn{
   background: transparent !important; 
