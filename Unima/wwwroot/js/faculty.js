@@ -322,8 +322,8 @@ scrollWrappers.forEach((wrapper) => {
     });
 });
 
-function loadProfessorSchedule(professorId) {
-    fetch(`/Professor/Status/GetProfessorSchedule/${professorId}`)
+function loadProfessorData(professorId) {
+    fetch(`/Professor/Status/GetProfessorData/${professorId}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -331,6 +331,7 @@ function loadProfessorSchedule(professorId) {
             return response.json();
         })
         .then(data => {
+
             const tbody = document.getElementById("schedule-body");
             tbody.innerHTML = '';
             for (i = 0; i < 7; i++) {
@@ -382,8 +383,22 @@ function loadProfessorSchedule(professorId) {
                 }
                 tbody.appendChild(tr);
             }
-            const modalElement = document.getElementById('InformationProfessor');
-            const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
-            modal.show();
+
+            const select = document.getElementById('locations');
+            select.innerHTML = '';
+
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '-1';
+            defaultOption.textContent = 'انتخاب کنید...';
+            defaultOption.selected = true;
+            defaultOption.disabled = true;
+            select.appendChild(defaultOption);
+
+            data.locations.forEach(location => {
+                const option = document.createElement('option');
+                option.value = location.id;
+                option.textContent = location.title;
+                select.appendChild(option);
+            });
         });
 }

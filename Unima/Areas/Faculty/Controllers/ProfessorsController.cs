@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using Unima.Areas.Faculty.Models;
 using Unima.Areas.Faculty.Models.ViewModels;
 using Unima.Areas.Professor.Models;
+using Unima.Areas.User.Models.Profile;
 using Unima.Biz.UoW;
 using Unima.Dal.Entities.Entities;
 using Unima.Dal.Enums;
@@ -51,8 +52,8 @@ public class ProfessorsController(IUnitOfWork _unitOfWork, IAmazonS3 _s3Client, 
     }
 
     [HttpGet]
-    [Route("Professor/Status/GetProfessorSchedule/{professorId:int}")]
-    public async Task<IActionResult> GetProfessorInformationAsync(int professorId)
+    [Route("Professor/Status/GetProfessorData/{professorId:int}")]
+    public async Task<IActionResult> GetProfessorData(int professorId)
     {
         ProfessorInformation? professor = (await _unitOfWork.RepositoryBase<ProfessorInformation>()
                                           .Include(professor => professor.Lessons)
@@ -76,9 +77,9 @@ public class ProfessorsController(IUnitOfWork _unitOfWork, IAmazonS3 _s3Client, 
 
         bool isLoginned = User is not null && User.Identity is not null && User.Identity.IsAuthenticated;
 
-        IOrderedEnumerable<ScheduleModel>? schedules = professor.Lessons.SelectMany(lesson => lesson.Schedules)
+        IOrderedEnumerable<Professor.Models.ScheduleModel>? schedules = professor.Lessons.SelectMany(lesson => lesson.Schedules)
                                                                     .Where(schedule => isLoginned || schedule.DayOfWeek == dayOfWeek)
-                                                                    .Select(schedule => new ScheduleModel()
+                                                                    .Select(schedule => new Professor.Models.ScheduleModel()
                                                                     {
                                                                         LessonTitle = schedule.Lesson.Title,
                                                                         GroupNo = schedule.LessonGroupNo,
@@ -98,6 +99,20 @@ public class ProfessorsController(IUnitOfWork _unitOfWork, IAmazonS3 _s3Client, 
                                                                         WeekStatus = schedule.WeekStatus,
                                                                         Period = schedule.Period
                                                                     }).OrderBy(schedule => schedule.DayOfWeek);
-        return Ok(new { Schedules = schedules });
+
+        IEnumerable<LocationModel>? locations = (await _unitOfWork.RepositoryBase<Location>().GetAllAsync(location => location.ProfessorId == professorId))
+                                                .Select(location => new LocationModel()
+                                                {
+                                                    Id = location.Id,
+                                                    Title = location.Title,
+                                                    Address = location.Address,
+                                                    GoogleMapLink = location.GoogleMapLink
+                                                });
+
+        return Ok(new
+        {
+            Schedules = schedules,
+            Locations = locations
+        });
     }
 }
