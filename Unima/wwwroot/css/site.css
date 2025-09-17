@@ -5,15 +5,21 @@
 * {
     font-family: BYekan;
 }
+:root {
+  --glass-background: rgba(255, 255, 255, 0.1);
+  --glass-border-color: rgba(255, 255, 255, 0.18);
+  --glass-border-darker: rgba(0,0,0,0.1);
+  --text-primary: #f5f5f5;
+  --text-secondary: rgba(245, 245, 245, 0.75);
+  --blur-value: 12px;
+}
 body {
-  
   direction: rtl;
   text-align: right;
   font-family: BYekan;
   height: 100vh;
   background: linear-gradient(rgba(0,0,0,.5) , rgba(0,0,0,.7 )),
     url(../Images/background.jpg);
-
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -22,9 +28,13 @@ body {
 
 
 .login-panel {
-  background-color:#b4b5b3;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid var(--glass-border-color);
   border-radius: 100px !important;
-  z-index: 1;  
+  z-index: 2;  
   box-shadow: -1px 0px 4px #273340;
   width: 350px ;
   height: 600px;
@@ -48,9 +58,10 @@ body {
 }
 .input {
   background: transparent;
+  background-color: #ffffff30 !important;
   border: none;
   border-color: transparent;
-  border-radius: 0px;
+  border-radius: 5px;
   color: #243642;
   border-bottom: 2px solid #243642;
   transition: font-weight 0.3s;
@@ -64,19 +75,26 @@ body {
   border: none;
   border-color: transparent;
   box-shadow: none;
+  background-color: #ffffff30 !important;
   border-bottom: 2px solid #0a0a0a;
   outline: none;
 }
+.input:active{
+  background-image: none;
+  background-color: #ffffff30 !important;
+}
 .input:-webkit-autofill{
+  background-image: none;
   background-color: transparent !important;
 
 }
 .label {
   color: #080808;
   display: block;
-  font-size: 13px;
-  margin-top: -68px;
-  margin-right: 5px;
+  font-size: 16px;
+  font-weight: 300;
+  margin-top: -74px;
+  margin-right: 7px;
   transition: all 0.4s;
 }
 .input:placeholder-shown + .label {
@@ -88,7 +106,7 @@ body {
 input:-webkit-autofill {
   background-color: transparent !important; 
   color: #243642 !important;
-  -webkit-box-shadow: 0 0 0px 1000px #889E73 inset !important; 
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff30 inset !important; 
 }
 input:-webkit-autofill::first-line {
   color: #243642 !important; 
@@ -195,9 +213,13 @@ input:-webkit-autofill::first-line {
 .carrousel {
   width: 500px !important;
   height: 510px !important;
-  border:18px solid #b4b5b3;  
+  border:18px solid transparent;  
   border-radius: 10px !important;
   box-shadow: -1px 0px 4px #584a35;
+  background-image: linear-gradient(#FCE7C8  ),
+  linear-gradient(-90deg , #00000030 , #FCE7C880  30%);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
 }
 .indicator{
   padding-right:120px;
@@ -258,12 +280,29 @@ input:-webkit-autofill::first-line {
 .showpassword{
   position: absolute !important;
   left: 5px !important;
-  bottom: -10px !important;
+  bottom: -3px !important;
   color: #0a0a0a;
+  transition: transform .3s ease-in-out;
 }
 .showpassword:focus {
   outline: none;
   box-shadow: none;
+}
+.showpassword:hover{
+  transform: scale(1.1);
+}
+.btn{
+  --bs-btn-padding-y: 0;
+  border: none;
+}
+.btn:hover{
+  background-color: transparent;
+  color: black;
+  border: none;
+}
+.btn:first-child:active{
+  color: black;
+  border: none;
 }
 .g-recaptcha{
   transform-origin: center;
@@ -376,4 +415,15 @@ input:-webkit-autofill::first-line {
 }
 @keyframes l4-2 {
   100% {top:-0.1px}
+}
+.slide2, .slide3 {
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  width: 100%;
+  height: 100%;
+  padding-right: 120px;
+}
+.slide3 {
+    line-height: 20px;
 }
