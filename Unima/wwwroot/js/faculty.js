@@ -21,7 +21,7 @@ function showFailModal() {
 function validateReservationForm() {
     const form = document.getElementById("ReservationForm");
     const subject = document.getElementById("subject");
-    const location = document.getElementById("location");
+    const locations = document.getElementById("locations");
     const description = document.getElementById("description");
     const dateInput = document.getElementById("date-input");
     const hiddenDate = document.getElementById("hidden-date");
@@ -34,15 +34,15 @@ function validateReservationForm() {
         .querySelectorAll(".is-invalid")
         .forEach((el) => el.classList.remove("is-invalid"));
 
-    if (subject.value.trim().length < 4) {
+    if (subject.value.trim().length == 0) {
         subject.classList.add("is-invalid");
         isvalid = false;
     }
-    if (location.value === "") {
-        location.classList.add("is-invalid");
+    if (locations.value === "" || locations.value === '0') {
+        locations.classList.add("is-invalid");
         isvalid = false;
     }
-    if (description.value.trim().length < 10) {
+    if (description.value.trim().length == 0) {
         description.classList.add("is-invalid");
         isvalid = false;
     }
@@ -50,10 +50,10 @@ function validateReservationForm() {
         dateInput.classList.add("is-invalid");
         isvalid = false;
     }
-    if (timepickerInstance.selectedDates.length === 0) {
-        timepickerContainer.classList.add("is-invalid");
-        isvalid = false;
-    }
+    //if (timepickerInstance.selectedDates.length === 0) {
+    //    timepickerContainer.classList.add("is-invalid");
+    //    isvalid = false;
+    //}
     if (!duration.checkValidity()) {
         duration.classList.add("is-invalid");
         isvalid = false;
@@ -219,24 +219,54 @@ $(document).ready(function () {
             document.getElementById("ReservationForm").reset();
         });
 
-        submitBtn.addEventListener("click", function (event) {
+        submitBtn.addEventListener("click", async function (event) {
             event.preventDefault();
 
             if (!validateReservationForm()) {
                 return;
             }
 
-            reservationSubmitted = true;
-            submitBtn.disabled = true;
-            submitBtn.innerText = "در حال پردازش...";
+            const modal = document.getElementById('scheduleModal');
+            var professorId = modal.dataset.professorId;
 
-            setTimeout(() => {
-                infoModal.hide();
+            if (professorId) {
+                debugger
+                const reservation = {
+                    topic: document.getElementById("subject").value,
+                    locationId: document.getElementById("locations").value,
+                    description: document.getElementById("description").value,
+                    reservedDateTime: `${document.getElementById("hidden-date").value}${document.querySelector("#my-inline-timepicker input:checked")?.value}`,
+                    duration: parseInt(document.getElementById("duration").value, 10)
+                };
+
+                try {
+                    const res = await fetch("Faculty/Professor/SetAppointment", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(reservation)
+                    });
+
+                    if (!res.ok) throw new Error("Server error");
+
+                    const data = await res.json();
+                    alert("رزرو با موفقیت ثبت شد ✅");
+                    console.log(data);
+                } catch (err) {
+                    alert("خطا در ثبت رزرو ❌");
+                    console.error(err);
+                }
+                reservationSubmitted = true;
+                submitBtn.disabled = true;
+                submitBtn.innerText = "در حال پردازش...";
+
                 setTimeout(() => {
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = "رزرو";
-                }, 500);
-            }, 3000);
+                    infoModal.hide();
+                    setTimeout(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerText = "رزرو";
+                    }, 500);
+                }, 3000);
+            }
         });
     }
 
@@ -323,7 +353,7 @@ scrollWrappers.forEach((wrapper) => {
 });
 
 function loadProfessorData(professorId) {
-    fetch(`/Professor/Status/GetProfessorData/${professorId}`)
+    fetch(`/Faculty/Professor/GetData/${professorId}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -388,7 +418,7 @@ function loadProfessorData(professorId) {
             select.innerHTML = '';
 
             const defaultOption = document.createElement('option');
-            defaultOption.value = '-1';
+            defaultOption.value = '0';
             defaultOption.textContent = 'انتخاب کنید...';
             defaultOption.selected = true;
             defaultOption.disabled = true;
@@ -401,4 +431,8 @@ function loadProfessorData(professorId) {
                 select.appendChild(option);
             });
         });
+
+
+    const modal = document.getElementById('scheduleModal');
+    modal.dataset.professorId = professorId;
 }
