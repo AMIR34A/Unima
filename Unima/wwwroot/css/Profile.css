@@ -577,74 +577,116 @@ tbody tr td {
   -moz-appearance: textfield;
 }
 
-.checkbox-container{
-    position: relative;
+.checkbox-container {
+  position: relative;
 }
-.checkbox-container input[type="checkbox"]{
-    opacity: 0;
-    position: absolute;
-    width: 0;
-    height: 0;
+.checkbox-container input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
 }
-.checkbox-container label{
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border-radius: 50px;
-    cursor: pointer;
-    border: 2px solid #ddd;
-    background-color: #f8f9fa;
-    font-weight: bold;
-    color: #555;
-    transition: all .3s ease;
-    user-select: none;
-}
-
-.checkbox-container .custom-checkbox{
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 2px solid #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all .3s ease;
+.checkbox-container label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  background-color: #f8f9fa;
+  font-weight: bold;
+  color: #555;
+  transition: all 0.3s ease;
+  user-select: none;
 }
 
-.checkbox-container .custom-checkbox .fa-check{
-    font-size: 12px;
-    color: white;
-    opacity: 0;
-    transform: scale(0.5);
-    transition: all .3s ease;
+.checkbox-container .custom-checkbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
 }
-.checkbox-container input[type="checkbox"]:checked + label.label-even{
-    background-color: #eaf1fa;
-    border-color: #a9d6b8;
-    color: #198754;
+
+.checkbox-container .custom-checkbox .fa-check {
+  font-size: 12px;
+  color: white;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.3s ease;
 }
-.checkbox-container input[type="checkbox"]:checked + label.label-even .custom-checkbox{
-    background-color: #198754;
-    border-color: #198754;
+.checkbox-container input[type="checkbox"]:checked + label.label-even {
+  background-color: #eaf1fa;
+  border-color: #a9d6b8;
+  color: #198754;
 }
-.checkbox-container input[type="checkbox"]:checked + label.label-odd{
-    background-color: #eaf1fa;
-    border-color: #a4c4e9;
-    color: #0d6efd;
+.checkbox-container
+  input[type="checkbox"]:checked
+  + label.label-even
+  .custom-checkbox {
+  background-color: #198754;
+  border-color: #198754;
 }
-.checkbox-container input[type="checkbox"]:checked + label.label-odd .custom-checkbox{
-    background-color: #0d6efd;
-    border-color: #0d6efd;
+.checkbox-container input[type="checkbox"]:checked + label.label-odd {
+  background-color: #eaf1fa;
+  border-color: #a4c4e9;
+  color: #0d6efd;
+}
+.checkbox-container
+  input[type="checkbox"]:checked
+  + label.label-odd
+  .custom-checkbox {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
 }
 
 .checkbox-container input[type="checkbox"]:checked + label .fa-check {
-    opacity: 1;
-    transform: scale(1);
+  opacity: 1;
+  transform: scale(1);
 }
-.checkboxes{
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 10px;
+.checkboxes {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+.form-control-underline:not(:placeholder-shown) {
+  direction: ltr;
+  text-align: left;
+}
+.form-control-underline:placeholder-shown {
+  background-color: transparent !important;
+}
+.form-control-underline {
+  border: none;
+  border-radius: 0;
+  border-bottom: 2px solid #e9ecef;
+  background-color: transparent !important;
+  padding-right: 0;
+  padding-left: 0;
+  transition: border-color 0.15s ease-in-out;
+}
+.form-control-underline:focus {
+  border-bottom-color: #dda853 !important;
+  box-shadow: none !important;
+}
+.form-floating > .form-control-underline ~ label {
+  padding-right: 0;
+}
+.input-group-minimal {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+.input-group-minimal .input-icon {
+  font-size: 1.5rem;
+  padding-bottom: 0.5rem;
+}
+.form-floating > .form-control-underline:focus ~ label,
+.form-floating > .form-control-underline:not(:placeholder-shown) ~ label {
+  background: transparent;
 }
