@@ -15,6 +15,7 @@ public class AppointmentModel
 
     [Display(Name = "مکان")]
     [Required(AllowEmptyStrings = false, ErrorMessage = "وارد نمودن {0} الزامی است")]
+    [RegularExpression("^(?:[1-9][0-9]*)$\r\n",ErrorMessage ="مکان را انتخاب کنید")]
     public required int LocationId { get; set; }
 
     [Display(Name = "توضیحات")]

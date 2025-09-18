@@ -50,10 +50,10 @@ function validateReservationForm() {
         dateInput.classList.add("is-invalid");
         isvalid = false;
     }
-    //if (timepickerInstance.selectedDates.length === 0) {
-    //    timepickerContainer.classList.add("is-invalid");
-    //    isvalid = false;
-    //}
+    if (timepickerInstance.selectedDates.length === 0) {
+        timepickerContainer.classList.add("is-invalid");
+        isvalid = false;
+    }
     if (!duration.checkValidity()) {
         duration.classList.add("is-invalid");
         isvalid = false;
