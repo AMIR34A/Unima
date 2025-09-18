@@ -74,15 +74,15 @@ flatpickr("#my-inline-timepicker", {
 let isdragging = false;
 $(document).ready(function () {
     new mds.MdsPersianDateTimePicker(
-      $("#calenderTriger")[0],
-      {
-        targetTextSelector: "#date-input",
-        targetDateSelector: "#hidden-date",
-        isGregorian: false,
-        enableTimePicker: false,
-        textFormat: "yyyy/MM/dd",
-        disableBeforeToday: true
-      }
+        $("#calenderTriger")[0],
+        {
+            targetTextSelector: "#date-input",
+            targetDateSelector: "#hidden-date",
+            isGregorian: false,
+            enableTimePicker: false,
+            textFormat: "yyyy/MM/dd",
+            disableBeforeToday: true
+        }
     );
     $(".professor-card-wrapper").on("click", function (e) {
         if (
@@ -216,70 +216,76 @@ $(document).ready(function () {
     });
 
     const submitBtn = document.getElementById("submitReservationBtn");
-    const scheduleModalElement = document.getElementById("scheduleModal");
+    //const scheduleModalElement = document.getElementById("scheduleModal");
 
-    if (submitBtn && scheduleModalElement) {
-        let reservationSubmitted = false;
-        const infoModal = bootstrap.Modal.getOrCreateInstance(scheduleModalElement);
+    //if (submitBtn && scheduleModalElement) {
+    //    let reservationSubmitted = false;
+    //    const infoModal = bootstrap.Modal.getOrCreateInstance(scheduleModalElement);
 
-        scheduleModalElement.addEventListener("hidden.bs.modal", function () {
-            if (reservationSubmitted) {
-                showFailModal();
-                reservationSubmitted = false;
+    //    scheduleModalElement.addEventListener("hidden.bs.modal", function () {
+    //        if (reservationSubmitted) {
+    //            showFailModal();
+    //            reservationSubmitted = false;
+    //        }
+    //        document.getElementById("ReservationForm").reset();
+    //    });
+    //}
+
+    submitBtn.addEventListener("click", async function (event) {
+        event.preventDefault();
+
+        if (!validateReservationForm()) {
+            return;
+        }
+
+        const modal = document.getElementById('scheduleModal');
+        var professorId = modal.dataset.professorId;
+
+        if (professorId) {
+            const timepickerContainer = document.getElementById("my-inline-timepicker");
+            const timepickerInstance = timepickerContainer._flatpickr;
+            var date = document.getElementById("hidden-date").value;
+
+            const [year, month, day] = date.split("/").map(Number);
+            const [hours, minutes] = timepickerInstance.input.value.split(":").map(Number);
+            const reservedDate = new Date(Date.UTC(year, month - 1, day, hours, minutes));
+
+            const appointmentModel = {
+                ProfessorId: professorId,
+                Topic: document.getElementById("subject").value,
+                LocationId: document.getElementById("locations").value,
+                Description: document.getElementById("description").value,
+                ReservedDateTime: reservedDate.toISOString(),
+                Duration: parseInt(document.getElementById("duration").value, 10)
+            };
+
+            try {
+                const res = await fetch("/Faculty/Professors/SetAppointment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(appointmentModel)
+                });
+
+                if (!res.ok) throw new Error("Server error");
+
+                const data = await res.json();
+
+            } catch (err) {
+
             }
-            document.getElementById("ReservationForm").reset();
-        });
+            //reservationSubmitted = true;
+            //submitBtn.disabled = true;
+            //submitBtn.innerText = "در حال پردازش...";
 
-        submitBtn.addEventListener("click", async function (event) {
-            event.preventDefault();
-
-            if (!validateReservationForm()) {
-                return;
-            }
-
-            const modal = document.getElementById('scheduleModal');
-            var professorId = modal.dataset.professorId;
-
-            if (professorId) {
-                debugger
-                const reservation = {
-                    topic: document.getElementById("subject").value,
-                    locationId: document.getElementById("locations").value,
-                    description: document.getElementById("description").value,
-                    reservedDateTime: `${document.getElementById("hidden-date").value}${document.querySelector("#my-inline-timepicker input:checked")?.value}`,
-                    duration: parseInt(document.getElementById("duration").value, 10)
-                };
-
-                try {
-                    const res = await fetch("Faculty/Professor/SetAppointment", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(reservation)
-                    });
-
-                    if (!res.ok) throw new Error("Server error");
-
-                    const data = await res.json();
-                    alert("رزرو با موفقیت ثبت شد ✅");
-                    console.log(data);
-                } catch (err) {
-                    alert("خطا در ثبت رزرو ❌");
-                    console.error(err);
-                }
-                reservationSubmitted = true;
-                submitBtn.disabled = true;
-                submitBtn.innerText = "در حال پردازش...";
-
-                setTimeout(() => {
-                    infoModal.hide();
-                    setTimeout(() => {
-                        submitBtn.disabled = false;
-                        submitBtn.innerText = "رزرو";
-                    }, 500);
-                }, 3000);
-            }
-        });
-    }
+            //setTimeout(() => {
+            //    infoModal.hide();
+            //    setTimeout(() => {
+            //        submitBtn.disabled = false;
+            //        submitBtn.innerText = "رزرو";
+            //    }, 500);
+            //}, 3000);
+        }
+    });
 
     function filterSchedule() {
         const showEven = $("#evenWeekCheck").is(":checked");

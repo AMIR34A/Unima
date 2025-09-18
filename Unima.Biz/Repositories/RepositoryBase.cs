@@ -39,6 +39,11 @@ public class RepositoryBase<TEntity, TContext> : IRepositoryBase<TEntity> where 
         return _dbSet.Include(navigateProperty);
     }
 
+    public IIncludableQueryable<TEntity, TProperty> Include<TProperty>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TProperty>> navigateProperty)
+    {
+        return _dbSet.Where(predicate).Include(navigateProperty);
+    }
+
     public void Update(TEntity entity)
     {
         _dbSet.Update(entity);

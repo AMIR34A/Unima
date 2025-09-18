@@ -13,6 +13,8 @@ public interface IRepositoryBase<TEntity>
 
     IIncludableQueryable<TEntity, TProperty> Include<TProperty>(Expression<Func<TEntity, TProperty>> navigateProperty);
 
+    IIncludableQueryable<TEntity, TProperty> Include<TProperty>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TProperty>> navigateProperty);
+
     Task AddAsync(TEntity entity);
 
     void Update(TEntity entity);

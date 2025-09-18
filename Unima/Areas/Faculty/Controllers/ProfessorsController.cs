@@ -1,12 +1,15 @@
 ﻿using Amazon.S3;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Unima.Areas.Faculty.Models;
+using Unima.Areas.Faculty.Models.Appointment;
 using Unima.Areas.Faculty.Models.ViewModels;
 using Unima.Areas.Professor.Models;
 using Unima.Areas.User.Models.Profile;
 using Unima.Biz.UoW;
+using Unima.Dal.Entities;
 using Unima.Dal.Entities.Entities;
 using Unima.Dal.Enums;
 using Unima.HelperClasses.Configurations;
@@ -14,7 +17,7 @@ using Unima.HelperClasses.Configurations;
 namespace Unima.Areas.Faculty.Controllers;
 
 [Area("Faculty")]
-public class ProfessorsController(IUnitOfWork _unitOfWork, IAmazonS3 _s3Client, IOptions<AmazonS3Options> _options) : Controller
+public class ProfessorsController(IUnitOfWork _unitOfWork, UserManager<ApplicationUser> _userManager, IAmazonS3 _s3Client, IOptions<AmazonS3Options> _options) : Controller
 {
     public IActionResult Index()
     {
@@ -52,13 +55,13 @@ public class ProfessorsController(IUnitOfWork _unitOfWork, IAmazonS3 _s3Client, 
     }
 
     [HttpGet]
-    [Route("Professor/Status/GetProfessorData/{professorId:int}")]
-    public async Task<IActionResult> GetProfessorData(int professorId)
+    [Route("Faculty/Professor/GetData/{professorId:int}")]
+    public async Task<IActionResult> GetData(int professorId)
     {
         ProfessorInformation? professor = (await _unitOfWork.RepositoryBase<ProfessorInformation>()
-                                          .Include(professor => professor.Lessons)
+                                          .Include(professor => professor.Id == professorId, professor => professor.Lessons)
                                           .ThenInclude(lesson => lesson.Schedules)
-                                          .FirstOrDefaultAsync(professor => professor.Id == professorId));
+                                          .FirstOrDefaultAsync());
 
         if (professor is null)
             return BadRequest();
@@ -114,5 +117,46 @@ public class ProfessorsController(IUnitOfWork _unitOfWork, IAmazonS3 _s3Client, 
             Schedules = schedules,
             Locations = locations
         });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> SetAppointment([FromBody] AppointmentModel appointmentModel)
+    {
+        ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+        if (currentUser is null)
+            return NotFound();
+
+        if (!ModelState.IsValid)
+            return BadRequest();
+
+        ProfessorInformation? professor = await _unitOfWork.RepositoryBase<ProfessorInformation>().FirstOrDefaultAsync(professor => professor.Id == appointmentModel.ProfessorId);
+
+        if (professor is null)
+            return NotFound();
+
+        Location? location = await _unitOfWork.RepositoryBase<Location>().FirstOrDefaultAsync(location => location.Id == appointmentModel.LocationId);
+
+        if (location is null)
+            return NotFound();
+
+        Appointment appointment = new Appointment
+        {
+            ProfessorId = professor.Id,
+            Topic = appointmentModel.Topic,
+            LocationId = location.Id,
+            Description = appointmentModel.Description,
+            ReservedDateTime = appointmentModel.ReservedDateTime,
+            Duration = appointmentModel.Duration,
+            RequestSentOn = DateTime.Now,
+            IsStarred = false,
+            UserId = currentUser.Id,
+            Status = AppointmentStatus.Waiting
+        };
+
+        await _unitOfWork.RepositoryBase<Appointment>().AddAsync(appointment);
+
+        await _unitOfWork.SaveAsync();
+        return Ok();
     }
 }

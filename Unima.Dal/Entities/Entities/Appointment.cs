@@ -25,11 +25,11 @@ public class Appointment
     public DateTime? SuggestedDateTime { get; set; }
 
     public int LocationId { get; set; }
-    public required Location Location { get; set; }
+    public Location Location { get; set; }
 
     public int UserId { get; set; }
-    public required ApplicationUser User { get; set; }
+    public ApplicationUser User { get; set; }
 
     public int ProfessorId { get; set; }
-    public required ProfessorInformation Professor { get; set; }
+    public ProfessorInformation Professor { get; set; }
 }

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Unima.Areas.User.Models.Appointment;
+using Unima.Areas.Faculty.Models.Appointment;
 using Unima.Areas.User.Models.ViewModels;
 using Unima.Biz.UoW;
 using Unima.Dal.Entities;
@@ -21,8 +21,10 @@ public class AppointmentController(IUnitOfWork _unitOfWork, UserManager<Applicat
         if (currentUser is null)
             return NotFound();
 
+        bool isStudent = User.IsInRole("Sturent");
+
         IQueryable<AppointmentViewModel>? appointments = _unitOfWork.RepositoryBase<Appointment>()
-                                                     .Include(appointment => appointment.Location)
+                                                     .Include(appointment => isStudent ? appointment.ProfessorId == currentUser.Id : appointment.UserId == currentUser.Id, appointment => appointment.Location)
                                                      .Include(appointment => appointment.User)
                                                      .Select(appointment => new AppointmentViewModel
                                                      {
