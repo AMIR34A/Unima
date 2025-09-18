@@ -204,7 +204,7 @@ $(document).ready(function () {
             startCountdown();
         }
         else {
-            $phoneError.text('ً یک شماره همراه معتبر 11 رقمی وارد کنید (شروع با 09 و فقط اعداد).').show();
+            $phoneError.text('یک شماره همراه معتبر 11 رقمی وارد کنید (شروع با 09 و فقط اعداد).').show();
         }
     });
 
