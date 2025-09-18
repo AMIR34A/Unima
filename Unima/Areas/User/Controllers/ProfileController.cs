@@ -392,7 +392,7 @@ namespace Unima.Areas.User.Controllers
                 return NotFound();
 
             if (!ModelState.IsValid)
-                return BadRequest(ModelState.FirstError());
+                return BadRequest(ModelState);
 
             bool isExsist = await _unitOfWork.RepositoryBase<Lesson>().AnyAsync(lesson => lesson.ProfessorId == professor.Id && lesson.No == lessonModel.No && lesson.GroupNo == lessonModel.GroupNo);
             if (isExsist)
@@ -433,7 +433,7 @@ namespace Unima.Areas.User.Controllers
                 return NotFound();
 
             if (!ModelState.IsValid)
-                return BadRequest(ModelState.FirstError());
+                return BadRequest(ModelState);
 
 
             string concatedNoAndGroupNo = lessonId.HasValue ? lessonId.ToString() : string.Empty;
@@ -515,7 +515,7 @@ namespace Unima.Areas.User.Controllers
                 return NotFound();
 
             if (!ModelState.IsValid)
-                return BadRequest(ModelState.FirstError());
+                return BadRequest(ModelState);
 
             Dal.Entities.Entities.Location location = new()
             {
@@ -549,7 +549,7 @@ namespace Unima.Areas.User.Controllers
                 return NotFound();
 
             if (!ModelState.IsValid)
-                return BadRequest(ModelState.FirstError());
+                return BadRequest(ModelState);
 
 
             Dal.Entities.Entities.Location? location = (await _unitOfWork.RepositoryBase<Dal.Entities.Entities.Location>()
@@ -588,7 +588,7 @@ namespace Unima.Areas.User.Controllers
                 return NotFound();
 
             if (!ModelState.IsValid)
-                return BadRequest(ModelState.FirstError());
+                return BadRequest(ModelState);
 
             Dal.Entities.Entities.Location? location = (await _unitOfWork.RepositoryBase<Dal.Entities.Entities.Location>()
                                                                          .FirstOrDefaultAsync(location => location.Id == locationId));
@@ -657,7 +657,7 @@ namespace Unima.Areas.User.Controllers
                 return NotFound();
 
             if (!ModelState.IsValid)
-                return BadRequest(ModelState.FirstError());
+                return BadRequest(ModelState);
 
             bool isExsist = await _unitOfWork.RepositoryBase<Schedule>().AnyAsync(schedule => schedule.LessonProfessorId == professor.Id && schedule.Period == (TimePeriod)scheduleModel.Period && schedule.DayOfWeek == (WeekDay)scheduleModel.DayOfWeek && (schedule.WeekStatus == (WeekStatus)scheduleModel.WeekStatus || schedule.WeekStatus == WeekStatus.Fixed));
             if (isExsist)
@@ -728,7 +728,7 @@ namespace Unima.Areas.User.Controllers
                 return NotFound();
 
             if (!ModelState.IsValid)
-                return BadRequest(ModelState.FirstError());
+                return BadRequest(ModelState);
 
             _unitOfWork.RepositoryBase<Schedule>().Delete(selectedSchedule);
 
@@ -789,7 +789,7 @@ namespace Unima.Areas.User.Controllers
                 return NotFound();
 
             if (!ModelState.IsValid)
-                return BadRequest(ModelState.FirstError());
+                return BadRequest(ModelState);
 
             _unitOfWork.RepositoryBase<Schedule>().Delete(selectedSchedule);
 

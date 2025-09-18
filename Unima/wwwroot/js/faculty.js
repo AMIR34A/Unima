@@ -34,10 +34,10 @@ function validateReservationForm() {
         .querySelectorAll(".is-invalid")
         .forEach((el) => el.classList.remove("is-invalid"));
 
-    if (subject.value.trim().length == 0) {
-        subject.classList.add("is-invalid");
-        isvalid = false;
-    }
+    //if (subject.value.trim().length == 0) {
+    //    subject.classList.add("is-invalid");
+    //    isvalid = false;
+    //}
     if (locations.value === "" || locations.value === '0') {
         locations.classList.add("is-invalid");
         isvalid = false;
@@ -266,7 +266,8 @@ $(document).ready(function () {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                errorDiv.textContent = errorData.error || "خطا در ارسال اطلاعات";
+                const errorMessage = extractFirstModelError(errorData);
+                errorDiv.textContent = errorMessage || "خطا در ارسال اطلاعات";
                 errorDiv.style.display = "block";
                 return;
             }
@@ -450,4 +451,15 @@ function loadProfessorData(professorId) {
 
     const modal = document.getElementById('scheduleModal');
     modal.dataset.professorId = professorId;
+}
+
+function extractFirstModelError(errorObj) {
+    if (!errorObj || typeof errorObj !== 'object') return null;
+
+    const errors = Object.values(errorObj);
+
+    if (!errors || errors.length === 0) return null;
+
+    const firstArray = errors[0];
+    return Array.isArray(firstArray) && firstArray.length > 0 ? firstArray[0] : null;
 }

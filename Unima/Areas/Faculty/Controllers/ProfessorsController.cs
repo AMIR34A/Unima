@@ -129,7 +129,7 @@ public class ProfessorsController(IUnitOfWork _unitOfWork, UserManager<Applicati
             return NotFound();
 
         if (!ModelState.IsValid)
-            return BadRequest(new { error = ModelState.FirstError() });
+            return BadRequest(ModelState);
 
         ProfessorInformation? professor = await _unitOfWork.RepositoryBase<ProfessorInformation>().FirstOrDefaultAsync(professor => professor.Id == appointmentModel.ProfessorId);
 
