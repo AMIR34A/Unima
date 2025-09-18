@@ -13,6 +13,7 @@ using Unima.Dal.Entities;
 using Unima.Dal.Entities.Entities;
 using Unima.Dal.Enums;
 using Unima.HelperClasses.Configurations;
+using Unima.HelperClasses.ExtensionMethods;
 
 namespace Unima.Areas.Faculty.Controllers;
 
@@ -128,7 +129,7 @@ public class ProfessorsController(IUnitOfWork _unitOfWork, UserManager<Applicati
             return NotFound();
 
         if (!ModelState.IsValid)
-            return BadRequest();
+            return BadRequest(new { error = ModelState.FirstError() });
 
         ProfessorInformation? professor = await _unitOfWork.RepositoryBase<ProfessorInformation>().FirstOrDefaultAsync(professor => professor.Id == appointmentModel.ProfessorId);
 

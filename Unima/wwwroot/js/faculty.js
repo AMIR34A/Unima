@@ -42,10 +42,6 @@ function validateReservationForm() {
         locations.classList.add("is-invalid");
         isvalid = false;
     }
-    if (description.value.trim().length == 0) {
-        description.classList.add("is-invalid");
-        isvalid = false;
-    }
     if (!hiddenDate.value) {
         dateInput.classList.add("is-invalid");
         isvalid = false;
@@ -259,20 +255,22 @@ $(document).ready(function () {
                 Duration: parseInt(document.getElementById("duration").value, 10)
             };
 
-            try {
-                const res = await fetch("/Faculty/Professors/SetAppointment", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(appointmentModel)
-                });
+            const errorDiv = document.getElementById('AppointmentError');
 
-                if (!res.ok) throw new Error("Server error");
 
-                const data = await res.json();
+            const response = await fetch("/Faculty/Professors/SetAppointment", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(appointmentModel)
+            });
 
-            } catch (err) {
-
+            if (!response.ok) {
+                const errorData = await response.json();
+                errorDiv.textContent = errorData.error || "خطا در ارسال اطلاعات";
+                errorDiv.style.display = "block";
+                return;
             }
+
             //reservationSubmitted = true;
             //submitBtn.disabled = true;
             //submitBtn.innerText = "در حال پردازش...";

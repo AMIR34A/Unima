@@ -19,7 +19,6 @@ public class AppointmentModel
     public required int LocationId { get; set; }
 
     [Display(Name = "توضیحات")]
-    [Required(AllowEmptyStrings = false, ErrorMessage = "وارد نمودن {0} الزامی است")]
     public string? Description { get; set; }
 
     [Display(Name = "تاریخ و ساعت")]
