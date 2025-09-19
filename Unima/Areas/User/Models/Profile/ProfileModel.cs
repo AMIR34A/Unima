@@ -8,7 +8,7 @@ public class ProfileModel
     [Display(Name = "نام و نام خانوادگی")]
     public required string FullName { get; set; }
 
-    [Display(Name = "شماره دانشجویی")]
+    [Display(Name = "نام کاربری")]
     public required string Username { get; set; }
 
     [Display(Name = "شماره موبایل")]
