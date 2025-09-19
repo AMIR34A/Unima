@@ -177,6 +177,10 @@ $(document).ready(function () {
         $resendCodeLink.hide();
     });
 
+    $(".schedule-filter").on("change", function () {
+        filterSchedule();
+    });
+
     $sendCodeBtn.on('click', async function (event) {
         event.preventDefault();
 
@@ -1068,6 +1072,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
         classFormModalEl.addEventListener('shown.bs.modal', initializeSelect2);
+        $("#evenWeekCheck").prop("checked", true);
+        $("#oddWeekCheck").prop("checked", true);
+        filterSchedule();
     }
     initializeApp();
 
@@ -1476,3 +1483,27 @@ async function downloadPdf() {
     };
 }
 
+function filterSchedule() {
+    const showEven = $("#evenWeekCheck").is(":checked");
+    const showOdd = $("#oddWeekCheck").is(":checked");
+    const scheduleItems = $(".schedule-item");
+
+    if (showEven && showOdd) {
+        scheduleItems.show();
+        return;
+    }
+    if (!showEven && !showOdd) {
+        scheduleItems.hide();
+        $(".week-fixed").show();
+        return;
+    }
+
+    scheduleItems.hide();
+
+    if (showEven) {
+        $(".week-even, .week-fixed").show();
+    }
+    if (showOdd) {
+        $(".week-odd, .week-fixed").show();
+    }
+}
