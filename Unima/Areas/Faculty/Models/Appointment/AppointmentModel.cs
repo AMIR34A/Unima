@@ -11,6 +11,8 @@ public class AppointmentModel
 
     [Display(Name = "موضوع")]
     [Required(AllowEmptyStrings = false, ErrorMessage = "وارد نمودن {0} الزامی است")]
+    [MaxLength(25, ErrorMessage = "حداکثر طول {0}، {1} عدد است")]
+    [MinLength(3, ErrorMessage = "حداقل طول {0}، {1} عدد است")]
     public required string Topic { get; set; }
 
     [Display(Name = "مکان")]
@@ -19,6 +21,7 @@ public class AppointmentModel
     public required int LocationId { get; set; }
 
     [Display(Name = "توضیحات")]
+    [MaxLength(1000, ErrorMessage = "حداکثر طول {0}، {1} عدد است")]
     public string? Description { get; set; }
 
     [Display(Name = "تاریخ و ساعت")]
