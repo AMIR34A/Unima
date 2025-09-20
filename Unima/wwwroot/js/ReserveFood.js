@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
       
         const navContainer = activeButton.closest('.weekday-nav');
         if (!navContainer) return;
-        const offset = 290;
+        const offset = 283;
 
 
         const buttonCenter = activeButton.offsetLeft + activeButton.offsetWidth / 2;

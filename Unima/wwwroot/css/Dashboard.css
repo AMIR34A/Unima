@@ -6,6 +6,13 @@
   --surface-color: #ffffff;
   --text-primary: #2d3748;
   --text-secondary: #718096;
+  --glass-background: rgba(255, 255, 255, 0.1);
+  --glass-border-color: rgba(255, 255, 255, 0.18);
+  --glass-border-darker: rgba(0,0,0,0.1);
+  --text-primary: #f5f5f5;
+  --text-secondary: rgba(245, 245, 245, 0.75);
+  --blur-value: 12px;
+
 }
 .timeline-wrapper {
   position: relative;
@@ -189,8 +196,11 @@
   max-width: 350px;
   width: 100%;
   border-radius: 12px;
-  background-color: #ffffff;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid var(--glass-border-color);
 }
 
 .card-body .content-wrapper {
