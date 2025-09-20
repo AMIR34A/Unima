@@ -343,7 +343,7 @@
   direction: rtl;
   min-height: 20px;
   height: 48px;
-  padding-left: 0;
+  padding-left: .8rem !important;
   padding-right: 1.3rem !important;
   padding-top: 1.2rem !important;
 }

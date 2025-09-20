@@ -805,6 +805,27 @@
 				<div class="modal-body d-flex flex-column m-2 fs-7">
 					<form id="contactFormUltraMinimal" action="/save-profile"
 						  method="post">
+						<div class="input-group-minimal mb-4">
+							<i class="fa fa-phone input-icon fs-5"
+							   style="color: #d4af37;"></i>
+							<div class="form-floating flex-grow-1">
+								<input type="tel"
+									   class="form-control form-control-underline"
+									   id="OfficePhone" name="OfficePhone" placeholder="شماره تلفن دفتر" maxlength="11">
+								<label for="OfficePhone">شماره تلفن دفتر</label>
+							</div>
+						</div>
+
+						<div class="input-group-minimal mb-4">
+							<i class="fa fa-mobile-alt input-icon"
+							   style="color: #6c757d;"></i>
+							<div class="form-floating flex-grow-1">
+								<input type="tel"
+									   class="form-control form-control-underline"
+									   id="PhoneNumberProfessor" name="PhoneNumberProfessor" placeholder="شماره همراه" maxlength="11">
+								<label for="PhoneNumberProfessor">شماره همراه</label>
+							</div>
+						</div>
 
 						<div class="input-group-minimal mb-4">
 							<i class="fab fa-telegram input-icon"
@@ -815,6 +836,17 @@
 									   id="telegram" name="telegram"
 									   placeholder="تلگرام">
 								<label for="telegram">تلگرام</label>
+							</div>
+						</div>
+
+						<div class="input-group-minimal mb-4">
+							<i class="fa fa-regular fa-envelope input-icon"
+							   style="color: #dc3545;"></i>
+							<div class="form-floating flex-grow-1">
+								<input type="email"
+									   class="form-control form-control-underline"
+									   id="email" name="email" placeholder="ایمیل">
+								<label for="email">ایمیل</label>
 							</div>
 						</div>
 
@@ -841,22 +873,11 @@
 								<label for="scholar">گوگل اسکالر</label>
 							</div>
 						</div>
-
-						<div class="input-group-minimal mb-4">
-							<i class="fa fa-regular fa-envelope input-icon"
-							   style="color: #dc3545;"></i>
-							<div class="form-floating flex-grow-1">
-								<input type="email"
-									   class="form-control form-control-underline"
-									   id="email" name="email" placeholder="ایمیل">
-								<label for="email">ایمیل</label>
-							</div>
-						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="submit" form="contactFormUltraMinimal"
-							class="btn w-100 submitCode mt-1"
+							class="btn submitCode mt-1"
 							style="font-weight: 600;">
 						ذخیره
 					</button>
