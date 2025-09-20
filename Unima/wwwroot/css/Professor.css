@@ -416,6 +416,11 @@ background-color: #ef5350;
 .scheduleTable td {
   border: 1px solid #ddd;
   padding: 8px;
+  width: 60px;
+  max-width: 100px;
+  word-wrap: break-word;  
+  overflow-wrap: break-word;
+  white-space: normal; 
 }
 
 .scheduleTable thead th {
@@ -688,6 +693,8 @@ background-color: #ef5350;
 }
 .scheduleTable tbody th {
   background-color: #f1f3f5;
+  width: 60px;
+  max-width: 60px;
 }
 .scheduleTable td {
   padding: 4px;
