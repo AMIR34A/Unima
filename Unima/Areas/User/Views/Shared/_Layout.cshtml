@@ -26,8 +26,8 @@
                     <!--sidebar-->
                     <div class="col-xl-2 col-lg-3 col-md-4 sidebar mt-md-2 mt-5 mb-3 mb-md-0 px-3 pt-sm-5 fixed-top text-dark-emphasis ">
                         <ul class="nav-bar list-unstyled  mt-sm-5 mb-md-0 options">
-                            <li class="nav-item linksidebar mx-1">
-                                <a href=@(isLoginned ? "/User/Dashboard" : "/") class="nav-link d-flex justify-content-start align-items-center gap-2 p-3 mb-2">
+                            <li class="nav-item current text-center mx-1">
+                                <a href=@(isLoginned ? "/User/Dashboard" : "/") class="nav-link d-flex justify-content-center align-items-center gap-2 p-3 mb-2">
                                     <i class="fas fa-home ml-3 fa-lg"></i>@(isLoginned ? " داشبورد" : "ورود")
                                 </a>
                             </li>
@@ -182,31 +182,19 @@
     document.addEventListener('DOMContentLoaded', function () {
         const navItems = document.querySelectorAll('.nav-bar .nav-item');
         const currentPath = window.location.pathname;
-        navItems.forEach(item => item.classList.remove('current'));
+        navItems.forEach(item => item.classList.remove('active'));
 
-        let activeItemFound = false;
         navItems.forEach(item => {
-            const link = item.querySelector('.nav-link');
-            if (link) {
-                const linkPath = new URL(link.href).pathname;
-                if (currentPath === linkPath) {
-                    item.classList.add('current');
-                    activeItemFound = true; 
-                }
-            }
-        });
-        if (!activeItemFound) {
-            const firstNavItem = document.querySelector('.nav-bar .nav-item:first-child');
-            if (firstNavItem) {
-                const firstNavLink = firstNavItem.querySelector('.nav-link');
-                const firstLinkPath = new URL(firstNavLink.href).pathname;
-                if (currentPath === "/" || currentPath === "/User/Dashboard") {
-                    if (currentPath === firstLinkPath) {
-                        firstNavItem.classList.add('current');
-                    }
-                }
+        const link = item.querySelector('.nav-link');
+        if (link) {
+            const linkPath = new URL(link.href).pathname;
+            const isFirstNavItem = item === navItems[0]; 
+
+            if (currentPath === linkPath && !isFirstNavItem) {
+                item.classList.add('active');
             }
         }
+    });
     });
     </script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>

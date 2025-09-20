@@ -53,14 +53,37 @@ body {
   border-radius: 25px;
   /* color: rgb(68, 129, 183); */
   transition: all 0.5s;
-  display: flex;
-  justify-content: center !important;
 }
 
 .current a:hover {
   background-color: #fce7c8;
   border-radius: 25px;
   color: #243642;
+}
+.active a{
+  font-size: larger;
+}
+
+.active a::after{
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  border-bottom: 2px solid #dda853;
+  animation: widthto 1s forwards;
+}
+
+@keyframes widthto{
+  from{
+    width: 0%;
+    right: 0;
+    left: auto;
+  }
+  to{
+    width: 100%;
+    right: 0;
+    left: auto;
+  }
 }
 
 .linksidebar .nav-link {
@@ -777,11 +800,8 @@ tbody tr td {
   opacity: 0.8;
   line-height: 1.2;
 }
-.nav-item:hover:not(.current) i{
-  transform: scale(1.1);
-}
 
-.nav-item:hover:not(.current) a{
+.nav-item:hover:not(.current):not(.active) a{
   transform: translateX(-6px) scale(1.1);
 }
 .nav-item{
