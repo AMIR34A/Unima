@@ -149,7 +149,7 @@
 							</div>
 						</div>
 					}
-					else
+					else if (User.IsInRole("Student"))
 					{
 						<div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
 							<label asp-for="ProfileModel.SelfServicePassword" class="fs-5 d-inline-block text-secondary mb-2"></label>
