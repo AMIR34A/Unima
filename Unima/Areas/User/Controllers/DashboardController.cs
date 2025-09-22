@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using Unima.Areas.Faculty.Hubs;
 using Unima.Areas.Professor.Hubs;
 using Unima.Areas.User.Models.Dashboard;
 using Unima.Areas.User.Models.Plan;
@@ -28,9 +29,9 @@ public class DashboardController : Controller
     private readonly IUnitOfWork _unitOfWork;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly ISelfServiceBuilder _selfServiceBuilder;
-    private readonly IHubContext<StatusHub> _hubContext;
+    private readonly IHubContext<ProfessorHub> _hubContext;
 
-    public DashboardController(UserManager<ApplicationUser> userManager, ISelfServiceBuilder selfServiceBuilder, IUnitOfWork unitOfWork, IHubContext<StatusHub> hubContext)
+    public DashboardController(UserManager<ApplicationUser> userManager, ISelfServiceBuilder selfServiceBuilder, IUnitOfWork unitOfWork, IHubContext<ProfessorHub> hubContext)
     {
         _unitOfWork = unitOfWork;
         _userManager = userManager;
@@ -199,7 +200,7 @@ public class DashboardController : Controller
 
         professor.OfficeStatus = officeStatus;
         await _unitOfWork.SaveAsync();
-        await _hubContext.Clients.All.SendAsync("UpdateOfficeStatus", professor.OfficeNo, Enum.GetName(officeStatus));
+        await _hubContext.Clients.All.SendAsync("UpdateOfficeStatus", professor.Id, Enum.GetName(officeStatus));
 
         return Ok();
     }

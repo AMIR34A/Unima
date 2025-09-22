@@ -1,3 +1,18 @@
+$(document).ready(function () {
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/ProfessorHub")
+        .build();
+
+    connection.on("UpdateOfficeStatus", (professorId, status) => {
+        const professor = document.getElementById(`Professor-Status-${professorId}`);
+        if (professor) {
+            professor.className = `profile-img-wrapper ${status}`;
+        }
+    });
+    connection.start().catch(err => console.error(err.toString()));
+});
+
+
 function showSuccessModal() {
     Swal.fire({
         title: "انجام شد!",

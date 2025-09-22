@@ -34,9 +34,8 @@
 									<div class="close-btn">&times;</div>
 
 									<div class="card-header-color">
-										<div class="profile-img-wrapper">
-											<img src="@professor.ProfileImageURL"
-												 class="profile-img"/>
+										<div id="Professor-Status-@(professor.Id)" class="profile-img-wrapper @(professor.OfficeStatus)">
+											<img src="@professor.ProfileImageURL" class="profile-img"/>
 										</div>
 
 										<div class="contact-details">

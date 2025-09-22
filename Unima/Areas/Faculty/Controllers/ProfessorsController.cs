@@ -43,7 +43,8 @@ public class ProfessorsController(IUnitOfWork _unitOfWork, UserManager<Applicati
                                                                 Email = professor.User.Email,
                                                                 PublicPhoneNumber = professor.PublicPhoneNumber,
                                                                 OfficeAddess = professor.Description,
-                                                                OfficeNo = professor.OfficeNo
+                                                                OfficeNo = professor.OfficeNo,
+                                                                OfficeStatus = professor.OfficeStatus
                                                             }).GroupBy(professor => professor.Department, selector => selector)
                                                             .ToDictionary(selector => selector.Key, selector => selector.AsEnumerable());
 

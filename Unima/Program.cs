@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net;
+using Unima.Areas.Faculty.Hubs;
 using Unima.Areas.Professor.Hubs;
 using Unima.Biz.UoW;
 using Unima.Dal.Entities;
@@ -136,6 +137,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=Index}/{id?}");
 
-app.MapHub<StatusHub>("/StatusHub");
+app.MapHub<ProfessorHub>("/ProfessorHub");
 
 app.Run();

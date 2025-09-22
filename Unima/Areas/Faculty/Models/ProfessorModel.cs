@@ -26,9 +26,12 @@ public class ProfessorModel
 
     public string? OfficeAddess { get; set; }
 
+    public int? OfficeNo { get; set; }
+
+    public OfficeStatus OfficeStatus { get; set; }
+
     public string? Description { get; set; }
 
-    public int? OfficeNo { get; set; }
 
     public IEnumerable<string>? Lessons { get; set; }
 }
