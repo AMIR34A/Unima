@@ -298,17 +298,9 @@
 										<a href="#" class="btn btn-primary btn-sm mt-3"><i class="fas fa-download me-1"></i> دانلود فایل</a>
 									</div>
 									<div class="body-actions">
-										<div class="d-flex gap-2">
+										<div class="d-flex gap-5">
 											<button class="btn btn-success btn-accept"><i class="fas fa-check ms-1"></i>تایید</button>
 											<button class="btn btn-danger btn-reject"><i class="fas fa-times ms-1"></i>رد</button>
-											<button class="btn btn-secondary btn-reply"><i class="fas fa-paper-plane ms-1"></i>پاسخ</button>
-										</div>
-									</div>
-									<div class="reply-form">
-										<h6><i class="fas fa-reply me-2"></i>ارسال پاسخ</h6>
-										<textarea class="form-control" rows="4" placeholder="پیام خود را اینجا بنویسید..."></textarea>
-										<div class="d-flex justify-content-end mt-2">
-											<button class="btn btn-primary btn-send-reply">ارسال پیام</button>
 										</div>
 									</div>
 									<div class="rejection-form">
@@ -466,15 +458,6 @@
 			const item = $(this).closest(".accordion-item");
 			updateStatus(item, "rejected");
 			$(this).closest(".rejection-form").slideUp();
-		});
-
-		$(".btn-send-reply").on("click", function () {
-			const replyForm = $(this).closest(".reply-form");
-			const message = replyForm.find("textarea").val();
-			replyForm.find("textarea").val("");
-			replyForm.slideUp();
-			const messageHistory = `<div class="alert alert-info mt-3"><strong>پاسخ شما:</strong> ${message}</div>`;
-			$(this).closest(".accordion-body").find(".request-description").before(messageHistory);
 		});
 
 		updateCounters();
