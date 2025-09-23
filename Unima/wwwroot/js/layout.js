@@ -36,4 +36,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     path.classList.add("is-drawing");
   });
+  
+  //panel support
+  const chatToggle = document.querySelector('#chatToggle');
+  const supportPanel = document.querySelector('#supportPanel');
+  const closePanel = document.querySelector('#closePanel');
+
+  chatToggle.addEventListener('click' , function(event){
+    event.stopPropagation();
+    supportPanel.classList.add('open');
+    chatToggle.style.display = 'none';
+  });
+  closePanel.addEventListener('click', function(){
+    supportPanel.classList.remove('open');
+    chatToggle.style.display = 'flex';
+  });
+  document.addEventListener('click', function(event){
+    if (supportPanel.classList.contains('open') && !supportPanel.contains(event.target)) {
+        supportPanel.classList.remove('open');
+        chatToggle.style.display = 'flex';
+    }
+  });
 });
