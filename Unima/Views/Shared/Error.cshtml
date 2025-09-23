@@ -1,218 +1,170 @@
-﻿@model ErrorViewModel
-@{
-    ViewData["Title"] = "Error";
-}
- <!-- @if (Model.ShowRequestId)
+﻿@model ErrorViewModel @{ ViewData["Title"] = "Error"; }
+<!-- @if (Model.ShowRequestId)
 {
     <p>
         <strong>Request ID:</strong> <code>@Model.RequestId</code>
     </p>
 }  -->
-    <style>
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<style>
+  @@font-face {
+    font-family: vazirmatn;
+    src: url(/Fonts/Vazirmatn-Medium.ttf);
+  }
+  * {
+    font-family: vazirmatn;
+  }
 
-        * {
-            font-family: vazirmatn;
-        }
+  body {
+    background-color: #c1c0c0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+  }
 
-        @@font-face {
-            font-family: pixel;
-            src: url("/Fonts/HomeVideo-BLG6G.ttf");
-        }
+  main {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-        body {
-            background-color: #c1c0c0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            overflow: hidden;
-        }
+  .Pixels {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 0;
+  }
 
-        main {
-        width: 100%;
-        max-width: 1200px;
-        margin: auto;
-        padding: 2rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        }
+  .Pixel {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: #dda853;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    opacity: 0;
+    animation: twinkle 3s infinite ease-in-out;
+  }
 
-        
+  .Pixel:nth-child(even) {
+    animation-delay: 0.5s;
+  }
+  .Pixel:nth-child(odd) {
+    animation-delay: 2.5s;
+  }
 
-        .stars {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            z-index: 0;
-        }
+  .error-box {
+    width: 80%;
+    max-width: 400px;
+    min-width: 280px;
+    background-color: #dcdbdb;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    animation: fadeInScale 0.8s ease-in-out;
+    z-index: 1;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
 
+  .error-code {
+    font-size: 100px;
+    font-family: pixel;
+    font-weight: bold;
+    color: #dda853;
+    text-shadow: 0 0 5px #dda853, 0 0 10px #dda853, 0 0 20px #dda853,
+      0 0 30px #dda853;
 
-        .star {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background-color: #dda853;
-            clip-path: polygon(
-            0% 0%,
-            100% 0%,
-            100% 100%,
-            0% 100%
-            );
-            opacity: 0;
-            animation: twinkle 3s infinite ease-in-out;
-        }
+    animation: neonGlow 4s ease-in-out infinite;
+  }
 
+  .btn-back {
+    cursor: pointer !important;
+    background-color: #dda853 !important;
+    border: none;
+    width: 100%;
+    height: 30px;
+    font-size: 16px;
+    border-radius: 4px;
+    transform: translateY(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
 
+  .btn-back:hover {
+    background-color: #dda853 !important;
+    box-shadow: rgba(99, 99, 99, 0.6) 0px 2px 8px 0px;
+    transform: translateY(-2px);
+  }
 
-        
-        .star:nth-child(even) { animation-delay: 0.5s; }
-        .star:nth-child(odd) { animation-delay: 2.5s; }
+  .icon-animation {
+    width: 100px;
+    height: 300px;
+    color: #dda853;
+    background-image: url("/Images/ezgif.com-gif-to-sprite-converter.png");
+    background-repeat: no-repeat;
+    animation: playAnimation 1s steps(7) infinite;
+  }
+  @@keyframes playAnimation {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: -700px 0;
+    }
+  }
 
-        
-        
-        .error-box {
-        width: 80%;
-        max-width: 400px;
-        min-width: 280px;
-        background-color: #dcdbdb;
-        border-radius: 16px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        padding: 2rem;
-        animation: fadeInScale 0.8s ease-in-out;
-        z-index: 1;
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        }
-
-
-        .error-code{
-            font-size: 100px;
-            font-family: pixel;
-            font-weight: bold;
-            color: #dda853;
-        text-shadow:
-            0 0 5px #dda853,
-            0 0 10px #dda853,
-            0 0 20px #dda853,
-            0 0 30px #dda853;
-
-        animation: neonGlow 4s ease-in-out infinite;
-        }
-        
-        .btn-back {
-        cursor: pointer !important;
-        background-color: #dda853 !important;
-        border: none;
-        width: 100%;
-        height: 30px;
-        font-size: 16px;
-        border-radius: 4px;
-        transform: translateY(0);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .btn-back:hover {
-        background-color: #dda853 !important;
-        box-shadow: rgba(99, 99, 99, 0.6) 0px 2px 8px 0px;
-        transform: translateY(-2px);
-        }
-        
-        
-        .image2{
-            background: url("/Images/icon2.png") no-repeat center center;
-            background-size: contain;
-            transform-origin: center;
-            font-size: 16px;
-            overflow: hidden;
-            animation: scalePulse 4s ease-in-out infinite;
-            width: 100%;
-            height: 70px;
-            margin-bottom: 10px;
-        }
-
-        @@keyframes neonGlow {
-            0%, 100% {
-                text-shadow:
-                    0 0 1px #dda853,
-                    0 0 1px #dda853,
-                    0 0 2px #ffdd85,
-                    0 0 3px #ffdd85;
-            }
-            50% {
-                text-shadow:
-                    0 0 4px #ffdd85,
-                    0 0 5px #ffdd85,
-                    0 0 4px #dda853,
-                    0 0 7px #dda853;
-            }
-        }
-        @@keyframes fadeInScale {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        
-        @@keyframes scalePulse {
-        0% { transform: scale(3.35); }
-        50% { transform: scale(3.2); }
-        100% { transform: scale(3.35); }
-        }
-    
-        @@keyframes twinkle {
-            0%, 100% { opacity: 0; transform: scale(0.5); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-        #lottie {
-    width: 200px;
-    height: 200px;
-    margin-bottom: 20px;
-    z-index: 2;
-}
-
-
-    </style>
-    <div class="stars"></div>
+  @@keyframes twinkle {
+    0%,
+    100% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+  }
+  .icon {
+    width: 100px;
+    height: 100px;
+    position: relative;
+  }
+</style>
+<div class="Pixels"></div>
 <main>
-    <div class="error-box">
-        <div class="image2"></div>
-          <div id="lottie"></div>
-        <h3 class="mt-3">.مشکلی پیش امده است لطفا دوباره امتحان کنید</h3>
-        <button class="btn btn-primary btn-back">بازگشت به خانه</button>
-    </div>
+  <div class="error-box">
+    <div class="icon-animation"></div>
 
+    <h6>.مشکلی پیش امده است لطفا دوباره امتحان کنید</h6>
+
+    <button class="btn btn-primary btn-back fw-light">بازگشت به خانه</button>
+  </div>
 </main>
 
-
 <script>
-        const starsContainer = document.querySelector('.stars');
-        const numStars = 300; 
+  const PixelsContainer = document.querySelector(".Pixels");
+  const numStars = 200;
 
-        for (let i = 0; i < numStars; i++) {
-            let star = document.createElement('div');
-            star.className = 'star';
-            star.style.width = Math.random() * 5 + 5 + 'px'; 
-            star.style.height = star.style.width;
-            star.style.top = Math.random() * 99 + '%';
-            star.style.left = Math.random() * 99 + '%';
-            star.style.animationDelay = Math.random() * 3 + 's'; 
-            starsContainer.appendChild(star);
-        }
-    
+  for (let i = 0; i < numStars; i++) {
+    let Pixel = document.createElement("div");
+    Pixel.className = "Pixel";
+    Pixel.style.width = Math.random() * 5 + 5 + "px";
+    Pixel.style.height = Pixel.style.width;
+    Pixel.style.top = Math.random() * 99 + "%";
+    Pixel.style.left = Math.random() * 99 + "%";
+    Pixel.style.animationDelay = Math.random() * 3 + "s";
+    PixelsContainer.appendChild(Pixel);
+  }
 </script>
-  <script>
-    lottie.loadAnimation({
-      container: document.getElementById('lottie'), // جای نمایش انیمیشن
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      path: '/Images/1.json' 
-    });
-  </script>
-
-  
