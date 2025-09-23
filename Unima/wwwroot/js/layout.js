@@ -33,16 +33,19 @@ document.addEventListener("DOMContentLoaded", function () {
     dropdownProfile.classList.toggle("show");
   });
 
-  chatToggle.addEventListener('click', function (event) {
-    event.stopPropagation();
-    closeAllDropdowns();
-    supportPanel.classList.add('open');
-    chatToggle.style.display = 'none';
-  });
+  if (chatToggle && supportPanel && closePanel) {
+    chatToggle.addEventListener('click', function (event) {
+      event.stopPropagation();
+      closeAllDropdowns();
+      supportPanel.classList.add('open');
+      chatToggle.style.display = 'none';
+    });
+  
+    closePanel.addEventListener('click', function () {
+      closeSupportPanel();
+    }); 
+  }
 
-  closePanel.addEventListener('click', function () {
-    closeSupportPanel();
-  });
 
   window.addEventListener('click', function (event) {
     if (!notificationTrigger.contains(event.target) && !dropdownNotification.contains(event.target)) {
@@ -56,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  const navItems = document.querySelectorAll(".nav-bar .nav-item");
+    const navItems = document.querySelectorAll(".nav-bar .nav-item");
   const currentPath = window.location.pathname;
   navItems.forEach((item) => item.classList.remove("active"));
 
