@@ -115,19 +115,38 @@
         <!-- بخش آیکون‌های سمت چپ -->
         <div class="col-xl-3 col-lg-5 col-md-3 me-auto">
             <ul class="navbar-nav flex-row justify-content-end align-items-center">
-                <li class="nav-item ">
+                <li class="nav-item navicon">
                     <a class="nav-link" href="#">
                         <i class="fas fa-comments fa-lg text-muted"></i>
                     </a>
                 </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="#" >
-                        <i class="fas fa-bell fa-lg text-muted"></i>
+                <li class="nav-item navicon">
+                    <a class="nav-link" id="notificationTrigger" aria-expanded="fasle" >
+                        <i class="fas fa-bell fa-lg text-muted position-relative">
+                            <span class="notificationBadge"></span>
+                        </i>
                     </a>
+                    <div class="dropdownNotification">
+                        <div class="dropdown-header">
+                            <h5>اعلان‌ها</h5>
+                            <a href="#"><i class="fa fa-solid fa-check-double"></i></a>
+                        </div>
+                    <div class="dropdown-body">
+                        <a class="notification-item">
+                            <div class="icon">
+                                <i class="fa-solid fa-user-plus"></i>
+                            </div>
+                            <div class="content">
+                                <div class="text">به سامانه یونیما خوش آمدید.</div>
+                                <div class="time">۵ دقیقه پیش</div>
+                            </div>
+                        </a>
+                    
+                    </div>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item navicon">
                     <a class="nav-link" id="profileTrigger" aria-expanded="false">
-                                                <i class="fas fa-user fa-lg text-muted"></i>
+                        <i class="fas fa-user fa-lg text-muted"></i>
                     </a>
                     <div class="dropdownProfile">
                         <div class="profile-header">
