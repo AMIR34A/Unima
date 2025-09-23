@@ -137,6 +137,24 @@ $(document).ready(function () {
             });
         }
     }
+    const chatToggle = $('#chatToggle');
+    const supportPanel = $('#supportPanel');
+    const closePanel = $('#closePanel');
+
+    chatToggle.on('click', function (event) {
+        event.stopPropagation();
+        supportPanel.addClass('open');
+    });
+
+    closePanel.on('click', function () {
+        supportPanel.removeClass('open');
+    });
+
+    $(document).on('click', function (event) {
+        if (supportPanel.hasClass('open') && !$(event.target).closest('#supportPanel').length) {
+            supportPanel.removeClass('open');
+        }
+    });
     renderTimeline();
 });
 
