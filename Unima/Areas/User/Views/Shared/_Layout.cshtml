@@ -121,30 +121,27 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="#" >
                         <i class="fas fa-bell fa-lg text-muted"></i>
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link" id="profileTrigger" aria-expanded="false">
                                                 <i class="fas fa-user fa-lg text-muted"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end bg-secondary-subtle bg-gradient custom-dropdown">
-                        <li class="text-center my-4 fw-bold">مشخصات دانشجو</li>
-                        <hr>
-                        <li class="my-2 text-center">
-                            <span class="fs-6">رضا زارع</span>
-                        </li>
-                        <li class="text-center">
-                            <span>4001226190</span>
-                        </li>
-                        <hr class="dropdown-divider">
-                        <div class="text-center">
-                            <a class="dropdown-item link-danger topnavExitButton" href="/User/Account/LogOut">
-                                <i class="fa-solid fa-arrow-right-from-bracket mx-2"></i>خروج از حساب کاربری
-                            </a>
+                    <div class="dropdownProfile">
+                        <div class="profile-header">
+                            <p class="user-name">رضا زارع</p>
+                            <p class="user-id">4001226190</p>
                         </div>
-                    </ul>
+
+                        <div class="dropdown-divider-modern"></div>
+
+                        <a href="/User/Account/LogOut" class="dropdown-item logout-link">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            <span>خروج از حساب کاربری</span>
+                        </a>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -187,36 +184,8 @@
             </div>
         </div>
     </div>
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const navItems = document.querySelectorAll('.nav-bar .nav-item');
-        const currentPath = window.location.pathname;
-        navItems.forEach(item => item.classList.remove('active'));
-
-        navItems.forEach(item => {
-        const link = item.querySelector('.nav-link');
-        if (link) {
-            const linkPath = new URL(link.href).pathname;
-            const isFirstNavItem = item === navItems[0]; 
-
-            if (currentPath === linkPath && !isFirstNavItem) {
-                item.classList.add('active');
-            }
-        }
-        });
-        const allPaths = document.querySelectorAll('.main-path');
-        allPaths.forEach(path => {
-            const length = path.getTotalLength();
-                
-            path.style.strokeDasharray = length;
-            path.style.strokeDashoffset = length;
-                
-            path.classList.add('is-drawing');
-        });
-    });
-    </script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script src="~/js/site.js"></script>
     @RenderSection("Scripts", required: false)
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="/js/layout.js"></script>
 </body>
 </html>
