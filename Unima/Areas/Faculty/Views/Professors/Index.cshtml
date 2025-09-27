@@ -22,7 +22,7 @@
 	<div class="row gy-4" id="professors-list">
 		@if (Model is not null)
 		{
-			foreach (var faculty in Model?.Professors?.Keys)
+			foreach (var faculty in Model?.Professors?.Keys!)
 			{
 				<div class="faculty-category">
 					<h2 class="category-title">@faculty</h2>
@@ -32,12 +32,10 @@
 							<div class="professor-card-wrapper">
 								<div class="card professor-card">
 									<div class="close-btn">&times;</div>
-
 									<div class="card-header-color">
 										<div id="Professor-Status-@(professor.Id)" class="profile-img-wrapper @(professor.OfficeStatus)">
-											<img src="@professor.ProfileImageURL" class="profile-img"/>
+											<img src="@professor.ProfileImageURL" class="profile-img" />
 										</div>
-
 										<div class="contact-details">
 											<ul class="list-unstyled">
 												<li>
@@ -48,6 +46,7 @@
 													<i class="fas fa-map-marker-alt fa-fw"></i>
 													<span>@professor.OfficeAddess</span>
 												</li>
+
 												<li>
 													<i class="fas fa-clock fa-fw"></i>
 													<span>@professor.Description</span>
@@ -55,24 +54,37 @@
 											</ul>
 										</div>
 										<div class="social-links expanded-social-links">
-											<a href="@professor.SocialMedia.GoogleScholar" title="وب‌سایت"><i class="fas fa-globe"></i></a>
-											<a href="@professor.SocialMedia.Linkedin" title="لینکدین"><i class="fab fa-linkedin"></i></a>
-											<a href="@professor.SocialMedia.Email" title="ایمیل">
-												<i class="fas fa-envelope"></i>
-											</a>
+											@if (!string.IsNullOrEmpty(@professor.SocialMedia.GoogleScholar))
+											{
+												<a href="@professor.SocialMedia.GoogleScholar" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+											}
+											@if (!string.IsNullOrEmpty(@professor.SocialMedia.Linkedin))
+											{
+												<a href="@professor.SocialMedia.Linkedin" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+											}
+											@if (!string.IsNullOrEmpty(@professor.SocialMedia.Email))
+											{
+												<a href="@professor.SocialMedia.Email" title="ایمیل"><i class="fas fa-envelope"></i></a>
+											}
 										</div>
 									</div>
-
 									<div class="card-body">
 										<h5 class="card-title">@professor.FullName</h5>
 										<p class="text-muted">@professor.Role</p>
 										<span class="specialty-tag">@professor.Faculty - @professor.Department</span>
 										<div class="social-links">
-											<a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
-											<a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
-											<a href="@professor.SocialMedia.Email" title="ایمیل">
-												<i class="fas fa-envelope"></i>
-											</a>
+											@if (!string.IsNullOrEmpty(@professor.SocialMedia.GoogleScholar))
+											{
+												<a href="#" title="وب‌سایت"><i class="fas fa-globe"></i></a>
+											}
+											@if (!string.IsNullOrEmpty(@professor.SocialMedia.Linkedin))
+											{
+												<a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+											}
+											@if (!string.IsNullOrEmpty(@professor.SocialMedia.Email))
+											{
+												<a href="@professor.SocialMedia.Email" title="ایمیل"><i class="fas fa-envelope"></i></a>
+											}
 										</div>
 									</div>
 

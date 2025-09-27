@@ -287,6 +287,9 @@ $(document).ready(function () {
                 return;
             }
 
+            const reservationModal = bootstrap.Modal.getInstance(modal);
+            reservationModal.hide();
+            showSuccessModal();
             //reservationSubmitted = true;
             //submitBtn.disabled = true;
             //submitBtn.innerText = "در حال پردازش...";
