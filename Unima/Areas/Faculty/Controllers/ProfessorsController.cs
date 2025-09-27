@@ -24,11 +24,11 @@ public class ProfessorsController(IUnitOfWork _unitOfWork, UserManager<Applicati
     {
         Dictionary<string, IEnumerable<ProfessorModel>>? professors = _unitOfWork.RepositoryBase<ProfessorInformation>()
                                                             .Include(professor => professor.User)
+                                                            .Include(professor => professor.SocialMedia)
                                                             .Include(professor => professor.Lessons)
                                                             .Include(professor => professor.Department)
                                                             .ThenInclude(department => department.Faculty)
                                                             .AsNoTracking()
-                                                            .AsEnumerable()
                                                             .Select(professor => new ProfessorModel()
                                                             {
                                                                 Id = professor.Id,
@@ -40,11 +40,18 @@ public class ProfessorsController(IUnitOfWork _unitOfWork, UserManager<Applicati
                                                                 Degree = professor.Degree,
                                                                 Bio = professor.Biography,
                                                                 Lessons = professor.Lessons.Select(lesson => lesson.Title),
-                                                                Email = professor.User.Email,
-                                                                PublicPhoneNumber = professor.PublicPhoneNumber,
                                                                 OfficeAddess = professor.Description,
                                                                 OfficeNo = professor.OfficeNo,
-                                                                OfficeStatus = professor.OfficeStatus
+                                                                OfficeStatus = professor.OfficeStatus,
+                                                                SocialMedia = professor.SocialMedia == null ? new() : new SocialMediaModel
+                                                                {
+                                                                    OfficePhoneNumber = professor.SocialMedia.OfficePhoneNumber,
+                                                                    PhoneNumber = professor.SocialMedia.PhoneNumber,
+                                                                    Telegram = professor.SocialMedia.Telegram,
+                                                                    Email = professor.SocialMedia.Email,
+                                                                    Linkedin = professor.SocialMedia.Linkedin,
+                                                                    GoogleScholar = professor.SocialMedia.GoogleScholar,
+                                                                }
                                                             }).GroupBy(professor => professor.Department, selector => selector)
                                                             .ToDictionary(selector => selector.Key, selector => selector.AsEnumerable());
 

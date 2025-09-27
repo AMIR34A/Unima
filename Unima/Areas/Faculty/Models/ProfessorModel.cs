@@ -1,4 +1,5 @@
-﻿using Unima.Dal.Enums;
+﻿using Unima.Areas.User.Models.Profile;
+using Unima.Dal.Enums;
 
 namespace Unima.Areas.Faculty.Models;
 
@@ -20,10 +21,6 @@ public class ProfessorModel
 
     public string? Bio { get; set; }
 
-    public string? Email { get; set; }
-
-    public string? PublicPhoneNumber { get; set; }
-
     public string? OfficeAddess { get; set; }
 
     public int? OfficeNo { get; set; }
@@ -32,6 +29,7 @@ public class ProfessorModel
 
     public string? Description { get; set; }
 
-
     public IEnumerable<string>? Lessons { get; set; }
+
+    public SocialMediaModel SocialMedia { get; set; }
 }

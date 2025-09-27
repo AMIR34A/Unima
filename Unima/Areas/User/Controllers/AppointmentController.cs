@@ -21,10 +21,10 @@ public class AppointmentController(IUnitOfWork _unitOfWork, UserManager<Applicat
         if (currentUser is null)
             return NotFound();
 
-        bool isStudent = User.IsInRole("Sturent");
+        bool isProfessor = User.IsInRole("Professor");
 
         IQueryable<AppointmentViewModel>? appointments = _unitOfWork.RepositoryBase<Appointment>()
-                                                     .Include(appointment => isStudent ? appointment.ProfessorId == currentUser.Id : appointment.UserId == currentUser.Id, appointment => appointment.Location)
+                                                     .Include(appointment => isProfessor ? appointment.ProfessorId == currentUser.Id : appointment.UserId == currentUser.Id, appointment => appointment.Location)
                                                      .Include(appointment => appointment.User)
                                                      .Select(appointment => new AppointmentViewModel
                                                      {

@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using Mono.TextTemplating;
+using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Unima.Areas.Professor.Models;
 using Unima.Areas.User.Models.Profile;
@@ -128,42 +130,65 @@ namespace Unima.Areas.User.Controllers
                                                                               Priority = qa.Priority
                                                                           });
 
-            IEnumerable<LessonModel> lessons = (await _unitOfWork.RepositoryBase<Lesson>().GetAllAsync(lesson => lesson.ProfessorId == currentUser.Id))
-                                                                 .Select(lesson => new LessonModel
-                                                                 {
-                                                                     Title = lesson.Title,
-                                                                     No = lesson.No,
-                                                                     GroupNo = lesson.GroupNo,
-                                                                     DepartmentId = lesson.DepartmentId
-                                                                 });
-
-            IEnumerable<LocationModel> locations = (await _unitOfWork.RepositoryBase<Dal.Entities.Entities.Location>().GetAllAsync(location => location.ProfessorId == currentUser.Id))
-                                                                     .Select(location => new LocationModel()
-                                                                     {
-                                                                         Id = location.Id,
-                                                                         Title = location.Title,
-                                                                         Address = location.Address,
-                                                                         GoogleMapLink = location.GoogleMapLink
-                                                                     }).AsEnumerable();
-
-            IEnumerable<string> faculties = (await _unitOfWork.RepositoryBase<Dal.Entities.Entities.Faculty>().GetAllAsync())
-                                                               .Select(facility => facility.Title);
-
-            IEnumerable<DepartmentModel> departments = (await _unitOfWork.RepositoryBase<Department>().GetAllAsync())
-                                                                         .Select(department => new DepartmentModel()
-                                                                         {
-                                                                             Id = department.Id,
-                                                                             Title = department.Title
-                                                                         });
-            ProfileViewModel viewModel = new ProfileViewModel
+            ProfileViewModel viewModel = new ProfileViewModel()
             {
                 ProfileModel = profileModel,
-                QuestionAndAnswers = questionAndAnswerModels,
-                Lessons = lessons,
-                Locations = locations,
-                Faculties = faculties,
-                Departments = departments
+                QuestionAndAnswers = questionAndAnswerModels
             };
+
+            if (User.IsInRole("Professor"))
+            {
+                IEnumerable<LessonModel> lessons = (await _unitOfWork.RepositoryBase<Lesson>().GetAllAsync(lesson => lesson.ProfessorId == currentUser.Id))
+                                                     .Select(lesson => new LessonModel
+                                                     {
+                                                         Title = lesson.Title,
+                                                         No = lesson.No,
+                                                         GroupNo = lesson.GroupNo,
+                                                         DepartmentId = lesson.DepartmentId
+                                                     });
+
+                IEnumerable<LocationModel> locations = (await _unitOfWork.RepositoryBase<Dal.Entities.Entities.Location>().GetAllAsync(location => location.ProfessorId == currentUser.Id))
+                                                                         .Select(location => new LocationModel()
+                                                                         {
+                                                                             Id = location.Id,
+                                                                             Title = location.Title,
+                                                                             Address = location.Address,
+                                                                             GoogleMapLink = location.GoogleMapLink
+                                                                         }).AsEnumerable();
+
+                IEnumerable<string> faculties = (await _unitOfWork.RepositoryBase<Dal.Entities.Entities.Faculty>().GetAllAsync())
+                                                                   .Select(facility => facility.Title);
+
+                IEnumerable<DepartmentModel> departments = (await _unitOfWork.RepositoryBase<Department>().GetAllAsync())
+                                                                             .Select(department => new DepartmentModel()
+                                                                             {
+                                                                                 Id = department.Id,
+                                                                                 Title = department.Title
+                                                                             });
+
+                SocialMedia? socialMedia = await _unitOfWork.RepositoryBase<SocialMedia>().FirstOrDefaultAsync(socialMedia => socialMedia.ProfessorId == currentUser.Id);
+
+                SocialMediaModel socialMediaModel = new SocialMediaModel();
+
+                if (socialMedia is not null)
+                {
+                    socialMediaModel.OfficePhoneNumber = socialMedia.OfficePhoneNumber;
+                    socialMediaModel.PhoneNumber = socialMedia.PhoneNumber;
+                    socialMediaModel.Email = socialMedia.Email;
+                    socialMediaModel.Telegram = socialMedia.Telegram;
+                    socialMediaModel.Linkedin = socialMedia.Linkedin;
+                    socialMediaModel.GoogleScholar = socialMedia.GoogleScholar;
+                }
+
+                ProfessorInformation? professor = await _unitOfWork.RepositoryBase<ProfessorInformation>().FirstOrDefaultAsync(professor => professor.Id == currentUser.Id);
+
+                viewModel.Lessons = lessons;
+                viewModel.Locations = locations;
+                viewModel.Faculties = faculties;
+                viewModel.Departments = departments;
+                viewModel.SocialMedia = socialMediaModel;
+                viewModel.Biography = professor?.Biography;
+            }
 
             return View(viewModel);
         }
@@ -798,5 +823,71 @@ namespace Unima.Areas.User.Controllers
             return Ok();
         }
         #endregion
+
+        [HttpPost]
+        [Route("User/Profile/UpdateSocialMedia")]
+        public async Task<IActionResult> UpdateSocialMedia([FromBody] SocialMediaModel socialMediaModel)
+        {
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return NotFound();
+
+            SocialMedia? socialMedia = await _unitOfWork.RepositoryBase<SocialMedia>().FirstOrDefaultAsync(s => s.ProfessorId == currentUser.Id);
+
+            if (socialMedia is null)
+            {
+                socialMedia = new SocialMedia()
+                {
+                    OfficePhoneNumber = socialMediaModel.OfficePhoneNumber,
+                    PhoneNumber = socialMediaModel.PhoneNumber,
+                    Email = socialMediaModel.Email,
+                    Telegram = socialMediaModel.Telegram,
+                    Linkedin = socialMediaModel.Linkedin,
+                    GoogleScholar = socialMediaModel.GoogleScholar,
+                    ProfessorId = currentUser.Id
+                };
+
+                await _unitOfWork.RepositoryBase<SocialMedia>().AddAsync(socialMedia);
+                await _unitOfWork.SaveAsync();
+                return Ok();
+            }
+
+            socialMedia.OfficePhoneNumber = socialMediaModel.OfficePhoneNumber;
+            socialMedia.PhoneNumber = socialMediaModel.PhoneNumber;
+            socialMedia.Email = socialMediaModel.Email;
+            socialMedia.Telegram = socialMediaModel.Telegram;
+            socialMedia.Linkedin = socialMediaModel.Linkedin;
+            socialMedia.GoogleScholar = socialMediaModel.GoogleScholar;
+
+            _unitOfWork.RepositoryBase<SocialMedia>().Update(socialMedia);
+            await _unitOfWork.SaveAsync();
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("User/Profile/UpdateProfessorInformation")]
+        public async Task<IActionResult> UpdateProfessorInformation([FromForm] string bio)
+        {
+            ApplicationUser? currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser is null)
+                return NotFound();
+
+            if (string.IsNullOrWhiteSpace(bio) || bio.Length < 3 || bio.Length > 1000)
+            {
+                ModelState.AddModelError("Biography", "طول بیوگرافی باید بزرگتر از 2 و کوچکتر از 1000 باشد");
+                return BadRequest(ModelState);
+            }
+
+            ProfessorInformation? professor = await _unitOfWork.RepositoryBase<ProfessorInformation>()
+                                                               .FirstOrDefaultAsync(professor => professor.Id == currentUser.Id);
+            if (professor is null)
+                return NotFound();
+
+            professor.Biography = bio;
+            await _unitOfWork.SaveAsync();
+            return Ok();
+        }
     }
 }

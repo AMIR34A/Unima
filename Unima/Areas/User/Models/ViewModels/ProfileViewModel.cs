@@ -17,4 +17,8 @@ public class ProfileViewModel
     public IEnumerable<string>? Faculties { get; set; }
 
     public IEnumerable<DepartmentModel>? Departments { get; set; }
+
+    public SocialMediaModel SocialMedia { get; set; }
+
+    public string? Biography { get; set; }
 }

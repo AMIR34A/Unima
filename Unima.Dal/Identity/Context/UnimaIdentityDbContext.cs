@@ -33,6 +33,8 @@ public class UnimaIdentityDbContext : IdentityDbContext<ApplicationUser, Applica
 
     public DbSet<Appointment> Appointments { get; set; }
 
+    public DbSet<SocialMedia> SocialMedias { get; set; }
+
     public UnimaIdentityDbContext()
     {
 
@@ -130,6 +132,12 @@ public class UnimaIdentityDbContext : IdentityDbContext<ApplicationUser, Applica
                     .WithMany(entity => entity.Appointments)
                     .HasForeignKey(entity => entity.ProfessorId)
                     .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<ProfessorInformation>()
+                    .HasOne(entity => entity.SocialMedia)
+                    .WithOne(entity => entity.Professor)
+                    .HasForeignKey<SocialMedia>(entity => entity.ProfessorId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
         base.OnModelCreating(modelBuilder);
     }

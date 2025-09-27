@@ -24,14 +24,13 @@ public class ProfessorInformation
 
     public string? Description { get; set; }
 
-    public string? OfficePhoneNumber { get; set; }
-
-    public string? PublicPhoneNumber { get; set; }
-
     public required string Role { get; set; }
 
     public int DepartmentId { get; set; }
     public required Department Department { get; set; }
+
+    public int? SocialMediaId { get; set; }
+    public SocialMedia? SocialMedia { get; set; }
 
     public ICollection<Lesson> Lessons { get; set; }
 

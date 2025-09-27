@@ -96,8 +96,7 @@
 							<label class="fs-5 d-inline-block text-secondary mb-2">تنظیم برنامه کلاسی</label>
 							<div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
 								<div>
-									<span id="DefaultSelfLocationSpan"
-										  class="fs-6">کلیک کنید</span>
+									<span class="fs-6">کلیک کنید</span>
 								</div>
 								<div class="icon-edit">
 									<a href="#" data-bs-toggle="modal" data-bs-target="#scheduleModal" id="openScheduleBtn">
@@ -110,8 +109,7 @@
 							<label class="fs-5 d-inline-block text-secondary mb-2">مدیریت مکان ها</label>
 							<div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
 								<div>
-									<span id="DefaultSelfLocationSpan"
-										  class="fs-6">کلیک کنید</span>
+									<span class="fs-6">کلیک کنید</span>
 								</div>
 								<div class="icon-edit">
 									<a href="#" data-bs-toggle="modal" data-bs-target="#locationsListModal">
@@ -124,8 +122,7 @@
 							<label class="fs-5 d-inline-block text-secondary mb-2">مدیریت لیست دروس</label>
 							<div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
 								<div>
-									<span id="DefaultSelfLocationSpan"
-										  class="fs-6">کلیک کنید</span>
+									<span class="fs-6">کلیک کنید</span>
 								</div>
 								<div class="icon-edit">
 									<a href="#" data-bs-toggle="modal" data-bs-target="#coursesListModal">
@@ -138,8 +135,7 @@
 							<label class="fs-5 d-inline-block text-secondary mb-2">راه های ارتباطی</label>
 							<div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
 								<div>
-									<span id="DefaultSelfLocationSpan"
-										  class="fs-6">کلیک کنید</span>
+									<span class="fs-6">کلیک کنید</span>
 								</div>
 								<div class="icon-edit">
 									<a href="#" data-bs-toggle="modal" data-bs-target="#contactUrlModal">
@@ -156,7 +152,7 @@
 										  class="fs-6">ثبت نشده</span>
 								</div>
 								<div class="icon-edit">
-									<a href="#" data-bs-toggle="modal" data-bs-target="#InformationProfessor">
+									<a href="#" data-bs-toggle="modal" data-bs-target="#UpdateProfessorInformation">
 										<i class="fa-solid fa-pen-to-square fs-6 text-black"></i>
 									</a>
 								</div>
@@ -497,76 +493,78 @@
 			</div>
 		</div>
 	</div>
-	<div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-xl modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<div class="modal-header-content">
-						<i class="fa-solid fa-calendar-days m-1 fs-6"></i>
-						<span class="fs-6 m-1 w-100">برنامه کلاسی</span>
-					</div>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<div class="checkboxes">
-						<div class="checkbox-container">
-							<input type="checkbox" id="evenWeekCheck" class="schedule-filter" checked>
-							<label for="evenWeekCheck" class="label-even">
-								<span class="custom-checkbox">
-									<i class="fa-solid fa-check"></i>
-								</span>
-								هفته زوج
-							</label>
+	@if (User.IsInRole("Professor"))
+	{
+		<div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-xl modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div class="modal-header-content">
+							<i class="fa-solid fa-calendar-days m-1 fs-6"></i>
+							<span class="fs-6 m-1 w-100">برنامه کلاسی</span>
 						</div>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="checkboxes">
+							<div class="checkbox-container">
+								<input type="checkbox" id="evenWeekCheck" class="schedule-filter" checked>
+								<label for="evenWeekCheck" class="label-even">
+									<span class="custom-checkbox">
+										<i class="fa-solid fa-check"></i>
+									</span>
+									هفته زوج
+								</label>
+							</div>
 
-						<div class="checkbox-container">
-							<input type="checkbox" id="oddWeekCheck" class="schedule-filter" checked>
-							<label for="oddWeekCheck" class="label-odd">
-								<span class="custom-checkbox">
-									<i class="fa-solid fa-check"></i>
-								</span>
-								هفته فرد
-							</label>
+							<div class="checkbox-container">
+								<input type="checkbox" id="oddWeekCheck" class="schedule-filter" checked>
+								<label for="oddWeekCheck" class="label-odd">
+									<span class="custom-checkbox">
+										<i class="fa-solid fa-check"></i>
+									</span>
+									هفته فرد
+								</label>
+							</div>
 						</div>
-					</div>
-					<div class="table-responsive">
-						<table id="scheduleTable" class="scheduleTable table-bordered">
-							<thead>
-								<tr>
-									<th>روز / ساعت</th>
-									<th>06:00 - 08:00</th>
-									<th>08:00 - 10:00</th>
-									<th>10:00 - 12:00</th>
-									<th>12:00 - 14:00</th>
-									<th>14:00 - 16:00</th>
-									<th>16:00 - 18:00</th>
-									<th>18:00 - 20:00</th>
-									<th>20:00 - 22:00</th>
-								</tr>
-							</thead>
-							<tbody id="scheduleTableBody"></tbody>
-						</table>
-					</div>
-					<div class="text-start mt-4 border-top pt-3">
-						<button id="exportPngBtn" class="btn btn-export mx-1">
-							<i class="fa-solid fa-image ms-2"></i>خروجی PNG
-						</button>
-						<button id="exportPdfBtn" class="btn btn-export mx-1">
-							<i class="fa-solid fa-file-pdf ms-2"></i>خروجی PDF
-						</button>
+						<div class="table-responsive">
+							<table id="scheduleTable" class="scheduleTable table-bordered">
+								<thead>
+									<tr>
+										<th>روز / ساعت</th>
+										<th>06:00 - 08:00</th>
+										<th>08:00 - 10:00</th>
+										<th>10:00 - 12:00</th>
+										<th>12:00 - 14:00</th>
+										<th>14:00 - 16:00</th>
+										<th>16:00 - 18:00</th>
+										<th>18:00 - 20:00</th>
+										<th>20:00 - 22:00</th>
+									</tr>
+								</thead>
+								<tbody id="scheduleTableBody"></tbody>
+							</table>
+						</div>
+						<div class="text-start mt-4 border-top pt-3">
+							<button id="exportPngBtn" class="btn btn-export mx-1">
+								<i class="fa-solid fa-image ms-2"></i>خروجی PNG
+							</button>
+							<button id="exportPdfBtn" class="btn btn-export mx-1">
+								<i class="fa-solid fa-file-pdf ms-2"></i>خروجی PDF
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="modal fade" id="classFormModal" tabindex="-1" aria-labelledby="classFormModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="classFormModalLabel">افزودن/ویرایش کلاس</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
+		<div class="modal fade" id="classFormModal" tabindex="-1" aria-labelledby="classFormModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="classFormModalLabel">افزودن/ویرایش کلاس</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
 					<form id="classForm" novalidate>
 						<div class="mb-3">
 							<label for="course-name" class="form-label">نام درس</label>
@@ -607,212 +605,210 @@
 						<button type="submit" class="btn btn-primary w-100 submitCode">ثبت</button>
 						<button type="button" class="btn btn-danger w-100 mt-2 submitCode" id="deleteClassBtn" style="display:none; background-color:#d9534f !important; color:white !important; ">حذف</button>
 					</form>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="modal fade" id="coursesListModal" tabindex="-1" aria-labelledby="coursesListModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<div class="modal-header-content">
-						<i class="fa-solid fa-calendar-days m-1 fs-6"></i>
-						<span class="fs-6 m-1 w-100">لیست دروس</span>
+		<div class="modal fade" id="coursesListModal" tabindex="-1" aria-labelledby="coursesListModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div class="modal-header-content">
+							<i class="fa-solid fa-calendar-days m-1 fs-6"></i>
+							<span class="fs-6 m-1 w-100">لیست دروس</span>
+						</div>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<button id="addCourseBtn" class="btn w-100 submitCode text-center"><i class="fa-solid fa-plus ms-1"></i>افزودن درس جدید</button>
-					<div class="table-responsive pt-3">
-						<table class="table table-striped table-hover">
-							<thead class="text-center">
-								<tr>
-									<th scope="col">نام درس</th>
-									<th scope="col">کد درس</th>
-									<th scope="col">گروه</th>
-									<th scope="col" class="text-center">عملیات</th>
-								</tr>
-							</thead>
-							<tbody id="coursesTableBody">
-								@if (Model.Lessons is not null)
-								{
-									foreach (var lesson in Model.Lessons)
+					<div class="modal-body">
+						<button id="addCourseBtn" class="btn w-100 submitCode text-center"><i class="fa-solid fa-plus ms-1"></i>افزودن درس جدید</button>
+						<div class="table-responsive pt-3">
+							<table class="table table-striped table-hover">
+								<thead class="text-center">
+									<tr>
+										<th scope="col">نام درس</th>
+										<th scope="col">کد درس</th>
+										<th scope="col">گروه</th>
+										<th scope="col" class="text-center">عملیات</th>
+									</tr>
+								</thead>
+								<tbody id="coursesTableBody">
+									@if (Model.Lessons is not null)
 									{
-										<tr data-course-Id="@lesson.No@lesson.GroupNo" data-department-Id="@lesson.DepartmentId">
-											<td>@lesson.Title</td>
-											<td>@lesson.No</td>
-											<td>@lesson.GroupNo</td>
-											<td class="text-center">
-												<a href="#" class="text-primary mx-2 edit-btn" title="ویرایش"><i class="fa-solid fa-pen-to-square"></i></a>
-												<a href="#" class="text-danger mx-2 delete-btn" title="حذف"><i class="fa-solid fa-trash-can"></i></a>
-											</td>
-										</tr>
+										foreach (var lesson in Model.Lessons)
+										{
+											<tr data-course-Id="@lesson.No@lesson.GroupNo" data-department-Id="@lesson.DepartmentId">
+												<td>@lesson.Title</td>
+												<td>@lesson.No</td>
+												<td>@lesson.GroupNo</td>
+												<td class="text-center">
+													<a href="#" class="text-primary mx-2 edit-btn" title="ویرایش"><i class="fa-solid fa-pen-to-square"></i></a>
+													<a href="#" class="text-danger mx-2 delete-btn" title="حذف"><i class="fa-solid fa-trash-can"></i></a>
+												</td>
+											</tr>
+										}
 									}
-								}
-							</tbody>
-						</table>
+								</tbody>
+							</table>
+						</div>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="modal fade" id="courseFormModal" tabindex="-1" aria-labelledby="courseFormModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="courseModalTitle"></h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<form id="courseForm" novalidate>
-						<input type="hidden" id="courseId">
-						<div class="mb-3">
-							<label for="courseName" class="form-label">نام درس</label>
-							<input type="text" class="form-control" id="courseName" required>
-							<div class="invalid-feedback">لطفاً نام درس را وارد کنید.</div>
-						</div>
-						<div class="mb-3">
-							<label for="courseCode" class="form-label">کد درس</label>
-							<input type="number" class="form-control" id="courseCode" required>
-							<div class="invalid-feedback">لطفاً کد درس را وارد کنید.</div>
-						</div>
-						<div class="mb-3">
-							<label for="courseGroup" class="form-label">گروه</label>
-							<input type="number" class="form-control" id="courseGroup" required>
-							<div class="invalid-feedback">لطفاً گروه را وارد کنید.</div>
-						</div>
-						<div class="mb-3">
-							<label for="courseGroup" class="form-label">گروه</label>
-							<select class="form-select" id="department" required>
-								<option value="" disabled selected>انتخاب کنید...</option>
-								@if (Model.Departments is not null)
-								{
-									foreach (var depatment in Model.Departments)
+		<div class="modal fade" id="courseFormModal" tabindex="-1" aria-labelledby="courseFormModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="courseModalTitle"></h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form id="courseForm" novalidate>
+							<input type="hidden" id="courseId">
+							<div class="mb-3">
+								<label for="courseName" class="form-label">نام درس</label>
+								<input type="text" class="form-control" id="courseName" required>
+								<div class="invalid-feedback">لطفاً نام درس را وارد کنید.</div>
+							</div>
+							<div class="mb-3">
+								<label for="courseCode" class="form-label">کد درس</label>
+								<input type="number" class="form-control" id="courseCode" required>
+								<div class="invalid-feedback">لطفاً کد درس را وارد کنید.</div>
+							</div>
+							<div class="mb-3">
+								<label for="courseGroup" class="form-label">گروه</label>
+								<input type="number" class="form-control" id="courseGroup" required>
+								<div class="invalid-feedback">لطفاً گروه را وارد کنید.</div>
+							</div>
+							<div class="mb-3">
+								<label for="courseGroup" class="form-label">گروه</label>
+								<select class="form-select" id="department" required>
+									<option value="" disabled selected>انتخاب کنید...</option>
+									@if (Model.Departments is not null)
 									{
-										<option value="@depatment.Id">@depatment.Title</option>
+										foreach (var depatment in Model.Departments)
+										{
+											<option value="@depatment.Id">@depatment.Title</option>
+										}
 									}
-								}
-							</select>
-							<div class="invalid-feedback">لطفاً گروه را وارد کنید.</div>
-						</div>
-					</form>
-					<div id="LessonError" class="invalid-feedback fs-7 mb-1"></div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
-					<button type="button" id="saveCourseBtn" class="btn btn-danger"></button>
+								</select>
+								<div class="invalid-feedback">لطفاً گروه را وارد کنید.</div>
+							</div>
+						</form>
+						<div id="LessonError" class="invalid-feedback fs-7 mb-1"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+						<button type="button" id="saveCourseBtn" class="btn btn-danger"></button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="modal fade" id="locationsListModal" tabindex="-1" aria-labelledby="locationsListModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<div class="modal-header-content">
-						<i class="fa-solid fa-map-location-dot m-1 fs-6"></i>
-						<span class="fs-6 m-1 w-100">لیست مکان‌ها</span>
+		<div class="modal fade" id="locationsListModal" tabindex="-1" aria-labelledby="locationsListModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div class="modal-header-content">
+							<i class="fa-solid fa-map-location-dot m-1 fs-6"></i>
+							<span class="fs-6 m-1 w-100">لیست مکان‌ها</span>
+						</div>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<button id="addLocationBtn" class="btn w-100 submitCode text-center"><i class="fa-solid fa-plus ms-1"></i>افزودن مکان جدید</button>
-					<div class="table-responsive pt-3">
-						<table class="table table-striped table-hover">
-							<thead>
-								<tr class="text-center">
-									<th scope="col">نام مکان</th>
-									<th scope="col">آدرس</th>
-									<th scope="col" class="text-center">عملیات</th>
-								</tr>
-							</thead>
-							<tbody id="locationsTableBody">
-								@if (Model.Locations is not null)
-								{
-									foreach (var location in Model.Locations)
+					<div class="modal-body">
+						<button id="addLocationBtn" class="btn w-100 submitCode text-center"><i class="fa-solid fa-plus ms-1"></i>افزودن مکان جدید</button>
+						<div class="table-responsive pt-3">
+							<table class="table table-striped table-hover">
+								<thead>
+									<tr class="text-center">
+										<th scope="col">نام مکان</th>
+										<th scope="col">آدرس</th>
+										<th scope="col" class="text-center">عملیات</th>
+									</tr>
+								</thead>
+								<tbody id="locationsTableBody">
+									@if (Model.Locations is not null)
 									{
-										<tr data-location-id="@location.Id">
-											<td>@location.Title</td>
-											<td>@location.Address</td>
-											<td class="text-center">
-												<a href="#" class="text-primary mx-2 edit-btn" title="ویرایش"><i class="fa-solid fa-pen-to-square"></i></a>
-												<a href="#" class="text-danger mx-2 delete-btn" title="حذف"><i class="fa-solid fa-trash-can"></i></a>
-											</td>
-										</tr>
+										foreach (var location in Model.Locations)
+										{
+											<tr data-location-id="@location.Id">
+												<td>@location.Title</td>
+												<td>@location.Address</td>
+												<td class="text-center">
+													<a href="#" class="text-primary mx-2 edit-btn" title="ویرایش"><i class="fa-solid fa-pen-to-square"></i></a>
+													<a href="#" class="text-danger mx-2 delete-btn" title="حذف"><i class="fa-solid fa-trash-can"></i></a>
+												</td>
+											</tr>
+										}
 									}
-								}
-							</tbody>
-						</table>
+								</tbody>
+							</table>
+						</div>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<div class="modal fade" id="locationFormModal" tabindex="-1" aria-labelledby="locationFormModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="locationModalTitle"></h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<form id="locationForm" novalidate>
-						<input type="hidden" id="locationId">
-						<div class="mb-3">
-							<label for="locationName" class="form-label">نام مکان</label>
-							<input type="text" class="form-control" id="locationName" required>
-							<div class="invalid-feedback"> نام مکان را وارد کنید.</div>
-						</div>
-						<div class="mb-3">
-							<label for="locationAddress" class="form-label">آدرس</label>
-							<textarea class="form-control" id="locationAddress" rows="3" required></textarea>
-							<div class="invalid-feedback"> آدرس مکان را وارد کنید.</div>
-						</div>
-						<div class="mb-3">
-							<label for="locationMap" class="form-label">لینک گوگل مپ (اختیاری)</label>
-							<input type="url" class="form-control" id="locationMap">
-						</div>
-					</form>
-					<div id="LocationError" class="invalid-feedback fs-7 mb-1"></div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
-					<button type="button" id="saveLocationBtn" class="btn btn-success"></button>
+		<div class="modal fade" id="locationFormModal" tabindex="-1" aria-labelledby="locationFormModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="locationModalTitle"></h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form id="locationForm" novalidate>
+							<input type="hidden" id="locationId">
+							<div class="mb-3">
+								<label for="locationName" class="form-label">نام مکان</label>
+								<input type="text" class="form-control" id="locationName" required>
+								<div class="invalid-feedback"> نام مکان را وارد کنید.</div>
+							</div>
+							<div class="mb-3">
+								<label for="locationAddress" class="form-label">آدرس</label>
+								<textarea class="form-control" id="locationAddress" rows="3" required></textarea>
+								<div class="invalid-feedback"> آدرس مکان را وارد کنید.</div>
+							</div>
+							<div class="mb-3">
+								<label for="locationMap" class="form-label">لینک گوگل مپ (اختیاری)</label>
+								<input type="url" class="form-control" id="locationMap">
+							</div>
+						</form>
+						<div id="LocationError" class="invalid-feedback fs-7 mb-1"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+						<button type="button" id="saveLocationBtn" class="btn btn-success"></button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="modal fade" id="contactUrlModal" tabindex="-1"
-		 aria-labelledby="exampleModalCenterTitle"
-		 aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content bg-light">
-				<div class="modal-header">
-					<div class="modal-header-content">
-						<i class="fa-solid fa-link m-1 fs-6"></i>
-						<span class="fs-6 m-1 w-100">راه های ارتباطی</span>
+		<div class="modal fade" id="contactUrlModal" tabindex="-1"
+			 aria-labelledby="exampleModalCenterTitle"
+			 aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content bg-light">
+					<div class="modal-header">
+						<div class="modal-header-content">
+							<i class="fa-solid fa-link m-1 fs-6"></i>
+							<span class="fs-6 m-1 w-100">راه های ارتباطی</span>
+						</div>
+						<button type="button" class="btn-close"
+								data-bs-dismiss="modal" aria-label="close-tab"></button>
 					</div>
-					<button type="button" class="btn-close"
-							data-bs-dismiss="modal" aria-label="close-tab"></button>
-				</div>
-				<div class="modal-body d-flex flex-column m-2 fs-7">
-					<form id="contactFormUltraMinimal" action="/save-profile"
-						  method="post">
+					<div class="modal-body d-flex flex-column m-2 fs-7">
 						<div class="input-group-minimal mb-4">
 							<i class="fa fa-phone input-icon fs-5"
 							   style="color: #d4af37;"></i>
 							<div class="form-floating flex-grow-1">
-								<input type="tel"
+								<input value="@Model.SocialMedia.OfficePhoneNumber"
+									   type="tel"
 									   class="form-control form-control-underline"
-									   id="OfficePhone" name="OfficePhone" placeholder="شماره تلفن دفتر" maxlength="11">
-								<label for="OfficePhone">شماره تلفن دفتر</label>
+									   id="OfficePhoneNumber" name="OfficePhone" placeholder="شماره تلفن دفتر" maxlength="11">
+								<label for="OfficePhoneNumber">شماره تلفن دفتر</label>
 							</div>
 						</div>
 
@@ -820,45 +816,46 @@
 							<i class="fa fa-mobile-alt input-icon"
 							   style="color: #6c757d;"></i>
 							<div class="form-floating flex-grow-1">
-								<input type="tel"
+								<input value="@Model.SocialMedia.PhoneNumber"
+									   type="tel"
 									   class="form-control form-control-underline"
-									   id="PhoneNumberProfessor" name="PhoneNumberProfessor" placeholder="شماره همراه" maxlength="11">
-								<label for="PhoneNumberProfessor">شماره همراه</label>
+									   id="PhoneNumber" name="PhoneNumberProfessor" placeholder="شماره همراه" maxlength="11">
+								<label for="PhoneNumber">شماره همراه</label>
 							</div>
 						</div>
-
-						<div class="input-group-minimal mb-4">
-							<i class="fab fa-telegram input-icon"
-							   style="color: #0088cc;"></i>
-							<div class="form-floating flex-grow-1">
-								<input type="text"
-									   class="form-control form-control-underline"
-									   id="telegram" name="telegram"
-									   placeholder="تلگرام">
-								<label for="telegram">تلگرام</label>
-							</div>
-						</div>
-
 						<div class="input-group-minimal mb-4">
 							<i class="fa fa-regular fa-envelope input-icon"
 							   style="color: #dc3545;"></i>
 							<div class="form-floating flex-grow-1">
-								<input type="email"
+								<input value="@Model.SocialMedia.Email"
+									   type="Email"
 									   class="form-control form-control-underline"
-									   id="email" name="email" placeholder="ایمیل">
-								<label for="email">ایمیل</label>
+									   id="Email" name="email" placeholder="ایمیل">
+								<label for="Email">ایمیل</label>
 							</div>
 						</div>
-
+						<div class="input-group-minimal mb-4">
+							<i class="fab fa-telegram input-icon"
+							   style="color: #0088cc;"></i>
+							<div class="form-floating flex-grow-1">
+								<input value="@Model.SocialMedia.Telegram"
+									   type="text"
+									   class="form-control form-control-underline"
+									   id="Telegram" name="telegram"
+									   placeholder="تلگرام">
+								<label for="Telegram">تلگرام</label>
+							</div>
+						</div>
 						<div class="input-group-minimal mb-4">
 							<i class="fab fa-linkedin input-icon"
 							   style="color: #0A66C2;"></i>
 							<div class="form-floating flex-grow-1">
-								<input type="url"
+								<input value="@Model.SocialMedia.Linkedin"
+									   type="url"
 									   class="form-control form-control-underline"
-									   id="linkedin" name="linkedin"
+									   id="Linkedin" name="linkedin"
 									   placeholder="لینکدین">
-								<label for="linkedin">لینکدین</label>
+								<label for="Linkedin">لینکدین</label>
 							</div>
 						</div>
 
@@ -866,57 +863,55 @@
 							<i class="fab fa-google input-icon"
 							   style="color: #4285F4;"></i>
 							<div class="form-floating flex-grow-1">
-								<input type="url"
+								<input value="@Model.SocialMedia.GoogleScholar"
+									   type="url"
 									   class="form-control form-control-underline"
-									   id="scholar" name="scholar"
+									   id="GoogleScholar" name="scholar"
 									   placeholder="گوگل اسکالر">
-								<label for="scholar">گوگل اسکالر</label>
+								<label for="GoogleScholar">گوگل اسکالر</label>
 							</div>
 						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="submit" form="contactFormUltraMinimal"
-							class="btn submitCode mt-1"
-							style="font-weight: 600;">
-						ذخیره
-					</button>
+					</div>
+					<div class="modal-footer">
+						<button class="btn submitCode mt-1"
+								style="font-weight: 600;">
+							ذخیره
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="modal fade" id="InformationProfessor" tabindex="-1" aria-labelledby="locationFormModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<div class="modal-header-content">
-						<i class="fa-solid fa-graduation-cap m-1 fs-6"></i>
-						<span class="fs-6 m-1 w-100">اطلاعات دانشگاه</span>
+		<div class="modal fade" id="UpdateProfessorInformation" tabindex="-1" aria-labelledby="locationFormModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div class="modal-header-content">
+							<i class="fa-solid fa-graduation-cap m-1 fs-6"></i>
+							<span class="fs-6 m-1 w-100">اطلاعات دانشگاه</span>
+						</div>
+						<button type="button" class="btn-close"
+								data-bs-dismiss="modal" aria-label="close-tab"></button>
 					</div>
-					<button type="button" class="btn-close"
-							data-bs-dismiss="modal" aria-label="close-tab"></button>
-				</div>
-				<div class="modal-body">
-					<form id="InformationProfessorForm" novalidate>
+					<div class="modal-body">
 						<div class="mb-3 form-floating">
 							<input type="text" class="form-control" id="AcademicRank" placeholder="مرتبه علمی" required>
 							<label for="AcademicRank">مرتبه علمی</label>
 							<div class="invalid-feedback">مرتبه علمی خود را وارد کنید.</div>
 						</div>
 						<div class="mb-3 form-floating">
-							<textarea class="form-control" id="Biography" placeholder="بیوگرافی" style="height: 100px;" required></textarea>
+							<textarea id="Bio" class="form-control" id="Biography" style="height: 100px;" required>@Model.Biography</textarea>
 							<label for="Biography">بیوگرافی</label>
 							<div class="invalid-feedback">  بیوگرافی خود را وارد کنید.</div>
 						</div>
-					</form>
-					<div id="Biography" class="invalid-feedback fs-7 mb-1"></div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" id="saveInformationProfessor" class="btn btn-success submitCode text-black">ذخیره</button>
+						<div id="ProfessorInformationError" class="invalid-feedback fs-7 mb-1"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="SubmitProfessorInformation" class="btn btn-success submitCode text-black">ذخیره</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	}
 </section>
 <section>
 	@await Html.PartialAsync("_SupportWidgetPartial", Model.QuestionAndAnswers)

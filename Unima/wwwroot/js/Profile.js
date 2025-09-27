@@ -9,6 +9,8 @@ $(document).ready(function () {
     const $submitBtnEmail = $('#SubmitBtnEmail');
     const $emailError = $('#EmailError');
     const $submitStudentInformation = $('#submitStudentInformation');
+    const socialMedialButton = document.querySelector("#contactUrlModal .submitCode");
+    const $submitProfessorInformation = $('#SubmitProfessorInformation');
 
     const $editPhoneModal = $('#UpdatePhoneNumber');
 
@@ -133,6 +135,38 @@ $(document).ready(function () {
 
         return true;
     }
+
+    socialMedialButton.addEventListener("click", async function () {
+        const modal = document.getElementById('contactUrlModal');
+        const modalInstance = bootstrap.Modal.getInstance(modal);
+        const inputs = modal.querySelectorAll("input");
+        const model = {};
+
+        inputs.forEach(input => {
+            if (input.id) {
+                model[input.id] = input.value.trim();
+            }
+        });
+
+        var url = `/User/Profile/UpdateSocialMedia`;
+
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(model)
+        });
+
+        if (!response.ok) {
+            return;
+        }
+        modalInstance.hide();
+    });
+
+    $submitProfessorInformation.on('click', function () {
+        submitModalData('ProfessorInformation', false, false);
+    });
 
     $submitBtnName.on('click', function () {
         if (validateName()) {
