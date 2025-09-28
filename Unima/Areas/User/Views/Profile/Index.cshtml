@@ -24,6 +24,8 @@
 			<div class="row">
 				@{
 					bool isProfessor = User.IsInRole("Professor");
+					bool isStudent = User.IsInRole("Student");
+
 					<div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
 						<label asp-for="ProfileModel.FullName" class="fs-5 d-inline-block text-secondary mb-2"></label>
 						<div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
@@ -149,7 +151,7 @@
 							<div class="w-100 d-flex justify-content-between align-items-center" dir="rtl">
 								<div>
 									<span id="DefaultInformationProfessor"
-										  class="fs-6">ثبت نشده</span>
+										  class="fs-6">کلیک کنید</span>
 								</div>
 								<div class="icon-edit">
 									<a href="#" data-bs-toggle="modal" data-bs-target="#UpdateProfessorInformation">
@@ -159,7 +161,7 @@
 							</div>
 						</div>
 					}
-					else if (User.IsInRole("Student"))
+					if (isStudent)
 					{
 						<div class="border-bottom border-secondary col-sm-9 col-md-11 col-lg-5 m-4">
 							<label asp-for="ProfileModel.SelfServicePassword" class="fs-5 d-inline-block text-secondary mb-2"></label>
@@ -389,14 +391,14 @@
 					</p>
 					<div id="StudentForm my-2" class="d-flex flex-nowrap justify-content-between">
 						@{
-							<div class="m-2 @(isProfessor ? "w-100" : "w-50")">
+							<div class="m-2 @(isStudent ? "w-50" : "w-100")">
 								<div class="form-floating mb-3">
 									<input type="text" class="form-control" inputmode="numeric" id="Username" placeholder="نام کاربری" maxlength="10" dir="rtl" required>
 									<label for="StudentCode">نام کاربری</label>
 									<div id="StudentInformationError" class="text-danger mt-1" style="display: none;"></div>
 								</div>
 							</div>
-							if (!isProfessor)
+							if (isStudent)
 							{
 								<div class="m-2 w-50">
 									<div class="form-floating mb-3">
@@ -565,46 +567,46 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-					<form id="classForm" novalidate>
-						<div class="mb-3">
-							<label for="course-name" class="form-label">نام درس</label>
-							<select class="form-select" id="course-name" required></select>
-						</div>
-						<div class="mb-3">
-							<label for="faculty-input" class="form-label">
-								دانشکده
-								<br><small>(در صورتی که درس در دانشکده دیگری بجز دانشکده های تعریف شده برگزار می‌شود، این فیلد را پر کنید.)</small>
-							</label>
-							<input class="form-control" list="faculty-options" id="faculty" placeholder="نام دانشکده را وارد یا انتخاب کنید...">
+						<form id="classForm" novalidate>
+							<div class="mb-3">
+								<label for="course-name" class="form-label">نام درس</label>
+								<select class="form-select" id="course-name" required></select>
+							</div>
+							<div class="mb-3">
+								<label for="faculty-input" class="form-label">
+									دانشکده
+									<br><small>(در صورتی که درس در دانشکده دیگری بجز دانشکده های تعریف شده برگزار می‌شود، این فیلد را پر کنید.)</small>
+								</label>
+								<input class="form-control" list="faculty-options" id="faculty" placeholder="نام دانشکده را وارد یا انتخاب کنید...">
 
-							<datalist id="faculty-options">
-								@if (Model.Faculties is not null)
-								{
-									foreach (var faculty in Model.Faculties)
+								<datalist id="faculty-options">
+									@if (Model.Faculties is not null)
 									{
-										<option value="@faculty"></option>
+										foreach (var faculty in Model.Faculties)
+										{
+											<option value="@faculty"></option>
+										}
 									}
-								}
-							</datalist>
-							<div class="invalid-feedback"> نام مکان را وارد کنید.</div>
-						</div>
-						<div class="mb-3">
-							<label for="class-number" class="form-label">شماره کلاس</label>
-							<input type="number" class="form-control" id="class-number" required>
-							<div class="invalid-feedback"> نام مکان را وارد کنید.</div>
-						</div>
-						<div class="mb-3">
-							<label for="week-type" class="form-label">نوع هفته</label>
-							<select class="form-select" id="week-type" required>
-								<option value="ثابت">ثابت</option>
-								<option value="زوج">زوج</option>
-								<option value="فرد">فرد</option>
-							</select>
-						</div>
-						<div id="ScheduleError" class="invalid-feedback fs-7 mb-1"></div>
-						<button type="submit" class="btn btn-primary w-100 submitCode">ثبت</button>
-						<button type="button" class="btn btn-danger w-100 mt-2 submitCode" id="deleteClassBtn" style="display:none; background-color:#d9534f !important; color:white !important; ">حذف</button>
-					</form>
+								</datalist>
+								<div class="invalid-feedback"> نام مکان را وارد کنید.</div>
+							</div>
+							<div class="mb-3">
+								<label for="class-number" class="form-label">شماره کلاس</label>
+								<input type="number" class="form-control" id="class-number" required>
+								<div class="invalid-feedback"> نام مکان را وارد کنید.</div>
+							</div>
+							<div class="mb-3">
+								<label for="week-type" class="form-label">نوع هفته</label>
+								<select class="form-select" id="week-type" required>
+									<option value="ثابت">ثابت</option>
+									<option value="زوج">زوج</option>
+									<option value="فرد">فرد</option>
+								</select>
+							</div>
+							<div id="ScheduleError" class="invalid-feedback fs-7 mb-1"></div>
+							<button type="submit" class="btn btn-primary w-100 submitCode">ثبت</button>
+							<button type="button" class="btn btn-danger w-100 mt-2 submitCode" id="deleteClassBtn" style="display:none; background-color:#d9534f !important; color:white !important; ">حذف</button>
+						</form>
 					</div>
 				</div>
 			</div>
