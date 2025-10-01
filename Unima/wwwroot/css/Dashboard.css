@@ -329,3 +329,8 @@
   color: #dda853;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
+@media (min-width: 992px){
+  .col-lg-2{
+    width: 19% !important;
+  }
+}
