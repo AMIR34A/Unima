@@ -53,7 +53,7 @@
   width: 20%;
   content: "";
   height: 0.1rem;
-  background-color: #dda853;
+  background-color: var(--primary-unima);
   display: inline-block;
 }
 
@@ -66,7 +66,7 @@
 }
 
 .btn-danger {
-  background-color: #dda853;
+  background-color: var(--primary-unima);
   color: black;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
   border: none;
@@ -74,13 +74,13 @@
 }
 
 .btn-danger:hover {
-  background-color: #dda853b8 !important;
+  background-color: var(--primary-unima)b8 !important;
   color: rgba(0, 0, 0, 0.797) !important;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
 }
 
 .btn-danger:active {
-  background-color: #dda853 !important;
+  background-color: var(--primary-unima) !important;
   color: black !important;
   border-color: none !important;
 }
@@ -137,8 +137,8 @@
   border-color: #474c50;
 }
 .form-control:focus {
-  box-shadow: 0 0 0 0.2rem #dda85350 !important;
-  border-color: #dda85363 !important;
+  box-shadow: 0 0 0 0.2rem var(--primary-unima)50 !important;
+  border-color: var(--primary-unima)63 !important;
 }
 .border-dark {
   border-color: rgba(33, 37, 41, 0.5) !important;
@@ -153,7 +153,7 @@
   height: 55px;
 }
 .modal-footer {
-  border-top: #dda853 1px solid !important;
+  border-top: var(--primary-unima) 1px solid !important;
   padding: 5px;
 }
 .step-indicator {
@@ -190,11 +190,11 @@
 }
 
 .step.active {
-  background-image: linear-gradient(to right, #dda853, #eec78a) !important;
+  background-image: linear-gradient(to right, var(--primary-unima), #eec78a) !important;
   color: white !important;
 }
 .step1.active {
-  background-image: linear-gradient(to right, #dda853, #eec78a);
+  background-image: linear-gradient(to right, var(--primary-unima), #eec78a);
   color: white;
 }
 
@@ -242,7 +242,7 @@
 }
 
 .verification-info i {
-  color: #dda853;
+  color: var(--primary-unima);
   font-size: 20px;
   margin-left: 10px;
 }
@@ -260,20 +260,20 @@
 }
 
 .resend-link:hover {
-  color: #dda853;
+  color: var(--primary-unima);
   text-decoration: underline;
 }
 
 .submitCode {
   cursor: pointer !important;
-  background-color: #dda853 !important;
+  background-color: var(--primary-unima) !important;
   border: none;
   transform: translateY(0);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .submitCode:hover {
-  background-color: #dda853 !important;
+  background-color: var(--primary-unima) !important;
   box-shadow: rgba(99, 99, 99, 0.6) 0px 2px 8px 0px;
   transform: translateY(-2px);
 }
@@ -380,14 +380,14 @@
 .gender-option:hover,
 .self-option:hover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
-  border-color: #dda853 !important;
+  border-color: var(--primary-unima) !important;
 }
 
 .gender-option.selected,
 .self-option.selected {
   background-color: #dbd3c4;
-  border-color: #dda853 !important;
-  color: #dda853;
+  border-color: var(--primary-unima) !important;
+  color: var(--primary-unima);
 }
 
 .gender-icon {
@@ -671,7 +671,7 @@ tbody tr td {
   transition: border-color 0.15s ease-in-out;
 }
 .form-control-underline:focus {
-  border-bottom-color: #dda853 !important;
+  border-bottom-color: var(--primary-unima) !important;
   box-shadow: none !important;
 }
 .form-floating > .form-control-underline ~ label {

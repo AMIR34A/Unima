@@ -12,18 +12,23 @@
   --blur-value: 12px;
   --logout-color: #d93a3a;
   --logout-hover-bg: #fdf2f2;
+  --primary-unima: #EFD6AC;
+  --primary-unima-hover: #c8a873;
+  --background-unima: #f3f3f3;
+  --navbar-unima: #4A6670;
 }
 
 body {
   font-family: Vazirmatn;
   font-size: 0.8em;
   direction: rtl;
+  background-color: var(--background-unima) !important;
   min-height: 100vh;
   background-attachment: fixed;
 }
 
 .text-warning22 {
-  color: #dda853 !important;
+  color: var(--primary-unima) !important;
 }
 
 #userCredit {
@@ -50,14 +55,15 @@ body {
 }
 
 .current a {
-  background-color: #dda853;
+  background-color: var(--primary-unima);
   border-radius: 25px;
-  /* color: rgb(68, 129, 183); */
+  color: #212121;
   transition: all 0.5s;
+  border: none;
 }
 
 .current a:hover {
-  background-color: #fce7c8;
+  background-color: var(--primary-unima-hover);
   border-radius: 25px;
   color: #243642;
 }
@@ -71,7 +77,7 @@ body {
   position: absolute;
   bottom: 3px;
   left: 0;
-  border-bottom: 2px solid #dda853;
+  border-bottom: 2px solid var(--primary-unima);
   animation: widthto 1s forwards;
 }
 
@@ -108,9 +114,7 @@ body {
 }
 
 .options {
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border: 1px solid var(--glass-border-darker);
+  background-color: var(--navbar-unima);
   border-radius: 25px;
   margin: 0px auto;
   padding: 10px;
@@ -128,6 +132,10 @@ body {
 .topnavExitButton:focus {
   background-color: red;
   color: #fff !important;
+}
+
+.nav-link{
+  color: var(--background-unima);
 }
 
 .cadr {
@@ -200,7 +208,7 @@ tbody tr td {
 }
 
 .accordion-button:not(.collapsed) {
-  background-color: #dda853;
+  background-color: var(--primary-unima);
   color: #fff;
   /* White text for contrast – adjust if needed */
   box-shadow: none;
@@ -208,7 +216,7 @@ tbody tr td {
 
 .accordion-button:focus {
   box-shadow: none;
-  border-color: #dda853;
+  border-color: var(--primary-unima);
 }
 
 /* plans */
@@ -294,7 +302,7 @@ tbody tr td {
 .days {
   width: 130px;
   height: 130px;
-  background-color: #dda853;
+  background-color: var(--primary-unima);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
   border: none;
   transition: all 0.3s ease-out;
@@ -385,7 +393,7 @@ tbody tr td {
   position: fixed;
   bottom: 30px;
   left: 30px;
-  background-color: #dda853;
+  background-color: var(--primary-unima);
   color: white;
   border: none;
   border-radius: 50%;
@@ -399,10 +407,6 @@ tbody tr td {
   margin: auto;
   font-size: 24px;
   animation: fadeInScale 0.4s ease-in-out;
-}
-
-.p-4 {
-  padding: 2rem !important;
 }
 
 .support-panel {
@@ -660,7 +664,7 @@ tbody tr td {
 .overlay-content .btn-login {
   display: inline-block;
   padding: 12px 28px;
-  background-color: #dda853;
+  background-color: var(--primary-unima);
   color: white;
   text-decoration: none;
   border-radius: 8px;
@@ -672,7 +676,7 @@ tbody tr td {
 }
 
 .overlay-content .btn-login:hover {
-  background-color: #dda853;
+  background-color: var(--primary-unima);
   transform: translateY(-2px);
 }
 
@@ -821,6 +825,7 @@ tbody tr td {
 
 .nav-item:hover:not(.current):not(.active):not(.navicon) a {
   transform: translateX(-3px) scale(1.1);
+  color: var(--background-unima);
 }
 
 .nav-item {

@@ -1,5 +1,5 @@
 :root {
-  --primary-color: #dda853;
+  --primary-color: var(--primary-unima);
   --primary-color-light: #e6c89c;
   --primary-color-dark: #c89441;
   --primary-bg: linear-gradient(

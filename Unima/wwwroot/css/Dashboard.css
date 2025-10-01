@@ -326,7 +326,7 @@
 }
 .weekday-nav .nav-link.active {
   background-color: #fff;
-  color: #dda853;
+  color: var(--primary-unima);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 @media (min-width: 992px){
