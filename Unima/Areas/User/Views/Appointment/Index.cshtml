@@ -275,7 +275,7 @@
 									<div class="student-info"><i class="fas fa-user-circle me-2 text-muted"></i> @appointment.SenderFullName</div>
 									<div class="subject-info"><strong>موضوع:</strong> @appointment.Topic</div>
 									<div class="date-info"><span class="badge bg-light text-dark">@appointment.Date</span></div>
-									<div class="status-indicator"><span class="badge @(appointment.Status == Unima.Dal.Enums.AppointmentStatus.Pending ? "bg-warning" : appointment.Status == Unima.Dal.Enums.AppointmentStatus.Accepted ? "bg-success" : "bg-danger")" title="در انتظار پاسخ"></span></div>
+									<div class="status-indicator"><span class="badge @(appointment.Status == Unima.Dal.Enums.AppointmentStatus.Pending ? "bg-warning" : appointment.Status == Unima.Dal.Enums.AppointmentStatus.Accepted ? "bg-success" : "bg-danger")" title="@(appointment.Status == Unima.Dal.Enums.AppointmentStatus.Pending ? "در انتظار پاسخ" : appointment.Status == Unima.Dal.Enums.AppointmentStatus.Accepted ? "تایید شده" : "رد شده")"></span></div>
 								</button>
 							</h2>
 							<div id="collapse@(appointment.Id)" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#requestsAccordion">
