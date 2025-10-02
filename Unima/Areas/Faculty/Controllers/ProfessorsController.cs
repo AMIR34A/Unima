@@ -160,7 +160,7 @@ public class ProfessorsController(IUnitOfWork _unitOfWork, UserManager<Applicati
             RequestSentOn = DateTime.Now,
             IsStarred = false,
             UserId = currentUser.Id,
-            Status = AppointmentStatus.Waiting
+            Status = AppointmentStatus.Pending
         };
 
         await _unitOfWork.RepositoryBase<Appointment>().AddAsync(appointment);

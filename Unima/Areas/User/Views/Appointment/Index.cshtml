@@ -266,7 +266,7 @@
 				{
 					foreach (AppointmentViewModel appointment in Model)
 					{
-						<div class="accordion-item @(appointment.IsStarred ? "starred" : string.Empty)" data-id="@appointment.Id" data-status="pending">
+						<div class="accordion-item @(appointment.IsStarred ? "starred" : string.Empty)" data-id="@appointment.Id" data-status="@appointment.Status.ToString().ToLower()">
 							<h2 class="accordion-header p-0" id="headingOne">
 								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@(appointment.Id)" aria-expanded="false" aria-controls="collapse@(appointment.Id)">
 									<div class="star-action">
@@ -275,7 +275,7 @@
 									<div class="student-info"><i class="fas fa-user-circle me-2 text-muted"></i> @appointment.SenderFullName</div>
 									<div class="subject-info"><strong>موضوع:</strong> @appointment.Topic</div>
 									<div class="date-info"><span class="badge bg-light text-dark">@appointment.Date</span></div>
-									<div class="status-indicator"><span class="badge @(appointment.Status == Unima.Dal.Enums.AppointmentStatus.Waiting ? "bg-warning" : appointment.Status == Unima.Dal.Enums.AppointmentStatus.Accept ? "bg-success" : "bg-danger")" title="در انتظار پاسخ"></span></div>
+									<div class="status-indicator"><span class="badge @(appointment.Status == Unima.Dal.Enums.AppointmentStatus.Pending ? "bg-warning" : appointment.Status == Unima.Dal.Enums.AppointmentStatus.Accepted ? "bg-success" : "bg-danger")" title="در انتظار پاسخ"></span></div>
 								</button>
 							</h2>
 							<div id="collapse@(appointment.Id)" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#requestsAccordion">
@@ -297,20 +297,23 @@
 										<p class="mb-0"><strong>توضیحات:</strong> @appointment.Description</p>
 										<a href="#" class="btn btn-primary btn-sm mt-3"><i class="fas fa-download me-1"></i> دانلود فایل</a>
 									</div>
-									<div class="body-actions">
-										<div class="d-flex gap-5">
-											<button class="btn btn-success btn-accept"><i class="fas fa-check ms-1"></i>تایید</button>
-											<button class="btn btn-danger btn-reject"><i class="fas fa-times ms-1"></i>رد</button>
+									@if (appointment.Status == Unima.Dal.Enums.AppointmentStatus.Pending)
+									{
+										<div class="body-actions">
+											<div class="d-flex gap-5">
+												<button class="btn btn-success btn-accept"><i class="fas fa-check ms-1"></i>تایید</button>
+												<button class="btn btn-danger btn-reject"><i class="fas fa-times ms-1"></i>رد</button>
+											</div>
 										</div>
-									</div>
-									<div class="rejection-form">
-										<h6><i class="fas fa-comment-slash ms-2"></i>علت رد درخواست</h6>
-										<textarea class="form-control" rows="4" placeholder="لطفا دلیل رد درخواست را بنویسید..."></textarea>
-										<div class="d-flex justify-content-end gap-2 mt-2">
-											<button class="btn btn-light btn-cancel-rejection">لغو</button>
-											<button class="btn btn-danger btn-confirm-rejection">تایید رد</button>
+										<div class="rejection-form">
+											<h6><i class="fas fa-comment-slash ms-2"></i>علت رد درخواست</h6>
+											<textarea class="form-control" rows="4" placeholder="لطفا دلیل رد درخواست را بنویسید..."></textarea>
+											<div class="d-flex justify-content-end gap-2 mt-2">
+												<button class="btn btn-light btn-cancel-rejection">لغو</button>
+												<button class="btn btn-danger btn-confirm-rejection">تایید رد</button>
+											</div>
 										</div>
-									</div>
+									}
 								</div>
 							</div>
 						</div>
