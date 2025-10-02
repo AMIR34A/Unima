@@ -19,7 +19,7 @@ function showSuccessModal() {
         text: "رزرو شما با موفقیت ثبت شد.",
         icon: "success",
         confirmButtonText: "تایید",
-        confirmButtonColor: "#dda853",
+        confirmButtonColor: "var(--primary-unima)",
     });
 }
 
@@ -29,7 +29,7 @@ function showFailModal() {
         text: "رزرو شما بنا به دلایلی انجام نشد.",
         icon: "error",
         confirmButtonText: "تایید",
-        confirmButtonColor: "#dda853",
+        confirmButtonColor: "var(--primary-unima)",
     });
 }
 

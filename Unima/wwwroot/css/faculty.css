@@ -10,18 +10,18 @@
 
 #searchInput:focus {
   box-shadow: none;
-  border-color: #dda853;
+  border-color: var(--primary-unima);
 }
 .reservationbtn {
   cursor: pointer !important;
-  background-color: #dda853 !important;
+  background-color: var(--primary-unima) !important;
   border: none;
   transform: translateY(0);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .reservationbtn:hover {
-  background-color: #dda853 !important;
+  background-color: var(--primary-unima) !important;
   box-shadow: rgba(99, 99, 99, 0.6) 0px 2px 8px 0px;
   transform: translateY(-2px);
 }
@@ -227,7 +227,7 @@
   transition: all 0.3s ease-in-out;
 }
 .is-open .expanded-social-links a:hover {
-  color: #dda853;
+  color: var(--primary-unima);
   transform: scale(1.1);
 }
 
@@ -325,7 +325,7 @@
   transition: all 0.3s ease;
 }
 .card-body .social-links a:hover {
-  color: #dda853;
+  color: var(--primary-unima);
   transform: scale(1.1);
 }
 .is-open .contact-details {
@@ -514,7 +514,7 @@
 }
 
 .tab.active .Professor-option {
-    border-color: #dda853 !important; 
+    border-color: var(--primary-unima) !important; 
     transform: translateY(-2px); 
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
@@ -540,7 +540,7 @@
   padding-top: 5px !important;
 }
 .modal-footer {
-  border-top: #dda853 1px solid !important;
+  border-top: var(--primary-unima) 1px solid !important;
   padding: 5px;
 }
 .modal-header {
@@ -563,7 +563,7 @@
     color: #343a40;
     margin-bottom: 1.5rem;
     padding-right: 1rem;
-    border-right: 3px solid #dda853;
+    border-right: 3px solid var(--primary-unima);
 }
 
 .horizontal-scroll-wrapper {

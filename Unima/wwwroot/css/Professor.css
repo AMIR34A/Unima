@@ -301,7 +301,7 @@ background-color: #ef5350;
 
 .Professor-option:hover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
-  border-color: #dda853 !important;
+  border-color: var(--primary-unima) !important;
 }
 
 .tab-content {
@@ -378,7 +378,7 @@ background-color: #ef5350;
 }
 
 .Professor-option .active {
-  border-color: #dda853 !important;
+  border-color: var(--primary-unima) !important;
 }
 
 .tab-pane {
@@ -544,8 +544,8 @@ background-color: #ef5350;
 }
 
 .form-select:focus {
-  border-color: #dda85363 !important;
-  box-shadow: 0 0 0 0.2rem #dda85350 !important;
+  border-color: var(--primary-unima)63 !important;
+  box-shadow: 0 0 0 0.2rem var(--primary-unima)50 !important;
 }
 
 .feature-disabled {
@@ -787,7 +787,7 @@ tbody tr td {
 }
 
 .tab.active .Professor-option {
-    border-color: #dda853 !important; 
+    border-color: var(--primary-unima) !important; 
     transform: translateY(-2px); 
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
