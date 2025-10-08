@@ -13,6 +13,304 @@ $(document).ready(function () {
 });
 
 
+const UPLOAD_URL = '/upload'; 
+const CHUNK_SIZE = 512 * 1024; 
+
+const fileInput = document.getElementById('fileInput');
+const dropArea = document.getElementById('dropArea');
+const fileList = document.getElementById('fileList');
+
+let filesState = [];
+
+// helper icons
+function setPauseResumeIcon(btnEl, name) {
+  if (!btnEl) return;
+  let svg = '';
+  if (name === 'pause') {
+    svg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"></rect><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"></rect></svg>`;
+    btnEl.title = 'توقف';
+  } else if (name === 'play') {
+    svg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 3v18l15-9L5 3z" fill="currentColor"></path></svg>`;
+    btnEl.title = 'ادامه';
+  } else if (name === 'done') {
+    svg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`;
+    btnEl.title = 'آپلود شده';
+  } else {
+    btnEl.textContent = '';
+    return;
+  }
+  btnEl.innerHTML = svg;
+}
+
+function formatBytes(n){
+  if(n<1024) return n+' B';
+  if(n<1024*1024) return (n/1024).toFixed(1)+' KB';
+  if(n<1024*1024*1024) return (n/1024/1024).toFixed(2)+' MB';
+  return (n/1024/1024/1024).toFixed(2)+' GB';
+}
+function readableSpeed(bps){
+  if(!isFinite(bps)) return '0 B';
+  const n = Math.round(bps);
+  if(n < 1024) return n + ' B';
+  if(n < 1024*1024) return (n/1024).toFixed(1) + ' KB';
+  if(n < 1024*1024*1024) return (n/1024/1024).toFixed(2) + ' MB';
+  return (n/1024/1024/1024).toFixed(2) + ' GB';
+}
+function readableTime(s){
+  if(!isFinite(s)) return '—';
+  s = Math.max(0, Math.round(s));
+  if(s < 60) return s + ' ثانیه';
+  const m = Math.floor(s/60);
+  const sec = s % 60;
+  return m + ' دقیقه ' + sec + ' ثانیه';
+}
+
+/* UI */
+function createFileCard(fileObj){
+  dropArea.style.display = 'none';
+
+  const el = document.createElement('div');
+  el.className = 'file';
+  el.innerHTML = `
+    <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(180deg,#fafbff,#f3f5ff);display:flex;align-items:center;justify-content:center;font-weight:600">
+      ${fileObj.file.name.split('.').pop().slice(0,3).toUpperCase()}
+    </div>
+    <div class="info">
+      <strong>${fileObj.file.name}</strong>
+      <div class="meta">${formatBytes(fileObj.size)}</div>
+      <div class="progress-wrap">
+        <div class="progress"><i style="width:0%"></i></div>
+        <div style="display:flex;justify-content:space-between;margin-top:6px;align-items:center">
+          <div class="small state-text">آماده</div>
+          <div class="meta-stats"><b class="speed">0 B/s</b><span class="eta">—</span></div>
+          <div class="small"><span class="percent">0%</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="btn" data-action="pauseResume" title="Pause / Resume"></button>
+      <button class="btn danger" data-action="cancel" title="لغو">✕</button>
+    </div>
+  `;
+  fileObj.el = el;
+  fileObj.progressBar = el.querySelector('.progress i');
+  fileObj.percentText = el.querySelector('.percent');
+  fileObj.stateText = el.querySelector('.state-text');
+  fileObj.speedText = el.querySelector('.speed');
+  fileObj.etaText = el.querySelector('.eta');
+
+  fileList.appendChild(el);
+
+  const prBtn = el.querySelector('[data-action="pauseResume"]');
+  setPauseResumeIcon(prBtn, 'play');
+
+  prBtn.addEventListener('click', ()=>{
+    if(fileObj.state === 'uploading') pauseFile(fileObj.id);
+    else resumeFile(fileObj.id);
+  });
+
+  el.querySelector('[data-action="cancel"]').addEventListener('click', ()=> cancelFile(fileObj.id));
+}
+
+/* مدیریت فایل‌ها */
+function addFiles(files){
+  if(!files || files.length === 0) return;
+  const f = files[0];
+
+  // ignore if identical file already present
+  if(filesState.some(x=>x.file.name === f.name && x.size === f.size)) return;
+
+  // remove previous
+  filesState.forEach(x => {
+    if(x.el && x.el.parentNode) x.el.parentNode.removeChild(x.el);
+    if(x.controller && x.controller.xhr) try{ x.controller.xhr.abort(); }catch(e){}
+    if(x._simTimer) { clearInterval(x._simTimer); x._simTimer = null; } // just in case leftover
+  });
+  filesState = [];
+
+  const id = Math.random().toString(36).slice(2,9);
+  const fileObj = {
+    id,
+    file: f,
+    size: f.size,
+    uploaded: 0,
+    state: 'ready',
+    controller: null,
+    el: null,
+    progressBar: null,
+    percentText: null,
+    stateText: null,
+    speedText: null,
+    etaText: null,
+    lastTickTime: 0,
+    lastTickLoaded: 0,
+    speedEMA: 0,
+    _simTimer: null
+  };
+  filesState.push(fileObj);
+  createFileCard(fileObj);
+
+  // auto-start
+  resumeFile(id);
+}
+
+function resumeFile(id){
+  const fileObj = filesState.find(x=>x.id===id);
+  if(!fileObj) return;
+  if(fileObj.state === 'finished' || fileObj.state === 'uploading') return;
+
+  fileObj.state = 'uploading';
+  fileObj.stateText.textContent = 'در حال آپلود';
+  fileObj.lastTickTime = Date.now();
+  fileObj.lastTickLoaded = fileObj.uploaded;
+  fileObj.speedEMA = fileObj.speedEMA || 0;
+
+  const btn = fileObj.el && fileObj.el.querySelector('[data-action="pauseResume"]');
+  setPauseResumeIcon(btn, 'pause'); 
+  uploadNextChunk(fileObj);
+}
+
+function pauseFile(id){
+  const fileObj = filesState.find(x=>x.id===id);
+  if(!fileObj) return;
+  // abort current xhr
+  if(fileObj.controller && fileObj.controller.xhr){
+    try{ fileObj.controller.xhr.abort(); }catch(e){}
+  }
+  fileObj.controller = null;
+  fileObj.state = 'paused';
+  fileObj.stateText.textContent = 'متوقف شد';
+  const btn = fileObj.el && fileObj.el.querySelector('[data-action="pauseResume"]');
+  setPauseResumeIcon(btn, 'play'); 
+}
+
+function cancelFile(id){
+  const idx = filesState.findIndex(x=>x.id===id);
+  if(idx === -1) return;
+  const fileObj = filesState[idx];
+  if(fileObj.controller && fileObj.controller.xhr) try{ fileObj.controller.xhr.abort(); }catch(e){}
+  if(fileObj._simTimer) { clearInterval(fileObj._simTimer); fileObj._simTimer = null; }
+  if(fileObj.el && fileObj.el.parentNode) fileObj.el.parentNode.removeChild(fileObj.el);
+  filesState.splice(idx,1);
+  if(filesState.length === 0) dropArea.style.display = 'flex';
+}
+
+/* ========== Core: upload chunks via XHR ========== */
+function uploadNextChunk(fileObj){
+  const file = fileObj.file;
+  const start = fileObj.uploaded;
+  if(start >= file.size){
+    // finished
+    fileObj.state = 'finished';
+    fileObj.stateText.textContent = 'آپلود شد';
+    if(fileObj.progressBar) fileObj.progressBar.style.width = '100%';
+    if(fileObj.percentText) fileObj.percentText.textContent = '100%';
+    if(fileObj.speedText) fileObj.speedText.textContent = '0 B/s';
+    if(fileObj.etaText) fileObj.etaText.textContent = '—';
+    const btnDone = fileObj.el && fileObj.el.querySelector('[data-action="pauseResume"]');
+    setPauseResumeIcon(btnDone, 'done');
+    if(btnDone) btnDone.disabled = true;
+    return;
+  }
+
+  const end = Math.min(start + CHUNK_SIZE, file.size);
+  const chunk = file.slice(start, end);
+
+  // create XHR
+  const xhr = new XMLHttpRequest();
+  fileObj.controller = { type: 'xhr', xhr };
+
+  xhr.open('POST', UPLOAD_URL, true);
+
+  // set headers server can use
+  xhr.setRequestHeader('X-File-Name', encodeURIComponent(file.name));
+  xhr.setRequestHeader('X-Start-Byte', String(start));
+  xhr.setRequestHeader('X-Total-Size', String(file.size));
+  xhr.setRequestHeader('Content-Range', `bytes ${start}-${end-1}/${file.size}`);
+
+  // progress handler (per chunk)
+  xhr.upload.onprogress = function(evt){
+    if(!evt.lengthComputable) return;
+
+    const now = Date.now();
+    const deltaTime = (now - fileObj.lastTickTime) / 1000 || 1;
+    const deltaLoaded = evt.loaded - fileObj.lastTickLoaded;
+    const instSpeed = deltaLoaded / deltaTime; // bytes/sec
+
+    const alpha = 0.3;
+    fileObj.speedEMA = fileObj.speedEMA === 0 ? instSpeed : (alpha * instSpeed + (1 - alpha) * fileObj.speedEMA);
+
+    const overallPercent = Math.floor(((start + evt.loaded) / file.size) * 100);
+    if(fileObj.progressBar) fileObj.progressBar.style.width = overallPercent + '%';
+    if(fileObj.percentText) fileObj.percentText.textContent = overallPercent + '%';
+
+    if(fileObj.speedText) fileObj.speedText.textContent = readableSpeed(fileObj.speedEMA) + '/s';
+    const remaining = file.size - (start + evt.loaded);
+    const etaSec = fileObj.speedEMA > 0 ? remaining / fileObj.speedEMA : Infinity;
+    if(fileObj.etaText) fileObj.etaText.textContent = readableTime(etaSec);
+
+    fileObj.lastTickTime = now;
+    fileObj.lastTickLoaded = evt.loaded;
+  };
+
+  xhr.onload = function(){
+    const btn = fileObj.el && fileObj.el.querySelector('[data-action="pauseResume"]');
+    if(xhr.status >= 200 && xhr.status < 300){
+      // accepted
+      const loadedBytes = end - start;
+      fileObj.uploaded += loadedBytes;
+
+      // reset per-chunk tick
+      fileObj.lastTickTime = Date.now();
+      fileObj.lastTickLoaded = 0;
+
+      // continue next chunk
+      setTimeout(()=> {
+        if(fileObj.state === 'uploading') uploadNextChunk(fileObj);
+      }, 120);
+    } else {
+      // server error
+      fileObj.state = 'error';
+      fileObj.stateText.textContent = 'خطا در سرور: ' + xhr.status;
+      console.error('Chunk upload failed', xhr.status, xhr.responseText);
+    }
+
+    // when chunk accepted and if finished, on next loop finished handler will run
+    // but if server returns success we don't immediately disable button here
+  };
+
+  xhr.onerror = function(){
+    fileObj.state = 'paused';
+    fileObj.stateText.textContent = 'خطا در شبکه';
+    console.error('Network error during upload');
+  };
+
+  xhr.onabort = function(){
+    // aborted by pause/cancel — state handled elsewhere
+  };
+
+  const form = new FormData();
+  form.append('file', chunk, file.name);
+  xhr.send(form);
+}
+
+dropArea.addEventListener('click', (e)=>{
+  fileInput.value = '';
+  fileInput.click();
+});
+
+fileInput.addEventListener('change', (e)=>{
+  if(e.target.files && e.target.files.length) addFiles(e.target.files);
+  fileInput.value = '';
+});
+
+dropArea.addEventListener('dragover', (e)=>{ e.preventDefault(); dropArea.classList.add('dragover'); });
+dropArea.addEventListener('dragleave', (e)=>{ dropArea.classList.remove('dragover'); });
+dropArea.addEventListener('drop', (e)=>{ e.preventDefault(); dropArea.classList.remove('dragover'); if(e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) addFiles(e.dataTransfer.files); });
+
+dropArea.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.value=''; fileInput.click(); } });
+
+
 function showSuccessModal() {
     Swal.fire({
         title: "انجام شد!",
