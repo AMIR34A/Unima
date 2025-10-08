@@ -291,14 +291,18 @@
 								<label for="fileUpload" class="form-label">آپلود فایل</label>
 								<div class="col-md-12 mb-2 feature-disabled"
 									 id="upload-container">
-									<input type="file"
-										   class="form-control"
-										   id="fildUpload"
-										   accept=".pdf,.doc,.docx,.png,.jpg" />
-									<div id="filePreview" class="form-text text-muted">
-										فایل انتخاب نشده است.
-									</div>
-								</div>
+                  <div class="uploader" id="uploader">
+                      <div class="drop-area" id="dropArea" tabindex="0" role="button" aria-label="بارگذاری فایل">
+                        <div class="icon">⇪</div>
+                        <div class="meta">
+                          <div style="font-weight:500">فایل را اینجا رها کنید</div>
+                          <small>کلیک کنید یا کشیدن فایل — آپلود پس از انتخاب شروع می‌شود</small>
+                        </div>
+                        <input id="fileInput" type="file" style="display:none" />
+                      </div>
+
+                      <div class="file-list" id="fileList" aria-live="polite"></div>
+                  </div>
 							</div>
 							<div class="row">
 								<button type="submit"
