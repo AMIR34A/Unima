@@ -26,9 +26,11 @@ public class ProfessorsController(IUnitOfWork _unitOfWork, UserManager<Applicati
                                                             .Include(professor => professor.User)
                                                             .Include(professor => professor.SocialMedia)
                                                             .Include(professor => professor.Lessons)
+                                                            .Include(professor => professor.Locations)
                                                             .Include(professor => professor.Department)
                                                             .ThenInclude(department => department.Faculty)
                                                             .AsNoTracking()
+                                                            .AsEnumerable()
                                                             .Select(professor => new ProfessorModel()
                                                             {
                                                                 Id = professor.Id,
@@ -40,7 +42,7 @@ public class ProfessorsController(IUnitOfWork _unitOfWork, UserManager<Applicati
                                                                 Degree = professor.Degree,
                                                                 Bio = professor.Biography,
                                                                 Lessons = professor.Lessons.Select(lesson => lesson.Title),
-                                                                OfficeAddess = professor.Description,
+                                                                OfficeAddess = professor.Locations?.FirstOrDefault(location => location.Title == "دفتر")?.Address,
                                                                 OfficeNo = professor.OfficeNo,
                                                                 OfficeStatus = professor.OfficeStatus,
                                                                 SocialMedia = professor.SocialMedia == null ? new() : new SocialMediaModel

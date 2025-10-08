@@ -297,7 +297,7 @@
 										<p class="mb-0"><strong>توضیحات:</strong> @appointment.Description</p>
 										<a href="#" class="btn btn-primary btn-sm mt-3"><i class="fas fa-download me-1"></i> دانلود فایل</a>
 									</div>
-									@if (appointment.Status == Unima.Dal.Enums.AppointmentStatus.Pending)
+									@if (User.IsInRole("Professor") && appointment.Status == Unima.Dal.Enums.AppointmentStatus.Pending)
 									{
 										<div class="body-actions">
 											<div class="d-flex gap-5">
@@ -307,7 +307,7 @@
 										</div>
 										<div class="rejection-form">
 											<h6><i class="fas fa-comment-slash ms-2"></i>علت رد درخواست</h6>
-											<textarea class="form-control" rows="4" placeholder="لطفا دلیل رد درخواست را بنویسید..."></textarea>
+											<textarea id="rejection-description-@appointment.Id" class="form-control" rows="4" placeholder="لطفا دلیل رد درخواست را بنویسید..."></textarea>
 											<div class="d-flex justify-content-end gap-2 mt-2">
 												<button class="btn btn-light btn-cancel-rejection">لغو</button>
 												<button class="btn btn-danger btn-confirm-rejection">تایید رد</button>
@@ -328,142 +328,166 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-	$(document).ready(function () {
+		$(document).ready(function () {
 
-		function updateCounters() {
-			const allCount = $('.accordion-item').length;
-			const starredCount = $('.accordion-item.starred').length;
-			const acceptedCount = $('.accordion-item[data-status="accepted"]').length;
-			const rejectedCount = $('.accordion-item[data-status="rejected"]').length;
+			function updateCounters() {
+				const allCount = $('.accordion-item').length;
+				const starredCount = $('.accordion-item.starred').length;
+				const acceptedCount = $('.accordion-item[data-status="accepted"]').length;
+				const rejectedCount = $('.accordion-item[data-status="rejected"]').length;
 
-			$('#all-count').text(allCount);
-			$('#starred-count').text(starredCount);
-			$('#accepted-count').text(acceptedCount);
-			$('#rejected-count').text(rejectedCount);
+				$('#all-count').text(allCount);
+				$('#starred-count').text(starredCount);
+				$('#accepted-count').text(acceptedCount);
+				$('#rejected-count').text(rejectedCount);
 
-			if (allCount === 0) {
-				$('.messages-container').hide();
-				$('.filter-tabs').hide();
-				$('#no-requests-message').show();
-			} else {
-				$('.messages-container').show();
-				$('.filter-tabs').show();
-				$('#no-requests-message').hide();
-			}
-		}
-
-		function updateStatus(item, status) {
-			const statusBadge = item.find(".status-indicator .badge");
-			statusBadge.removeClass("bg-warning bg-success bg-danger");
-			item.attr("data-status", status);
-
-			if (status === "accepted") {
-				statusBadge.addClass("bg-success").attr("title", "تایید شده");
-			} else if (status === "rejected") {
-				statusBadge.addClass("bg-danger").attr("title", "رد شده");
-			}
-
-			item.find(".body-actions .btn").prop("disabled", true);
-			updateCounters();
-		}
-
-		$(".star-action").on("click", function (e) {
-			e.stopPropagation();
-			var item = $(this).closest(".accordion-item")
-			item.toggleClass("starred");
-			var id = item[0].dataset.id;
-			if(id){
-			fetch(`/Appointment/StarUnstar/${id}`, {
-				method: "POST",
-			})
-				.then(response => {
-					if(response.ok){
-						updateCounters();
-					   $('.tab-item.active').trigger('click');
-					}
-				})
-				.catch(error => {
-				  console.error("Error:", error);
-				});
-			}
-		});
-
-		$(".tab-item").on("click", function (e) {
-			e.preventDefault();
-
-			$(".tab-item").removeClass("active");
-			const currentTab = $(this);
-			currentTab.addClass("active");
-
-			const filter = currentTab.data("filter");
-			let visibleItemsCount = 0;
-
-			$('.accordion-item').hide();
-
-			let itemsToShow;
-
-			if (filter === 'all') {
-				itemsToShow = $('.accordion-item');
-			} else if (filter === 'starred') {
-				itemsToShow = $('.accordion-item.starred');
-			} else {
-				itemsToShow = $(`.accordion-item[data-status="${filter}"]`);
-			}
-
-			visibleItemsCount = itemsToShow.length;
-
-			itemsToShow.slideDown();
-
-			const emptyMessageDiv = $('#filter-no-results-message');
-			if (visibleItemsCount === 0 && $('.accordion-item').length > 0) {
-				let message = "";
-				switch(filter) {
-					case 'starred':
-						message = "هیچ پیام ستاره‌داری وجود ندارد.";
-						break;
-					case 'accepted':
-						message = "هیچ پیام تایید شده‌ای وجود ندارد.";
-						break;
-					case 'rejected':
-						message = "هیچ پیام رد شده‌ای وجود ندارد.";
-						break;
+				if (allCount === 0) {
+					$('.messages-container').hide();
+					$('.filter-tabs').hide();
+					$('#no-requests-message').show();
+				} else {
+					$('.messages-container').show();
+					$('.filter-tabs').show();
+					$('#no-requests-message').hide();
 				}
-				emptyMessageDiv.find('h5').text(message);
-				emptyMessageDiv.show();
-			} else {
-				emptyMessageDiv.hide();
 			}
+
+			function updateStatus(item, status) {
+				const statusBadge = item.find(".status-indicator .badge");
+				statusBadge.removeClass("bg-warning bg-success bg-danger");
+				item.attr("data-status", status);
+
+				var id = item[0].dataset.id;
+				var description = document.getElementById(`rejection-description-${id}`);
+
+				debugger
+				if(id){
+					var model = {
+						Description: description.value,
+						Status: status === "accepted" ? 1 : 2
+					};
+
+					fetch(`/Appointment/AcceptOrReject/${id}`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(model)
+					})
+						.then(response => {
+								if(response.ok){
+									if (status === "accepted") {
+										statusBadge.addClass("bg-success").attr("title", "تایید شده");
+								}
+								else if (status === "rejected") {
+									statusBadge.addClass("bg-danger").attr("title", "رد شده");
+								}
+								item.find(".body-actions .btn").prop("disabled", true);
+								updateCounters();
+							}
+						})
+						.catch(error => {
+						  console.error("Error:", error);
+						});
+				}
+
+			}
+
+			$(".star-action").on("click", function (e) {
+				e.stopPropagation();
+				var item = $(this).closest(".accordion-item")
+				item.toggleClass("starred");
+				var id = item[0].dataset.id;
+				if(id){
+				fetch(`/Appointment/StarUnstar/${id}`, {
+					method: "POST",
+				})
+					.then(response => {
+						if(response.ok){
+							updateCounters();
+						   $('.tab-item.active').trigger('click');
+						}
+					})
+					.catch(error => {
+					  console.error("Error:", error);
+					});
+				}
+			});
+
+			$(".tab-item").on("click", function (e) {
+				e.preventDefault();
+
+				$(".tab-item").removeClass("active");
+				const currentTab = $(this);
+				currentTab.addClass("active");
+
+				const filter = currentTab.data("filter");
+				let visibleItemsCount = 0;
+
+				$('.accordion-item').hide();
+
+				let itemsToShow;
+
+				if (filter === 'all') {
+					itemsToShow = $('.accordion-item');
+				} else if (filter === 'starred') {
+					itemsToShow = $('.accordion-item.starred');
+				} else {
+					itemsToShow = $(`.accordion-item[data-status="${filter}"]`);
+				}
+
+				visibleItemsCount = itemsToShow.length;
+
+				itemsToShow.slideDown();
+
+				const emptyMessageDiv = $('#filter-no-results-message');
+				if (visibleItemsCount === 0 && $('.accordion-item').length > 0) {
+					let message = "";
+					switch(filter) {
+						case 'starred':
+							message = "هیچ پیام ستاره‌داری وجود ندارد.";
+							break;
+						case 'accepted':
+							message = "هیچ پیام تایید شده‌ای وجود ندارد.";
+							break;
+						case 'rejected':
+							message = "هیچ پیام رد شده‌ای وجود ندارد.";
+							break;
+					}
+					emptyMessageDiv.find('h5').text(message);
+					emptyMessageDiv.show();
+				} else {
+					emptyMessageDiv.hide();
+				}
+			});
+
+
+			$(".btn-accept").on("click", function () {
+				const item = $(this).closest(".accordion-item");
+				updateStatus(item, "accepted");
+			});
+
+			$(".btn-reply").on("click", function () {
+				const accordionBody = $(this).closest(".accordion-body");
+				accordionBody.find(".rejection-form").slideUp();
+				accordionBody.find(".reply-form").slideToggle();
+			});
+
+			$(".btn-reject").on("click", function () {
+				const accordionBody = $(this).closest(".accordion-body");
+				accordionBody.find(".reply-form").slideUp();
+				accordionBody.find(".rejection-form").slideToggle();
+			});
+
+			$(".btn-cancel-rejection").on("click", function () {
+				$(this).closest(".rejection-form").slideUp();
+			});
+
+			$(".btn-confirm-rejection").on("click", function () {
+				const item = $(this).closest(".accordion-item");
+				updateStatus(item, "rejected");
+				$(this).closest(".rejection-form").slideUp();
+			});
+
+			updateCounters();
+			$('.tab-item.active').trigger('click');
 		});
-
-
-		$(".btn-accept").on("click", function () {
-			const item = $(this).closest(".accordion-item");
-			updateStatus(item, "accepted");
-		});
-
-		$(".btn-reply").on("click", function () {
-			const accordionBody = $(this).closest(".accordion-body");
-			accordionBody.find(".rejection-form").slideUp();
-			accordionBody.find(".reply-form").slideToggle();
-		});
-
-		$(".btn-reject").on("click", function () {
-			const accordionBody = $(this).closest(".accordion-body");
-			accordionBody.find(".reply-form").slideUp();
-			accordionBody.find(".rejection-form").slideToggle();
-		});
-
-		$(".btn-cancel-rejection").on("click", function () {
-			$(this).closest(".rejection-form").slideUp();
-		});
-
-		$(".btn-confirm-rejection").on("click", function () {
-			const item = $(this).closest(".accordion-item");
-			updateStatus(item, "rejected");
-			$(this).closest(".rejection-form").slideUp();
-		});
-
-		updateCounters();
-		$('.tab-item.active').trigger('click');
-	});
 </script>

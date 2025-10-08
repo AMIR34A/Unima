@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Unima.Areas.Faculty.Models.Appointment;
+using Unima.Areas.User.Models.Appointment;
 using Unima.Areas.User.Models.ViewModels;
 using Unima.Biz.UoW;
 using Unima.Dal.Entities;
 using Unima.Dal.Entities.Entities;
+using Unima.Dal.Enums;
 using Unima.HelperClasses.ExtensionMethods;
 
 namespace Unima.Areas.User.Controllers;
@@ -60,6 +62,21 @@ public class AppointmentController(IUnitOfWork _unitOfWork, UserManager<Applicat
             return BadRequest();
 
         appointment.IsStarred = !appointment.IsStarred;
+
+        await _unitOfWork.SaveAsync();
+        return Ok();
+    }
+
+    [HttpPost("Appointment/AcceptOrReject/{id:int}")]
+    public async Task<IActionResult> AcceptOrReject(int id,[FromBody] AccepRejectModel model)
+    {
+        Appointment? appointment = await _unitOfWork.RepositoryBase<Appointment>().FirstOrDefaultAsync(appointment => appointment.Id == id);
+
+        if (appointment is null)
+            return BadRequest();
+
+        appointment.Status = model.Status;
+        appointment.RejectionDescription = model.Description;
 
         await _unitOfWork.SaveAsync();
         return Ok();
