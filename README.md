@@ -8,7 +8,7 @@ The system provides real-time communication, meeting management, and an automate
 
 📄 **Project Proposal:**
 Full system documentation is available here:
-👉 [docs/proposal.pdf](docs/P-Unima.pdf)
+👉 [docs/P-Unima.pdf](docs/P-Unima.pdf)
 
 ---
 
