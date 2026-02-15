@@ -12,7 +12,7 @@
   --blur-value: 12px;
   --logout-color: #d93a3a;
   --logout-hover-bg: #fdf2f2;
-  --primary-unima: #EFD6AC;
+  --primary-unima: #cfa255;
   --primary-unima-hover: #c8a873;
   --background-unima: #f3f3f3;
   --navbar-unima: #4A6670;
@@ -681,14 +681,14 @@ tbody tr td {
 }
 
 .unima-icon {
-  width: 45px;
-  height: 45px;
-  transform: scale(3.5);
+  width: 240px;
+  height: 50px;
+  /* transform: scale(.5); */
   margin-left: 35px;
-  background: url("/Images/icon2.png") no-repeat center center;
+  background: url("/Images/Untitled-1.png") no-repeat center center;
   background-size: contain;
   transform-origin: center center;
-  animation: fadeInScale 0.4s ease-in-out;
+  animation: fadeInScale 1s ease-in-out;
 }
 
 @media (min-width: 1200px) {
