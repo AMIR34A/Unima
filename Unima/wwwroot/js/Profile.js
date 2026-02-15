@@ -1482,7 +1482,7 @@ function downloadPng() {
             link.download = 'برنامه کلاسی.png';
             link.href = dataUrl;
             link.click();
-        });
+        }); 
 }
 
 async function downloadPdf() {
