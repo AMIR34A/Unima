@@ -17,7 +17,7 @@ This project was developed as part of a university software engineering project.
 
 📄 **Full Project Proposal:**
 See full documentation here:
-👉 [Project Proposal](docs/proposal.pdf)
+👉 [Project Proposal](docs/P-Unima.pdf)
 
 ---
 
