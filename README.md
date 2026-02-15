@@ -124,6 +124,7 @@ This includes:
 * Reza Zare
 * AmirReza Akhavan
 * Seyed Sajjad Tanha
+* Hamid Ghasemi
 
 Supervisor:
 Mohammad Sadegh Navab
